@@ -1,45 +1,43 @@
-# Excercises for Pilas Bloques
+# Pilas Bloques Excercises
 
-Ejercicios de programación para los cursos de programación
-a escuelas secundarias en 2015.
+Programming exercises for Pilas Bloques.
 
 ![Build Status](https://travis-ci.org/Program-AR/Pilas-Bloques-Exercises.svg?branch=master)
 
 
 
-## ¿Cómo utilizar?
+## How to use?
 
-Primero se tiene que ejecutar el comando que instala
-todas las dependencias:
+First you have to install all dependencies for this project, you can do
+this by running the following command:
 
 ```
 npm install
 ```
 
-Luego, para iniciar la compilación y abrir el navegador
-escribir:
+Then, to start the compilation and open the browser:
 
 ```
 grunt
 ```
 
-Y si estás desarrollando, es una buena idea iniciar una
-compilación de forma contínua con el comando:
+And if you are developing new exercises, it is a good idea to start a
+compilation continuously with the following command:
 
 ```
 grunt watch
 ```
 
-## ¿Cómo se ve?
+## How does it look?
 
-Cuando el navegador se abra, vas a ver el primer desafío directamente así:
+When the browser opens, you will see the first challenge directly like this:
 
 ![](imagenes/preview.jpg)
 
 
-Tené en cuenta que los desafíos se pueden cargar usando el parámetro ``?desafio`` en la URL.
+Note that challenges can be loaded using the ``?desafio`` parameter in the URL.
 
-Por ejemplo:
+For example:
 
 
 ```
