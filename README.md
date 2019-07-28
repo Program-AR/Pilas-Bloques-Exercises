@@ -1,4 +1,4 @@
-# Pilas Bloques Excercises
+# Pilas Bloques Exercises
 
 Programming exercises for Pilas Bloques.
 
