@@ -1,0 +1,6 @@
+{
+  "name": "pilas-bloques-exercises",
+  "dependencies": {
+    "pilasweb": "0.4.9"
+  }
+}
