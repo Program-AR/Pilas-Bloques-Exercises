@@ -1,15 +1,31 @@
 {
   "name": "pilas-bloques-exercises",
   "version": "1.0.0",
-  "description": "Exersises for Pilas Bloques",
-  "main": "index.js",
-  "scripts": {
-    "compilarGramaticaAleatoria": "./node_modules/.bin/nearleyc ./src/gramaticaAleatoria.ne -o ./dist/gramaticaAleatoria.js"
+  "description": "Exercises for Pilas Bloques",
+  "homepage": "http://pilasbloques.program.ar",
+  "author": {
+    "name": "Program.AR",
+    "email": "info@program.ar",
+    "url": "http://program.ar"
   },
+  "license": "MIT",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Program-AR/Pilas-Bloques-Exercises.git"
   },
+  "bugs": {
+    "url": "https://github.com/Program-AR/Pilas-Bloques-Exercises/issues"
+  },
+  "contributors": [
+    "Federico Sawady O'Connor <sawady.faso@gmail.com> (https://www.linkedin.com/in/federico-agustín-sawady-o-connor-93356578/)",
+    "Hugo Ruscitti <hugoruscitti@gmail.com> (http://www.examplelab.com.ar/)",
+    "Alfredo Sanzo <alfredo.sanzo@gmail.com> (https://www.linkedin.com/in/alfredo-sanzo-13a9785/)",
+    "Miguel Garcia  <miguel.garcia@gmail.com> (https://github.com/miguelgarcia)",
+    "Franco Frizzo <ffrizzo@dc.uba.ar> (https://francofrizzo.com/)",
+    "Lucas Alan Silvestri <silvestrilucasalan@gmail.com> (https://github.com/51lv3str1)",
+    "Nahuel Palumbo <nahuel.palumbo@gmail.com> (https://github.com/PalumboN)"
+  ],
   "keywords": [
     "programar",
     "program.ar",
@@ -18,12 +34,9 @@
     "ejercicios",
     "secundaria"
   ],
-  "author": "Program.AR",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Program-AR/ejerciciosPilas/issues"
+  "scripts": {
+    "compilarGramaticaAleatoria": "./node_modules/.bin/nearleyc ./src/gramaticaAleatoria.ne -o ./dist/gramaticaAleatoria.js"
   },
-  "homepage": "https://github.com/Program-AR/ejerciciosPilas",
   "dependencies": {
     "async": "^3.1.0",
     "bower": "^1.8.8",
