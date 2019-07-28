@@ -24,7 +24,7 @@
     "url": "https://github.com/Program-AR/ejerciciosPilas/issues"
   },
   "homepage": "https://github.com/Program-AR/ejerciciosPilas",
-  "devDependencies": {
+  "dependencies": {
     "async": "^3.1.0",
     "bower": "^1.8.8",
     "grunt": "^1.0.4",

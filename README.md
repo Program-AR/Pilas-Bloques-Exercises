@@ -1,4 +1,4 @@
-# Excersises for Pilas Bloques
+# Excercises for Pilas Bloques
 
 Ejercicios de programación para los cursos de programación
 a escuelas secundarias en 2015.
