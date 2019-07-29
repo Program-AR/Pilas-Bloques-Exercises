@@ -35,7 +35,8 @@
     "secundaria"
   ],
   "scripts": {
-    "compilarGramaticaAleatoria": "./node_modules/.bin/nearleyc ./src/gramaticaAleatoria.ne -o ./tmp/gramaticaAleatoria.js"
+    "grunt": "grunt",
+    "compilarGramaticaAleatoria": "nearleyc ./src/gramaticaAleatoria.ne -o ./tmp/gramaticaAleatoria.js"
   },
   "dependencies": {
     "pilasweb": "^0.4.9"
