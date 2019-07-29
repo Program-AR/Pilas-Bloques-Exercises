@@ -12,16 +12,16 @@ module.exports = function (grunt) {
           'dependencias/listHelper.js',
           'node_modules/nearley/lib/nearley.js',
           'dist/gramaticaAleatoria.js',
-          'dist/ejerciciosPilas.js',
+          'dist/pilas-bloques-exercises.js',
         ],
-        dest: 'dist/ejerciciosPilas.js',
+        dest: 'dist/pilas-bloques-exercises.js',
       },
     },
 
     copy: {
       main: {
         expand: true,
-        src: 'dist/ejerciciosPilas.js',
+        src: 'dist/pilas-bloques-exercises.js',
         dest: '../public/libs/',
         flatten: true,
         filter: 'isFile'
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
     typescript: {
       base: {
         src: ['src/**/*.ts'],
-        dest: 'dist/ejerciciosPilas.js',
+        dest: 'dist/pilas-bloques-exercises.js',
         options: {
           module: 'commonjs',
           target: 'es5',
