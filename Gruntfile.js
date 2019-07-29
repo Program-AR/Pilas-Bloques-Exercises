@@ -50,6 +50,9 @@ module.exports = function (grunt) {
       compilarGramaticaAleatoria: {
         cmd: 'npm', args: ['run','compilarGramaticaAleatoria']
       },
+      generateImageList: {
+        cmd: 'python', args: ['scripts/generateImageList.py']
+      },
       clean: {
         cmd: 'rm', args: ['-rf','tmp']
       }
@@ -64,6 +67,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-run');
 
-  grunt.registerTask('default', ['typescript', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat']);
+  grunt.registerTask('default', ['typescript', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
 
 };
