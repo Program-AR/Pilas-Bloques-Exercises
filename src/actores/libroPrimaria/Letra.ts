@@ -1,5 +1,5 @@
 /// <reference path = "../../actores/ActorAnimado.ts" />
-/// <reference path = "../../../bower_components/pilasweb/dist/pilasweb.d.ts" />
+/// <reference path = "../../../node_modules/pilasweb/dist/pilasweb.d.ts" />
 
 /**
  * Actor que representa una letra en una cuadrícula.

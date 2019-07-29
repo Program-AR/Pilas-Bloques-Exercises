@@ -1,4 +1,4 @@
-/// <reference path = "../../bower_components/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "HabilidadAnimada.ts"/>
 
 /*Si los grados de aumento son positivos gira para la derecha

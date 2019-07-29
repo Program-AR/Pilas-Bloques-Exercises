@@ -1,4 +1,4 @@
-/// <reference path = "../../bower_components/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "Interactuar.ts" />
 
 class PrepararEnsalada extends Interactuar {
