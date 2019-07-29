@@ -13,8 +13,8 @@
     }
   </style>
 
-	<script src='../node_modules/pilasweb/dist/pilasweb.js'></script>
-	<script src='../dist/pilas-bloques-exercises.js'></script>
+	<script src='node_modules/pilasweb/dist/pilasweb.js'></script>
+	<script src='dist/pilas-bloques-exercises.js'></script>
 </head>
 
 
@@ -66,8 +66,9 @@
     		var pilas = pilasengine.iniciar({
     			ancho: 420,
     			alto: 480,
-    			canvas: canvas_element,
-    			data_path: 'data',
+          canvas: canvas_element,
+          cargar_imagenes_estandar: false,
+    			data_path: 'dist/data',
     	imagenesExtra: [
 			                'fondos.estrellas.png',
 			                'fondos.obrero.png',
