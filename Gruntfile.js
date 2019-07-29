@@ -60,6 +60,14 @@ module.exports = function (grunt) {
           'run',
           'compilarGramaticaAleatoria'
         ]
+      },
+      clean: {
+        cmd: 'rm',
+        args: [
+          'run',
+          '-f',
+          'dist/gramaticaAleatoria.js'
+        ]
       }
     }
   });
@@ -73,6 +81,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-run');
 
-  grunt.registerTask('default', ['typescript', 'run:compilarGramaticaAleatoria', 'concat']);
+  grunt.registerTask('default', ['typescript', 'run:compilarGramaticaAleatoria', 'concat', 'run:clean']);
 
 };
