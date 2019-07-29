@@ -2,7 +2,7 @@
 
 Programming exercises for Pilas Bloques.
 
-![Build Status](https://travis-ci.org/Program-AR/Pilas-Bloques-Exercises.svg?branch=master)
+![Build Status](https://travis-ci.org/Program-AR/pilas-bloques-exercises.svg?branch=master)
 
 
 

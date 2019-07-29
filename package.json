@@ -12,10 +12,10 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Program-AR/Pilas-Bloques-Exercises.git"
+    "url": "https://github.com/Program-AR/pilas-bloques-exercises.git"
   },
   "bugs": {
-    "url": "https://github.com/Program-AR/Pilas-Bloques-Exercises/issues"
+    "url": "https://github.com/Program-AR/pilas-bloques-exercises/issues"
   },
   "contributors": [
     "Federico Sawady O'Connor <sawady.faso@gmail.com> (https://www.linkedin.com/in/federico-agustín-sawady-o-connor-93356578/)",
