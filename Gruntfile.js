@@ -48,13 +48,12 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-typescript-read-tsconfig');
-  grunt.loadNpmTasks('grunt-ts');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-run');
-
-  grunt.registerTask('default', ['typescriptReadTsConfig', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
+  grunt.registerTask('compile', ['typescriptReadTsConfig', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
+  grunt.registerTask('default', ['compile']);
 
 };
