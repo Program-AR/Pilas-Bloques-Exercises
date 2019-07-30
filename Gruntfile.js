@@ -11,20 +11,10 @@ module.exports = function (grunt) {
           'dependencias/helpers.js',
           'dependencias/listHelper.js',
           'node_modules/nearley/lib/nearley.js',
-          'dist/gramaticaAleatoria.js',
+          'tmp/gramaticaAleatoria.js',
           'dist/pilas-bloques-exercises.js',
         ],
         dest: 'dist/pilas-bloques-exercises.js',
-      },
-    },
-
-    copy: {
-      main: {
-        expand: true,
-        src: 'dist/pilas-bloques-exercises.js',
-        dest: '../public/libs/',
-        flatten: true,
-        filter: 'isFile'
       },
     },
 
@@ -54,33 +44,29 @@ module.exports = function (grunt) {
     },
 
     run: {
+      createTmp: {
+        cmd: 'mkdir', args: ['-p','tmp']
+      },
       compilarGramaticaAleatoria: {
-        cmd: 'npm',
-        args: [
-          'run',
-          'compilarGramaticaAleatoria'
-        ]
+        cmd: 'npm', args: ['run','compilarGramaticaAleatoria']
+      },
+      generateImageList: {
+        cmd: 'python', args: ['scripts/generateImageList.py']
       },
       clean: {
-        cmd: 'rm',
-        args: [
-          'run',
-          '-f',
-          'dist/gramaticaAleatoria.js'
-        ]
+        cmd: 'rm', args: ['-rf','tmp']
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-typescript');
   grunt.loadNpmTasks('grunt-ts');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-run');
 
-  grunt.registerTask('default', ['typescript', 'run:compilarGramaticaAleatoria', 'concat', 'run:clean']);
+  grunt.registerTask('default', ['typescript', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
 
 };
