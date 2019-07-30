@@ -35,7 +35,7 @@
     "secundaria"
   ],
   "scripts": {
-    "grunt": "grunt",
+    "grunt": "grunt --force",
     "compilarGramaticaAleatoria": "nearleyc ./src/gramaticaAleatoria.ne -o ./tmp/gramaticaAleatoria.js"
   },
   "dependencies": {
@@ -51,7 +51,7 @@
     "grunt-open": "^0.2.4",
     "grunt-run": "^0.8.1",
     "grunt-ts": "^6.0.0-beta.22",
-    "grunt-typescript": "^0.8.0",
+    "grunt-typescript-read-tsconfig": "^0.7.2",
     "load-grunt-tasks": "^5.0.0",
     "nearley": "^2.17.0",
     "reflect-metadata": "^0.1.13",
