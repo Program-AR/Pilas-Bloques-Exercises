@@ -1,4 +1,666 @@
-var __extends = (this && this.__extends) || (function () {
+Math.randomIntBetween = function(start, end) {
+    return start + Math.floor(Math.random() * (end - start));
+}
+
+Math.randomFrom = function (array) {
+    return array[Math.randomIntBetween(0, array.length)];
+}
+
+Math.takeRandomFrom = function (array) {
+    var index = Math.randomIntBetween(0, array.length);
+    return array.splice(index, 1)[0];
+}
+;// Copyright Alfredo Héctor Sanzo - asanzo@github
+
+// Takes a function, evaluates it "this" times.
+Number.prototype.timesRepeat = function(f){
+	for(var i=0; i<this; i++){
+		f();
+	}
+}
+
+// Takes an object, gives back a list with the object repeated "this" times.
+Number.prototype.times = function(object){
+	var l = [];
+	this.timesRepeat(function(){l.push(object)});
+	return l;
+}
+;(function(root, factory) {
+    if (typeof module === 'object' && module.exports) {
+        module.exports = factory();
+    } else {
+        root.nearley = factory();
+    }
+}(this, function() {
+
+    function Rule(name, symbols, postprocess) {
+        this.id = ++Rule.highestId;
+        this.name = name;
+        this.symbols = symbols;        // a list of literal | regex class | nonterminal
+        this.postprocess = postprocess;
+        return this;
+    }
+    Rule.highestId = 0;
+
+    Rule.prototype.toString = function(withCursorAt) {
+        function stringifySymbolSequence (e) {
+            return e.literal ? JSON.stringify(e.literal) :
+                   e.type ? '%' + e.type : e.toString();
+        }
+        var symbolSequence = (typeof withCursorAt === "undefined")
+                             ? this.symbols.map(stringifySymbolSequence).join(' ')
+                             : (   this.symbols.slice(0, withCursorAt).map(stringifySymbolSequence).join(' ')
+                                 + " ● "
+                                 + this.symbols.slice(withCursorAt).map(stringifySymbolSequence).join(' ')     );
+        return this.name + " → " + symbolSequence;
+    }
+
+
+    // a State is a rule at a position from a given starting point in the input stream (reference)
+    function State(rule, dot, reference, wantedBy) {
+        this.rule = rule;
+        this.dot = dot;
+        this.reference = reference;
+        this.data = [];
+        this.wantedBy = wantedBy;
+        this.isComplete = this.dot === rule.symbols.length;
+    }
+
+    State.prototype.toString = function() {
+        return "{" + this.rule.toString(this.dot) + "}, from: " + (this.reference || 0);
+    };
+
+    State.prototype.nextState = function(child) {
+        var state = new State(this.rule, this.dot + 1, this.reference, this.wantedBy);
+        state.left = this;
+        state.right = child;
+        if (state.isComplete) {
+            state.data = state.build();
+        }
+        return state;
+    };
+
+    State.prototype.build = function() {
+        var children = [];
+        var node = this;
+        do {
+            children.push(node.right.data);
+            node = node.left;
+        } while (node.left);
+        children.reverse();
+        return children;
+    };
+
+    State.prototype.finish = function() {
+        if (this.rule.postprocess) {
+            this.data = this.rule.postprocess(this.data, this.reference, Parser.fail);
+        }
+    };
+
+
+    function Column(grammar, index) {
+        this.grammar = grammar;
+        this.index = index;
+        this.states = [];
+        this.wants = {}; // states indexed by the non-terminal they expect
+        this.scannable = []; // list of states that expect a token
+        this.completed = {}; // states that are nullable
+    }
+
+
+    Column.prototype.process = function(nextColumn) {
+        var states = this.states;
+        var wants = this.wants;
+        var completed = this.completed;
+
+        for (var w = 0; w < states.length; w++) { // nb. we push() during iteration
+            var state = states[w];
+
+            if (state.isComplete) {
+                state.finish();
+                if (state.data !== Parser.fail) {
+                    // complete
+                    var wantedBy = state.wantedBy;
+                    for (var i = wantedBy.length; i--; ) { // this line is hot
+                        var left = wantedBy[i];
+                        this.complete(left, state);
+                    }
+
+                    // special-case nullables
+                    if (state.reference === this.index) {
+                        // make sure future predictors of this rule get completed.
+                        var exp = state.rule.name;
+                        (this.completed[exp] = this.completed[exp] || []).push(state);
+                    }
+                }
+
+            } else {
+                // queue scannable states
+                var exp = state.rule.symbols[state.dot];
+                if (typeof exp !== 'string') {
+                    this.scannable.push(state);
+                    continue;
+                }
+
+                // predict
+                if (wants[exp]) {
+                    wants[exp].push(state);
+
+                    if (completed.hasOwnProperty(exp)) {
+                        var nulls = completed[exp];
+                        for (var i = 0; i < nulls.length; i++) {
+                            var right = nulls[i];
+                            this.complete(state, right);
+                        }
+                    }
+                } else {
+                    wants[exp] = [state];
+                    this.predict(exp);
+                }
+            }
+        }
+    }
+
+    Column.prototype.predict = function(exp) {
+        var rules = this.grammar.byName[exp] || [];
+
+        for (var i = 0; i < rules.length; i++) {
+            var r = rules[i];
+            var wantedBy = this.wants[exp];
+            var s = new State(r, 0, this.index, wantedBy);
+            this.states.push(s);
+        }
+    }
+
+    Column.prototype.complete = function(left, right) {
+        var copy = left.nextState(right);
+        this.states.push(copy);
+    }
+
+
+    function Grammar(rules, start) {
+        this.rules = rules;
+        this.start = start || this.rules[0].name;
+        var byName = this.byName = {};
+        this.rules.forEach(function(rule) {
+            if (!byName.hasOwnProperty(rule.name)) {
+                byName[rule.name] = [];
+            }
+            byName[rule.name].push(rule);
+        });
+    }
+
+    // So we can allow passing (rules, start) directly to Parser for backwards compatibility
+    Grammar.fromCompiled = function(rules, start) {
+        var lexer = rules.Lexer;
+        if (rules.ParserStart) {
+          start = rules.ParserStart;
+          rules = rules.ParserRules;
+        }
+        var rules = rules.map(function (r) { return (new Rule(r.name, r.symbols, r.postprocess)); });
+        var g = new Grammar(rules, start);
+        g.lexer = lexer; // nb. storing lexer on Grammar is iffy, but unavoidable
+        return g;
+    }
+
+
+    function StreamLexer() {
+      this.reset("");
+    }
+
+    StreamLexer.prototype.reset = function(data, state) {
+        this.buffer = data;
+        this.index = 0;
+        this.line = state ? state.line : 1;
+        this.lastLineBreak = state ? -state.col : 0;
+    }
+
+    StreamLexer.prototype.next = function() {
+        if (this.index < this.buffer.length) {
+            var ch = this.buffer[this.index++];
+            if (ch === '\n') {
+              this.line += 1;
+              this.lastLineBreak = this.index;
+            }
+            return {value: ch};
+        }
+    }
+
+    StreamLexer.prototype.save = function() {
+      return {
+        line: this.line,
+        col: this.index - this.lastLineBreak,
+      }
+    }
+
+    StreamLexer.prototype.formatError = function(token, message) {
+        // nb. this gets called after consuming the offending token,
+        // so the culprit is index-1
+        var buffer = this.buffer;
+        if (typeof buffer === 'string') {
+            var nextLineBreak = buffer.indexOf('\n', this.index);
+            if (nextLineBreak === -1) nextLineBreak = buffer.length;
+            var line = buffer.substring(this.lastLineBreak, nextLineBreak)
+            var col = this.index - this.lastLineBreak;
+            message += " at line " + this.line + " col " + col + ":\n\n";
+            message += "  " + line + "\n"
+            message += "  " + Array(col).join(" ") + "^"
+            return message;
+        } else {
+            return message + " at index " + (this.index - 1);
+        }
+    }
+
+
+    function Parser(rules, start, options) {
+        if (rules instanceof Grammar) {
+            var grammar = rules;
+            var options = start;
+        } else {
+            var grammar = Grammar.fromCompiled(rules, start);
+        }
+        this.grammar = grammar;
+
+        // Read options
+        this.options = {
+            keepHistory: false,
+            lexer: grammar.lexer || new StreamLexer,
+        };
+        for (var key in (options || {})) {
+            this.options[key] = options[key];
+        }
+
+        // Setup lexer
+        this.lexer = this.options.lexer;
+        this.lexerState = undefined;
+
+        // Setup a table
+        var column = new Column(grammar, 0);
+        var table = this.table = [column];
+
+        // I could be expecting anything.
+        column.wants[grammar.start] = [];
+        column.predict(grammar.start);
+        // TODO what if start rule is nullable?
+        column.process();
+        this.current = 0; // token index
+    }
+
+    // create a reserved token for indicating a parse fail
+    Parser.fail = {};
+
+    Parser.prototype.feed = function(chunk) {
+        var lexer = this.lexer;
+        lexer.reset(chunk, this.lexerState);
+
+        var token;
+        while (token = lexer.next()) {
+            // We add new states to table[current+1]
+            var column = this.table[this.current];
+
+            // GC unused states
+            if (!this.options.keepHistory) {
+                delete this.table[this.current - 1];
+            }
+
+            var n = this.current + 1;
+            var nextColumn = new Column(this.grammar, n);
+            this.table.push(nextColumn);
+
+            // Advance all tokens that expect the symbol
+            var literal = token.text !== undefined ? token.text : token.value;
+            var value = lexer.constructor === StreamLexer ? token.value : token;
+            var scannable = column.scannable;
+            for (var w = scannable.length; w--; ) {
+                var state = scannable[w];
+                var expect = state.rule.symbols[state.dot];
+                // Try to consume the token
+                // either regex or literal
+                if (expect.test ? expect.test(value) :
+                    expect.type ? expect.type === token.type
+                                : expect.literal === literal) {
+                    // Add it
+                    var next = state.nextState({data: value, token: token, isToken: true, reference: n - 1});
+                    nextColumn.states.push(next);
+                }
+            }
+
+            // Next, for each of the rules, we either
+            // (a) complete it, and try to see if the reference row expected that
+            //     rule
+            // (b) predict the next nonterminal it expects by adding that
+            //     nonterminal's start state
+            // To prevent duplication, we also keep track of rules we have already
+            // added
+
+            nextColumn.process();
+
+            // If needed, throw an error:
+            if (nextColumn.states.length === 0) {
+                // No states at all! This is not good.
+                var err = new Error(this.reportError(token));
+                err.offset = this.current;
+                err.token = token;
+                throw err;
+            }
+
+            // maybe save lexer state
+            if (this.options.keepHistory) {
+              column.lexerState = lexer.save()
+            }
+
+            this.current++;
+        }
+        if (column) {
+          this.lexerState = lexer.save()
+        }
+
+        // Incrementally keep track of results
+        this.results = this.finish();
+
+        // Allow chaining, for whatever it's worth
+        return this;
+    };
+
+    Parser.prototype.reportError = function(token) {
+        var lines = [];
+        var tokenDisplay = (token.type ? token.type + " token: " : "") + JSON.stringify(token.value !== undefined ? token.value : token);
+        lines.push(this.lexer.formatError(token, "Syntax error"));
+        lines.push('Unexpected ' + tokenDisplay + '. Instead, I was expecting to see one of the following:\n');
+        var lastColumnIndex = this.table.length - 2;
+        var lastColumn = this.table[lastColumnIndex];
+        var expectantStates = lastColumn.states
+            .filter(function(state) {
+                const nextSymbol = state.rule.symbols[state.dot];
+                return nextSymbol && typeof nextSymbol !== "string";
+            });
+        
+        // Display a "state stack" for each expectant state
+        // - which shows you how this state came to be, step by step. 
+        // If there is more than one derivation, we only display the first one.
+        var stateStacks = expectantStates
+            .map(function(state) {
+                const stacks = this.buildStateStacks(state, []);
+                return stacks[0];
+            }, this);
+        // Display each state that is expecting a terminal symbol next.
+        stateStacks.forEach(function(stateStack) {
+            var state = stateStack[0];
+            var nextSymbol = state.rule.symbols[state.dot];
+            var symbolDisplay = this.getSymbolDisplay(nextSymbol);
+            lines.push('A ' + symbolDisplay + ' based on:');
+            this.displayStateStack(stateStack, lines);
+        }, this);
+            
+        lines.push("");
+        return lines.join("\n");
+    };
+
+    Parser.prototype.displayStateStack = function(stateStack, lines) {
+        var lastDisplay;
+        var sameDisplayCount = 0;
+        for (var j = 0; j < stateStack.length; j++) {
+            var state = stateStack[j];
+            var display = state.rule.toString(state.dot);
+            if (display === lastDisplay) {
+                sameDisplayCount++;
+            } else {
+                if (sameDisplayCount > 0) {
+                    lines.push('    ⬆ ︎' + sameDisplayCount + ' more lines identical to this');
+                }
+                sameDisplayCount = 0;
+                lines.push('    ' + display);
+            }
+            lastDisplay = display;
+        }
+    };
+
+    Parser.prototype.getSymbolDisplay = function(symbol) {
+        var type = typeof symbol;
+        if (type === "string") {
+            return symbol;
+        } else if (type === "object" && symbol.literal) {
+            return JSON.stringify(symbol.literal);
+        } else if (type === "object" && symbol instanceof RegExp) {
+            return 'character matching ' + symbol;
+        } else if (type === "object" && symbol.type) {
+            return symbol.type + ' token';
+        } else {
+            throw new Error('Unknown symbol type: ' + symbol);
+        }
+    };
+
+    /*
+    Builds a number of "state stacks". You can think of a state stack as the call stack
+    of the recursive-descent parser which the Nearley parse algorithm simulates.
+    A state stack is represented as an array of state objects. Within a 
+    state stack, the first item of the array will be the starting
+    state, with each successive item in the array going further back into history.
+    
+    This function needs to be given a starting state and an empty array representing
+    the visited states, and it returns an array of state stacks. 
+    
+    */
+    Parser.prototype.buildStateStacks = function(state, visited) {
+        if (visited.indexOf(state) !== -1) {
+            // Found cycle, return empty array (meaning no stacks)
+            // to eliminate this path from the results, because
+            // we don't know how to display it meaningfully
+            return [];
+        }
+        if (state.wantedBy.length === 0) {
+            return [[state]];
+        }
+        var that = this;
+
+        return state.wantedBy.reduce(function(stacks, prevState) {
+            return stacks.concat(that.buildStateStacks(
+                prevState,
+                [state].concat(visited))
+                .map(function(stack) {
+                    return [state].concat(stack);
+                }));
+        }, []);
+    };
+
+    Parser.prototype.save = function() {
+        var column = this.table[this.current];
+        column.lexerState = this.lexerState;
+        return column;
+    };
+
+    Parser.prototype.restore = function(column) {
+        var index = column.index;
+        this.current = index;
+        this.table[index] = column;
+        this.table.splice(index + 1);
+        this.lexerState = column.lexerState;
+
+        // Incrementally keep track of results
+        this.results = this.finish();
+    };
+
+    // nb. deprecated: use save/restore instead!
+    Parser.prototype.rewind = function(index) {
+        if (!this.options.keepHistory) {
+            throw new Error('set option `keepHistory` to enable rewinding')
+        }
+        // nb. recall column (table) indicies fall between token indicies.
+        //        col 0   --   token 0   --   col 1
+        this.restore(this.table[index]);
+    };
+
+    Parser.prototype.finish = function() {
+        // Return the possible parsings
+        var considerations = [];
+        var start = this.grammar.start;
+        var column = this.table[this.table.length - 1]
+        column.states.forEach(function (t) {
+            if (t.rule.name === start
+                    && t.dot === t.rule.symbols.length
+                    && t.reference === 0
+                    && t.data !== Parser.fail) {
+                considerations.push(t);
+            }
+        });
+        return considerations.map(function(c) {return c.data; });
+    };
+
+    return {
+        Parser: Parser,
+        Grammar: Grammar,
+        Rule: Rule,
+    };
+
+}));
+;// Generated automatically by nearley, version 2.18.0
+// http://github.com/Hardmath123/nearley
+(function () {
+function id(x) { return x[0]; }
+var grammar = {
+    Lexer: undefined,
+    ParserRules: [
+    {"name": "unsigned_int$ebnf$1", "symbols": [/[0-9]/]},
+    {"name": "unsigned_int$ebnf$1", "symbols": ["unsigned_int$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "unsigned_int", "symbols": ["unsigned_int$ebnf$1"], "postprocess": 
+        function(d) {
+            return parseInt(d[0].join(""));
+        }
+        },
+    {"name": "int$ebnf$1$subexpression$1", "symbols": [{"literal":"-"}]},
+    {"name": "int$ebnf$1$subexpression$1", "symbols": [{"literal":"+"}]},
+    {"name": "int$ebnf$1", "symbols": ["int$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "int$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "int$ebnf$2", "symbols": [/[0-9]/]},
+    {"name": "int$ebnf$2", "symbols": ["int$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "int", "symbols": ["int$ebnf$1", "int$ebnf$2"], "postprocess": 
+        function(d) {
+            if (d[0]) {
+                return parseInt(d[0][0]+d[1].join(""));
+            } else {
+                return parseInt(d[1].join(""));
+            }
+        }
+        },
+    {"name": "unsigned_decimal$ebnf$1", "symbols": [/[0-9]/]},
+    {"name": "unsigned_decimal$ebnf$1", "symbols": ["unsigned_decimal$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
+    {"name": "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", "symbols": ["unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "unsigned_decimal$ebnf$2$subexpression$1", "symbols": [{"literal":"."}, "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1"]},
+    {"name": "unsigned_decimal$ebnf$2", "symbols": ["unsigned_decimal$ebnf$2$subexpression$1"], "postprocess": id},
+    {"name": "unsigned_decimal$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "unsigned_decimal", "symbols": ["unsigned_decimal$ebnf$1", "unsigned_decimal$ebnf$2"], "postprocess": 
+        function(d) {
+            return parseFloat(
+                d[0].join("") +
+                (d[1] ? "."+d[1][1].join("") : "")
+            );
+        }
+        },
+    {"name": "decimal$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
+    {"name": "decimal$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "decimal$ebnf$2", "symbols": [/[0-9]/]},
+    {"name": "decimal$ebnf$2", "symbols": ["decimal$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "decimal$ebnf$3$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
+    {"name": "decimal$ebnf$3$subexpression$1$ebnf$1", "symbols": ["decimal$ebnf$3$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "decimal$ebnf$3$subexpression$1", "symbols": [{"literal":"."}, "decimal$ebnf$3$subexpression$1$ebnf$1"]},
+    {"name": "decimal$ebnf$3", "symbols": ["decimal$ebnf$3$subexpression$1"], "postprocess": id},
+    {"name": "decimal$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "decimal", "symbols": ["decimal$ebnf$1", "decimal$ebnf$2", "decimal$ebnf$3"], "postprocess": 
+        function(d) {
+            return parseFloat(
+                (d[0] || "") +
+                d[1].join("") +
+                (d[2] ? "."+d[2][1].join("") : "")
+            );
+        }
+        },
+    {"name": "percentage", "symbols": ["decimal", {"literal":"%"}], "postprocess": 
+        function(d) {
+            return d[0]/100;
+        }
+        },
+    {"name": "jsonfloat$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
+    {"name": "jsonfloat$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "jsonfloat$ebnf$2", "symbols": [/[0-9]/]},
+    {"name": "jsonfloat$ebnf$2", "symbols": ["jsonfloat$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "jsonfloat$ebnf$3$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
+    {"name": "jsonfloat$ebnf$3$subexpression$1$ebnf$1", "symbols": ["jsonfloat$ebnf$3$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "jsonfloat$ebnf$3$subexpression$1", "symbols": [{"literal":"."}, "jsonfloat$ebnf$3$subexpression$1$ebnf$1"]},
+    {"name": "jsonfloat$ebnf$3", "symbols": ["jsonfloat$ebnf$3$subexpression$1"], "postprocess": id},
+    {"name": "jsonfloat$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "symbols": [/[+-]/], "postprocess": id},
+    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$2", "symbols": [/[0-9]/]},
+    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$2", "symbols": ["jsonfloat$ebnf$4$subexpression$1$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "jsonfloat$ebnf$4$subexpression$1", "symbols": [/[eE]/, "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "jsonfloat$ebnf$4$subexpression$1$ebnf$2"]},
+    {"name": "jsonfloat$ebnf$4", "symbols": ["jsonfloat$ebnf$4$subexpression$1"], "postprocess": id},
+    {"name": "jsonfloat$ebnf$4", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "jsonfloat", "symbols": ["jsonfloat$ebnf$1", "jsonfloat$ebnf$2", "jsonfloat$ebnf$3", "jsonfloat$ebnf$4"], "postprocess": 
+        function(d) {
+            return parseFloat(
+                (d[0] || "") +
+                d[1].join("") +
+                (d[2] ? "."+d[2][1].join("") : "") +
+                (d[3] ? "e" + (d[3][1] || "+") + d[3][2].join("") : "")
+            );
+        }
+        },
+    {"name": "_$ebnf$1", "symbols": []},
+    {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": function(d) {return null;}},
+    {"name": "__$ebnf$1", "symbols": ["wschar"]},
+    {"name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "__", "symbols": ["__$ebnf$1"], "postprocess": function(d) {return null;}},
+    {"name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id},
+    {"name": "Main", "symbols": ["_", "Term", "_"], "postprocess": d => d[1]},
+    {"name": "Main", "symbols": ["_", "Matrix", "_"], "postprocess": d => d[1]},
+    {"name": "Main", "symbols": ["_", {"literal":"["}, "_", "Matrix", "_", {"literal":"]"}, "_"], "postprocess": d => d[3]},
+    {"name": "Matrix$ebnf$1", "symbols": [{"literal":","}], "postprocess": id},
+    {"name": "Matrix$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "Matrix", "symbols": [{"literal":"["}, "_", "Row", "_", {"literal":"]"}, "_", "Matrix$ebnf$1", "_"], "postprocess": d => [d[2]]},
+    {"name": "Matrix", "symbols": [{"literal":"["}, "_", "Row", "_", {"literal":"]"}, "_", {"literal":","}, "_", "Matrix"], "postprocess": d => [d[2]].concat(d[8])},
+    {"name": "Row", "symbols": ["Term"], "postprocess": d => [d[0]]},
+    {"name": "Row", "symbols": ["Term", "_", {"literal":","}, "_", "Row"], "postprocess": d => [d[0]].concat(d[4])},
+    {"name": "Term", "symbols": ["Subterm1"], "postprocess": id},
+    {"name": "Term", "symbols": ["Suc"], "postprocess": d => new GeneradorDeCasillaSucesion(d[0])},
+    {"name": "Term", "symbols": ["Macro"], "postprocess": id},
+    {"name": "Term", "symbols": [{"literal":"\""}, "_", "Term", "_", {"literal":"\""}], "postprocess": d => d[2]},
+    {"name": "Term", "symbols": [{"literal":"'"}, "_", "Term", "_", {"literal":"'"}], "postprocess": d => d[2]},
+    {"name": "Suc", "symbols": ["Subterm1", "_", {"literal":">"}, "_", "Subterm1"], "postprocess": d => [d[0],d[4]]},
+    {"name": "Suc", "symbols": ["Subterm1", "_", {"literal":">"}, "_", "Suc"], "postprocess": d => [d[0]].concat(d[4])},
+    {"name": "Subterm1", "symbols": ["Subterm2"], "postprocess": id},
+    {"name": "Subterm1", "symbols": ["Option"], "postprocess": d => new GeneradorDeCasillaOpcion(d[0])},
+    {"name": "Option", "symbols": ["Subterm2", "_", {"literal":"|"}, "_", "Subterm2"], "postprocess": d => [d[0],d[4]]},
+    {"name": "Option", "symbols": ["Subterm2", "_", {"literal":"|"}, "_", "Option"], "postprocess": d => [d[0]].concat(d[4])},
+    {"name": "Subterm2", "symbols": ["Atom"], "postprocess": id},
+    {"name": "Subterm2", "symbols": ["Maybe"], "postprocess": id},
+    {"name": "Maybe", "symbols": ["Atom", "_", {"literal":"?"}], "postprocess": d => new GeneradorDeCasillaMaybe(d[0])},
+    {"name": "Maybe", "symbols": ["Atom", "_", {"literal":"?"}, "_", {"literal":"("}, "_", "decimal", "_", {"literal":")"}], "postprocess": d => new GeneradorDeCasillaMaybe(d[0],d[6])},
+    {"name": "Atom", "symbols": ["Id"], "postprocess": d => new GeneradorDeCasillaSimple(d[0])},
+    {"name": "Atom", "symbols": ["Bag"], "postprocess": id},
+    {"name": "Atom", "symbols": ["Col"], "postprocess": id},
+    {"name": "Atom", "symbols": ["Nil"], "postprocess": id},
+    {"name": "Atom", "symbols": [{"literal":"("}, "_", "Term", "_", {"literal":")"}], "postprocess": d => d[2]},
+    {"name": "Id$ebnf$1", "symbols": [/[a-zA-Z0-9]/]},
+    {"name": "Id$ebnf$1", "symbols": ["Id$ebnf$1", /[a-zA-Z0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "Id", "symbols": ["Id$ebnf$1"], "postprocess": d => d[0].join("")},
+    {"name": "Bag", "symbols": [{"literal":"$"}], "postprocess": d => new GeneradorDeCasillaBolsa()},
+    {"name": "Bag", "symbols": [{"literal":"$"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaBolsa(d[2])},
+    {"name": "Col", "symbols": [{"literal":"*"}], "postprocess": d => new GeneradorDeCasillaColeccion()},
+    {"name": "Col", "symbols": [{"literal":"*"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaColeccion(d[2])},
+    {"name": "Nil", "symbols": [{"literal":"-"}], "postprocess": d => new GeneradorDeCasillaVacia()},
+    {"name": "Macro", "symbols": [{"literal":"#"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaMacro(d[2])}
+]
+  , ParserStart: "Main"
+}
+if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
+   module.exports = grammar;
+} else {
+   window.grammar = grammar;
+}
+})();
+;var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
