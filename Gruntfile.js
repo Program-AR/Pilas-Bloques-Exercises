@@ -18,9 +18,21 @@ module.exports = function (grunt) {
       },
     },
 
-    typescriptReadTsConfig: {
-      basic: {
-
+    typescript: {
+      base: {
+        src: ['src/**/*.ts'],
+        dest: 'dist/pilas-bloques-exercises.js',
+        options: {
+          module: 'commonjs',
+          target: 'es5',
+          rootDir: 'src',
+          experimentalDecorators: true,
+          emitDecoratorMetadata: true,
+          sourceMap: false,
+          fullSourceMapPath: false,
+          declaration: false,
+          comments: true,
+        }
       }
     },
 
@@ -36,10 +48,10 @@ module.exports = function (grunt) {
         cmd: 'mkdir', args: ['-p', 'tmp']
       },
       compilarGramaticaAleatoria: {
-        cmd: 'npm', args: ['run', 'compilarGramaticaAleatoria']
+        cmd: 'npm', args: ['run', 'compilar-gramatica-aleatoria']
       },
       generateImageList: {
-        cmd: 'python', args: ['scripts/generateImageList.py']
+        cmd: 'npm', args: ['run', 'generate-image-list']
       },
       clean: {
         cmd: 'rm', args: ['-rf', 'tmp']
@@ -47,13 +59,12 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-typescript-read-tsconfig');
+  grunt.loadNpmTasks('grunt-typescript');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-run');
-  grunt.registerTask('compile', ['typescriptReadTsConfig', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
+  grunt.registerTask('compile', ['typescript', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
   grunt.registerTask('default', ['compile']);
 
 };
