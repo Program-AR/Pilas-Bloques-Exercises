@@ -169,3 +169,35 @@ class EscenaCotyMate extends EscenaCoty {
     this.pizarraDibujoPreexistente.linea(10, 0, 100, 150, this.colorDibujo(), this.anchoLinea);
   }
 }
+
+class EscenaCoty1 extends EscenaCoty {
+  constructor() {
+    super([{ x: 125, y: 75 }, { x: 125, y: -175 }, { x: -25, y: -175 }, { x: -25, y: -75 }, { x: 25, y: -75 }, { x: 25, y: -175 }, { x: -125, y: -175 }, { x: -125, y: 125 }, { x: -75, y: 125 }, { x: -75, y: 75 }, { x: -25, y: 75 }, { x: -25, y: 125 }, { x: 25, y: 125 }, { x: 25, y: 75 }],
+      [{ x: 25, y: 75 }, { x: 75, y: 75 }, { x: 75, y: 125 }, { x: 125, y: 125 }, { x: 125, y: 75 }],
+      { xCoty: 25, yCoty: 75 });
+  }
+}
+
+class EscenaCoty2 extends EscenaCoty {
+  constructor() {
+    super([{ x: -50, y: 25 }, { x: 0, y: 100 }, { x: 50, y: 25 }],
+      [{ x: -50, y: 25 }, { x: 0, y: 25 }, { x: 50, y: 25 }, { x: 50, y: -25 }, { x: 50, y: -75 }, { x: 0, y: -75 }, { x: -50, y: -75 }, { x: -50, y: -25 }, { x: -50, y: 25 }],
+      { xCoty: -50, yCoty: 25 });
+  }
+}
+
+class EscenaCoty3 extends EscenaCoty {
+  constructor() {
+    super([],
+      [[{ x: -125, y: 0 }, { x: -75, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }], [{ x: 75, y: 0 }, { x: 125, y: 0 }]],
+      { xCoty: 125, yCoty: 0 });
+  }
+}
+
+class EscenaCoty5 extends EscenaCoty {
+  constructor() {
+    super([[{ x: -55, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 0 }, { x: -50, y: 0 }], [{ x: -75, y: 0 }, { x: -75, y: -100 }, { x: -125, y: -100 }, { x: -125, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }, { x: 25, y: -100 }, { x: -25, y: -100 }, { x: -25, y: 0 }], [{ x: 125, y: 0 }, { x: 125, y: -100 }, { x: 75, y: -100 }, { x: 75, y: 0 }], [{ x: 50, y: 0 }, { x: 150, y: 0 }, { x: 150, y: 50 }, { x: 50, y: 50 }]],
+      [{ x: -50, y: 0 }, { x: 0, y: 0 }, { x: 50, y: 0 }, { x: 50, y: 50 }, { x: 0, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 0 }],
+      { xCoty: -50, yCoty: 100 });
+  }
+}

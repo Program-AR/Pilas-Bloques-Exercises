@@ -9,15 +9,15 @@ class EscenaLita extends EscenaDesdeMapa {
 	xFinal: number;
 	yFinal: number;
 
-	static clasesDeActoresInvolucrados() :typeof ActorAnimado[] {
+	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
 		return [Lita, Ensaladera, Tomate, Lechuga, FlechaEscenarioAleatorio];
 	};
 
-	static pathFondo() : string {
+	static pathFondo(): string {
 		return 'fondo.lita.png';
 	}
 
-	static imagenesAdicionales() : string[]{
+	static imagenesAdicionales(): string[] {
 		return Casilla.imagenesPara('lita').concat(Obstaculo.imagenesPara('lita'));
 	}			//TODO: Usar flatMap (lodash)
 
@@ -130,4 +130,74 @@ class EscenaLita extends EscenaDesdeMapa {
 			relAspecto: 1,
 		};
 	}
+}
+
+
+class EscenaLita1 extends EscenaLita {
+
+	constructor() {
+		super(`[[O,O,O,O,O,O],\
+				[O,O,O,O,O,O],\
+				[O,A,-,T,L,-],\
+				[O,O,O,O,O,E],\
+				[O,O,O,O,O,O],\
+				[O,O,O,O,O,O]]`)
+	}
+
+}
+
+class EscenaLita2 extends EscenaLita {
+
+	constructor() {
+		super(`[[O,O,O,O,O],\
+				[O,O,O,O,O],\
+				[-,-,T,-,-],\
+				[-,-,L,-,-],\
+				[A,O,O,O,E],\
+				[O,O,O,O,O]]`)
+	}
+
+}
+
+class EscenaLita3 extends EscenaLita {
+
+	constructor() {
+		super(`[[-,-,-],\
+				[-,L,-],\
+				[A,-,E],\
+				[-,T,-]]`)
+	}
+
+}
+
+class EscenaLita4 extends EscenaLita {
+
+	constructor() {
+		super(`[[-,-,-,-],\
+				[-,L,T,-],\
+				[A,-,-,E],\
+				[-,-,-,-]]`)
+	}
+
+}
+
+class EscenaLita5 extends EscenaLita {
+
+	constructor() {
+		super(`[[-,A,-],\
+				[L,E,T],\
+				[-,-,-],\
+				[-,-,-]]`)
+	}
+
+}
+
+class EscenaLita6 extends EscenaLita {
+
+	constructor() {
+		super(`[[-,-,A],\
+				[-,L,T],\
+				[-,-,E]]`)
+	}
+
 }

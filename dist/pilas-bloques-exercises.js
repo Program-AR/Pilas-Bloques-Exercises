@@ -6782,6 +6782,34 @@ var EscenaCotyMate = (function (_super) {
     };
     return EscenaCotyMate;
 })(EscenaCoty);
+var EscenaCoty1 = (function (_super) {
+    __extends(EscenaCoty1, _super);
+    function EscenaCoty1() {
+        _super.call(this, [{ x: 125, y: 75 }, { x: 125, y: -175 }, { x: -25, y: -175 }, { x: -25, y: -75 }, { x: 25, y: -75 }, { x: 25, y: -175 }, { x: -125, y: -175 }, { x: -125, y: 125 }, { x: -75, y: 125 }, { x: -75, y: 75 }, { x: -25, y: 75 }, { x: -25, y: 125 }, { x: 25, y: 125 }, { x: 25, y: 75 }], [{ x: 25, y: 75 }, { x: 75, y: 75 }, { x: 75, y: 125 }, { x: 125, y: 125 }, { x: 125, y: 75 }], { xCoty: 25, yCoty: 75 });
+    }
+    return EscenaCoty1;
+})(EscenaCoty);
+var EscenaCoty2 = (function (_super) {
+    __extends(EscenaCoty2, _super);
+    function EscenaCoty2() {
+        _super.call(this, [{ x: -50, y: 25 }, { x: 0, y: 100 }, { x: 50, y: 25 }], [{ x: -50, y: 25 }, { x: 0, y: 25 }, { x: 50, y: 25 }, { x: 50, y: -25 }, { x: 50, y: -75 }, { x: 0, y: -75 }, { x: -50, y: -75 }, { x: -50, y: -25 }, { x: -50, y: 25 }], { xCoty: -50, yCoty: 25 });
+    }
+    return EscenaCoty2;
+})(EscenaCoty);
+var EscenaCoty3 = (function (_super) {
+    __extends(EscenaCoty3, _super);
+    function EscenaCoty3() {
+        _super.call(this, [], [[{ x: -125, y: 0 }, { x: -75, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }], [{ x: 75, y: 0 }, { x: 125, y: 0 }]], { xCoty: 125, yCoty: 0 });
+    }
+    return EscenaCoty3;
+})(EscenaCoty);
+var EscenaCoty5 = (function (_super) {
+    __extends(EscenaCoty5, _super);
+    function EscenaCoty5() {
+        _super.call(this, [[{ x: -55, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 0 }, { x: -50, y: 0 }], [{ x: -75, y: 0 }, { x: -75, y: -100 }, { x: -125, y: -100 }, { x: -125, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }, { x: 25, y: -100 }, { x: -25, y: -100 }, { x: -25, y: 0 }], [{ x: 125, y: 0 }, { x: 125, y: -100 }, { x: 75, y: -100 }, { x: 75, y: 0 }], [{ x: 50, y: 0 }, { x: 150, y: 0 }, { x: 150, y: 50 }, { x: 50, y: 50 }]], [{ x: -50, y: 0 }, { x: 0, y: 0 }, { x: 50, y: 0 }, { x: 50, y: 50 }, { x: 0, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 0 }], { xCoty: -50, yCoty: 100 });
+    }
+    return EscenaCoty5;
+})(EscenaCoty);
 /// <reference path = "../../../node_modules/pilasweb/dist/pilasweb.d.ts" />
 /// <reference path = "../../../dependencias/helpers.d.ts" />
 //// <reference types = "nearley" /> // Requiere TypeScript ^2.0.0. Solución por ahora:
@@ -7248,6 +7276,76 @@ var EscenaDuba = (function (_super) {
     };
     return EscenaDuba;
 })(EscenaDesdeMapa);
+var EscenaDuba1 = (function (_super) {
+    __extends(EscenaDuba1, _super);
+    function EscenaDuba1() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t   \t[O,-,-,-,O,-],\t\t\t   \t[-,A,-,-,P,-],\t\t\t   \t[-,-,-,O,-,-],\t\t\t   \t[O,O,O,O,-,O]]");
+    }
+    return EscenaDuba1;
+})(EscenaDuba);
+var EscenaDuba2 = (function (_super) {
+    __extends(EscenaDuba2, _super);
+    function EscenaDuba2() {
+        _super.call(this, "[[O,O,O,O,O,O],         \t\t[O,O,O,O,O,O],         \t\t[O,-,O,-,P,O],         \t\t[O,-,A,-,O,O],         \t\t[O,O,-,O,O,O],         \t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba2;
+})(EscenaDuba);
+var EscenaDuba3 = (function (_super) {
+    __extends(EscenaDuba3, _super);
+    function EscenaDuba3() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,A,O,-,-,O],\t\t\t\t[O,-,-,-,P,O],\t\t\t\t[O,-,O,-,-,O],\t\t\t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba3;
+})(EscenaDuba);
+var EscenaDuba4 = (function (_super) {
+    __extends(EscenaDuba4, _super);
+    function EscenaDuba4() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,-,A,O,O,O],\t\t\t\t[O,O,-,O,O,O],\t\t\t\t[O,O,-,-,-,O],\t\t\t\t[O,O,O,P,-,O],\t\t\t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba4;
+})(EscenaDuba);
+var EscenaDuba5 = (function (_super) {
+    __extends(EscenaDuba5, _super);
+    function EscenaDuba5() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,-,O,-,O],\t\t\t\t[O,-,A,-,-,O],\t\t\t\t[O,-,-,O,-,O],\t\t\t\t[O,O,-,-,P,O],\t\t\t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba5;
+})(EscenaDuba);
+var EscenaDuba6 = (function (_super) {
+    __extends(EscenaDuba6, _super);
+    function EscenaDuba6() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,-,-,-,-,O],\t\t\t\t[O,-,O,P,-,O],\t\t\t\t[O,A,O,-,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba6;
+})(EscenaDuba);
+var EscenaDuba7 = (function (_super) {
+    __extends(EscenaDuba7, _super);
+    function EscenaDuba7() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,P,O,-,-,O],\t\t\t\t[O,-,O,-,-,-],\t\t\t\t[O,-,-,-,O,A],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba7;
+})(EscenaDuba);
+var EscenaDuba8 = (function (_super) {
+    __extends(EscenaDuba8, _super);
+    function EscenaDuba8() {
+        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,-,P,O,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,-,-,-,A,O],        \t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba8;
+})(EscenaDuba);
+var EscenaDuba9 = (function (_super) {
+    __extends(EscenaDuba9, _super);
+    function EscenaDuba9() {
+        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,P,O,A,O,O],        \t\t[O,-,O,-,O,O],        \t\t[O,-,-,-,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba9;
+})(EscenaDuba);
+var EscenaDuba10 = (function (_super) {
+    __extends(EscenaDuba10, _super);
+    function EscenaDuba10() {
+        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,O,-,-,-,O],        \t\t[O,-,P,-,-,O],        \t\t[O,-,O,O,O,O],        \t\t[O,-,-,A,-,O],        \t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaDuba10;
+})(EscenaDuba);
 /// <reference path = "EscenaDesdeMapa.ts" />
 /// <reference path = "../EstadosDeEscena.ts" />
 /// <reference path = "../../actores/libroPrimaria/Lita.ts" />
@@ -7361,6 +7459,48 @@ var EscenaLita = (function (_super) {
     };
     return EscenaLita;
 })(EscenaDesdeMapa);
+var EscenaLita1 = (function (_super) {
+    __extends(EscenaLita1, _super);
+    function EscenaLita1() {
+        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,A,-,T,L,-],\t\t\t\t[O,O,O,O,O,E],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
+    }
+    return EscenaLita1;
+})(EscenaLita);
+var EscenaLita2 = (function (_super) {
+    __extends(EscenaLita2, _super);
+    function EscenaLita2() {
+        _super.call(this, "[[O,O,O,O,O],\t\t\t\t[O,O,O,O,O],\t\t\t\t[-,-,T,-,-],\t\t\t\t[-,-,L,-,-],\t\t\t\t[A,O,O,O,E],\t\t\t\t[O,O,O,O,O]]");
+    }
+    return EscenaLita2;
+})(EscenaLita);
+var EscenaLita3 = (function (_super) {
+    __extends(EscenaLita3, _super);
+    function EscenaLita3() {
+        _super.call(this, "[[-,-,-],\t\t\t\t[-,L,-],\t\t\t\t[A,-,E],\t\t\t\t[-,T,-]]");
+    }
+    return EscenaLita3;
+})(EscenaLita);
+var EscenaLita4 = (function (_super) {
+    __extends(EscenaLita4, _super);
+    function EscenaLita4() {
+        _super.call(this, "[[-,-,-,-],\t\t\t\t[-,L,T,-],\t\t\t\t[A,-,-,E],\t\t\t\t[-,-,-,-]]");
+    }
+    return EscenaLita4;
+})(EscenaLita);
+var EscenaLita5 = (function (_super) {
+    __extends(EscenaLita5, _super);
+    function EscenaLita5() {
+        _super.call(this, "[[-,A,-],\t\t\t\t[L,E,T],\t\t\t\t[-,-,-],\t\t\t\t[-,-,-]]");
+    }
+    return EscenaLita5;
+})(EscenaLita);
+var EscenaLita6 = (function (_super) {
+    __extends(EscenaLita6, _super);
+    function EscenaLita6() {
+        _super.call(this, "[[-,-,A],\t\t\t\t[-,L,T],\t\t\t\t[-,-,E]]");
+    }
+    return EscenaLita6;
+})(EscenaLita);
 /// <reference path = "EscenaDesdeMapa.ts" />
 /// <reference path = "../../actores/libroPrimaria/Toto.ts" />
 /// <reference path = "../../actores/libroPrimaria/Letra.ts" />
