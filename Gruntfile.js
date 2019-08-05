@@ -43,28 +43,24 @@ module.exports = function (grunt) {
       }
     },
 
+    clean: {
+      grammar: ['./dist/gramaticaAleatoria.js']
+    },
+
     run: {
-      createTmp: {
-        cmd: 'mkdir', args: ['-p', 'tmp']
-      },
-      compilarGramaticaAleatoria: {
-        cmd: 'npm', args: ['run', 'compilar-gramatica-aleatoria']
-      },
-      generateImageList: {
-        cmd: 'npm', args: ['run', 'generate-image-list']
-      },
-      clean: {
-        cmd: 'rm', args: ['-rf', 'tmp']
+      build: {
+        cmd: 'npm', args: ['run', 'build']
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-typescript');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-run');
-  grunt.registerTask('compile', ['typescript', 'run:createTmp', 'run:compilarGramaticaAleatoria', 'concat', 'run:generateImageList']);
+  grunt.registerTask('compile', ['run:build']);
   grunt.registerTask('default', ['compile']);
 
 };
