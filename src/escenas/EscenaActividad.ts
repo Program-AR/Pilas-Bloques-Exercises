@@ -7,12 +7,12 @@
 // Toda escena que represente una actividad debe heredar de aquí.
 
 class EscenaActividad extends Base {
-	static faltanImagenes = false
-	estado = new Estado();
-	errorHandler = new ProductionErrorHandler(this);
-	automata : ActorAnimado;
-	cuadricula : Cuadricula;
-	fondo;
+	public static faltanImagenes: boolean = false
+	private fondo: Fondo
+	private cuadricula: Cuadricula
+	private automata: ActorAnimado
+	private estado: Estado = new Estado()
+	private errorHandler: ProductionErrorHandler = new ProductionErrorHandler(this)
 
 	/**
 	 * Devuelve todos los nombres de archivo de imagen necesarios para
@@ -20,10 +20,10 @@ class EscenaActividad extends Base {
 	 * y no todas las existentes de todas las escenas. 
 	 * Es estático porque es necesario antes de la creación de la escena ó sus objetos.
 	 */
-	static imagenesPreCarga(): string[]{
-		var imgsPrecargar = this.pathFondo() ? [this.pathFondo()] : [];
-		this.clasesDeActoresInvolucrados().forEach(c => imgsPrecargar = imgsPrecargar.concat(c.imagenesPreCarga()));
-		var imgs = imgsPrecargar.concat(this.imagenesAdicionales());
+	static imagenesPreCarga(): string[] {
+		var imgsPrecargar = this.pathFondo() ? [this.pathFondo()] : []
+		this.clasesDeActoresInvolucrados().forEach(c => imgsPrecargar = imgsPrecargar.concat(c.imagenesPreCarga()))
+		var imgs = imgsPrecargar.concat(this.imagenesAdicionales())
 		return this.faltanImagenes ? [] : imgs
 	}
 
@@ -32,14 +32,14 @@ class EscenaActividad extends Base {
 	 * a cada una de esas clases.
 	 * Pensado para redefinirse por escena.
 	 */
-	static clasesDeActoresInvolucrados() :typeof ActorAnimado[] {
-		this.faltanImagenes = true;
-		return [];
-	};
+	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
+		this.faltanImagenes = true
+		return []
+	}
 
-	static pathFondo() : string {
-		this.faltanImagenes = true;
-		return '';
+	static pathFondo(): string {
+		this.faltanImagenes = true
+		return ''
 	}
 
 	/**
@@ -47,48 +47,80 @@ class EscenaActividad extends Base {
 	 * nombres de archivo de imagen adicionales con este método.
 	 * Pensado para redefinirse por escena.
 	 */
-	static imagenesAdicionales() : string[]{
-		return [];
+	static imagenesAdicionales(): string[] {
+		return []
 	}
 
-	actualizar() : void {
+	protected setFondo(fondo: Fondo): void {
+		this.fondo = fondo
+	}
+
+	public getFondo(): Fondo {
+		return this.fondo
+	}
+
+	protected setCuadricula(cuadricula: Cuadricula): void {
+		this.cuadricula = cuadricula
+	}
+
+	public getCuadricula(): Cuadricula {
+		return this.cuadricula
+	}
+
+	protected setAutomata(actor: ActorAnimado): void {
+		this.automata = actor
+	}
+
+	public getAutomata(): ActorAnimado {
+		return this.automata
+	}
+
+	protected setEstado(estado: Estado): void {
+		this.estado = estado
+	}
+
+	public getEstado(): Estado {
+		return this.estado
+	}
+
+	actualizar(): void {
 		try {
-			super.actualizar();
+			super.actualizar()
 		} catch (e) {
-			this.errorHandler.handle(e);
+			this.errorHandler.handle(e)
 		}
 	}
 
-	estaResueltoElProblema() : Boolean {
-		return this.estado.soyAceptacion();
+	estaResueltoElProblema(): Boolean {
+		return this.estado.soyAceptacion()
 	}
 
 	// TODO: Deprecar, reemplazar por contarActoresConEtiqueta.
-	cantidadObjetosConEtiqueta(etiqueta : String) : Number{
+	cantidadObjetosConEtiqueta(etiqueta: String): Number {
 		return pilas.obtener_actores_con_etiqueta(etiqueta).length
 	}
 	personajePrincipal(): ActorAnimado {
-		return this.automata;
+		return this.automata
 	}
 
-	maxZ() : Number {
-		return this.stage.children[0].z;
+	maxZ(): Number {
+		return this.stage.children[0].z
 	}
 
 	minZ(): Number {
-		return this.stage.children[this.stage.children.length - 1].z;
+		return this.stage.children[this.stage.children.length - 1].z
 	}
 
-	obtenerActoresConEtiqueta(etiqueta : string) : Array<ActorAnimado> {
-		return this.obtenerActoresConEtiquetas([etiqueta]);
+	obtenerActoresConEtiqueta(etiqueta: string): Array<ActorAnimado> {
+		return this.obtenerActoresConEtiquetas([etiqueta])
 	}
 
-	obtenerActoresConEtiquetas(etiquetas : Array<string>) : Array<ActorAnimado> {
-		return this.actores.filter(actor => etiquetas.some(etiqueta => actor.tiene_etiqueta(etiqueta)));
+	obtenerActoresConEtiquetas(etiquetas: Array<string>): Array<ActorAnimado> {
+		return this.actores.filter(actor => etiquetas.some(etiqueta => actor.tiene_etiqueta(etiqueta)))
 	}
 
-	contarActoresConEtiqueta(etiqueta : string) : number {
-		return this.obtenerActoresConEtiqueta(etiqueta).length;
+	contarActoresConEtiqueta(etiqueta: string): number {
+		return this.obtenerActoresConEtiqueta(etiqueta).length
 	}
 
 	/**
@@ -96,7 +128,7 @@ class EscenaActividad extends Base {
 	 * El multiplicador es 1 si la cuadrícula es de 1x1, y crece acotado por maxRatio.
 	 * Es útil para aplicar un factor de escala a los elementos cuando las casillas son muy pequeñas.
 	 */
-	escalaSegunCuadricula(maxRatio : number) : number {
+	escalaSegunCuadricula(maxRatio: number): number {
 		return maxRatio - ((maxRatio - 1) / Math.max(this.cuadricula.cantFilas, this.cuadricula.cantColumnas))
 	}
 }
