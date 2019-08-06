@@ -19,24 +19,24 @@ class ProductionErrorHandler {
 		this.escena = escena;
 	}
 
-	handle(e: Error){
-		if(e instanceof ActividadError){
-				this.handleActividadError(e);
+	handle(e: Error) {
+		if (e instanceof ActividadError) {
+			this.handleActividadError(e);
 		} else {
 			throw e;
 		}
 	}
 
 	handleActividadError(e: ActividadError) {
-		this.escena.automata.eliminar_comportamientos();
-		this.escena.automata.informarError(e);
+		this.escena.getAutomata().eliminar_comportamientos();
+		this.escena.getAutomata().informarError(e);
 
-    if (parent) {
-      let mensaje = {
-        tipo: "errorDeActividad",
-        detalle: e.message
-      };
-      parent.postMessage(mensaje, window.location.origin);
-    }
+		if (parent) {
+			let mensaje = {
+				tipo: "errorDeActividad",
+				detalle: e.message
+			};
+			parent.postMessage(mensaje, window.location.origin);
+		}
 	}
 }

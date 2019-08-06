@@ -1,4 +1,3 @@
-/// <reference path = "EscenaActividad.ts" />
 
 /**
 
@@ -53,28 +52,28 @@ En estos casos, se debe pensar bien si es necesaria la FSM, y cuáles son las tr
 
 
 class Estado {
-  funcionAceptacion : () => boolean;
+  funcionAceptacion: () => boolean;
 
-  constructor(funcionAceptacion : () => boolean = () => false) {
+  constructor(funcionAceptacion: () => boolean = () => false) {
     this.funcionAceptacion = funcionAceptacion;
   }
 
-  soyAceptacion() : boolean {
+  soyAceptacion(): boolean {
     return this.funcionAceptacion();
   }
 
   // Para que sea polimórfico con EstadoConTransicion
-  realizarTransicion(idTransicion : string) {}
+  realizarTransicion(idTransicion: string) { }
 }
 
 class EstadoConTransicion extends Estado {
-  escena : EscenaActividad;
-  identifier : string;
-  datos : { [id : string] : any } = {};
-  transiciones : { [id : string] : { estadoEntrada : Estado, condicionTransicion: () => boolean } } ;
-  errores : { [id : string] : string }
+  escena: EscenaActividad;
+  identifier: string;
+  datos: { [id: string]: any } = {};
+  transiciones: { [id: string]: { estadoEntrada: Estado, condicionTransicion: () => boolean } };
+  errores: { [id: string]: string }
 
-  constructor(escena : EscenaActividad, idEstado : string, soyAceptacion : boolean = false) {
+  constructor(escena: EscenaActividad, idEstado: string, soyAceptacion: boolean = false) {
     super(() => soyAceptacion);
     this.escena = escena;
     this.identifier = idEstado;
@@ -82,21 +81,21 @@ class EstadoConTransicion extends Estado {
     this.errores = {};
   }
 
-  agregarTransicion(estadoEntrada : Estado, idTransicion : string, condicionTransicion : () => boolean = () => true) {
+  agregarTransicion(estadoEntrada: Estado, idTransicion: string, condicionTransicion: () => boolean = () => true) {
     this.transiciones[idTransicion] = {
       estadoEntrada: estadoEntrada,
       condicionTransicion: condicionTransicion,
     };
   }
 
-  agregarError(idTransicion : string, mensajeError : string) {
+  agregarError(idTransicion: string, mensajeError: string) {
     this.errores[idTransicion] = mensajeError;
   }
 
-  realizarTransicion(idTransicion : string) {
+  realizarTransicion(idTransicion: string) {
     if (this.puedoTransicionarA(idTransicion)) {
       // console.log("Transicion:" + idTransicion + ", self:" + this.identifier + ", estado escena:" + pilas.escena_actual().estado.identifier + ", al estado:" + this.estadoSiguiente(comportamiento, idTransicion).identifier + ", comportamiento:" + comportamiento.constructor.name + ", receptor:" + comportamiento.receptor.constructor.name);
-      this.escena.estado = this.estadoSiguiente(idTransicion);
+      this.escena.setEstado(this.estadoSiguiente(idTransicion))
     }
     else if (idTransicion in this.errores) {
       throw new ActividadError(this.errores[idTransicion]);
@@ -106,25 +105,25 @@ class EstadoConTransicion extends Estado {
     }
   }
 
-  puedoTransicionarA(idTransicion : string) : boolean {
+  puedoTransicionarA(idTransicion: string): boolean {
     return idTransicion in this.transiciones;
   }
 
-  estadoSiguiente(idTransicion : string) : Estado {
-      return this.transiciones[idTransicion].condicionTransicion() ?
-        this.transiciones[idTransicion].estadoEntrada :
-        this;
+  estadoSiguiente(idTransicion: string): Estado {
+    return this.transiciones[idTransicion].condicionTransicion() ?
+      this.transiciones[idTransicion].estadoEntrada :
+      this;
   }
 }
 
 // Sirve para que no tire error para salirse del camino
 class EstadoTransicionSinError extends EstadoConTransicion {
-  puedoTransicionarA(idTransicion) : boolean {
-    return ! (idTransicion in this.errores); // Siempre que no haya error definido me deja
+  puedoTransicionarA(idTransicion): boolean {
+    return !(idTransicion in this.errores); // Siempre que no haya error definido me deja
   }
 
-  estadoSiguiente(idTransicion : string) {
-    if (!super.puedoTransicionarA(idTransicion)){
+  estadoSiguiente(idTransicion: string) {
+    if (!super.puedoTransicionarA(idTransicion)) {
       return new EstadoTransicionSinError(this.escena, 'meFuiDelCamino');
     } else {
       return super.estadoSiguiente(idTransicion);
@@ -133,11 +132,11 @@ class EstadoTransicionSinError extends EstadoConTransicion {
 }
 
 class BuilderStatePattern {
-  estados : { [id : string] : EstadoConTransicion };
-  idEstadoInicial : string;
-  escena : EscenaActividad;
+  estados: { [id: string]: EstadoConTransicion };
+  idEstadoInicial: string;
+  escena: EscenaActividad;
 
-  constructor(escena : EscenaActividad, idEstadoInicial : string, tiraErrorSiSeVaDelCamino : boolean = true){
+  constructor(escena: EscenaActividad, idEstadoInicial: string, tiraErrorSiSeVaDelCamino: boolean = true) {
     this.idEstadoInicial = idEstadoInicial;
     this.estados = {};
     this.escena = escena;
@@ -150,25 +149,25 @@ class BuilderStatePattern {
     return this.estados[this.idEstadoInicial];
   }
 
-  agregarEstado(idEstado : string, tiraErrorSiSeVaDelCamino : boolean = true){
+  agregarEstado(idEstado: string, tiraErrorSiSeVaDelCamino: boolean = true) {
     this.estados[idEstado] = tiraErrorSiSeVaDelCamino
       ? new EstadoConTransicion(this.escena, idEstado)
       : new EstadoTransicionSinError(this.escena, idEstado);
   }
 
-  agregarEstadoAceptacion(idEstado : string){
+  agregarEstadoAceptacion(idEstado: string) {
     this.estados[idEstado] = new EstadoConTransicion(this.escena, idEstado, true);
   }
 
-  agregarTransicion(estadoSalida : string, estadoEntrada : string, transicion : string, condicionTransicion : () => boolean = () => true ) {
+  agregarTransicion(estadoSalida: string, estadoEntrada: string, transicion: string, condicionTransicion: () => boolean = () => true) {
     this.estados[estadoSalida].agregarTransicion(this.estados[estadoEntrada], transicion, condicionTransicion);
   }
 
-  agregarError(estadoSalida : string, transicion : string, mensajeError : string){
+  agregarError(estadoSalida: string, transicion: string, mensajeError: string) {
     this.estados[estadoSalida].agregarError(transicion, mensajeError);
   }
 
-  agregarErrorAVariosEstadosDeSalida(estadoSalida : string, transicion : string, error : string, indexInicialSalida : number, indexFinalSalida : number){
+  agregarErrorAVariosEstadosDeSalida(estadoSalida: string, transicion: string, error: string, indexInicialSalida: number, indexFinalSalida: number) {
     //agrega un error para varios estados de salida con prefijos.
     //pre indexFinalSalida>indexInicialSalida
     var tamano = indexFinalSalida - indexInicialSalida;
@@ -177,14 +176,14 @@ class BuilderStatePattern {
     }
   }
 
-  agregarEstadosPrefijados(prefix : string, indexInicial : number, indexFinal : number) {
+  agregarEstadosPrefijados(prefix: string, indexInicial: number, indexFinal: number) {
     //prefix debe ser string e indexInicial y final ints
     for (var i = indexInicial; i <= indexFinal; ++i) {
       this.agregarEstado(prefix + i);
     }
   }
 
-  agregarTransicionesIteradas(estadoSalidaPrefix,estadoEntradaPrefix,transicion ,inicialSalida,finSalida,inicialEntrada,finEntrada){
+  agregarTransicionesIteradas(estadoSalidaPrefix, estadoEntradaPrefix, transicion, inicialSalida, finSalida, inicialEntrada, finEntrada) {
     //pre: |estadosSalida|=|estadosEntrada|
     //implica finSalida-inicialSalida=finEntrada-InicialEntrada
     var tamano = finSalida - inicialSalida;
@@ -195,7 +194,7 @@ class BuilderStatePattern {
 }
 
 class EstadoParaContarBuilder extends BuilderStatePattern {
-  constructor(escena : EscenaActividad, idTransicion : string, cantidadEsperada : number) {
+  constructor(escena: EscenaActividad, idTransicion: string, cantidadEsperada: number) {
     super(escena, 'faltan');
     this.agregarEstadoAceptacion('llegue');
     var estado = this.estados['llegue'];

@@ -1,39 +1,36 @@
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/BananaAnimada.ts" />
-/// <reference path = "../actores/ManzanaAnimada.ts" />
-/// <reference path = "../actores/MonoAnimado.ts" />
-/// <reference path = "../actores/FlechaEscenarioAleatorio.ts" />
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 
 class LaEleccionDelMono extends EscenaActividad {
-    fondo;
-    cuadricula;
-    iniciar() {
-        this.estado = new Estado(() => this.cantidadObjetosConEtiqueta('BananaAnimada')==0 && this.cantidadObjetosConEtiqueta('ManzanaAnimada')==0 && this.automata.casillaActual().sos(0,1));
-        this.fondo = new Fondo('fondos.selva.png',0,0);
-        this.cuadricula = new Cuadricula(0,0,1,2,
-            {alto: 200},
-            {grilla: 'casillas.violeta.png',
-            cantColumnas: 1})
 
-        this.automata =  new  MonoAnimado(0,0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata,0,0,false);
+    public iniciar(): void {
+        this.setFondo(new Fondo('fondos.selva.png', 0, 0))
+        this.setCuadricula(new Cuadricula(0, 0, 1, 2, { alto: 200 }, { grilla: 'casillas.violeta.png', cantColumnas: 1 }))
+
+        this.setAutomata(new MonoAnimado(0, 0))
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 0, 0, false);
 
         this.agregarFruta();
         new FlechaEscenarioAleatorio();
+
+        this.buildState()
     }
 
-    agregarFruta(){
+    private buildState(): void {
+        this.setEstado(new Estado(() => this.cantidadObjetosConEtiqueta('BananaAnimada') == 0 && this.cantidadObjetosConEtiqueta('ManzanaAnimada') == 0 && this.getAutomata().casillaActual().sos(0, 1)))
+    }
+
+    public agregarFruta(): void {
         if (Math.random() < .5) {
-            this.agregar(ManzanaAnimada);
-        } else {
-            this.agregar(BananaAnimada);
+            this.agregar(new ManzanaAnimada(0, 0));
+        }
+
+        else {
+            this.agregar(new BananaAnimada(0, 0));
         }
     }
 
-    agregar(objeto){
-      this.cuadricula.agregarActorEnPerspectiva(new objeto(0,0),0,1, false);
+    public agregar(fruta: ManzanaAnimada | BananaAnimada): void {
+        this.getCuadricula().agregarActorEnPerspectiva(fruta, 0, 1, false);
     }
 
-  }
+}

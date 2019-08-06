@@ -1,51 +1,48 @@
-/// <reference path = "EscenaActividad.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 
 class AlimentandoALosPeces extends EscenaActividad {
-    cuadricula;
-    automata;
-    cantidadColumnas;
-    cantidadFilas;
-    alimento;
-    estado;
-    fondo;
-    iniciar() {
-        this.cantidadFilas=4
-        this.cantidadColumnas=5
-        this.fondo = new Fondo('fondo.alimentando_peces.png.png',0,0);
-        this.cuadricula = new Cuadricula(0,0,this.cantidadFilas,this.cantidadColumnas,
-            {ancho:328,alto:262},
-            {grilla: 'invisible.png',
-            cantColumnas: 1})
+  private columnSize: number
+  private rowSize: number
+  private food: AlimentoAnimado
 
-        this.automata = new BuzoAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata,this.cantidadFilas-1, 0);
-        this.automata.aprender(Flotar, { Desvio: 2 });
-        
-        this.alimento = new AlimentoAnimado(0,0)
-        this.cuadricula.agregarActor(this.alimento,1,this.cantidadColumnas-1)
-        this.colocarPeces();
-        this.estado=this.generarEstadoInicial();
-    }
+  public iniciar(): void {
+    this.rowSize = 4
+    this.columnSize = 5
 
-    generarEstadoInicial(){
-      var builder= new BuilderStatePattern(this, 'inicial');
-      builder.agregarEstado('tengoLaComida');
-      builder.agregarEstadosPrefijados('alimentado',1,6);
-      builder.agregarEstadoAceptacion('alimentado7');
-      builder.agregarTransicion('inicial','tengoLaComida','recogerComida');
-      builder.agregarTransicion('tengoLaComida','alimentado1','alimentarPez');
-      builder.agregarTransicionesIteradas('alimentado','alimentado','alimentarPez',1,6,2,7);
-      builder.agregarError('inicial','alimentarPez','Debés recolectar primero el alimento')
-      return builder.estadoInicial();
-    }
+    this.setFondo(new Fondo('fondo.alimentando_peces.png.png', 0, 0))
+    this.setCuadricula(new Cuadricula(0, 0, this.rowSize, this.columnSize,
+      { ancho: 328, alto: 262 }, { grilla: 'invisible.png', cantColumnas: 1 }))
 
-    private colocarPeces(){
-      this.cuadricula.agregarActor(new PezAnimado(0,0),this.cantidadFilas-1,1);
-      this.cuadricula.agregarActor(new PezAnimado(0,0),this.cantidadFilas-1,2);
-      this.cuadricula.agregarActor(new PezAnimado(0,0),this.cantidadFilas-1,3);
-      this.cuadricula.agregarActor(new PezAnimado(0,0),0,0);
-      this.cuadricula.agregarActor(new PezAnimado(0,0),0,1);
-      this.cuadricula.agregarActor(new PezAnimado(0,0),0,2);
-      this.cuadricula.agregarActor(new PezAnimado(0,0),0,3);
-    }
+    this.setAutomata(new BuzoAnimado(0, 0))
+    this.getCuadricula().agregarActor(this.getAutomata(), this.rowSize - 1, 0)
+    this.getAutomata().aprender(Flotar, { Desvio: 2 })
+
+    this.food = new AlimentoAnimado(0, 0)
+    this.getCuadricula().agregarActor(this.food, 1, this.columnSize - 1)
+    this.setFood()
+    this.buildState()
+  }
+
+  private buildState(): void {
+    var stateBuilder = new BuilderStatePattern(this, 'no tengo comida ni peces alimentados')
+    stateBuilder.agregarEstado('tengoLaComida')
+    stateBuilder.agregarEstadosPrefijados('alimentado', 1, 6)
+    stateBuilder.agregarEstadoAceptacion('alimentado7')
+    stateBuilder.agregarTransicion('no tengo comida ni peces alimentados', 'tengoLaComida', 'recogerComida')
+    stateBuilder.agregarTransicion('tengoLaComida', 'alimentado1', 'alimentarPez')
+    stateBuilder.agregarTransicionesIteradas('alimentado', 'alimentado', 'alimentarPez', 1, 6, 2, 7)
+    stateBuilder.agregarError('no tengo comida ni peces alimentados', 'alimentarPez', 'Debés recolectar primero el alimento')
+    this.setEstado(stateBuilder.estadoInicial())
+  }
+
+  private setFood(): void {
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), this.rowSize - 1, 1)
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), this.rowSize - 1, 2)
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), this.rowSize - 1, 3)
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 0)
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 1)
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 2)
+    this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 3)
+  }
+
 }

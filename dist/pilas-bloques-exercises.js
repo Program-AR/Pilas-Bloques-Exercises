@@ -513,238 +513,11 @@ Number.prototype.times = function(object){
     };
 
 }));
-;// Generated automatically by nearley, version 2.18.0
-// http://github.com/Hardmath123/nearley
-(function () {
-function id(x) { return x[0]; }
-var grammar = {
-    Lexer: undefined,
-    ParserRules: [
-    {"name": "unsigned_int$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "unsigned_int$ebnf$1", "symbols": ["unsigned_int$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "unsigned_int", "symbols": ["unsigned_int$ebnf$1"], "postprocess": 
-        function(d) {
-            return parseInt(d[0].join(""));
-        }
-        },
-    {"name": "int$ebnf$1$subexpression$1", "symbols": [{"literal":"-"}]},
-    {"name": "int$ebnf$1$subexpression$1", "symbols": [{"literal":"+"}]},
-    {"name": "int$ebnf$1", "symbols": ["int$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "int$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "int$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "int$ebnf$2", "symbols": ["int$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "int", "symbols": ["int$ebnf$1", "int$ebnf$2"], "postprocess": 
-        function(d) {
-            if (d[0]) {
-                return parseInt(d[0][0]+d[1].join(""));
-            } else {
-                return parseInt(d[1].join(""));
-            }
-        }
-        },
-    {"name": "unsigned_decimal$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "unsigned_decimal$ebnf$1", "symbols": ["unsigned_decimal$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", "symbols": ["unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "unsigned_decimal$ebnf$2$subexpression$1", "symbols": [{"literal":"."}, "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1"]},
-    {"name": "unsigned_decimal$ebnf$2", "symbols": ["unsigned_decimal$ebnf$2$subexpression$1"], "postprocess": id},
-    {"name": "unsigned_decimal$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "unsigned_decimal", "symbols": ["unsigned_decimal$ebnf$1", "unsigned_decimal$ebnf$2"], "postprocess": 
-        function(d) {
-            return parseFloat(
-                d[0].join("") +
-                (d[1] ? "."+d[1][1].join("") : "")
-            );
-        }
-        },
-    {"name": "decimal$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
-    {"name": "decimal$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "decimal$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "decimal$ebnf$2", "symbols": ["decimal$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "decimal$ebnf$3$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "decimal$ebnf$3$subexpression$1$ebnf$1", "symbols": ["decimal$ebnf$3$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "decimal$ebnf$3$subexpression$1", "symbols": [{"literal":"."}, "decimal$ebnf$3$subexpression$1$ebnf$1"]},
-    {"name": "decimal$ebnf$3", "symbols": ["decimal$ebnf$3$subexpression$1"], "postprocess": id},
-    {"name": "decimal$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "decimal", "symbols": ["decimal$ebnf$1", "decimal$ebnf$2", "decimal$ebnf$3"], "postprocess": 
-        function(d) {
-            return parseFloat(
-                (d[0] || "") +
-                d[1].join("") +
-                (d[2] ? "."+d[2][1].join("") : "")
-            );
-        }
-        },
-    {"name": "percentage", "symbols": ["decimal", {"literal":"%"}], "postprocess": 
-        function(d) {
-            return d[0]/100;
-        }
-        },
-    {"name": "jsonfloat$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
-    {"name": "jsonfloat$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "jsonfloat$ebnf$2", "symbols": ["jsonfloat$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "jsonfloat$ebnf$3$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "jsonfloat$ebnf$3$subexpression$1$ebnf$1", "symbols": ["jsonfloat$ebnf$3$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "jsonfloat$ebnf$3$subexpression$1", "symbols": [{"literal":"."}, "jsonfloat$ebnf$3$subexpression$1$ebnf$1"]},
-    {"name": "jsonfloat$ebnf$3", "symbols": ["jsonfloat$ebnf$3$subexpression$1"], "postprocess": id},
-    {"name": "jsonfloat$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "symbols": [/[+-]/], "postprocess": id},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$2", "symbols": ["jsonfloat$ebnf$4$subexpression$1$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "jsonfloat$ebnf$4$subexpression$1", "symbols": [/[eE]/, "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "jsonfloat$ebnf$4$subexpression$1$ebnf$2"]},
-    {"name": "jsonfloat$ebnf$4", "symbols": ["jsonfloat$ebnf$4$subexpression$1"], "postprocess": id},
-    {"name": "jsonfloat$ebnf$4", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat", "symbols": ["jsonfloat$ebnf$1", "jsonfloat$ebnf$2", "jsonfloat$ebnf$3", "jsonfloat$ebnf$4"], "postprocess": 
-        function(d) {
-            return parseFloat(
-                (d[0] || "") +
-                d[1].join("") +
-                (d[2] ? "."+d[2][1].join("") : "") +
-                (d[3] ? "e" + (d[3][1] || "+") + d[3][2].join("") : "")
-            );
-        }
-        },
-    {"name": "_$ebnf$1", "symbols": []},
-    {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": function(d) {return null;}},
-    {"name": "__$ebnf$1", "symbols": ["wschar"]},
-    {"name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "__", "symbols": ["__$ebnf$1"], "postprocess": function(d) {return null;}},
-    {"name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id},
-    {"name": "Main", "symbols": ["_", "Term", "_"], "postprocess": d => d[1]},
-    {"name": "Main", "symbols": ["_", "Matrix", "_"], "postprocess": d => d[1]},
-    {"name": "Main", "symbols": ["_", {"literal":"["}, "_", "Matrix", "_", {"literal":"]"}, "_"], "postprocess": d => d[3]},
-    {"name": "Matrix$ebnf$1", "symbols": [{"literal":","}], "postprocess": id},
-    {"name": "Matrix$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Matrix", "symbols": [{"literal":"["}, "_", "Row", "_", {"literal":"]"}, "_", "Matrix$ebnf$1", "_"], "postprocess": d => [d[2]]},
-    {"name": "Matrix", "symbols": [{"literal":"["}, "_", "Row", "_", {"literal":"]"}, "_", {"literal":","}, "_", "Matrix"], "postprocess": d => [d[2]].concat(d[8])},
-    {"name": "Row", "symbols": ["Term"], "postprocess": d => [d[0]]},
-    {"name": "Row", "symbols": ["Term", "_", {"literal":","}, "_", "Row"], "postprocess": d => [d[0]].concat(d[4])},
-    {"name": "Term", "symbols": ["Subterm1"], "postprocess": id},
-    {"name": "Term", "symbols": ["Suc"], "postprocess": d => new GeneradorDeCasillaSucesion(d[0])},
-    {"name": "Term", "symbols": ["Macro"], "postprocess": id},
-    {"name": "Term", "symbols": [{"literal":"\""}, "_", "Term", "_", {"literal":"\""}], "postprocess": d => d[2]},
-    {"name": "Term", "symbols": [{"literal":"'"}, "_", "Term", "_", {"literal":"'"}], "postprocess": d => d[2]},
-    {"name": "Suc", "symbols": ["Subterm1", "_", {"literal":">"}, "_", "Subterm1"], "postprocess": d => [d[0],d[4]]},
-    {"name": "Suc", "symbols": ["Subterm1", "_", {"literal":">"}, "_", "Suc"], "postprocess": d => [d[0]].concat(d[4])},
-    {"name": "Subterm1", "symbols": ["Subterm2"], "postprocess": id},
-    {"name": "Subterm1", "symbols": ["Option"], "postprocess": d => new GeneradorDeCasillaOpcion(d[0])},
-    {"name": "Option", "symbols": ["Subterm2", "_", {"literal":"|"}, "_", "Subterm2"], "postprocess": d => [d[0],d[4]]},
-    {"name": "Option", "symbols": ["Subterm2", "_", {"literal":"|"}, "_", "Option"], "postprocess": d => [d[0]].concat(d[4])},
-    {"name": "Subterm2", "symbols": ["Atom"], "postprocess": id},
-    {"name": "Subterm2", "symbols": ["Maybe"], "postprocess": id},
-    {"name": "Maybe", "symbols": ["Atom", "_", {"literal":"?"}], "postprocess": d => new GeneradorDeCasillaMaybe(d[0])},
-    {"name": "Maybe", "symbols": ["Atom", "_", {"literal":"?"}, "_", {"literal":"("}, "_", "decimal", "_", {"literal":")"}], "postprocess": d => new GeneradorDeCasillaMaybe(d[0],d[6])},
-    {"name": "Atom", "symbols": ["Id"], "postprocess": d => new GeneradorDeCasillaSimple(d[0])},
-    {"name": "Atom", "symbols": ["Bag"], "postprocess": id},
-    {"name": "Atom", "symbols": ["Col"], "postprocess": id},
-    {"name": "Atom", "symbols": ["Nil"], "postprocess": id},
-    {"name": "Atom", "symbols": [{"literal":"("}, "_", "Term", "_", {"literal":")"}], "postprocess": d => d[2]},
-    {"name": "Id$ebnf$1", "symbols": [/[a-zA-Z0-9]/]},
-    {"name": "Id$ebnf$1", "symbols": ["Id$ebnf$1", /[a-zA-Z0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Id", "symbols": ["Id$ebnf$1"], "postprocess": d => d[0].join("")},
-    {"name": "Bag", "symbols": [{"literal":"$"}], "postprocess": d => new GeneradorDeCasillaBolsa()},
-    {"name": "Bag", "symbols": [{"literal":"$"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaBolsa(d[2])},
-    {"name": "Col", "symbols": [{"literal":"*"}], "postprocess": d => new GeneradorDeCasillaColeccion()},
-    {"name": "Col", "symbols": [{"literal":"*"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaColeccion(d[2])},
-    {"name": "Nil", "symbols": [{"literal":"-"}], "postprocess": d => new GeneradorDeCasillaVacia()},
-    {"name": "Macro", "symbols": [{"literal":"#"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaMacro(d[2])}
-]
-  , ParserStart: "Main"
-}
-if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
-   module.exports = grammar;
-} else {
-   window.grammar = grammar;
-}
-})();
-;/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-var __extends = (this && this.__extends) || function (d, b) {
+;var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/* @class HabilidadAnimada
- * Es la clase de la que heredan todas en este proyecto, donde
- * va el comportamiento en común que no quiero poner en pilasweb
- *
-*/
-var HabilidadAnimada = (function (_super) {
-    __extends(HabilidadAnimada, _super);
-    function HabilidadAnimada() {
-        _super.apply(this, arguments);
-    }
-    HabilidadAnimada.prototype.implicaMovimiento = function () {
-        return false;
-    };
-    return HabilidadAnimada;
-})(Habilidad);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "HabilidadAnimada.ts"/>
-var Animar = (function (_super) {
-    __extends(Animar, _super);
-    function Animar(receptor, argumentos) {
-        _super.call(this, receptor, argumentos);
-        this.setearNombreAnimacion();
-        this.nombreAnimacion = this.nombreAnimacion || this.argumentos.nombreAnimacion;
-        if (this.nombreAnimacion)
-            this.receptor.cargarAnimacion(this.nombreAnimacion());
-    }
-    /* Redefinir si corresponde animar la habilidad. Debe setear this.nombreAnimacion.
-     También se puede pasar por uno de los argumentos el nombre de la animación.*/
-    Animar.prototype.setearNombreAnimacion = function () {
-    };
-    // No redefinir
-    Animar.prototype.actualizar = function () {
-        this.receptor.avanzarAnimacion();
-        this.doActualizar();
-    };
-    Animar.prototype.doActualizar = function () {
-        // Redefinir para agregar comportamiento además de la animación
-    };
-    return Animar;
-})(HabilidadAnimada);
-// Esto es una clara chanchada. No sé cómo usar el Error original desde Typescript
-var ActividadError = (function () {
-    function ActividadError(message, nombreAnimacion) {
-        if (message === void 0) { message = ""; }
-        if (nombreAnimacion === void 0) { nombreAnimacion = "error"; }
-        this.message = message;
-        this.nombreAnimacion = nombreAnimacion;
-    }
-    ;
-    return ActividadError;
-})();
-var ProductionErrorHandler = (function () {
-    function ProductionErrorHandler(escena) {
-        this.escena = escena;
-    }
-    ProductionErrorHandler.prototype.handle = function (e) {
-        if (e instanceof ActividadError) {
-            this.handleActividadError(e);
-        }
-        else {
-            throw e;
-        }
-    };
-    ProductionErrorHandler.prototype.handleActividadError = function (e) {
-        this.escena.automata.eliminar_comportamientos();
-        this.escena.automata.informarError(e);
-        if (parent) {
-            var mensaje = {
-                tipo: "errorDeActividad",
-                detalle: e.message
-            };
-            parent.postMessage(mensaje, window.location.origin);
-        }
-    };
-    return ProductionErrorHandler;
-})();
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-/// <reference path = "../habilidades/Animar.ts" />
-/// <reference path = "../escenas/Errores.ts" />
 /**
  * @class ActorAnimado
  *
@@ -1024,6 +797,42 @@ var ActorAnimado = (function (_super) {
     ActorAnimado.prototype.lanzarActividadError = function (mensaje) {
         throw new ActividadError(mensaje);
     };
+    ActorAnimado.prototype.setEscala = function (escala) {
+        this.escala = escala;
+    };
+    ActorAnimado.prototype.getEscala = function () {
+        return this.escala;
+    };
+    ActorAnimado.prototype.setIzquierda = function (desplazamiento) {
+        this.izquierda = desplazamiento;
+    };
+    ActorAnimado.prototype.getIzquierda = function () {
+        return this.izquierda;
+    };
+    ActorAnimado.prototype.setArriba = function (desplazamiento) {
+        this.arriba = desplazamiento;
+    };
+    ActorAnimado.prototype.getArriba = function () {
+        return this.arriba;
+    };
+    ActorAnimado.prototype.setDerecha = function (desplazamiento) {
+        this.derecha = desplazamiento;
+    };
+    ActorAnimado.prototype.getDerecha = function () {
+        return this.derecha;
+    };
+    ActorAnimado.prototype.setAbajo = function (desplazamiento) {
+        this.abajo = desplazamiento;
+    };
+    ActorAnimado.prototype.getAbajo = function () {
+        return this.abajo;
+    };
+    ActorAnimado.prototype.setRadioDeColision = function (radio) {
+        this.radio_de_colision = radio;
+    };
+    ActorAnimado.prototype.getRadioDeColision = function () {
+        return this.radio_de_colision;
+    };
     return ActorAnimado;
 })(Actor);
 // Helper para construir las animaciones:
@@ -1144,7 +953,10 @@ var AlienAnimado = (function (_super) {
     __extends(AlienAnimado, _super);
     function AlienAnimado(x, y) {
         _super.call(this, x, y, { grilla: 'alienAnimado.png', cantColumnas: 14 });
-        this.definirAnimacion("parado", new Cuadros(13).repetirVeces(50).concat([12, 13, 11, 12, 11, 13]).concat(new Cuadros(13).repetirVeces(30)).concat([9, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]), 4, true);
+        this.definirAnimacion("parado", new Cuadros(13).repetirVeces(50)
+            .concat([12, 13, 11, 12, 11, 13])
+            .concat(new Cuadros(13).repetirVeces(30))
+            .concat([9, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]), 4, true);
         this.definirAnimacion("hablar", [12, 13, 11, 12, 11, 13], 15);
         this.definirAnimacion("recoger", [12, 10, 10, 12], 6);
         this.definirAnimacion("correr", [0, 1, 2, 3, 4, 3, 2, 1], 20);
@@ -1170,6 +982,7 @@ var BananaAnimada = (function (_super) {
     }
     return BananaAnimada;
 })(ActorAnimado);
+/// <reference path="ActorAnimado.ts"/>
 var BotonAnimado = (function (_super) {
     __extends(BotonAnimado, _super);
     function BotonAnimado(x, y) {
@@ -1507,6 +1320,30 @@ var Cuadricula = (function (_super) {
     };
     Cuadricula.prototype.hayDerecha = function (casilla) {
         return !(casilla.sos(null, this.cantColumnas - 1));
+    };
+    Cuadricula.prototype.setIzquierda = function (desplazamiento) {
+        this.izquierda = desplazamiento;
+    };
+    Cuadricula.prototype.getIzquierda = function () {
+        return this.izquierda;
+    };
+    Cuadricula.prototype.setArriba = function (desplazamiento) {
+        this.arriba = desplazamiento;
+    };
+    Cuadricula.prototype.getArriba = function () {
+        return this.arriba;
+    };
+    Cuadricula.prototype.setDerecha = function (desplazamiento) {
+        this.derecha = desplazamiento;
+    };
+    Cuadricula.prototype.getDerecha = function () {
+        return this.derecha;
+    };
+    Cuadricula.prototype.setAbajo = function (desplazamiento) {
+        this.abajo = desplazamiento;
+    };
+    Cuadricula.prototype.getAbajo = function () {
+        return this.abajo;
     };
     Cuadricula.prototype.cantidadCasillas = function () {
         var cant = 0;
@@ -2149,6 +1986,42 @@ var MovimientoAnimado = (function (_super) {
     };
     return MovimientoAnimado;
 })(ComportamientoConVelocidad);
+// Esto es una clara chanchada. No sé cómo usar el Error original desde Typescript
+var ActividadError = (function () {
+    function ActividadError(message, nombreAnimacion) {
+        if (message === void 0) { message = ""; }
+        if (nombreAnimacion === void 0) { nombreAnimacion = "error"; }
+        this.message = message;
+        this.nombreAnimacion = nombreAnimacion;
+    }
+    ;
+    return ActividadError;
+})();
+var ProductionErrorHandler = (function () {
+    function ProductionErrorHandler(escena) {
+        this.escena = escena;
+    }
+    ProductionErrorHandler.prototype.handle = function (e) {
+        if (e instanceof ActividadError) {
+            this.handleActividadError(e);
+        }
+        else {
+            throw e;
+        }
+    };
+    ProductionErrorHandler.prototype.handleActividadError = function (e) {
+        this.escena.getAutomata().eliminar_comportamientos();
+        this.escena.getAutomata().informarError(e);
+        if (parent) {
+            var mensaje = {
+                tipo: "errorDeActividad",
+                detalle: e.message
+            };
+            parent.postMessage(mensaje, window.location.origin);
+        }
+    };
+    return ProductionErrorHandler;
+})();
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "MovimientoAnimado.ts"/>
 /// <reference path = "../escenas/Errores.ts" />
@@ -2841,6 +2714,22 @@ var Tablero = (function (_super) {
     };
     return Tablero;
 })(ActorAnimado);
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/* @class HabilidadAnimada
+ * Es la clase de la que heredan todas en este proyecto, donde
+ * va el comportamiento en común que no quiero poner en pilasweb
+ *
+*/
+var HabilidadAnimada = (function (_super) {
+    __extends(HabilidadAnimada, _super);
+    function HabilidadAnimada() {
+        _super.apply(this, arguments);
+    }
+    HabilidadAnimada.prototype.implicaMovimiento = function () {
+        return false;
+    };
+    return HabilidadAnimada;
+})(Habilidad);
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "HabilidadAnimada.ts"/>
 var Flotar = (function (_super) {
@@ -3991,98 +3880,6 @@ var AnimarSiNoEstoyYa = (function (_super) {
     };
     return AnimarSiNoEstoyYa;
 })(ComportamientoAnimado);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "Errores.ts"/>
-/// <reference path = "../actores/ActorAnimado.ts"/>
-/// <reference path = "EstadosDeEscena.ts"/>
-// Esta escena sirve para todas las escenas de Ejercicios Pilas.
-// Toda escena que represente una actividad debe heredar de aquí.
-var EscenaActividad = (function (_super) {
-    __extends(EscenaActividad, _super);
-    function EscenaActividad() {
-        _super.apply(this, arguments);
-        this.estado = new Estado();
-        this.errorHandler = new ProductionErrorHandler(this);
-    }
-    /**
-     * Devuelve todos los nombres de archivo de imagen necesarios para
-     * poder correr la escena. De esta forma sólo se precargarán esas imágenes
-     * y no todas las existentes de todas las escenas.
-     * Es estático porque es necesario antes de la creación de la escena ó sus objetos.
-     */
-    EscenaActividad.imagenesPreCarga = function () {
-        var imgsPrecargar = this.pathFondo() ? [this.pathFondo()] : [];
-        this.clasesDeActoresInvolucrados().forEach(function (c) { return imgsPrecargar = imgsPrecargar.concat(c.imagenesPreCarga()); });
-        var imgs = imgsPrecargar.concat(this.imagenesAdicionales());
-        return this.faltanImagenes ? [] : imgs;
-    };
-    /**
-     * Devuelve las clases de los actores que hay en escena. Se le preguntará la imagen a precargar
-     * a cada una de esas clases.
-     * Pensado para redefinirse por escena.
-     */
-    EscenaActividad.clasesDeActoresInvolucrados = function () {
-        this.faltanImagenes = true;
-        return [];
-    };
-    ;
-    EscenaActividad.pathFondo = function () {
-        this.faltanImagenes = true;
-        return '';
-    };
-    /**
-     * Además de definir las clases de actores involucradas, las escenas pueden agregar
-     * nombres de archivo de imagen adicionales con este método.
-     * Pensado para redefinirse por escena.
-     */
-    EscenaActividad.imagenesAdicionales = function () {
-        return [];
-    };
-    EscenaActividad.prototype.actualizar = function () {
-        try {
-            _super.prototype.actualizar.call(this);
-        }
-        catch (e) {
-            this.errorHandler.handle(e);
-        }
-    };
-    EscenaActividad.prototype.estaResueltoElProblema = function () {
-        return this.estado.soyAceptacion();
-    };
-    // TODO: Deprecar, reemplazar por contarActoresConEtiqueta.
-    EscenaActividad.prototype.cantidadObjetosConEtiqueta = function (etiqueta) {
-        return pilas.obtener_actores_con_etiqueta(etiqueta).length;
-    };
-    EscenaActividad.prototype.personajePrincipal = function () {
-        return this.automata;
-    };
-    EscenaActividad.prototype.maxZ = function () {
-        return this.stage.children[0].z;
-    };
-    EscenaActividad.prototype.minZ = function () {
-        return this.stage.children[this.stage.children.length - 1].z;
-    };
-    EscenaActividad.prototype.obtenerActoresConEtiqueta = function (etiqueta) {
-        return this.obtenerActoresConEtiquetas([etiqueta]);
-    };
-    EscenaActividad.prototype.obtenerActoresConEtiquetas = function (etiquetas) {
-        return this.actores.filter(function (actor) { return etiquetas.some(function (etiqueta) { return actor.tiene_etiqueta(etiqueta); }); });
-    };
-    EscenaActividad.prototype.contarActoresConEtiqueta = function (etiqueta) {
-        return this.obtenerActoresConEtiqueta(etiqueta).length;
-    };
-    /**
-     * Computa un multiplicador que crece según la cantidad de filas y columnas de la cuadrícula.
-     * El multiplicador es 1 si la cuadrícula es de 1x1, y crece acotado por maxRatio.
-     * Es útil para aplicar un factor de escala a los elementos cuando las casillas son muy pequeñas.
-     */
-    EscenaActividad.prototype.escalaSegunCuadricula = function (maxRatio) {
-        return maxRatio - ((maxRatio - 1) / Math.max(this.cuadricula.cantFilas, this.cuadricula.cantColumnas));
-    };
-    EscenaActividad.faltanImagenes = false;
-    return EscenaActividad;
-})(Base);
-/// <reference path = "EscenaActividad.ts" />
 /**
 
 Qué son las FSM - Version clásica
@@ -4169,7 +3966,7 @@ var EstadoConTransicion = (function (_super) {
     EstadoConTransicion.prototype.realizarTransicion = function (idTransicion) {
         if (this.puedoTransicionarA(idTransicion)) {
             // console.log("Transicion:" + idTransicion + ", self:" + this.identifier + ", estado escena:" + pilas.escena_actual().estado.identifier + ", al estado:" + this.estadoSiguiente(comportamiento, idTransicion).identifier + ", comportamiento:" + comportamiento.constructor.name + ", receptor:" + comportamiento.receptor.constructor.name);
-            this.escena.estado = this.estadoSiguiente(idTransicion);
+            this.escena.setEstado(this.estadoSiguiente(idTransicion));
         }
         else if (idTransicion in this.errores) {
             throw new ActividadError(this.errores[idTransicion]);
@@ -5186,118 +4983,228 @@ var VolarHeroicamente = (function (_super) {
     };
     return VolarHeroicamente;
 })(ComportamientoConVelocidad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/BananaAnimada.ts" />
-/// <reference path = "../actores/ManzanaAnimada.ts" />
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "Errores.ts"/>
+/// <reference path = "../actores/ActorAnimado.ts"/>
+/// <reference path = "EstadosDeEscena.ts"/>
+// Esta escena sirve para todas las escenas de Ejercicios Pilas.
+// Toda escena que represente una actividad debe heredar de aquí.
+var EscenaActividad = (function (_super) {
+    __extends(EscenaActividad, _super);
+    function EscenaActividad() {
+        _super.apply(this, arguments);
+        this.estado = new Estado();
+        this.errorHandler = new ProductionErrorHandler(this);
+    }
+    /**
+     * Devuelve todos los nombres de archivo de imagen necesarios para
+     * poder correr la escena. De esta forma sólo se precargarán esas imágenes
+     * y no todas las existentes de todas las escenas.
+     * Es estático porque es necesario antes de la creación de la escena ó sus objetos.
+     */
+    EscenaActividad.imagenesPreCarga = function () {
+        var imgsPrecargar = this.pathFondo() ? [this.pathFondo()] : [];
+        this.clasesDeActoresInvolucrados().forEach(function (c) { return imgsPrecargar = imgsPrecargar.concat(c.imagenesPreCarga()); });
+        var imgs = imgsPrecargar.concat(this.imagenesAdicionales());
+        return this.faltanImagenes ? [] : imgs;
+    };
+    /**
+     * Devuelve las clases de los actores que hay en escena. Se le preguntará la imagen a precargar
+     * a cada una de esas clases.
+     * Pensado para redefinirse por escena.
+     */
+    EscenaActividad.clasesDeActoresInvolucrados = function () {
+        this.faltanImagenes = true;
+        return [];
+    };
+    EscenaActividad.pathFondo = function () {
+        this.faltanImagenes = true;
+        return '';
+    };
+    /**
+     * Además de definir las clases de actores involucradas, las escenas pueden agregar
+     * nombres de archivo de imagen adicionales con este método.
+     * Pensado para redefinirse por escena.
+     */
+    EscenaActividad.imagenesAdicionales = function () {
+        return [];
+    };
+    EscenaActividad.prototype.setFondo = function (fondo) {
+        this.fondo = fondo;
+    };
+    EscenaActividad.prototype.getFondo = function () {
+        return this.fondo;
+    };
+    EscenaActividad.prototype.setCuadricula = function (cuadricula) {
+        this.cuadricula = cuadricula;
+    };
+    EscenaActividad.prototype.getCuadricula = function () {
+        return this.cuadricula;
+    };
+    EscenaActividad.prototype.setAutomata = function (actor) {
+        this.automata = actor;
+    };
+    EscenaActividad.prototype.getAutomata = function () {
+        return this.automata;
+    };
+    EscenaActividad.prototype.setEstado = function (estado) {
+        this.estado = estado;
+    };
+    EscenaActividad.prototype.getEstado = function () {
+        return this.estado;
+    };
+    EscenaActividad.prototype.actualizar = function () {
+        try {
+            _super.prototype.actualizar.call(this);
+        }
+        catch (e) {
+            this.errorHandler.handle(e);
+        }
+    };
+    EscenaActividad.prototype.estaResueltoElProblema = function () {
+        return this.estado.soyAceptacion();
+    };
+    // TODO: Deprecar, reemplazar por contarActoresConEtiqueta.
+    EscenaActividad.prototype.cantidadObjetosConEtiqueta = function (etiqueta) {
+        return pilas.obtener_actores_con_etiqueta(etiqueta).length;
+    };
+    EscenaActividad.prototype.personajePrincipal = function () {
+        return this.automata;
+    };
+    EscenaActividad.prototype.maxZ = function () {
+        return this.stage.children[0].z;
+    };
+    EscenaActividad.prototype.minZ = function () {
+        return this.stage.children[this.stage.children.length - 1].z;
+    };
+    EscenaActividad.prototype.obtenerActoresConEtiqueta = function (etiqueta) {
+        return this.obtenerActoresConEtiquetas([etiqueta]);
+    };
+    EscenaActividad.prototype.obtenerActoresConEtiquetas = function (etiquetas) {
+        return this.actores.filter(function (actor) { return etiquetas.some(function (etiqueta) { return actor.tiene_etiqueta(etiqueta); }); });
+    };
+    EscenaActividad.prototype.contarActoresConEtiqueta = function (etiqueta) {
+        return this.obtenerActoresConEtiqueta(etiqueta).length;
+    };
+    /**
+     * Computa un multiplicador que crece según la cantidad de filas y columnas de la cuadrícula.
+     * El multiplicador es 1 si la cuadrícula es de 1x1, y crece acotado por maxRatio.
+     * Es útil para aplicar un factor de escala a los elementos cuando las casillas son muy pequeñas.
+     */
+    EscenaActividad.prototype.escalaSegunCuadricula = function (maxRatio) {
+        return maxRatio - ((maxRatio - 1) / Math.max(this.cuadricula.cantFilas, this.cuadricula.cantColumnas));
+    };
+    EscenaActividad.faltanImagenes = false;
+    return EscenaActividad;
+})(Base);
+/// <reference path = "./EscenaActividad.ts" />
 var AlienInicial = (function (_super) {
     __extends(AlienInicial, _super);
     function AlienInicial() {
         _super.apply(this, arguments);
     }
     AlienInicial.prototype.iniciar = function () {
-        this.estado = this.armarEstado();
-        this.fondo = new Fondo('fondos.alien-inicial.png', 0, 0);
-        this.cuadricula = new Cuadricula(-25, -200, 1, 4, { alto: 25, ancho: (pilas.opciones.ancho * 0.8) }, { grilla: 'invisible.png', cantColumnas: 1 });
-        this.fondoCuadricula = new Actor("camino-alien-boton.png", this.cuadricula.x, this.cuadricula.y);
-        this.fondoCuadricula.ancho = this.cuadricula.ancho;
-        this.automata = new AlienAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0, false);
-        this.boton = new BotonAnimado(0, 0);
-        this.boton.derecha = this.cuadricula.derecha + 25;
-        this.boton.abajo = this.cuadricula.arriba;
+        this.setFondo(new Fondo('fondos.alien-inicial.png', 0, 0));
+        this.setCuadricula(new Cuadricula(-25, -200, 1, 4, { alto: 25, ancho: (pilas.opciones.ancho * 0.8) }, { grilla: 'invisible.png', cantColumnas: 1 }));
+        this.gridBackground = new Actor("camino-alien-boton.png", this.getCuadricula().getX(), this.getCuadricula().getY());
+        this.gridBackground.setAncho(this.getCuadricula().getAncho());
+        this.setAutomata(new AlienAnimado(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 0, 0, false);
+        this.button = new BotonAnimado(0, 0);
+        this.button.setDerecha(this.getCuadricula().getDerecha() + 25);
+        this.button.setAbajo(this.getCuadricula().getArriba());
+        this.buildState();
     };
-    AlienInicial.prototype.armarEstado = function () {
-        var a = new BuilderStatePattern(this, 'inicial');
-        a.agregarEstadoAceptacion('final');
-        a.agregarTransicion('inicial', 'final', 'apretarBoton');
-        return a.estadoInicial();
+    AlienInicial.prototype.buildState = function () {
+        var stateBuilder = new BuilderStatePattern(this, 'botonApagado');
+        stateBuilder.agregarEstadoAceptacion('botonEncendido');
+        stateBuilder.agregarTransicion('botonApagado', 'botonEncendido', 'apretarBoton');
+        this.setEstado(stateBuilder.estadoInicial());
     };
     return AlienInicial;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var AlienLevantaTuercas = (function (_super) {
     __extends(AlienLevantaTuercas, _super);
     function AlienLevantaTuercas() {
         _super.apply(this, arguments);
     }
     AlienLevantaTuercas.prototype.iniciar = function () {
-        var _this = this;
-        this.estado = new Estado(function () { return _this.cantidadObjetosConEtiqueta('TuercaAnimada') == 0; });
-        this.fondo = new pilas.fondos.Laberinto1();
-        this.cuadricula = new Cuadricula(0, -25, 5, 6, { alto: 400 }, { grilla: 'invisible.png',
-            cantColumnas: 1 });
-        this.automata = new AlienAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 4, 0, false);
+        this.setFondo(new pilas.fondos.Laberinto1());
+        this.setCuadricula(new Cuadricula(0, -25, 5, 6, { alto: 400 }, { grilla: 'invisible.png', cantColumnas: 1 }));
+        this.setAutomata(new AlienAnimado(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 4, 0, false);
         for (var i = 0; i < 5; i++) {
-            var tuerca = new TuercaAnimada(0, 0);
-            this.cuadricula.agregarActorEnPerspectiva(tuerca, i, i);
-            //tuerca.aprender(Flotar,{'Desvio':10})
-            //tuerca.aprender(RotarContinuamente,{'gradosDeAumentoStep':1})
-            tuerca.aprender(Vibrar, { 'gradosDeAumentoStep': 2, 'tiempoVibracion': 40 });
-            tuerca.escala = 1.0;
+            var nut = new TuercaAnimada(0, 0);
+            this.getCuadricula().agregarActorEnPerspectiva(nut, i, i);
+            nut.aprender(Vibrar, { 'gradosDeAumentoStep': 2, 'tiempoVibracion': 40 });
+            nut.setEscala(1.0);
         }
+        this.buildState();
+    };
+    AlienLevantaTuercas.prototype.buildState = function () {
+        var _this = this;
+        this.setEstado(new Estado(function () { return _this.cantidadObjetosConEtiqueta('TuercaAnimada') == 0; }));
     };
     AlienLevantaTuercas.prototype.moverIzquierda = function () {
-        this.automata.hacer_luego(MoverACasillaIzquierda);
+        this.getAutomata().hacer_luego(MoverACasillaIzquierda);
     };
     AlienLevantaTuercas.prototype.moverDerecha = function () {
-        this.automata.hacer_luego(MoverACasillaDerecha);
+        this.getAutomata().hacer_luego(MoverACasillaDerecha);
     };
     AlienLevantaTuercas.prototype.moverAbajo = function () {
-        this.automata.hacer_luego(MoverACasillaAbajo);
+        this.getAutomata().hacer_luego(MoverACasillaAbajo);
     };
     AlienLevantaTuercas.prototype.moverArriba = function () {
-        this.automata.hacer_luego(MoverACasillaArriba);
+        this.getAutomata().hacer_luego(MoverACasillaArriba);
     };
     AlienLevantaTuercas.prototype.levantaTuerca = function () {
-        this.automata.hacer_luego(Recolectar, { 'etiqueta': 'TuercaAnimada', 'mensajeError': 'No hay una tuerca aquí' });
+        this.getAutomata().hacer_luego(Recolectar, { 'etiqueta': 'TuercaAnimada', 'mensajeError': 'No hay una tuerca aquí' });
     };
     return AlienLevantaTuercas;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var AlimentandoALosPeces = (function (_super) {
     __extends(AlimentandoALosPeces, _super);
     function AlimentandoALosPeces() {
         _super.apply(this, arguments);
     }
     AlimentandoALosPeces.prototype.iniciar = function () {
-        this.cantidadFilas = 4;
-        this.cantidadColumnas = 5;
-        this.fondo = new Fondo('fondo.alimentando_peces.png.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, this.cantidadFilas, this.cantidadColumnas, { ancho: 328, alto: 262 }, { grilla: 'invisible.png',
-            cantColumnas: 1 });
-        this.automata = new BuzoAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata, this.cantidadFilas - 1, 0);
-        this.automata.aprender(Flotar, { Desvio: 2 });
-        this.alimento = new AlimentoAnimado(0, 0);
-        this.cuadricula.agregarActor(this.alimento, 1, this.cantidadColumnas - 1);
-        this.colocarPeces();
-        this.estado = this.generarEstadoInicial();
+        this.rowSize = 4;
+        this.columnSize = 5;
+        this.setFondo(new Fondo('fondo.alimentando_peces.png.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, this.rowSize, this.columnSize, { ancho: 328, alto: 262 }, { grilla: 'invisible.png', cantColumnas: 1 }));
+        this.setAutomata(new BuzoAnimado(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), this.rowSize - 1, 0);
+        this.getAutomata().aprender(Flotar, { Desvio: 2 });
+        this.food = new AlimentoAnimado(0, 0);
+        this.getCuadricula().agregarActor(this.food, 1, this.columnSize - 1);
+        this.setFood();
+        this.buildState();
     };
-    AlimentandoALosPeces.prototype.generarEstadoInicial = function () {
-        var builder = new BuilderStatePattern(this, 'inicial');
-        builder.agregarEstado('tengoLaComida');
-        builder.agregarEstadosPrefijados('alimentado', 1, 6);
-        builder.agregarEstadoAceptacion('alimentado7');
-        builder.agregarTransicion('inicial', 'tengoLaComida', 'recogerComida');
-        builder.agregarTransicion('tengoLaComida', 'alimentado1', 'alimentarPez');
-        builder.agregarTransicionesIteradas('alimentado', 'alimentado', 'alimentarPez', 1, 6, 2, 7);
-        builder.agregarError('inicial', 'alimentarPez', 'Debés recolectar primero el alimento');
-        return builder.estadoInicial();
+    AlimentandoALosPeces.prototype.buildState = function () {
+        var stateBuilder = new BuilderStatePattern(this, 'no tengo comida ni peces alimentados');
+        stateBuilder.agregarEstado('tengoLaComida');
+        stateBuilder.agregarEstadosPrefijados('alimentado', 1, 6);
+        stateBuilder.agregarEstadoAceptacion('alimentado7');
+        stateBuilder.agregarTransicion('no tengo comida ni peces alimentados', 'tengoLaComida', 'recogerComida');
+        stateBuilder.agregarTransicion('tengoLaComida', 'alimentado1', 'alimentarPez');
+        stateBuilder.agregarTransicionesIteradas('alimentado', 'alimentado', 'alimentarPez', 1, 6, 2, 7);
+        stateBuilder.agregarError('no tengo comida ni peces alimentados', 'alimentarPez', 'Debés recolectar primero el alimento');
+        this.setEstado(stateBuilder.estadoInicial());
     };
-    AlimentandoALosPeces.prototype.colocarPeces = function () {
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), this.cantidadFilas - 1, 1);
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), this.cantidadFilas - 1, 2);
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), this.cantidadFilas - 1, 3);
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), 0, 0);
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), 0, 1);
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), 0, 2);
-        this.cuadricula.agregarActor(new PezAnimado(0, 0), 0, 3);
+    AlimentandoALosPeces.prototype.setFood = function () {
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), this.rowSize - 1, 1);
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), this.rowSize - 1, 2);
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), this.rowSize - 1, 3);
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 0);
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 1);
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 2);
+        this.getCuadricula().agregarActor(new PezAnimado(0, 0), 0, 3);
     };
     return AlimentandoALosPeces;
 })(EscenaActividad);
-/// <reference path = "../actores/CuadriculaEsparsa.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 /*Builder para una cuadricula esparsa con forma de camino*/
 var Camino = (function () {
     function Camino(x, y, direcciones, cantidadFilas, cantidadColumnas, opcionesCuadricula, opcionesCasilla) {
@@ -5456,8 +5363,152 @@ var CuadriculaParaRaton = (function (_super) {
     };
     return CuadriculaParaRaton;
 })(Camino);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-/// <reference path = "../Direct.ts" />
+/// <reference path = "./EscenaActividad.ts" />
+var DibujandoFiguras = (function (_super) {
+    __extends(DibujandoFiguras, _super);
+    function DibujandoFiguras() {
+        _super.apply(this, arguments);
+        this.anchoLinea = 6;
+    }
+    DibujandoFiguras.pathFondo = function () {
+        return 'fondo.dibujando.figuras.png';
+    };
+    DibujandoFiguras.prototype.iniciar = function () {
+        this.setFondo(new Fondo(this.constructor.pathFondo(), 0, 0));
+        this.setAutomata(new Dibujante());
+        this.getAutomata().setEscala(0.5);
+        this.getAutomata().setX(-150);
+        this.getAutomata().setY(100);
+        this.dibujoEsperado = DibujoLineal.desdePuntosSimples(this.puntosEsperados());
+        this.hacerDibujoPreexistente();
+        this.hacerDibujoEsperado();
+    };
+    /** Se puede completar en subclases para realizar un dibujo antes de trazar el dibujo esperado */
+    DibujandoFiguras.prototype.hacerDibujoPreexistente = function () {
+    };
+    DibujandoFiguras.prototype.hacerDibujoEsperado = function () {
+        this.pizarraFantasma = new Pizarra();
+        this.dibujoEsperado.dibujarEn(this.pizarraFantasma, this.colorDibujoEsperado(), this.anchoLinea);
+    };
+    DibujandoFiguras.prototype.dibujoRealizado = function () {
+        var _actor = this.getAutomata();
+        return _actor.pizarra ? DibujoLineal.desdePizarra(_actor.pizarra, true) : new DibujoLineal([]);
+    };
+    DibujandoFiguras.prototype.estaResueltoElProblema = function () {
+        return this.dibujoRealizado().igualA(this.dibujoEsperado.unificado());
+    };
+    DibujandoFiguras.prototype.colorDibujo = function () {
+        return pilas.colores.azuloscuro;
+    };
+    DibujandoFiguras.prototype.colorDibujoEsperado = function () {
+        return pilas.colores.grisclaro;
+    };
+    return DibujandoFiguras;
+})(EscenaActividad);
+var DibujandoCuadrado = (function (_super) {
+    __extends(DibujandoCuadrado, _super);
+    function DibujandoCuadrado() {
+        _super.apply(this, arguments);
+    }
+    DibujandoCuadrado.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }];
+    };
+    return DibujandoCuadrado;
+})(DibujandoFiguras);
+var Dibujando5CuadradosHorizontal = (function (_super) {
+    __extends(Dibujando5CuadradosHorizontal, _super);
+    function Dibujando5CuadradosHorizontal() {
+        _super.apply(this, arguments);
+    }
+    Dibujando5CuadradosHorizontal.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -105, y: 50 }, { x: -110, y: 50 }, { x: -115, y: 50 }, { x: -120, y: 50 }, { x: -125, y: 50 }, { x: -130, y: 50 }, { x: -135, y: 50 }, { x: -140, y: 50 }, { x: -145, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 55 }, { x: -150, y: 60 }, { x: -150, y: 65 }, { x: -150, y: 70 }, { x: -150, y: 75 }, { x: -150, y: 80 }, { x: -150, y: 85 }, { x: -150, y: 90 }, { x: -150, y: 95 }, { x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -95, y: 100 }, { x: -90, y: 100 }, { x: -85, y: 100 }, { x: -80, y: 100 }, { x: -75, y: 100 }, { x: -70, y: 100 }, { x: -65, y: 100 }, { x: -60, y: 100 }, { x: -55, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 95 }, { x: -50, y: 90 }, { x: -50, y: 85 }, { x: -50, y: 80 }, { x: -50, y: 75 }, { x: -50, y: 70 }, { x: -50, y: 65 }, { x: -50, y: 60 }, { x: -50, y: 55 }, { x: -50, y: 50 }, { x: -55, y: 50 }, { x: -60, y: 50 }, { x: -65, y: 50 }, { x: -70, y: 50 }, { x: -75, y: 50 }, { x: -80, y: 50 }, { x: -85, y: 50 }, { x: -90, y: 50 }, { x: -95, y: 50 }, { x: -100, y: 50 }, { x: -100, y: 55 }, { x: -100, y: 60 }, { x: -100, y: 65 }, { x: -100, y: 70 }, { x: -100, y: 75 }, { x: -100, y: 80 }, { x: -100, y: 85 }, { x: -100, y: 90 }, { x: -100, y: 95 }, { x: -100, y: 100 }, { x: -95, y: 100 }, { x: -90, y: 100 }, { x: -85, y: 100 }, { x: -80, y: 100 }, { x: -75, y: 100 }, { x: -70, y: 100 }, { x: -65, y: 100 }, { x: -60, y: 100 }, { x: -55, y: 100 }, { x: -50, y: 100 }, { x: -45, y: 100 }, { x: -40, y: 100 }, { x: -35, y: 100 }, { x: -30, y: 100 }, { x: -25, y: 100 }, { x: -20, y: 100 }, { x: -15, y: 100 }, { x: -10, y: 100 }, { x: -5, y: 100 }, { x: 0, y: 100 }, { x: 0, y: 95 }, { x: 0, y: 90 }, { x: 0, y: 85 }, { x: 0, y: 80 }, { x: 0, y: 75 }, { x: 0, y: 70 }, { x: 0, y: 65 }, { x: 0, y: 60 }, { x: 0, y: 55 }, { x: 0, y: 50 }, { x: -5, y: 50 }, { x: -10, y: 50 }, { x: -15, y: 50 }, { x: -20, y: 50 }, { x: -25, y: 50 }, { x: -30, y: 50 }, { x: -35, y: 50 }, { x: -40, y: 50 }, { x: -45, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 55 }, { x: -50, y: 60 }, { x: -50, y: 65 }, { x: -50, y: 70 }, { x: -50, y: 75 }, { x: -50, y: 80 }, { x: -50, y: 85 }, { x: -50, y: 90 }, { x: -50, y: 95 }, { x: -50, y: 100 }, { x: -45, y: 100 }, { x: -40, y: 100 }, { x: -35, y: 100 }, { x: -30, y: 100 }, { x: -25, y: 100 }, { x: -20, y: 100 }, { x: -15, y: 100 }, { x: -10, y: 100 }, { x: -5, y: 100 }, { x: 0, y: 100 }, { x: 5, y: 100 }, { x: 10, y: 100 }, { x: 15, y: 100 }, { x: 20, y: 100 }, { x: 25, y: 100 }, { x: 30, y: 100 }, { x: 35, y: 100 }, { x: 40, y: 100 }, { x: 45, y: 100 }, { x: 50, y: 100 }, { x: 50, y: 95 }, { x: 50, y: 90 }, { x: 50, y: 85 }, { x: 50, y: 80 }, { x: 50, y: 75 }, { x: 50, y: 70 }, { x: 50, y: 65 }, { x: 50, y: 60 }, { x: 50, y: 55 }, { x: 50, y: 50 }, { x: 45, y: 50 }, { x: 40, y: 50 }, { x: 35, y: 50 }, { x: 30, y: 50 }, { x: 25, y: 50 }, { x: 20, y: 50 }, { x: 15, y: 50 }, { x: 10, y: 50 }, { x: 5, y: 50 }, { x: 0, y: 50 }, { x: 0, y: 55 }, { x: 0, y: 60 }, { x: 0, y: 65 }, { x: 0, y: 70 }, { x: 0, y: 75 }, { x: 0, y: 80 }, { x: 0, y: 85 }, { x: 0, y: 90 }, { x: 0, y: 95 }, { x: 0, y: 100 }, { x: 5, y: 100 }, { x: 10, y: 100 }, { x: 15, y: 100 }, { x: 20, y: 100 }, { x: 25, y: 100 }, { x: 30, y: 100 }, { x: 35, y: 100 }, { x: 40, y: 100 }, { x: 45, y: 100 }, { x: 50, y: 100 }, { x: 55, y: 100 }, { x: 60, y: 100 }, { x: 65, y: 100 }, { x: 70, y: 100 }, { x: 75, y: 100 }, { x: 80, y: 100 }, { x: 85, y: 100 }, { x: 90, y: 100 }, { x: 95, y: 100 }, { x: 100, y: 100 }, { x: 100, y: 95 }, { x: 100, y: 90 }, { x: 100, y: 85 }, { x: 100, y: 80 }, { x: 100, y: 75 }, { x: 100, y: 70 }, { x: 100, y: 65 }, { x: 100, y: 60 }, { x: 100, y: 55 }, { x: 100, y: 50 }, { x: 95, y: 50 }, { x: 90, y: 50 }, { x: 85, y: 50 }, { x: 80, y: 50 }, { x: 75, y: 50 }, { x: 70, y: 50 }, { x: 65, y: 50 }, { x: 60, y: 50 }, { x: 55, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 55 }, { x: 50, y: 60 }, { x: 50, y: 65 }, { x: 50, y: 70 }, { x: 50, y: 75 }, { x: 50, y: 80 }, { x: 50, y: 85 }, { x: 50, y: 90 }, { x: 50, y: 95 }, { x: 50, y: 100 }, { x: 55, y: 100 }, { x: 60, y: 100 }, { x: 65, y: 100 }, { x: 70, y: 100 }, { x: 75, y: 100 }, { x: 80, y: 100 }, { x: 85, y: 100 }, { x: 90, y: 100 }, { x: 95, y: 100 }, { x: 100, y: 100 }];
+    };
+    return Dibujando5CuadradosHorizontal;
+})(DibujandoFiguras);
+var Dibujando5CuadradosDiagonal = (function (_super) {
+    __extends(Dibujando5CuadradosDiagonal, _super);
+    function Dibujando5CuadradosDiagonal() {
+        _super.apply(this, arguments);
+    }
+    Dibujando5CuadradosDiagonal.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -105, y: 50 }, { x: -110, y: 50 }, { x: -115, y: 50 }, { x: -120, y: 50 }, { x: -125, y: 50 }, { x: -130, y: 50 }, { x: -135, y: 50 }, { x: -140, y: 50 }, { x: -145, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 55 }, { x: -150, y: 60 }, { x: -150, y: 65 }, { x: -150, y: 70 }, { x: -150, y: 75 }, { x: -150, y: 80 }, { x: -150, y: 85 }, { x: -150, y: 90 }, { x: -150, y: 95 }, { x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -95, y: 50 }, { x: -90, y: 50 }, { x: -85, y: 50 }, { x: -80, y: 50 }, { x: -75, y: 50 }, { x: -70, y: 50 }, { x: -65, y: 50 }, { x: -60, y: 50 }, { x: -55, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 45 }, { x: -50, y: 40 }, { x: -50, y: 35 }, { x: -50, y: 30 }, { x: -50, y: 25 }, { x: -50, y: 20 }, { x: -50, y: 15 }, { x: -50, y: 10 }, { x: -50, y: 5 }, { x: -50, y: 0 }, { x: -55, y: 0 }, { x: -60, y: 0 }, { x: -65, y: 0 }, { x: -70, y: 0 }, { x: -75, y: 0 }, { x: -80, y: 0 }, { x: -85, y: 0 }, { x: -90, y: 0 }, { x: -95, y: 0 }, { x: -100, y: 0 }, { x: -100, y: 5 }, { x: -100, y: 10 }, { x: -100, y: 15 }, { x: -100, y: 20 }, { x: -100, y: 25 }, { x: -100, y: 30 }, { x: -100, y: 35 }, { x: -100, y: 40 }, { x: -100, y: 45 }, { x: -100, y: 50 }, { x: -95, y: 50 }, { x: -90, y: 50 }, { x: -85, y: 50 }, { x: -80, y: 50 }, { x: -75, y: 50 }, { x: -70, y: 50 }, { x: -65, y: 50 }, { x: -60, y: 50 }, { x: -55, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 45 }, { x: -50, y: 40 }, { x: -50, y: 35 }, { x: -50, y: 30 }, { x: -50, y: 25 }, { x: -50, y: 20 }, { x: -50, y: 15 }, { x: -50, y: 10 }, { x: -50, y: 5 }, { x: -50, y: 0 }, { x: -45, y: 0 }, { x: -40, y: 0 }, { x: -35, y: 0 }, { x: -30, y: 0 }, { x: -25, y: 0 }, { x: -20, y: 0 }, { x: -15, y: 0 }, { x: -10, y: 0 }, { x: -5, y: 0 }, { x: 0, y: 0 }, { x: 0, y: -5 }, { x: 0, y: -10 }, { x: 0, y: -15 }, { x: 0, y: -20 }, { x: 0, y: -25 }, { x: 0, y: -30 }, { x: 0, y: -35 }, { x: 0, y: -40 }, { x: 0, y: -45 }, { x: 0, y: -50 }, { x: -5, y: -50 }, { x: -10, y: -50 }, { x: -15, y: -50 }, { x: -20, y: -50 }, { x: -25, y: -50 }, { x: -30, y: -50 }, { x: -35, y: -50 }, { x: -40, y: -50 }, { x: -45, y: -50 }, { x: -50, y: -50 }, { x: -50, y: -45 }, { x: -50, y: -40 }, { x: -50, y: -35 }, { x: -50, y: -30 }, { x: -50, y: -25 }, { x: -50, y: -20 }, { x: -50, y: -15 }, { x: -50, y: -10 }, { x: -50, y: -5 }, { x: -50, y: 0 }, { x: -45, y: 0 }, { x: -40, y: 0 }, { x: -35, y: 0 }, { x: -30, y: 0 }, { x: -25, y: 0 }, { x: -20, y: 0 }, { x: -15, y: 0 }, { x: -10, y: 0 }, { x: -5, y: 0 }, { x: 0, y: 0 }, { x: 0, y: -5 }, { x: 0, y: -10 }, { x: 0, y: -15 }, { x: 0, y: -20 }, { x: 0, y: -25 }, { x: 0, y: -30 }, { x: 0, y: -35 }, { x: 0, y: -40 }, { x: 0, y: -45 }, { x: 0, y: -50 }, { x: 5, y: -50 }, { x: 10, y: -50 }, { x: 15, y: -50 }, { x: 20, y: -50 }, { x: 25, y: -50 }, { x: 30, y: -50 }, { x: 35, y: -50 }, { x: 40, y: -50 }, { x: 45, y: -50 }, { x: 50, y: -50 }, { x: 50, y: -55 }, { x: 50, y: -60 }, { x: 50, y: -65 }, { x: 50, y: -70 }, { x: 50, y: -75 }, { x: 50, y: -80 }, { x: 50, y: -85 }, { x: 50, y: -90 }, { x: 50, y: -95 }, { x: 50, y: -100 }, { x: 45, y: -100 }, { x: 40, y: -100 }, { x: 35, y: -100 }, { x: 30, y: -100 }, { x: 25, y: -100 }, { x: 20, y: -100 }, { x: 15, y: -100 }, { x: 10, y: -100 }, { x: 5, y: -100 }, { x: 0, y: -100 }, { x: 0, y: -95 }, { x: 0, y: -90 }, { x: 0, y: -85 }, { x: 0, y: -80 }, { x: 0, y: -75 }, { x: 0, y: -70 }, { x: 0, y: -65 }, { x: 0, y: -60 }, { x: 0, y: -55 }, { x: 0, y: -50 }, { x: 5, y: -50 }, { x: 10, y: -50 }, { x: 15, y: -50 }, { x: 20, y: -50 }, { x: 25, y: -50 }, { x: 30, y: -50 }, { x: 35, y: -50 }, { x: 40, y: -50 }, { x: 45, y: -50 }, { x: 50, y: -50 }, { x: 50, y: -55 }, { x: 50, y: -60 }, { x: 50, y: -65 }, { x: 50, y: -70 }, { x: 50, y: -75 }, { x: 50, y: -80 }, { x: 50, y: -85 }, { x: 50, y: -90 }, { x: 50, y: -95 }, { x: 50, y: -100 }, { x: 55, y: -100 }, { x: 60, y: -100 }, { x: 65, y: -100 }, { x: 70, y: -100 }, { x: 75, y: -100 }, { x: 80, y: -100 }, { x: 85, y: -100 }, { x: 90, y: -100 }, { x: 95, y: -100 }, { x: 100, y: -100 }, { x: 100, y: -105 }, { x: 100, y: -110 }, { x: 100, y: -115 }, { x: 100, y: -120 }, { x: 100, y: -125 }, { x: 100, y: -130 }, { x: 100, y: -135 }, { x: 100, y: -140 }, { x: 100, y: -145 }, { x: 100, y: -150 }, { x: 95, y: -150 }, { x: 90, y: -150 }, { x: 85, y: -150 }, { x: 80, y: -150 }, { x: 75, y: -150 }, { x: 70, y: -150 }, { x: 65, y: -150 }, { x: 60, y: -150 }, { x: 55, y: -150 }, { x: 50, y: -150 }, { x: 50, y: -145 }, { x: 50, y: -140 }, { x: 50, y: -135 }, { x: 50, y: -130 }, { x: 50, y: -125 }, { x: 50, y: -120 }, { x: 50, y: -115 }, { x: 50, y: -110 }, { x: 50, y: -105 }, { x: 50, y: -100 }, { x: 55, y: -100 }, { x: 60, y: -100 }, { x: 65, y: -100 }, { x: 70, y: -100 }, { x: 75, y: -100 }, { x: 80, y: -100 }, { x: 85, y: -100 }, { x: 90, y: -100 }, { x: 95, y: -100 }, { x: 100, y: -100 }, { x: 100, y: -105 }, { x: 100, y: -110 }, { x: 100, y: -115 }, { x: 100, y: -120 }, { x: 100, y: -125 }, { x: 100, y: -130 }, { x: 100, y: -135 }, { x: 100, y: -140 }, { x: 100, y: -145 }, { x: 100, y: -150 }];
+    };
+    return Dibujando5CuadradosDiagonal;
+})(DibujandoFiguras);
+var Dibujando4CuadradosInteriores = (function (_super) {
+    __extends(Dibujando4CuadradosInteriores, _super);
+    function Dibujando4CuadradosInteriores() {
+        _super.apply(this, arguments);
+    }
+    Dibujando4CuadradosInteriores.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -105, y: 50 }, { x: -110, y: 50 }, { x: -115, y: 50 }, { x: -120, y: 50 }, { x: -125, y: 50 }, { x: -130, y: 50 }, { x: -135, y: 50 }, { x: -140, y: 50 }, { x: -145, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 55 }, { x: -150, y: 60 }, { x: -150, y: 65 }, { x: -150, y: 70 }, { x: -150, y: 75 }, { x: -150, y: 80 }, { x: -150, y: 85 }, { x: -150, y: 90 }, { x: -150, y: 95 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }, { x: -135, y: 100 }, { x: -120, y: 100 }, { x: -105, y: 100 }, { x: -90, y: 100 }, { x: -75, y: 100 }, { x: -60, y: 100 }, { x: -45, y: 100 }, { x: -30, y: 100 }, { x: -15, y: 100 }, { x: 0, y: 100 }, { x: 0, y: 85 }, { x: 0, y: 70 }, { x: 0, y: 55 }, { x: 0, y: 40 }, { x: 0, y: 25 }, { x: 0, y: 10 }, { x: 0, y: -5 }, { x: 0, y: -20 }, { x: 0, y: -35 }, { x: 0, y: -50 }, { x: -15, y: -50 }, { x: -30, y: -50 }, { x: -45, y: -50 }, { x: -60, y: -50 }, { x: -75, y: -50 }, { x: -90, y: -50 }, { x: -105, y: -50 }, { x: -120, y: -50 }, { x: -135, y: -50 }, { x: -150, y: -50 }, { x: -150, y: -35 }, { x: -150, y: -20 }, { x: -150, y: -5 }, { x: -150, y: 10 }, { x: -150, y: 25 }, { x: -150, y: 40 }, { x: -150, y: 55 }, { x: -150, y: 70 }, { x: -150, y: 85 }, { x: -150, y: 100 }, { x: -130, y: 100 }, { x: -110, y: 100 }, { x: -90, y: 100 }, { x: -70, y: 100 }, { x: -50, y: 100 }, { x: -30, y: 100 }, { x: -10, y: 100 }, { x: 10, y: 100 }, { x: 30, y: 100 }, { x: 50, y: 100 }, { x: 50, y: 80 }, { x: 50, y: 60 }, { x: 50, y: 40 }, { x: 50, y: 20 }, { x: 50, y: 0 }, { x: 50, y: -20 }, { x: 50, y: -40 }, { x: 50, y: -60 }, { x: 50, y: -80 }, { x: 50, y: -100 }, { x: 30, y: -100 }, { x: 10, y: -100 }, { x: -10, y: -100 }, { x: -30, y: -100 }, { x: -50, y: -100 }, { x: -70, y: -100 }, { x: -90, y: -100 }, { x: -110, y: -100 }, { x: -130, y: -100 }, { x: -150, y: -100 }, { x: -150, y: -80 }, { x: -150, y: -60 }, { x: -150, y: -40 }, { x: -150, y: -20 }, { x: -150, y: 0 }, { x: -150, y: 20 }, { x: -150, y: 40 }, { x: -150, y: 60 }, { x: -150, y: 80 }, { x: -150, y: 100 }];
+    };
+    return Dibujando4CuadradosInteriores;
+})(DibujandoFiguras);
+var DibujandoCabezaElefante = (function (_super) {
+    __extends(DibujandoCabezaElefante, _super);
+    function DibujandoCabezaElefante() {
+        _super.apply(this, arguments);
+    }
+    DibujandoCabezaElefante.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -50, y: -5 }, { x: -50, y: -10 }, { x: -50, y: -15 }, { x: -50, y: -20 }, { x: -50, y: -25 }, { x: -50, y: -30 }, { x: -50, y: -35 }, { x: -50, y: -40 }, { x: -50, y: -45 }, { x: -50, y: -50 }, { x: -55, y: -50 }, { x: -60, y: -50 }, { x: -65, y: -50 }, { x: -70, y: -50 }, { x: -75, y: -50 }, { x: -80, y: -50 }, { x: -85, y: -50 }, { x: -90, y: -50 }, { x: -95, y: -50 }, { x: -100, y: -50 }, { x: -100, y: -45 }, { x: -100, y: -40 }, { x: -100, y: -35 }, { x: -100, y: -30 }, { x: -100, y: -25 }, { x: -100, y: -20 }, { x: -100, y: -15 }, { x: -100, y: -10 }, { x: -100, y: -5 }, { x: -100, y: 0 }, { x: -95, y: 0 }, { x: -90, y: 0 }, { x: -85, y: 0 }, { x: -80, y: 0 }, { x: -75, y: 0 }, { x: -70, y: 0 }, { x: -65, y: 0 }, { x: -60, y: 0 }, { x: -55, y: 0 }, { x: -50, y: 0 }, { x: -50, y: -5 }, { x: -50, y: -10 }, { x: -50, y: -15 }, { x: -50, y: -20 }, { x: -50, y: -25 }, { x: -50, y: -30 }, { x: -50, y: -35 }, { x: -50, y: -40 }, { x: -50, y: -45 }, { x: -50, y: -50 }, { x: -50, y: -55 }, { x: -50, y: -60 }, { x: -50, y: -65 }, { x: -50, y: -70 }, { x: -50, y: -75 }, { x: -50, y: -80 }, { x: -50, y: -85 }, { x: -50, y: -90 }, { x: -50, y: -95 }, { x: -50, y: -100 }, { x: -55, y: -100 }, { x: -60, y: -100 }, { x: -65, y: -100 }, { x: -70, y: -100 }, { x: -75, y: -100 }, { x: -80, y: -100 }, { x: -85, y: -100 }, { x: -90, y: -100 }, { x: -95, y: -100 }, { x: -100, y: -100 }, { x: -100, y: -95 }, { x: -100, y: -90 }, { x: -100, y: -85 }, { x: -100, y: -80 }, { x: -100, y: -75 }, { x: -100, y: -70 }, { x: -100, y: -65 }, { x: -100, y: -60 }, { x: -100, y: -55 }, { x: -100, y: -50 }, { x: -95, y: -50 }, { x: -90, y: -50 }, { x: -85, y: -50 }, { x: -80, y: -50 }, { x: -75, y: -50 }, { x: -70, y: -50 }, { x: -65, y: -50 }, { x: -60, y: -50 }, { x: -55, y: -50 }, { x: -50, y: -50 }, { x: -50, y: -55 }, { x: -50, y: -60 }, { x: -50, y: -65 }, { x: -50, y: -70 }, { x: -50, y: -75 }, { x: -50, y: -80 }, { x: -50, y: -85 }, { x: -50, y: -90 }, { x: -50, y: -95 }, { x: -50, y: -100 }, { x: -50, y: -105 }, { x: -50, y: -110 }, { x: -50, y: -115 }, { x: -50, y: -120 }, { x: -50, y: -125 }, { x: -50, y: -130 }, { x: -50, y: -135 }, { x: -50, y: -140 }, { x: -50, y: -145 }, { x: -50, y: -150 }, { x: -55, y: -150 }, { x: -60, y: -150 }, { x: -65, y: -150 }, { x: -70, y: -150 }, { x: -75, y: -150 }, { x: -80, y: -150 }, { x: -85, y: -150 }, { x: -90, y: -150 }, { x: -95, y: -150 }, { x: -100, y: -150 }, { x: -100, y: -145 }, { x: -100, y: -140 }, { x: -100, y: -135 }, { x: -100, y: -130 }, { x: -100, y: -125 }, { x: -100, y: -120 }, { x: -100, y: -115 }, { x: -100, y: -110 }, { x: -100, y: -105 }, { x: -100, y: -100 }, { x: -95, y: -100 }, { x: -90, y: -100 }, { x: -85, y: -100 }, { x: -80, y: -100 }, { x: -75, y: -100 }, { x: -70, y: -100 }, { x: -65, y: -100 }, { x: -60, y: -100 }, { x: -55, y: -100 }, { x: -50, y: -100 }, { x: -50, y: -105 }, { x: -50, y: -110 }, { x: -50, y: -115 }, { x: -50, y: -120 }, { x: -50, y: -125 }, { x: -50, y: -130 }, { x: -50, y: -135 }, { x: -50, y: -140 }, { x: -50, y: -145 }, { x: -50, y: -150 }, { x: -50, y: -155 }, { x: -50, y: -160 }, { x: -50, y: -165 }, { x: -50, y: -170 }, { x: -50, y: -175 }, { x: -50, y: -180 }, { x: -50, y: -185 }, { x: -50, y: -190 }, { x: -50, y: -195 }, { x: -50, y: -200 }, { x: -55, y: -200 }, { x: -60, y: -200 }, { x: -65, y: -200 }, { x: -70, y: -200 }, { x: -75, y: -200 }, { x: -80, y: -200 }, { x: -85, y: -200 }, { x: -90, y: -200 }, { x: -95, y: -200 }, { x: -100, y: -200 }, { x: -100, y: -195 }, { x: -100, y: -190 }, { x: -100, y: -185 }, { x: -100, y: -180 }, { x: -100, y: -175 }, { x: -100, y: -170 }, { x: -100, y: -165 }, { x: -100, y: -160 }, { x: -100, y: -155 }, { x: -100, y: -150 }, { x: -95, y: -150 }, { x: -90, y: -150 }, { x: -85, y: -150 }, { x: -80, y: -150 }, { x: -75, y: -150 }, { x: -70, y: -150 }, { x: -65, y: -150 }, { x: -60, y: -150 }, { x: -55, y: -150 }, { x: -50, y: -150 }, { x: -50, y: -155 }, { x: -50, y: -160 }, { x: -50, y: -165 }, { x: -50, y: -170 }, { x: -50, y: -175 }, { x: -50, y: -180 }, { x: -50, y: -185 }, { x: -50, y: -190 }, { x: -50, y: -195 }, { x: -50, y: -200 }];
+    };
+    return DibujandoCabezaElefante;
+})(DibujandoFiguras);
+var DibujandoHexagono = (function (_super) {
+    __extends(DibujandoHexagono, _super);
+    function DibujandoHexagono() {
+        _super.apply(this, arguments);
+    }
+    DibujandoHexagono.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -45, y: 91 }, { x: -40, y: 83 }, { x: -35, y: 74 }, { x: -30, y: 65 }, { x: -25, y: 57 }, { x: -20, y: 48 }, { x: -15, y: 39 }, { x: -10, y: 31 }, { x: -5, y: 22 }, { x: 0, y: 13 }, { x: -5, y: 5 }, { x: -10, y: -4 }, { x: -15, y: -13 }, { x: -20, y: -21 }, { x: -25, y: -30 }, { x: -30, y: -39 }, { x: -35, y: -47 }, { x: -40, y: -56 }, { x: -45, y: -65 }, { x: -50, y: -73 }, { x: -60, y: -73 }, { x: -70, y: -73 }, { x: -80, y: -73 }, { x: -90, y: -73 }, { x: -100, y: -73 }, { x: -110, y: -73 }, { x: -120, y: -73 }, { x: -130, y: -73 }, { x: -140, y: -73 }, { x: -150, y: -73 }, { x: -155, y: -65 }, { x: -160, y: -56 }, { x: -165, y: -47 }, { x: -170, y: -39 }, { x: -175, y: -30 }, { x: -180, y: -21 }, { x: -185, y: -13 }, { x: -190, y: -4 }, { x: -195, y: 5 }, { x: -200, y: 13 }, { x: -195, y: 22 }, { x: -190, y: 31 }, { x: -185, y: 39 }, { x: -180, y: 48 }, { x: -175, y: 57 }, { x: -170, y: 65 }, { x: -165, y: 74 }, { x: -160, y: 83 }, { x: -155, y: 91 }, { x: -150, y: 100 }];
+    };
+    return DibujandoHexagono;
+})(DibujandoFiguras);
+var DibujandoTrianguloEquilatero = (function (_super) {
+    __extends(DibujandoTrianguloEquilatero, _super);
+    function DibujandoTrianguloEquilatero() {
+        _super.apply(this, arguments);
+    }
+    DibujandoTrianguloEquilatero.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -55, y: 91 }, { x: -60, y: 83 }, { x: -65, y: 74 }, { x: -70, y: 65 }, { x: -75, y: 57 }, { x: -80, y: 48 }, { x: -85, y: 39 }, { x: -90, y: 31 }, { x: -95, y: 22 }, { x: -100, y: 13 }, { x: -105, y: 22 }, { x: -110, y: 31 }, { x: -115, y: 39 }, { x: -120, y: 48 }, { x: -125, y: 57 }, { x: -130, y: 65 }, { x: -135, y: 74 }, { x: -140, y: 83 }, { x: -145, y: 91 }, { x: -150, y: 100 }];
+    };
+    return DibujandoTrianguloEquilatero;
+})(DibujandoFiguras);
+var DibujandoPoligonosInteriores = (function (_super) {
+    __extends(DibujandoPoligonosInteriores, _super);
+    function DibujandoPoligonosInteriores() {
+        _super.apply(this, arguments);
+    }
+    DibujandoPoligonosInteriores.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -55, y: 91 }, { x: -60, y: 83 }, { x: -65, y: 74 }, { x: -70, y: 65 }, { x: -75, y: 57 }, { x: -80, y: 48 }, { x: -85, y: 39 }, { x: -90, y: 31 }, { x: -95, y: 22 }, { x: -100, y: 13 }, { x: -105, y: 22 }, { x: -110, y: 31 }, { x: -115, y: 39 }, { x: -120, y: 48 }, { x: -125, y: 57 }, { x: -130, y: 65 }, { x: -135, y: 74 }, { x: -140, y: 83 }, { x: -145, y: 91 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -47, y: 90 }, { x: -44, y: 81 }, { x: -41, y: 71 }, { x: -38, y: 62 }, { x: -35, y: 52 }, { x: -31, y: 43 }, { x: -28, y: 33 }, { x: -25, y: 24 }, { x: -22, y: 14 }, { x: -19, y: 5 }, { x: -27, y: -1 }, { x: -35, y: -7 }, { x: -43, y: -13 }, { x: -51, y: -19 }, { x: -60, y: -24 }, { x: -68, y: -30 }, { x: -76, y: -36 }, { x: -84, y: -42 }, { x: -92, y: -48 }, { x: -100, y: -54 }, { x: -108, y: -48 }, { x: -116, y: -42 }, { x: -124, y: -36 }, { x: -132, y: -30 }, { x: -140, y: -24 }, { x: -149, y: -19 }, { x: -157, y: -13 }, { x: -165, y: -7 }, { x: -173, y: -1 }, { x: -181, y: 5 }, { x: -178, y: 14 }, { x: -175, y: 24 }, { x: -172, y: 33 }, { x: -169, y: 43 }, { x: -165, y: 52 }, { x: -162, y: 62 }, { x: -159, y: 71 }, { x: -156, y: 81 }, { x: -153, y: 90 }, { x: -150, y: 100 }];
+    };
+    return DibujandoPoligonosInteriores;
+})(DibujandoFiguras);
+var DibujandoCuevaEstalagtitas = (function (_super) {
+    __extends(DibujandoCuevaEstalagtitas, _super);
+    function DibujandoCuevaEstalagtitas() {
+        _super.apply(this, arguments);
+    }
+    DibujandoCuevaEstalagtitas.prototype.puntosEsperados = function () {
+        return [{ x: -150, y: 100 }, { x: -130, y: 100 }, { x: -110, y: 100 }, { x: -90, y: 100 }, { x: -70, y: 100 }, { x: -50, y: 100 }, { x: -30, y: 100 }, { x: -10, y: 100 }, { x: 10, y: 100 }, { x: 30, y: 100 }, { x: 50, y: 100 }, { x: 50, y: 80 }, { x: 50, y: 60 }, { x: 50, y: 40 }, { x: 50, y: 20 }, { x: 50, y: 0 }, { x: 50, y: -20 }, { x: 50, y: -40 }, { x: 50, y: -60 }, { x: 50, y: -80 }, { x: 50, y: -100 }, { x: 30, y: -100 }, { x: 10, y: -100 }, { x: -10, y: -100 }, { x: -30, y: -100 }, { x: -50, y: -100 }, { x: -70, y: -100 }, { x: -90, y: -100 }, { x: -110, y: -100 }, { x: -130, y: -100 }, { x: -150, y: -100 }, { x: -150, y: -80 }, { x: -150, y: -60 }, { x: -150, y: -40 }, { x: -150, y: -20 }, { x: -150, y: 0 }, { x: -150, y: 20 }, { x: -150, y: 40 }, { x: -150, y: 60 }, { x: -150, y: 80 }, { x: -150, y: 100 }, { x: -146, y: 100 }, { x: -142, y: 100 }, { x: -138, y: 100 }, { x: -134, y: 100 }, { x: -130, y: 100 }, { x: -126, y: 100 }, { x: -122, y: 100 }, { x: -118, y: 100 }, { x: -114, y: 100 }, { x: -110, y: 100 }, { x: -112, y: 97 }, { x: -114, y: 93 }, { x: -116, y: 90 }, { x: -118, y: 86 }, { x: -120, y: 83 }, { x: -122, y: 79 }, { x: -124, y: 76 }, { x: -126, y: 72 }, { x: -128, y: 69 }, { x: -130, y: 65 }, { x: -132, y: 69 }, { x: -134, y: 72 }, { x: -136, y: 76 }, { x: -138, y: 79 }, { x: -140, y: 83 }, { x: -142, y: 86 }, { x: -144, y: 90 }, { x: -146, y: 93 }, { x: -148, y: 97 }, { x: -150, y: 100 }, { x: -146, y: 100 }, { x: -142, y: 100 }, { x: -138, y: 100 }, { x: -134, y: 100 }, { x: -130, y: 100 }, { x: -126, y: 100 }, { x: -122, y: 100 }, { x: -118, y: 100 }, { x: -114, y: 100 }, { x: -110, y: 100 }, { x: -104, y: 100 }, { x: -98, y: 100 }, { x: -92, y: 100 }, { x: -86, y: 100 }, { x: -80, y: 100 }, { x: -74, y: 100 }, { x: -68, y: 100 }, { x: -62, y: 100 }, { x: -56, y: 100 }, { x: -50, y: 100 }, { x: -53, y: 95 }, { x: -56, y: 90 }, { x: -59, y: 84 }, { x: -62, y: 79 }, { x: -65, y: 74 }, { x: -68, y: 69 }, { x: -71, y: 64 }, { x: -74, y: 58 }, { x: -77, y: 53 }, { x: -80, y: 48 }, { x: -83, y: 53 }, { x: -86, y: 58 }, { x: -89, y: 64 }, { x: -92, y: 69 }, { x: -95, y: 74 }, { x: -98, y: 79 }, { x: -101, y: 84 }, { x: -104, y: 90 }, { x: -107, y: 95 }, { x: -110, y: 100 }, { x: -104, y: 100 }, { x: -98, y: 100 }, { x: -92, y: 100 }, { x: -86, y: 100 }, { x: -80, y: 100 }, { x: -74, y: 100 }, { x: -68, y: 100 }, { x: -62, y: 100 }, { x: -56, y: 100 }, { x: -50, y: 100 }, { x: -40, y: 100 }, { x: -30, y: 100 }, { x: -20, y: 100 }, { x: -10, y: 100 }, { x: 0, y: 100 }, { x: 10, y: 100 }, { x: 20, y: 100 }, { x: 30, y: 100 }, { x: 40, y: 100 }, { x: 50, y: 100 }, { x: 45, y: 91 }, { x: 40, y: 83 }, { x: 35, y: 74 }, { x: 30, y: 65 }, { x: 25, y: 57 }, { x: 20, y: 48 }, { x: 15, y: 39 }, { x: 10, y: 31 }, { x: 5, y: 22 }, { x: 0, y: 13 }, { x: -5, y: 22 }, { x: -10, y: 31 }, { x: -15, y: 39 }, { x: -20, y: 48 }, { x: -25, y: 57 }, { x: -30, y: 65 }, { x: -35, y: 74 }, { x: -40, y: 83 }, { x: -45, y: 91 }, { x: -50, y: 100 }];
+    };
+    return DibujandoCuevaEstalagtitas;
+})(DibujandoFiguras);
+var DibujandoLibremente = (function (_super) {
+    __extends(DibujandoLibremente, _super);
+    function DibujandoLibremente() {
+        _super.apply(this, arguments);
+    }
+    DibujandoLibremente.prototype.puntosEsperados = function () {
+        return [];
+    };
+    DibujandoLibremente.prototype.estaResueltoElProblema = function () {
+        return false;
+    };
+    return DibujandoLibremente;
+})(DibujandoFiguras);
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * Aquí se proveen algunas abstracciones que sirven para dibujar en una Pizarra.
  * Es lo necesario para poder trabajar con dibujos (lineales) construidos a partir de una
@@ -5738,205 +5789,45 @@ var DibujoLineal = (function () {
     ;
     return DibujoLineal;
 })();
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "Dibujos.ts" />
-/// <reference path = "../actores/Dibujante.ts" />
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-var DibujandoFiguras = (function (_super) {
-    __extends(DibujandoFiguras, _super);
-    function DibujandoFiguras() {
-        _super.apply(this, arguments);
-        this.anchoLinea = 6;
-    }
-    DibujandoFiguras.pathFondo = function () {
-        return 'fondo.dibujando.figuras.png';
-    };
-    DibujandoFiguras.prototype.iniciar = function () {
-        this.fondo = new Fondo(this.constructor.pathFondo(), 0, 0);
-        this.crearAutomata();
-        this.dibujoEsperado = DibujoLineal.desdePuntosSimples(this.puntosEsperados());
-        this.hacerDibujoPreexistente();
-        this.hacerDibujoEsperado();
-    };
-    DibujandoFiguras.prototype.crearAutomata = function () {
-        this.automata = new Dibujante();
-        this.automata.escala = 0.5;
-        this.automata.x = -150;
-        this.automata.y = 100;
-    };
-    /** Se puede completar en subclases para realizar un dibujo antes de trazar el dibujo esperado */
-    DibujandoFiguras.prototype.hacerDibujoPreexistente = function () { };
-    DibujandoFiguras.prototype.hacerDibujoEsperado = function () {
-        this.pizarraFantasma = new Pizarra();
-        this.dibujoEsperado.dibujarEn(this.pizarraFantasma, this.colorDibujoEsperado(), this.anchoLinea);
-    };
-    DibujandoFiguras.prototype.dibujoRealizado = function () {
-        return this.automata.pizarra ?
-            DibujoLineal.desdePizarra(this.automata.pizarra, true) :
-            new DibujoLineal([]);
-    };
-    DibujandoFiguras.prototype.estaResueltoElProblema = function () {
-        return this.dibujoRealizado().igualA(this.dibujoEsperado.unificado());
-    };
-    DibujandoFiguras.prototype.colorDibujo = function () {
-        return pilas.colores.azuloscuro;
-    };
-    DibujandoFiguras.prototype.colorDibujoEsperado = function () {
-        return pilas.colores.grisclaro;
-    };
-    return DibujandoFiguras;
-})(EscenaActividad);
-// Puntos obtenidos haciendo:
-// pilas.escena_actual().automata.pizarra.puntosDeLineas().map(p => " {x:" + p.x.toString() +",y:" + p.y.toString() + "}").toString()
-var DibujandoCuadrado = (function (_super) {
-    __extends(DibujandoCuadrado, _super);
-    function DibujandoCuadrado() {
-        _super.apply(this, arguments);
-    }
-    DibujandoCuadrado.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }];
-    };
-    return DibujandoCuadrado;
-})(DibujandoFiguras);
-var Dibujando5CuadradosHorizontal = (function (_super) {
-    __extends(Dibujando5CuadradosHorizontal, _super);
-    function Dibujando5CuadradosHorizontal() {
-        _super.apply(this, arguments);
-    }
-    Dibujando5CuadradosHorizontal.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -105, y: 50 }, { x: -110, y: 50 }, { x: -115, y: 50 }, { x: -120, y: 50 }, { x: -125, y: 50 }, { x: -130, y: 50 }, { x: -135, y: 50 }, { x: -140, y: 50 }, { x: -145, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 55 }, { x: -150, y: 60 }, { x: -150, y: 65 }, { x: -150, y: 70 }, { x: -150, y: 75 }, { x: -150, y: 80 }, { x: -150, y: 85 }, { x: -150, y: 90 }, { x: -150, y: 95 }, { x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -95, y: 100 }, { x: -90, y: 100 }, { x: -85, y: 100 }, { x: -80, y: 100 }, { x: -75, y: 100 }, { x: -70, y: 100 }, { x: -65, y: 100 }, { x: -60, y: 100 }, { x: -55, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 95 }, { x: -50, y: 90 }, { x: -50, y: 85 }, { x: -50, y: 80 }, { x: -50, y: 75 }, { x: -50, y: 70 }, { x: -50, y: 65 }, { x: -50, y: 60 }, { x: -50, y: 55 }, { x: -50, y: 50 }, { x: -55, y: 50 }, { x: -60, y: 50 }, { x: -65, y: 50 }, { x: -70, y: 50 }, { x: -75, y: 50 }, { x: -80, y: 50 }, { x: -85, y: 50 }, { x: -90, y: 50 }, { x: -95, y: 50 }, { x: -100, y: 50 }, { x: -100, y: 55 }, { x: -100, y: 60 }, { x: -100, y: 65 }, { x: -100, y: 70 }, { x: -100, y: 75 }, { x: -100, y: 80 }, { x: -100, y: 85 }, { x: -100, y: 90 }, { x: -100, y: 95 }, { x: -100, y: 100 }, { x: -95, y: 100 }, { x: -90, y: 100 }, { x: -85, y: 100 }, { x: -80, y: 100 }, { x: -75, y: 100 }, { x: -70, y: 100 }, { x: -65, y: 100 }, { x: -60, y: 100 }, { x: -55, y: 100 }, { x: -50, y: 100 }, { x: -45, y: 100 }, { x: -40, y: 100 }, { x: -35, y: 100 }, { x: -30, y: 100 }, { x: -25, y: 100 }, { x: -20, y: 100 }, { x: -15, y: 100 }, { x: -10, y: 100 }, { x: -5, y: 100 }, { x: 0, y: 100 }, { x: 0, y: 95 }, { x: 0, y: 90 }, { x: 0, y: 85 }, { x: 0, y: 80 }, { x: 0, y: 75 }, { x: 0, y: 70 }, { x: 0, y: 65 }, { x: 0, y: 60 }, { x: 0, y: 55 }, { x: 0, y: 50 }, { x: -5, y: 50 }, { x: -10, y: 50 }, { x: -15, y: 50 }, { x: -20, y: 50 }, { x: -25, y: 50 }, { x: -30, y: 50 }, { x: -35, y: 50 }, { x: -40, y: 50 }, { x: -45, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 55 }, { x: -50, y: 60 }, { x: -50, y: 65 }, { x: -50, y: 70 }, { x: -50, y: 75 }, { x: -50, y: 80 }, { x: -50, y: 85 }, { x: -50, y: 90 }, { x: -50, y: 95 }, { x: -50, y: 100 }, { x: -45, y: 100 }, { x: -40, y: 100 }, { x: -35, y: 100 }, { x: -30, y: 100 }, { x: -25, y: 100 }, { x: -20, y: 100 }, { x: -15, y: 100 }, { x: -10, y: 100 }, { x: -5, y: 100 }, { x: 0, y: 100 }, { x: 5, y: 100 }, { x: 10, y: 100 }, { x: 15, y: 100 }, { x: 20, y: 100 }, { x: 25, y: 100 }, { x: 30, y: 100 }, { x: 35, y: 100 }, { x: 40, y: 100 }, { x: 45, y: 100 }, { x: 50, y: 100 }, { x: 50, y: 95 }, { x: 50, y: 90 }, { x: 50, y: 85 }, { x: 50, y: 80 }, { x: 50, y: 75 }, { x: 50, y: 70 }, { x: 50, y: 65 }, { x: 50, y: 60 }, { x: 50, y: 55 }, { x: 50, y: 50 }, { x: 45, y: 50 }, { x: 40, y: 50 }, { x: 35, y: 50 }, { x: 30, y: 50 }, { x: 25, y: 50 }, { x: 20, y: 50 }, { x: 15, y: 50 }, { x: 10, y: 50 }, { x: 5, y: 50 }, { x: 0, y: 50 }, { x: 0, y: 55 }, { x: 0, y: 60 }, { x: 0, y: 65 }, { x: 0, y: 70 }, { x: 0, y: 75 }, { x: 0, y: 80 }, { x: 0, y: 85 }, { x: 0, y: 90 }, { x: 0, y: 95 }, { x: 0, y: 100 }, { x: 5, y: 100 }, { x: 10, y: 100 }, { x: 15, y: 100 }, { x: 20, y: 100 }, { x: 25, y: 100 }, { x: 30, y: 100 }, { x: 35, y: 100 }, { x: 40, y: 100 }, { x: 45, y: 100 }, { x: 50, y: 100 }, { x: 55, y: 100 }, { x: 60, y: 100 }, { x: 65, y: 100 }, { x: 70, y: 100 }, { x: 75, y: 100 }, { x: 80, y: 100 }, { x: 85, y: 100 }, { x: 90, y: 100 }, { x: 95, y: 100 }, { x: 100, y: 100 }, { x: 100, y: 95 }, { x: 100, y: 90 }, { x: 100, y: 85 }, { x: 100, y: 80 }, { x: 100, y: 75 }, { x: 100, y: 70 }, { x: 100, y: 65 }, { x: 100, y: 60 }, { x: 100, y: 55 }, { x: 100, y: 50 }, { x: 95, y: 50 }, { x: 90, y: 50 }, { x: 85, y: 50 }, { x: 80, y: 50 }, { x: 75, y: 50 }, { x: 70, y: 50 }, { x: 65, y: 50 }, { x: 60, y: 50 }, { x: 55, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 55 }, { x: 50, y: 60 }, { x: 50, y: 65 }, { x: 50, y: 70 }, { x: 50, y: 75 }, { x: 50, y: 80 }, { x: 50, y: 85 }, { x: 50, y: 90 }, { x: 50, y: 95 }, { x: 50, y: 100 }, { x: 55, y: 100 }, { x: 60, y: 100 }, { x: 65, y: 100 }, { x: 70, y: 100 }, { x: 75, y: 100 }, { x: 80, y: 100 }, { x: 85, y: 100 }, { x: 90, y: 100 }, { x: 95, y: 100 }, { x: 100, y: 100 }];
-    };
-    return Dibujando5CuadradosHorizontal;
-})(DibujandoFiguras);
-var Dibujando5CuadradosDiagonal = (function (_super) {
-    __extends(Dibujando5CuadradosDiagonal, _super);
-    function Dibujando5CuadradosDiagonal() {
-        _super.apply(this, arguments);
-    }
-    Dibujando5CuadradosDiagonal.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -105, y: 50 }, { x: -110, y: 50 }, { x: -115, y: 50 }, { x: -120, y: 50 }, { x: -125, y: 50 }, { x: -130, y: 50 }, { x: -135, y: 50 }, { x: -140, y: 50 }, { x: -145, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 55 }, { x: -150, y: 60 }, { x: -150, y: 65 }, { x: -150, y: 70 }, { x: -150, y: 75 }, { x: -150, y: 80 }, { x: -150, y: 85 }, { x: -150, y: 90 }, { x: -150, y: 95 }, { x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -95, y: 50 }, { x: -90, y: 50 }, { x: -85, y: 50 }, { x: -80, y: 50 }, { x: -75, y: 50 }, { x: -70, y: 50 }, { x: -65, y: 50 }, { x: -60, y: 50 }, { x: -55, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 45 }, { x: -50, y: 40 }, { x: -50, y: 35 }, { x: -50, y: 30 }, { x: -50, y: 25 }, { x: -50, y: 20 }, { x: -50, y: 15 }, { x: -50, y: 10 }, { x: -50, y: 5 }, { x: -50, y: 0 }, { x: -55, y: 0 }, { x: -60, y: 0 }, { x: -65, y: 0 }, { x: -70, y: 0 }, { x: -75, y: 0 }, { x: -80, y: 0 }, { x: -85, y: 0 }, { x: -90, y: 0 }, { x: -95, y: 0 }, { x: -100, y: 0 }, { x: -100, y: 5 }, { x: -100, y: 10 }, { x: -100, y: 15 }, { x: -100, y: 20 }, { x: -100, y: 25 }, { x: -100, y: 30 }, { x: -100, y: 35 }, { x: -100, y: 40 }, { x: -100, y: 45 }, { x: -100, y: 50 }, { x: -95, y: 50 }, { x: -90, y: 50 }, { x: -85, y: 50 }, { x: -80, y: 50 }, { x: -75, y: 50 }, { x: -70, y: 50 }, { x: -65, y: 50 }, { x: -60, y: 50 }, { x: -55, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 45 }, { x: -50, y: 40 }, { x: -50, y: 35 }, { x: -50, y: 30 }, { x: -50, y: 25 }, { x: -50, y: 20 }, { x: -50, y: 15 }, { x: -50, y: 10 }, { x: -50, y: 5 }, { x: -50, y: 0 }, { x: -45, y: 0 }, { x: -40, y: 0 }, { x: -35, y: 0 }, { x: -30, y: 0 }, { x: -25, y: 0 }, { x: -20, y: 0 }, { x: -15, y: 0 }, { x: -10, y: 0 }, { x: -5, y: 0 }, { x: 0, y: 0 }, { x: 0, y: -5 }, { x: 0, y: -10 }, { x: 0, y: -15 }, { x: 0, y: -20 }, { x: 0, y: -25 }, { x: 0, y: -30 }, { x: 0, y: -35 }, { x: 0, y: -40 }, { x: 0, y: -45 }, { x: 0, y: -50 }, { x: -5, y: -50 }, { x: -10, y: -50 }, { x: -15, y: -50 }, { x: -20, y: -50 }, { x: -25, y: -50 }, { x: -30, y: -50 }, { x: -35, y: -50 }, { x: -40, y: -50 }, { x: -45, y: -50 }, { x: -50, y: -50 }, { x: -50, y: -45 }, { x: -50, y: -40 }, { x: -50, y: -35 }, { x: -50, y: -30 }, { x: -50, y: -25 }, { x: -50, y: -20 }, { x: -50, y: -15 }, { x: -50, y: -10 }, { x: -50, y: -5 }, { x: -50, y: 0 }, { x: -45, y: 0 }, { x: -40, y: 0 }, { x: -35, y: 0 }, { x: -30, y: 0 }, { x: -25, y: 0 }, { x: -20, y: 0 }, { x: -15, y: 0 }, { x: -10, y: 0 }, { x: -5, y: 0 }, { x: 0, y: 0 }, { x: 0, y: -5 }, { x: 0, y: -10 }, { x: 0, y: -15 }, { x: 0, y: -20 }, { x: 0, y: -25 }, { x: 0, y: -30 }, { x: 0, y: -35 }, { x: 0, y: -40 }, { x: 0, y: -45 }, { x: 0, y: -50 }, { x: 5, y: -50 }, { x: 10, y: -50 }, { x: 15, y: -50 }, { x: 20, y: -50 }, { x: 25, y: -50 }, { x: 30, y: -50 }, { x: 35, y: -50 }, { x: 40, y: -50 }, { x: 45, y: -50 }, { x: 50, y: -50 }, { x: 50, y: -55 }, { x: 50, y: -60 }, { x: 50, y: -65 }, { x: 50, y: -70 }, { x: 50, y: -75 }, { x: 50, y: -80 }, { x: 50, y: -85 }, { x: 50, y: -90 }, { x: 50, y: -95 }, { x: 50, y: -100 }, { x: 45, y: -100 }, { x: 40, y: -100 }, { x: 35, y: -100 }, { x: 30, y: -100 }, { x: 25, y: -100 }, { x: 20, y: -100 }, { x: 15, y: -100 }, { x: 10, y: -100 }, { x: 5, y: -100 }, { x: 0, y: -100 }, { x: 0, y: -95 }, { x: 0, y: -90 }, { x: 0, y: -85 }, { x: 0, y: -80 }, { x: 0, y: -75 }, { x: 0, y: -70 }, { x: 0, y: -65 }, { x: 0, y: -60 }, { x: 0, y: -55 }, { x: 0, y: -50 }, { x: 5, y: -50 }, { x: 10, y: -50 }, { x: 15, y: -50 }, { x: 20, y: -50 }, { x: 25, y: -50 }, { x: 30, y: -50 }, { x: 35, y: -50 }, { x: 40, y: -50 }, { x: 45, y: -50 }, { x: 50, y: -50 }, { x: 50, y: -55 }, { x: 50, y: -60 }, { x: 50, y: -65 }, { x: 50, y: -70 }, { x: 50, y: -75 }, { x: 50, y: -80 }, { x: 50, y: -85 }, { x: 50, y: -90 }, { x: 50, y: -95 }, { x: 50, y: -100 }, { x: 55, y: -100 }, { x: 60, y: -100 }, { x: 65, y: -100 }, { x: 70, y: -100 }, { x: 75, y: -100 }, { x: 80, y: -100 }, { x: 85, y: -100 }, { x: 90, y: -100 }, { x: 95, y: -100 }, { x: 100, y: -100 }, { x: 100, y: -105 }, { x: 100, y: -110 }, { x: 100, y: -115 }, { x: 100, y: -120 }, { x: 100, y: -125 }, { x: 100, y: -130 }, { x: 100, y: -135 }, { x: 100, y: -140 }, { x: 100, y: -145 }, { x: 100, y: -150 }, { x: 95, y: -150 }, { x: 90, y: -150 }, { x: 85, y: -150 }, { x: 80, y: -150 }, { x: 75, y: -150 }, { x: 70, y: -150 }, { x: 65, y: -150 }, { x: 60, y: -150 }, { x: 55, y: -150 }, { x: 50, y: -150 }, { x: 50, y: -145 }, { x: 50, y: -140 }, { x: 50, y: -135 }, { x: 50, y: -130 }, { x: 50, y: -125 }, { x: 50, y: -120 }, { x: 50, y: -115 }, { x: 50, y: -110 }, { x: 50, y: -105 }, { x: 50, y: -100 }, { x: 55, y: -100 }, { x: 60, y: -100 }, { x: 65, y: -100 }, { x: 70, y: -100 }, { x: 75, y: -100 }, { x: 80, y: -100 }, { x: 85, y: -100 }, { x: 90, y: -100 }, { x: 95, y: -100 }, { x: 100, y: -100 }, { x: 100, y: -105 }, { x: 100, y: -110 }, { x: 100, y: -115 }, { x: 100, y: -120 }, { x: 100, y: -125 }, { x: 100, y: -130 }, { x: 100, y: -135 }, { x: 100, y: -140 }, { x: 100, y: -145 }, { x: 100, y: -150 }];
-    };
-    return Dibujando5CuadradosDiagonal;
-})(DibujandoFiguras);
-var Dibujando4CuadradosInteriores = (function (_super) {
-    __extends(Dibujando4CuadradosInteriores, _super);
-    function Dibujando4CuadradosInteriores() {
-        _super.apply(this, arguments);
-    }
-    Dibujando4CuadradosInteriores.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -145, y: 100 }, { x: -140, y: 100 }, { x: -135, y: 100 }, { x: -130, y: 100 }, { x: -125, y: 100 }, { x: -120, y: 100 }, { x: -115, y: 100 }, { x: -110, y: 100 }, { x: -105, y: 100 }, { x: -100, y: 100 }, { x: -100, y: 95 }, { x: -100, y: 90 }, { x: -100, y: 85 }, { x: -100, y: 80 }, { x: -100, y: 75 }, { x: -100, y: 70 }, { x: -100, y: 65 }, { x: -100, y: 60 }, { x: -100, y: 55 }, { x: -100, y: 50 }, { x: -105, y: 50 }, { x: -110, y: 50 }, { x: -115, y: 50 }, { x: -120, y: 50 }, { x: -125, y: 50 }, { x: -130, y: 50 }, { x: -135, y: 50 }, { x: -140, y: 50 }, { x: -145, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 55 }, { x: -150, y: 60 }, { x: -150, y: 65 }, { x: -150, y: 70 }, { x: -150, y: 75 }, { x: -150, y: 80 }, { x: -150, y: 85 }, { x: -150, y: 90 }, { x: -150, y: 95 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }, { x: -135, y: 100 }, { x: -120, y: 100 }, { x: -105, y: 100 }, { x: -90, y: 100 }, { x: -75, y: 100 }, { x: -60, y: 100 }, { x: -45, y: 100 }, { x: -30, y: 100 }, { x: -15, y: 100 }, { x: 0, y: 100 }, { x: 0, y: 85 }, { x: 0, y: 70 }, { x: 0, y: 55 }, { x: 0, y: 40 }, { x: 0, y: 25 }, { x: 0, y: 10 }, { x: 0, y: -5 }, { x: 0, y: -20 }, { x: 0, y: -35 }, { x: 0, y: -50 }, { x: -15, y: -50 }, { x: -30, y: -50 }, { x: -45, y: -50 }, { x: -60, y: -50 }, { x: -75, y: -50 }, { x: -90, y: -50 }, { x: -105, y: -50 }, { x: -120, y: -50 }, { x: -135, y: -50 }, { x: -150, y: -50 }, { x: -150, y: -35 }, { x: -150, y: -20 }, { x: -150, y: -5 }, { x: -150, y: 10 }, { x: -150, y: 25 }, { x: -150, y: 40 }, { x: -150, y: 55 }, { x: -150, y: 70 }, { x: -150, y: 85 }, { x: -150, y: 100 }, { x: -130, y: 100 }, { x: -110, y: 100 }, { x: -90, y: 100 }, { x: -70, y: 100 }, { x: -50, y: 100 }, { x: -30, y: 100 }, { x: -10, y: 100 }, { x: 10, y: 100 }, { x: 30, y: 100 }, { x: 50, y: 100 }, { x: 50, y: 80 }, { x: 50, y: 60 }, { x: 50, y: 40 }, { x: 50, y: 20 }, { x: 50, y: 0 }, { x: 50, y: -20 }, { x: 50, y: -40 }, { x: 50, y: -60 }, { x: 50, y: -80 }, { x: 50, y: -100 }, { x: 30, y: -100 }, { x: 10, y: -100 }, { x: -10, y: -100 }, { x: -30, y: -100 }, { x: -50, y: -100 }, { x: -70, y: -100 }, { x: -90, y: -100 }, { x: -110, y: -100 }, { x: -130, y: -100 }, { x: -150, y: -100 }, { x: -150, y: -80 }, { x: -150, y: -60 }, { x: -150, y: -40 }, { x: -150, y: -20 }, { x: -150, y: 0 }, { x: -150, y: 20 }, { x: -150, y: 40 }, { x: -150, y: 60 }, { x: -150, y: 80 }, { x: -150, y: 100 }];
-    };
-    return Dibujando4CuadradosInteriores;
-})(DibujandoFiguras);
-var DibujandoCabezaElefante = (function (_super) {
-    __extends(DibujandoCabezaElefante, _super);
-    function DibujandoCabezaElefante() {
-        _super.apply(this, arguments);
-    }
-    DibujandoCabezaElefante.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -50, y: -5 }, { x: -50, y: -10 }, { x: -50, y: -15 }, { x: -50, y: -20 }, { x: -50, y: -25 }, { x: -50, y: -30 }, { x: -50, y: -35 }, { x: -50, y: -40 }, { x: -50, y: -45 }, { x: -50, y: -50 }, { x: -55, y: -50 }, { x: -60, y: -50 }, { x: -65, y: -50 }, { x: -70, y: -50 }, { x: -75, y: -50 }, { x: -80, y: -50 }, { x: -85, y: -50 }, { x: -90, y: -50 }, { x: -95, y: -50 }, { x: -100, y: -50 }, { x: -100, y: -45 }, { x: -100, y: -40 }, { x: -100, y: -35 }, { x: -100, y: -30 }, { x: -100, y: -25 }, { x: -100, y: -20 }, { x: -100, y: -15 }, { x: -100, y: -10 }, { x: -100, y: -5 }, { x: -100, y: 0 }, { x: -95, y: 0 }, { x: -90, y: 0 }, { x: -85, y: 0 }, { x: -80, y: 0 }, { x: -75, y: 0 }, { x: -70, y: 0 }, { x: -65, y: 0 }, { x: -60, y: 0 }, { x: -55, y: 0 }, { x: -50, y: 0 }, { x: -50, y: -5 }, { x: -50, y: -10 }, { x: -50, y: -15 }, { x: -50, y: -20 }, { x: -50, y: -25 }, { x: -50, y: -30 }, { x: -50, y: -35 }, { x: -50, y: -40 }, { x: -50, y: -45 }, { x: -50, y: -50 }, { x: -50, y: -55 }, { x: -50, y: -60 }, { x: -50, y: -65 }, { x: -50, y: -70 }, { x: -50, y: -75 }, { x: -50, y: -80 }, { x: -50, y: -85 }, { x: -50, y: -90 }, { x: -50, y: -95 }, { x: -50, y: -100 }, { x: -55, y: -100 }, { x: -60, y: -100 }, { x: -65, y: -100 }, { x: -70, y: -100 }, { x: -75, y: -100 }, { x: -80, y: -100 }, { x: -85, y: -100 }, { x: -90, y: -100 }, { x: -95, y: -100 }, { x: -100, y: -100 }, { x: -100, y: -95 }, { x: -100, y: -90 }, { x: -100, y: -85 }, { x: -100, y: -80 }, { x: -100, y: -75 }, { x: -100, y: -70 }, { x: -100, y: -65 }, { x: -100, y: -60 }, { x: -100, y: -55 }, { x: -100, y: -50 }, { x: -95, y: -50 }, { x: -90, y: -50 }, { x: -85, y: -50 }, { x: -80, y: -50 }, { x: -75, y: -50 }, { x: -70, y: -50 }, { x: -65, y: -50 }, { x: -60, y: -50 }, { x: -55, y: -50 }, { x: -50, y: -50 }, { x: -50, y: -55 }, { x: -50, y: -60 }, { x: -50, y: -65 }, { x: -50, y: -70 }, { x: -50, y: -75 }, { x: -50, y: -80 }, { x: -50, y: -85 }, { x: -50, y: -90 }, { x: -50, y: -95 }, { x: -50, y: -100 }, { x: -50, y: -105 }, { x: -50, y: -110 }, { x: -50, y: -115 }, { x: -50, y: -120 }, { x: -50, y: -125 }, { x: -50, y: -130 }, { x: -50, y: -135 }, { x: -50, y: -140 }, { x: -50, y: -145 }, { x: -50, y: -150 }, { x: -55, y: -150 }, { x: -60, y: -150 }, { x: -65, y: -150 }, { x: -70, y: -150 }, { x: -75, y: -150 }, { x: -80, y: -150 }, { x: -85, y: -150 }, { x: -90, y: -150 }, { x: -95, y: -150 }, { x: -100, y: -150 }, { x: -100, y: -145 }, { x: -100, y: -140 }, { x: -100, y: -135 }, { x: -100, y: -130 }, { x: -100, y: -125 }, { x: -100, y: -120 }, { x: -100, y: -115 }, { x: -100, y: -110 }, { x: -100, y: -105 }, { x: -100, y: -100 }, { x: -95, y: -100 }, { x: -90, y: -100 }, { x: -85, y: -100 }, { x: -80, y: -100 }, { x: -75, y: -100 }, { x: -70, y: -100 }, { x: -65, y: -100 }, { x: -60, y: -100 }, { x: -55, y: -100 }, { x: -50, y: -100 }, { x: -50, y: -105 }, { x: -50, y: -110 }, { x: -50, y: -115 }, { x: -50, y: -120 }, { x: -50, y: -125 }, { x: -50, y: -130 }, { x: -50, y: -135 }, { x: -50, y: -140 }, { x: -50, y: -145 }, { x: -50, y: -150 }, { x: -50, y: -155 }, { x: -50, y: -160 }, { x: -50, y: -165 }, { x: -50, y: -170 }, { x: -50, y: -175 }, { x: -50, y: -180 }, { x: -50, y: -185 }, { x: -50, y: -190 }, { x: -50, y: -195 }, { x: -50, y: -200 }, { x: -55, y: -200 }, { x: -60, y: -200 }, { x: -65, y: -200 }, { x: -70, y: -200 }, { x: -75, y: -200 }, { x: -80, y: -200 }, { x: -85, y: -200 }, { x: -90, y: -200 }, { x: -95, y: -200 }, { x: -100, y: -200 }, { x: -100, y: -195 }, { x: -100, y: -190 }, { x: -100, y: -185 }, { x: -100, y: -180 }, { x: -100, y: -175 }, { x: -100, y: -170 }, { x: -100, y: -165 }, { x: -100, y: -160 }, { x: -100, y: -155 }, { x: -100, y: -150 }, { x: -95, y: -150 }, { x: -90, y: -150 }, { x: -85, y: -150 }, { x: -80, y: -150 }, { x: -75, y: -150 }, { x: -70, y: -150 }, { x: -65, y: -150 }, { x: -60, y: -150 }, { x: -55, y: -150 }, { x: -50, y: -150 }, { x: -50, y: -155 }, { x: -50, y: -160 }, { x: -50, y: -165 }, { x: -50, y: -170 }, { x: -50, y: -175 }, { x: -50, y: -180 }, { x: -50, y: -185 }, { x: -50, y: -190 }, { x: -50, y: -195 }, { x: -50, y: -200 }];
-    };
-    return DibujandoCabezaElefante;
-})(DibujandoFiguras);
-var DibujandoHexagono = (function (_super) {
-    __extends(DibujandoHexagono, _super);
-    function DibujandoHexagono() {
-        _super.apply(this, arguments);
-    }
-    DibujandoHexagono.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -45, y: 91 }, { x: -40, y: 83 }, { x: -35, y: 74 }, { x: -30, y: 65 }, { x: -25, y: 57 }, { x: -20, y: 48 }, { x: -15, y: 39 }, { x: -10, y: 31 }, { x: -5, y: 22 }, { x: 0, y: 13 }, { x: -5, y: 5 }, { x: -10, y: -4 }, { x: -15, y: -13 }, { x: -20, y: -21 }, { x: -25, y: -30 }, { x: -30, y: -39 }, { x: -35, y: -47 }, { x: -40, y: -56 }, { x: -45, y: -65 }, { x: -50, y: -73 }, { x: -60, y: -73 }, { x: -70, y: -73 }, { x: -80, y: -73 }, { x: -90, y: -73 }, { x: -100, y: -73 }, { x: -110, y: -73 }, { x: -120, y: -73 }, { x: -130, y: -73 }, { x: -140, y: -73 }, { x: -150, y: -73 }, { x: -155, y: -65 }, { x: -160, y: -56 }, { x: -165, y: -47 }, { x: -170, y: -39 }, { x: -175, y: -30 }, { x: -180, y: -21 }, { x: -185, y: -13 }, { x: -190, y: -4 }, { x: -195, y: 5 }, { x: -200, y: 13 }, { x: -195, y: 22 }, { x: -190, y: 31 }, { x: -185, y: 39 }, { x: -180, y: 48 }, { x: -175, y: 57 }, { x: -170, y: 65 }, { x: -165, y: 74 }, { x: -160, y: 83 }, { x: -155, y: 91 }, { x: -150, y: 100 }];
-    };
-    return DibujandoHexagono;
-})(DibujandoFiguras);
-var DibujandoTrianguloEquilatero = (function (_super) {
-    __extends(DibujandoTrianguloEquilatero, _super);
-    function DibujandoTrianguloEquilatero() {
-        _super.apply(this, arguments);
-    }
-    DibujandoTrianguloEquilatero.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -55, y: 91 }, { x: -60, y: 83 }, { x: -65, y: 74 }, { x: -70, y: 65 }, { x: -75, y: 57 }, { x: -80, y: 48 }, { x: -85, y: 39 }, { x: -90, y: 31 }, { x: -95, y: 22 }, { x: -100, y: 13 }, { x: -105, y: 22 }, { x: -110, y: 31 }, { x: -115, y: 39 }, { x: -120, y: 48 }, { x: -125, y: 57 }, { x: -130, y: 65 }, { x: -135, y: 74 }, { x: -140, y: 83 }, { x: -145, y: 91 }, { x: -150, y: 100 }];
-    };
-    return DibujandoTrianguloEquilatero;
-})(DibujandoFiguras);
-var DibujandoPoligonosInteriores = (function (_super) {
-    __extends(DibujandoPoligonosInteriores, _super);
-    function DibujandoPoligonosInteriores() {
-        _super.apply(this, arguments);
-    }
-    DibujandoPoligonosInteriores.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -55, y: 91 }, { x: -60, y: 83 }, { x: -65, y: 74 }, { x: -70, y: 65 }, { x: -75, y: 57 }, { x: -80, y: 48 }, { x: -85, y: 39 }, { x: -90, y: 31 }, { x: -95, y: 22 }, { x: -100, y: 13 }, { x: -105, y: 22 }, { x: -110, y: 31 }, { x: -115, y: 39 }, { x: -120, y: 48 }, { x: -125, y: 57 }, { x: -130, y: 65 }, { x: -135, y: 74 }, { x: -140, y: 83 }, { x: -145, y: 91 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -50, y: 90 }, { x: -50, y: 80 }, { x: -50, y: 70 }, { x: -50, y: 60 }, { x: -50, y: 50 }, { x: -50, y: 40 }, { x: -50, y: 30 }, { x: -50, y: 20 }, { x: -50, y: 10 }, { x: -50, y: 0 }, { x: -60, y: 0 }, { x: -70, y: 0 }, { x: -80, y: 0 }, { x: -90, y: 0 }, { x: -100, y: 0 }, { x: -110, y: 0 }, { x: -120, y: 0 }, { x: -130, y: 0 }, { x: -140, y: 0 }, { x: -150, y: 0 }, { x: -150, y: 10 }, { x: -150, y: 20 }, { x: -150, y: 30 }, { x: -150, y: 40 }, { x: -150, y: 50 }, { x: -150, y: 60 }, { x: -150, y: 70 }, { x: -150, y: 80 }, { x: -150, y: 90 }, { x: -150, y: 100 }, { x: -140, y: 100 }, { x: -130, y: 100 }, { x: -120, y: 100 }, { x: -110, y: 100 }, { x: -100, y: 100 }, { x: -90, y: 100 }, { x: -80, y: 100 }, { x: -70, y: 100 }, { x: -60, y: 100 }, { x: -50, y: 100 }, { x: -47, y: 90 }, { x: -44, y: 81 }, { x: -41, y: 71 }, { x: -38, y: 62 }, { x: -35, y: 52 }, { x: -31, y: 43 }, { x: -28, y: 33 }, { x: -25, y: 24 }, { x: -22, y: 14 }, { x: -19, y: 5 }, { x: -27, y: -1 }, { x: -35, y: -7 }, { x: -43, y: -13 }, { x: -51, y: -19 }, { x: -60, y: -24 }, { x: -68, y: -30 }, { x: -76, y: -36 }, { x: -84, y: -42 }, { x: -92, y: -48 }, { x: -100, y: -54 }, { x: -108, y: -48 }, { x: -116, y: -42 }, { x: -124, y: -36 }, { x: -132, y: -30 }, { x: -140, y: -24 }, { x: -149, y: -19 }, { x: -157, y: -13 }, { x: -165, y: -7 }, { x: -173, y: -1 }, { x: -181, y: 5 }, { x: -178, y: 14 }, { x: -175, y: 24 }, { x: -172, y: 33 }, { x: -169, y: 43 }, { x: -165, y: 52 }, { x: -162, y: 62 }, { x: -159, y: 71 }, { x: -156, y: 81 }, { x: -153, y: 90 }, { x: -150, y: 100 }];
-    };
-    return DibujandoPoligonosInteriores;
-})(DibujandoFiguras);
-var DibujandoCuevaEstalagtitas = (function (_super) {
-    __extends(DibujandoCuevaEstalagtitas, _super);
-    function DibujandoCuevaEstalagtitas() {
-        _super.apply(this, arguments);
-    }
-    DibujandoCuevaEstalagtitas.prototype.puntosEsperados = function () {
-        return [{ x: -150, y: 100 }, { x: -130, y: 100 }, { x: -110, y: 100 }, { x: -90, y: 100 }, { x: -70, y: 100 }, { x: -50, y: 100 }, { x: -30, y: 100 }, { x: -10, y: 100 }, { x: 10, y: 100 }, { x: 30, y: 100 }, { x: 50, y: 100 }, { x: 50, y: 80 }, { x: 50, y: 60 }, { x: 50, y: 40 }, { x: 50, y: 20 }, { x: 50, y: 0 }, { x: 50, y: -20 }, { x: 50, y: -40 }, { x: 50, y: -60 }, { x: 50, y: -80 }, { x: 50, y: -100 }, { x: 30, y: -100 }, { x: 10, y: -100 }, { x: -10, y: -100 }, { x: -30, y: -100 }, { x: -50, y: -100 }, { x: -70, y: -100 }, { x: -90, y: -100 }, { x: -110, y: -100 }, { x: -130, y: -100 }, { x: -150, y: -100 }, { x: -150, y: -80 }, { x: -150, y: -60 }, { x: -150, y: -40 }, { x: -150, y: -20 }, { x: -150, y: 0 }, { x: -150, y: 20 }, { x: -150, y: 40 }, { x: -150, y: 60 }, { x: -150, y: 80 }, { x: -150, y: 100 }, { x: -146, y: 100 }, { x: -142, y: 100 }, { x: -138, y: 100 }, { x: -134, y: 100 }, { x: -130, y: 100 }, { x: -126, y: 100 }, { x: -122, y: 100 }, { x: -118, y: 100 }, { x: -114, y: 100 }, { x: -110, y: 100 }, { x: -112, y: 97 }, { x: -114, y: 93 }, { x: -116, y: 90 }, { x: -118, y: 86 }, { x: -120, y: 83 }, { x: -122, y: 79 }, { x: -124, y: 76 }, { x: -126, y: 72 }, { x: -128, y: 69 }, { x: -130, y: 65 }, { x: -132, y: 69 }, { x: -134, y: 72 }, { x: -136, y: 76 }, { x: -138, y: 79 }, { x: -140, y: 83 }, { x: -142, y: 86 }, { x: -144, y: 90 }, { x: -146, y: 93 }, { x: -148, y: 97 }, { x: -150, y: 100 }, { x: -146, y: 100 }, { x: -142, y: 100 }, { x: -138, y: 100 }, { x: -134, y: 100 }, { x: -130, y: 100 }, { x: -126, y: 100 }, { x: -122, y: 100 }, { x: -118, y: 100 }, { x: -114, y: 100 }, { x: -110, y: 100 }, { x: -104, y: 100 }, { x: -98, y: 100 }, { x: -92, y: 100 }, { x: -86, y: 100 }, { x: -80, y: 100 }, { x: -74, y: 100 }, { x: -68, y: 100 }, { x: -62, y: 100 }, { x: -56, y: 100 }, { x: -50, y: 100 }, { x: -53, y: 95 }, { x: -56, y: 90 }, { x: -59, y: 84 }, { x: -62, y: 79 }, { x: -65, y: 74 }, { x: -68, y: 69 }, { x: -71, y: 64 }, { x: -74, y: 58 }, { x: -77, y: 53 }, { x: -80, y: 48 }, { x: -83, y: 53 }, { x: -86, y: 58 }, { x: -89, y: 64 }, { x: -92, y: 69 }, { x: -95, y: 74 }, { x: -98, y: 79 }, { x: -101, y: 84 }, { x: -104, y: 90 }, { x: -107, y: 95 }, { x: -110, y: 100 }, { x: -104, y: 100 }, { x: -98, y: 100 }, { x: -92, y: 100 }, { x: -86, y: 100 }, { x: -80, y: 100 }, { x: -74, y: 100 }, { x: -68, y: 100 }, { x: -62, y: 100 }, { x: -56, y: 100 }, { x: -50, y: 100 }, { x: -40, y: 100 }, { x: -30, y: 100 }, { x: -20, y: 100 }, { x: -10, y: 100 }, { x: 0, y: 100 }, { x: 10, y: 100 }, { x: 20, y: 100 }, { x: 30, y: 100 }, { x: 40, y: 100 }, { x: 50, y: 100 }, { x: 45, y: 91 }, { x: 40, y: 83 }, { x: 35, y: 74 }, { x: 30, y: 65 }, { x: 25, y: 57 }, { x: 20, y: 48 }, { x: 15, y: 39 }, { x: 10, y: 31 }, { x: 5, y: 22 }, { x: 0, y: 13 }, { x: -5, y: 22 }, { x: -10, y: 31 }, { x: -15, y: 39 }, { x: -20, y: 48 }, { x: -25, y: 57 }, { x: -30, y: 65 }, { x: -35, y: 74 }, { x: -40, y: 83 }, { x: -45, y: 91 }, { x: -50, y: 100 }];
-    };
-    return DibujandoCuevaEstalagtitas;
-})(DibujandoFiguras);
-var DibujandoLibremente = (function (_super) {
-    __extends(DibujandoLibremente, _super);
-    function DibujandoLibremente() {
-        _super.apply(this, arguments);
-    }
-    DibujandoLibremente.prototype.puntosEsperados = function () {
-        return [];
-    };
-    DibujandoLibremente.prototype.estaResueltoElProblema = function () {
-        return false;
-    };
-    return DibujandoLibremente;
-})(DibujandoFiguras);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path="../actores/CuadriculaEsparsa.ts"/>
-/// <reference path="../actores/GloboAnimado.ts"/>
-/// <reference path="../actores/CangrejoAnimado.ts"/>
+/// <reference path = "./EscenaActividad.ts" />
 var ElCangrejoAguafiestas = (function (_super) {
     __extends(ElCangrejoAguafiestas, _super);
     function ElCangrejoAguafiestas() {
         _super.apply(this, arguments);
     }
     ElCangrejoAguafiestas.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.cangrejo_aguafiestas.png', 0, 0);
-        this.cantidadFilas = 5;
-        this.cantidadColumnas = 6;
+        this.setFondo(new Fondo('fondo.cangrejo_aguafiestas.png', 0, 0));
         var matriz = [
             ['T', 'T', 'T', 'T', 'T', 'T'],
             ['T', 'F', 'F', 'F', 'F', 'T'],
             ['T', 'T', 'T', 'T', 'T', 'T'],
             ['T', 'F', 'F', 'F', 'F', 'T'],
             ['T', 'T', 'T', 'T', 'T', 'T']];
-        this.cuadricula = new CuadriculaEsparsa(0, 15, { alto: 360, ancho: 400 }, { grilla: 'casilla.cangrejo_aguafiestas.png' }, matriz);
-        this.completarConGlobos();
-        this.automata = new CangrejoAnimado(0, 0);
-        this.automata.escala *= 1.2;
-        this.cuadricula.agregarActor(this.automata, 0, 0);
-        this.estado = new EstadoParaContarBuilder(this, 'explotar', 18).estadoInicial();
+        this.setCuadricula(new CuadriculaEsparsa(0, 15, { alto: 360, ancho: 400 }, { grilla: 'casilla.cangrejo_aguafiestas.png' }, matriz));
+        this.completeSceneWithBallons();
+        this.setAutomata(new CangrejoAnimado(0, 0));
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 1.2);
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, 0);
+        this.buildState();
     };
-    ElCangrejoAguafiestas.prototype.completarConGlobos = function () {
+    ElCangrejoAguafiestas.prototype.buildState = function () {
+        this.setEstado(new EstadoParaContarBuilder(this, 'explotar', 18).estadoInicial());
+    };
+    ElCangrejoAguafiestas.prototype.completeSceneWithBallons = function () {
         var _this = this;
-        this.cuadricula.forEachCasilla(function (c) { if (!c.esEsquina())
-            _this.agregarGlobo(c); });
+        this.getCuadricula().forEachCasilla(function (c) { if (!c.esEsquina())
+            _this.addBallon(c); });
     };
-    ElCangrejoAguafiestas.prototype.agregarGlobo = function (casilla) {
-        var globo = new GloboAnimado();
-        this.cuadricula.agregarActorEnCasilla(globo, casilla, false);
-        globo.y += 20;
-        globo.escala *= 0.8;
-        globo.aprender(Flotar, { Desvio: 5 });
+    ElCangrejoAguafiestas.prototype.addBallon = function (grid) {
+        var balloon = new GloboAnimado();
+        this.getCuadricula().agregarActorEnCasilla(balloon, grid, false);
+        balloon.y += 20;
+        balloon.escala *= 0.8;
+        balloon.aprender(Flotar, { Desvio: 5 });
     };
     return ElCangrejoAguafiestas;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Detective.ts" />
-/// <reference path = "../actores/Sospechoso.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../habilidades/Flotar.ts" />
-/// <reference path = "../comportamientos/Decir.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var ElDetectiveChaparro = (function (_super) {
     __extends(ElDetectiveChaparro, _super);
     function ElDetectiveChaparro() {
@@ -5944,25 +5835,26 @@ var ElDetectiveChaparro = (function (_super) {
     }
     ElDetectiveChaparro.prototype.iniciar = function () {
         var _this = this;
-        this.fondo = new Fondo('fondo.detective.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, -30, 1, 7, { ancho: 400, alto: 400 }, { grilla: 'invisible.png', cantColumnas: 1 });
+        this.setFondo(new Fondo('fondo.detective.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, -30, 1, 7, { ancho: 400, alto: 400 }, { grilla: 'invisible.png', cantColumnas: 1 }));
         Sospechoso.reiniciarDisfraces();
         var nroCulpable = Math.floor(Math.random() * 7);
-        [0, 1, 2, 3, 4, 5, 6].forEach(function (pos) {
+        var suspectValues = [0, 1, 2, 3, 4, 5, 6];
+        suspectValues.forEach(function (pos) {
             var sospechoso = new Sospechoso();
-            _this.cuadricula.agregarActor(sospechoso, 0, pos, false);
-            if (pos === nroCulpable)
+            _this.getCuadricula().agregarActor(sospechoso, 0, pos, false);
+            if (pos === nroCulpable) {
                 _this.culpable = sospechoso;
+            }
         });
         this.culpable.hacerCulpable();
-        this.automata = new Detective();
-        this.cuadricula.agregarActor(this.automata, 0, Math.floor(Math.random() * 7), false);
-        this.automata.y = -100;
-        this.automata.aprender(Flotar, {});
+        this.setAutomata(new Detective());
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, Math.floor(Math.random() * 7), false);
+        this.getAutomata().setY(-100);
+        this.getAutomata().aprender(Flotar, {});
     };
     ElDetectiveChaparro.prototype.estaResueltoElProblema = function () {
-        return this.automata.casillaActual() === this.culpable.casillaActual() &&
-            this.culpable.teEncontraron();
+        return this.getAutomata().casillaActual() === this.culpable.casillaActual() && this.culpable.teEncontraron();
     };
     return ElDetectiveChaparro;
 })(EscenaActividad);
@@ -5971,57 +5863,55 @@ var SacarDisfraz = (function (_super) {
     function SacarDisfraz() {
         _super.apply(this, arguments);
     }
-    SacarDisfraz.prototype.iniciar = function (receptorDetective) {
-        this.argumentos.receptor = receptorDetective.obtenerActorBajoLaLupa();
+    SacarDisfraz.prototype.iniciar = function (detective) {
+        this.argumentos.receptor = detective.obtenerActorBajoLaLupa();
         this.argumentos.receptor.sacarDisfraz();
         this.argumentos.mensaje = this.argumentos.receptor.mensajeAlSacarDisfraz();
-        _super.prototype.iniciar.call(this, receptorDetective);
+        _super.prototype.iniciar.call(this, detective);
     };
     return SacarDisfraz;
 })(Decir);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/GatoAnimado.ts" />}
+/// <reference path = "./EscenaActividad.ts" />
 var ElGatoEnLaCalle = (function (_super) {
     __extends(ElGatoEnLaCalle, _super);
     function ElGatoEnLaCalle() {
         _super.apply(this, arguments);
     }
     ElGatoEnLaCalle.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.gatoEnLaCalle.png', 0, 0);
-        this.automata = new GatoAnimado(0, -150);
-        this.construirFSM();
+        this.setFondo(new Fondo('fondo.gatoEnLaCalle.png', 0, 0));
+        this.setAutomata(new GatoAnimado(0, -150));
+        this.buildState();
     };
-    ElGatoEnLaCalle.prototype.construirFSM = function () {
+    ElGatoEnLaCalle.prototype.buildState = function () {
         // ver https://github.com/Program-AR/pilas-bloques/issues/187
-        var builder = new BuilderStatePattern(this, 'inicial', false);
-        builder.agregarEstado('posCorrecta', false);
-        builder.agregarEstado('semiDormido1', false);
-        builder.agregarEstado('semiDormido2', false);
-        builder.agregarEstado('dormido', false);
-        builder.agregarEstado('semiDespierto1', false);
-        builder.agregarEstado('semiDespierto2', false);
-        builder.agregarEstado('despierto', false);
-        builder.agregarEstado('saludado', false);
-        builder.agregarEstado('noResuelve', false);
-        builder.agregarEstadoAceptacion('fin');
-        builder.agregarTransicion('inicial', 'posCorrecta', 'avanzar');
-        builder.agregarTransicion('posCorrecta', 'semiDormido1', 'acostarse');
-        builder.agregarTransicion('posCorrecta', 'semiDormido2', 'cerrarOjos');
-        builder.agregarTransicion('semiDormido1', 'dormido', 'cerrarOjos');
-        builder.agregarTransicion('semiDormido2', 'dormido', 'acostarse');
-        builder.agregarTransicion('dormido', 'dormido', 'soniar');
-        builder.agregarTransicion('dormido', 'semiDespierto1', 'abrirOjos');
-        builder.agregarTransicion('dormido', 'semiDespierto2', 'levantarse');
-        builder.agregarTransicion('semiDespierto1', 'despierto', 'levantarse');
-        builder.agregarTransicion('semiDespierto2', 'despierto', 'abrirOjos');
-        builder.agregarTransicion('despierto', 'saludado', 'saludar');
-        builder.agregarTransicion('saludado', 'fin', 'volver');
-        this.estado = builder.estadoInicial();
+        var stateBuilder = new BuilderStatePattern(this, 'inicial', false);
+        stateBuilder.agregarEstado('posCorrecta', false);
+        stateBuilder.agregarEstado('semiDormido1', false);
+        stateBuilder.agregarEstado('semiDormido2', false);
+        stateBuilder.agregarEstado('dormido', false);
+        stateBuilder.agregarEstado('semiDespierto1', false);
+        stateBuilder.agregarEstado('semiDespierto2', false);
+        stateBuilder.agregarEstado('despierto', false);
+        stateBuilder.agregarEstado('saludado', false);
+        stateBuilder.agregarEstado('noResuelve', false);
+        stateBuilder.agregarEstadoAceptacion('fin');
+        stateBuilder.agregarTransicion('inicial', 'posCorrecta', 'avanzar');
+        stateBuilder.agregarTransicion('posCorrecta', 'semiDormido1', 'acostarse');
+        stateBuilder.agregarTransicion('posCorrecta', 'semiDormido2', 'cerrarOjos');
+        stateBuilder.agregarTransicion('semiDormido1', 'dormido', 'cerrarOjos');
+        stateBuilder.agregarTransicion('semiDormido2', 'dormido', 'acostarse');
+        stateBuilder.agregarTransicion('dormido', 'dormido', 'soniar');
+        stateBuilder.agregarTransicion('dormido', 'semiDespierto1', 'abrirOjos');
+        stateBuilder.agregarTransicion('dormido', 'semiDespierto2', 'levantarse');
+        stateBuilder.agregarTransicion('semiDespierto1', 'despierto', 'levantarse');
+        stateBuilder.agregarTransicion('semiDespierto2', 'despierto', 'abrirOjos');
+        stateBuilder.agregarTransicion('despierto', 'saludado', 'saludar');
+        stateBuilder.agregarTransicion('saludado', 'fin', 'volver');
+        this.setEstado(stateBuilder.estadoInicial());
     };
     return ElGatoEnLaCalle;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * @class ElMarcianoEnElDesierto
  *
@@ -6034,66 +5924,64 @@ var ElMarcianoEnElDesierto = (function (_super) {
         _super.apply(this, arguments);
     }
     ElMarcianoEnElDesierto.prototype.iniciar = function () {
-        var _this = this;
-        this.estado = new Estado(function () { return _this.cantidadObjetosConEtiqueta('ManzanaAnimada') == 0; });
-        this.fondo = new Fondo('fondo.elMarcianoEnElDesierto.png', 0, 0);
+        this.setFondo(new Fondo('fondo.elMarcianoEnElDesierto.png', 0, 0));
         var cantidadFilas = 4;
         var cantidadColumnas = 5;
-        this.cuadricula = new Cuadricula(0, -9, cantidadFilas, cantidadColumnas, { alto: 262, ancho: 330 }, { grilla: 'invisible.png' });
-        this.manzanas = [];
+        var apples = [];
+        this.setCuadricula(new Cuadricula(0, -9, cantidadFilas, cantidadColumnas, { alto: 262, ancho: 330 }, { grilla: 'invisible.png' }));
         var posiciones = [[0, 0], [0, 2], [0, 4], [1, 4], [2, 4], [3, 2], [3, 1]];
         for (var i = 0; i < posiciones.length; i++) {
-            var objeto = new ManzanaAnimada(0, 0, false);
-            posiciones[i];
-            this.cuadricula.agregarActor(objeto, posiciones[i][0], posiciones[i][1]);
-            objeto.escala *= 0.8;
-            this.manzanas.push(objeto);
+            var apple = new ManzanaAnimada(0, 0, false);
+            this.getCuadricula().agregarActor(apple, posiciones[i][0], posiciones[i][1]);
+            apple.escala *= 0.8;
+            apples.push(apple);
         }
-        this.automata = new MarcianoAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, cantidadFilas - 1, 0);
-        this.automata.escala = 0.8;
+        this.setAutomata(new MarcianoAnimado(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), cantidadFilas - 1, 0);
+        this.getAutomata().setEscala(0.8);
+        this.buildState();
+    };
+    ElMarcianoEnElDesierto.prototype.buildState = function () {
+        var _this = this;
+        this.setEstado(new Estado(function () { return _this.cantidadObjetosConEtiqueta('ManzanaAnimada') == 0; }));
     };
     return ElMarcianoEnElDesierto;
 })(EscenaActividad);
 /// <reference path = "EscenaActividad.ts" />
-/// <reference path="../actores/CuadriculaMultiple.ts"/>
-/// <reference path="../actores/ManzanaAnimada.ts"/>
-/// <reference path="../actores/BananaAnimada.ts"/>
-/// <reference path="../actores/MonoAnimado.ts"/>
-/// <reference path="../actores/Tablero.ts"/>
-/// <reference path="../actores/ObservadoAnimado.ts"/>
 var ElMonoQueSabeContar = (function (_super) {
     __extends(ElMonoQueSabeContar, _super);
     function ElMonoQueSabeContar() {
         _super.apply(this, arguments);
     }
     ElMonoQueSabeContar.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondos.selva.png', 0, 0);
-        this.cuadricula = new CuadriculaMultipleColumnas(new DefinidorColumnasRandom(5, 6), 0, -45, { separacionEntreCasillas: 5 }, { alto: 40, ancho: 40, grilla: 'casillamediomono.png', cantColumnas: 1 });
-        this.cuadricula.cambiarImagenInicio('casillainiciomono.png');
+        this.setFondo(new Fondo('fondos.selva.png', 0, 0));
+        this.setCuadricula(new CuadriculaMultipleColumnas(new DefinidorColumnasRandom(5, 6), 0, -45, { separacionEntreCasillas: 5 }, { alto: 40, ancho: 40, grilla: 'casillamediomono.png', cantColumnas: 1 }));
+        this.cuadriculaMultipleColumnas = this.getCuadricula();
+        this.cuadriculaMultipleColumnas.cambiarImagenInicio('casillainiciomono.png');
         this.cambiarImagenesFin();
-        this.cuadricula.completarConObjetosRandom(new ConjuntoClases([ManzanaAnimada, BananaAnimada]), { condiciones: [
+        this.cuadriculaMultipleColumnas.completarConObjetosRandom(new ConjuntoClases([ManzanaAnimada, BananaAnimada]), {
+            condiciones: [
                 function (casilla) { return casilla.hayArriba(); },
                 function (casilla) { return casilla.hayAbajo(); } //no incluye en ultima fila
                  //no incluye en ultima fila
-            ] });
-        this.automata = new MonoAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
-        this.automata.escala *= 1.5;
-        this.tableros = {};
-        this.tableros.ManzanaAnimada = new Tablero(150, 210, { texto: "Manzanas" });
-        this.tableros.BananaAnimada = new Tablero(-150, 210, { texto: "Bananas" });
+            ]
+        });
+        this.setAutomata(new MonoAnimado(0, 0));
+        this.cuadriculaMultipleColumnas.agregarActorEnPerspectiva(this.getAutomata(), 0, 0);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 1.5);
+        this.tableroConBananas = new Tablero(-150, 210, { texto: "Bananas" });
+        this.tableroConManzanas = new Tablero(150, 210, { texto: "Manzanas" });
     };
     ElMonoQueSabeContar.prototype.cambiarImagenesFin = function () {
-        this.cuadricula.cambiarImagenFin('casillafinalmono.png');
+        this.cuadriculaMultipleColumnas.cambiarImagenFin('casillafinalmono.png');
     };
     ElMonoQueSabeContar.prototype.estaResueltoElProblema = function () {
-        return this.cantidadObjetosConEtiqueta('BananaAnimada') === this.tableros.BananaAnimada.dameValor() &&
-            this.cantidadObjetosConEtiqueta('ManzanaAnimada') === this.tableros.ManzanaAnimada.dameValor();
+        return this.cantidadObjetosConEtiqueta('BananaAnimada') === this.tableroConBananas.dameValor() &&
+            this.cantidadObjetosConEtiqueta('ManzanaAnimada') === this.tableroConManzanas.dameValor();
     };
     return ElMonoQueSabeContar;
 })(EscenaActividad);
-/// <reference path="ElMonoQueSabeContar.ts"/>
+/// <reference path = "ElMonoQueSabeContar.ts" />
 var ElMonoCuentaDeNuevo = (function (_super) {
     __extends(ElMonoCuentaDeNuevo, _super);
     function ElMonoCuentaDeNuevo() {
@@ -6101,60 +5989,56 @@ var ElMonoCuentaDeNuevo = (function (_super) {
     }
     ElMonoCuentaDeNuevo.prototype.iniciar = function () {
         _super.prototype.iniciar.call(this);
-        this.tableros.largoFila = new Tablero(0, 210, { texto: "Largo Columna Actual", atributoObservado: 'largoColumnaActual2' });
-        Trait.toObject(Observado, this.automata);
-        this.automata.largoColumnaActual2 = function () { return this.largoColumnaActual() - 1; };
-        this.automata.registrarObservador(this.tableros.largoFila);
-        this.automata.setCasillaActualViejo = this.automata.setCasillaActual;
-        this.automata.setCasillaActual = function (c, m) {
+        this.tablero = new Tablero(0, 210, { texto: "Largo Columna Actual", atributoObservado: 'largoColumnaActual2' });
+        this.automataObservado = this.getAutomata();
+        Trait.toObject(Observado, this.automataObservado);
+        this.automataObservado.largoColumnaActual2 = function () { return this.largoColumnaActual() - 1; };
+        this.automataObservado.registrarObservador(this.tablero);
+        this.automataObservado.setCasillaActualViejo = this.getAutomata().setCasillaActual;
+        this.automataObservado.setCasillaActual = function (c, m) {
             this.setCasillaActualViejo(c, m);
             this.changed();
         };
-        this.automata.changed();
+        this.automataObservado.changed();
     };
     ElMonoCuentaDeNuevo.prototype.cambiarImagenesFin = function () {
         //No hace nada
     };
     return ElMonoCuentaDeNuevo;
 })(ElMonoQueSabeContar);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/BananaAnimada.ts" />
-/// <reference path = "../actores/ManzanaAnimada.ts" />
-/// <reference path = "../actores/MonoAnimado.ts" />
-/// <reference path = "../actores/FlechaEscenarioAleatorio.ts" />
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var LaEleccionDelMono = (function (_super) {
     __extends(LaEleccionDelMono, _super);
     function LaEleccionDelMono() {
         _super.apply(this, arguments);
     }
     LaEleccionDelMono.prototype.iniciar = function () {
-        var _this = this;
-        this.estado = new Estado(function () { return _this.cantidadObjetosConEtiqueta('BananaAnimada') == 0 && _this.cantidadObjetosConEtiqueta('ManzanaAnimada') == 0 && _this.automata.casillaActual().sos(0, 1); });
-        this.fondo = new Fondo('fondos.selva.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, 1, 2, { alto: 200 }, { grilla: 'casillas.violeta.png',
-            cantColumnas: 1 });
-        this.automata = new MonoAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0, false);
+        this.setFondo(new Fondo('fondos.selva.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, 1, 2, { alto: 200 }, { grilla: 'casillas.violeta.png', cantColumnas: 1 }));
+        this.setAutomata(new MonoAnimado(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 0, 0, false);
         this.agregarFruta();
         new FlechaEscenarioAleatorio();
+        this.buildState();
+    };
+    LaEleccionDelMono.prototype.buildState = function () {
+        var _this = this;
+        this.setEstado(new Estado(function () { return _this.cantidadObjetosConEtiqueta('BananaAnimada') == 0 && _this.cantidadObjetosConEtiqueta('ManzanaAnimada') == 0 && _this.getAutomata().casillaActual().sos(0, 1); }));
     };
     LaEleccionDelMono.prototype.agregarFruta = function () {
         if (Math.random() < .5) {
-            this.agregar(ManzanaAnimada);
+            this.agregar(new ManzanaAnimada(0, 0));
         }
         else {
-            this.agregar(BananaAnimada);
+            this.agregar(new BananaAnimada(0, 0));
         }
     };
-    LaEleccionDelMono.prototype.agregar = function (objeto) {
-        this.cuadricula.agregarActorEnPerspectiva(new objeto(0, 0), 0, 1, false);
+    LaEleccionDelMono.prototype.agregar = function (fruta) {
+        this.getCuadricula().agregarActorEnPerspectiva(fruta, 0, 1, false);
     };
     return LaEleccionDelMono;
 })(EscenaActividad);
 /// <reference path = "LaEleccionDelMono.ts" />
-/// <reference path = "../actores/BananaAnimada.ts" />
 var ElMonoYLasBananas = (function (_super) {
     __extends(ElMonoYLasBananas, _super);
     function ElMonoYLasBananas() {
@@ -6162,46 +6046,46 @@ var ElMonoYLasBananas = (function (_super) {
     }
     ElMonoYLasBananas.prototype.agregarFruta = function () {
         if (Math.random() < .5) {
-            this.agregar(BananaAnimada);
+            this.agregar(new BananaAnimada(0, 0));
         }
     };
     return ElMonoYLasBananas;
 })(LaEleccionDelMono);
-/// <reference path = "EscenaActividad.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var ElPlanetaDeNano = (function (_super) {
     __extends(ElPlanetaDeNano, _super);
     function ElPlanetaDeNano() {
         _super.apply(this, arguments);
-    }
-    ElPlanetaDeNano.prototype.iniciar = function () {
-        //this.recolector.izquierda = pilas.izquierda();
         this.cantidadFilas = 4;
         this.cantidadColumnas = 5;
-        this.fondo = new Fondo('fondos.elPlanetaDeNano.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, this.cantidadFilas, this.cantidadColumnas, { alto: 300, ancho: 300, separacionEntreCasillas: 3 }, { grilla: 'casillas.elPlanetaDeNano.png' });
-        this.automata = new NanoAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata, this.cantidadFilas - 1, 0);
-        this.automata.escala *= 1.8;
-        this.automata.y += 15;
+    }
+    ElPlanetaDeNano.prototype.iniciar = function () {
+        this.setFondo(new Fondo('fondos.elPlanetaDeNano.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, this.cantidadFilas, this.cantidadColumnas, { alto: 300, ancho: 300, separacionEntreCasillas: 3 }, { grilla: 'casillas.elPlanetaDeNano.png' }));
+        this.setAutomata(new NanoAnimado(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), this.cantidadFilas - 1, 0);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 1.8);
+        this.getAutomata().setY(this.getAutomata().getY() + 15);
+        this.tablero = new Tablero(150, 220, { texto: "Bananas" });
         this.secuenciaCaminata = new Secuencia({ 'secuencia': [new MoverACasillaIzquierda({})] });
-        this.secuenciaCaminata.iniciar(this.automata);
+        this.secuenciaCaminata.iniciar(this.getAutomata());
         this.completarConBananas();
         this.cantidadInicial = this.contarActoresConEtiqueta('BananaAnimada');
-        this.tablero = new Tablero(150, 220, { texto: "Bananas" });
     };
     ElPlanetaDeNano.prototype.actualizar = function () {
         _super.prototype.actualizar.call(this);
-        this.tablero.setearValor(this.cantidadRecolectadas());
+        if (this.tablero) {
+            this.tablero.setearValor(this.cantidadRecolectadas());
+        }
     };
     ElPlanetaDeNano.prototype.cantidadRecolectadas = function () {
-        var cantidadActual = this.contarActoresConEtiqueta('BananaAnimada');
-        return this.cantidadInicial - cantidadActual;
+        return this.cantidadInicial - this.contarActoresConEtiqueta('BananaAnimada');
     };
     ElPlanetaDeNano.prototype.completarConBananas = function () {
         var cantidad = [2, 4, 1, 3];
         for (var i = 0; i < this.cantidadFilas; i++) {
             for (var j = 1; j <= cantidad[i]; j++) {
-                this.cuadricula.agregarActor(new BananaAnimada(0, 0), i, j);
+                this.getCuadricula().agregarActor(new BananaAnimada(0, 0), i, j);
             }
         }
     };
@@ -6210,42 +6094,37 @@ var ElPlanetaDeNano = (function (_super) {
     };
     return ElPlanetaDeNano;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/RecolectorEstrellas.ts" />
-/// <reference path = "../habilidades/Flotar.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var ElRecolectorDeEstrellas = (function (_super) {
     __extends(ElRecolectorDeEstrellas, _super);
     function ElRecolectorDeEstrellas() {
         _super.apply(this, arguments);
+        this.cantidadFilas = 4;
+        this.cantidadColumnas = 5;
     }
     ElRecolectorDeEstrellas.prototype.iniciar = function () {
-        var _this = this;
-        this.estado = new Estado(function () { return _this.cantidadObjetosConEtiqueta('EstrellaAnimada') == 0; });
-        this.fondo = new Fondo('fondo.recolector.png', 0, 0);
-        //this.recolector.izquierda = pilas.izquierda();
-        var cantidadFilas = 4;
-        var cantidadColumnas = 5;
-        this.cuadricula = new Cuadricula(0, -20, cantidadFilas, cantidadColumnas, { alto: 400 }, {
-            grilla: 'invisible.png',
-            cantColumnas: 1
-        });
-        this.automata = new RecolectorEstrellas(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, cantidadFilas - 1, 0);
-        this.automata.aprender(Flotar, { Desvio: 5 });
+        this.setFondo(new Fondo('fondo.recolector.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, -20, this.cantidadFilas, this.cantidadColumnas, { alto: 400 }, { grilla: 'invisible.png', cantColumnas: 1 }));
+        this.setAutomata(new RecolectorEstrellas(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), this.cantidadFilas - 1, 0);
+        this.getAutomata().aprender(Flotar, { Desvio: 5 });
         // La posición inicial pretende respectar el ejemplo
-        this.objetos = [];
-        for (var fila = 0; fila < cantidadFilas; fila++) {
-            for (var columna = 1; columna < cantidadColumnas; columna++) {
-                var objeto = new EstrellaAnimada(0, 0);
-                this.cuadricula.agregarActor(objeto, fila, columna);
-                objeto.escala *= 0.7;
-                this.objetos.push(objeto);
+        for (var fila = 0; fila < this.cantidadFilas; fila++) {
+            for (var columna = 1; columna < this.cantidadColumnas; columna++) {
+                var star = new EstrellaAnimada(0, 0);
+                this.getCuadricula().agregarActor(star, fila, columna);
+                star.setEscala(star.getEscala() * 0.7);
             }
         }
+        this.buildState();
+    };
+    ElRecolectorDeEstrellas.prototype.buildState = function () {
+        var _this = this;
+        this.setEstado(new Estado(function () { return _this.cantidadObjetosConEtiqueta('EstrellaAnimada') == 0; }));
     };
     return ElRecolectorDeEstrellas;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var EscenaTests = (function (_super) {
     __extends(EscenaTests, _super);
     function EscenaTests() {
@@ -6255,132 +6134,117 @@ var EscenaTests = (function (_super) {
     };
     return EscenaTests;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path="../actores/ActorAnimado.ts"/>
-/// <reference path="../actores/CuadriculaMultiple.ts"/>
-/// <reference path = "EstadosDeEscena.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var FutbolRobots = (function (_super) {
     __extends(FutbolRobots, _super);
     function FutbolRobots() {
         _super.apply(this, arguments);
+        this.cantidadFilas = 8;
     }
     FutbolRobots.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondos.futbolRobots.png', 0, 0);
-        this.cantidadFilas = 8;
-        this.cuadricula = new CuadriculaMultiple(new DefinidorColumnasRandom(this.cantidadFilas, 6), 0, -50, { separacionEntreCasillas: 5 }, { grilla: 'casilla.futbolRobots2.png', alto: 40, ancho: 40 });
-        this.cuadricula.cambiarImagenInicio('casilla.futbolRobots1.png');
-        this.automata = new RobotAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata, 0, 0);
-        var casilla = this.cuadricula.casilla(0, 0);
-        this.automata.escalarAAlto(3.5 * casilla.alto);
-        this.automata.abajo = casilla.y - (0.25 * casilla.alto);
-        this.automata.radio_de_colision = this.automata.alto / 2.5;
+        this.setFondo(new Fondo('fondos.futbolRobots.png', 0, 0));
+        this.setCuadricula(new CuadriculaMultiple(new DefinidorColumnasRandom(this.cantidadFilas, 6), 0, -50, { separacionEntreCasillas: 5 }, { grilla: 'casilla.futbolRobots2.png', alto: 40, ancho: 40 }));
+        this.cuadriculaMultipleColumnas = this.getCuadricula();
+        this.cuadriculaMultipleColumnas.cambiarImagenInicio('casilla.futbolRobots1.png');
+        this.setAutomata(new RobotAnimado(0, 0));
+        this.cuadriculaMultipleColumnas.agregarActor(this.getAutomata(), 0, 0);
+        var casilla = this.cuadriculaMultipleColumnas.casilla(0, 0);
+        this.getAutomata().escalarAAlto(3.5 * casilla.getAlto());
+        this.getAutomata().setAbajo(casilla.getY() - (0.25 * casilla.getAlto()));
+        this.getAutomata().setRadioDeColision(this.getAutomata().getAlto() / 2.5);
         for (var fila = 0; fila < this.cantidadFilas; ++fila) {
-            this.cuadricula.agregarActor(new PelotaAnimada(0, 0), fila, this.cuadricula.dameIndexUltimaPosicion(fila));
+            this.cuadriculaMultipleColumnas.agregarActor(new PelotaAnimada(0, 0), fila, this.cuadriculaMultipleColumnas.dameIndexUltimaPosicion(fila));
         }
-        ;
-        this.estado = new EstadoParaContarBuilder(this, 'patear', this.cantidadFilas).estadoInicial();
+        this.buildState();
+    };
+    FutbolRobots.prototype.buildState = function () {
+        this.setEstado(new EstadoParaContarBuilder(this, 'patear', this.cantidadFilas).estadoInicial());
     };
     return FutbolRobots;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/CompuAnimada.ts" />
-/// <reference path = "../actores/InstaladorAnimado.ts" />
-/// <reference path = "../comportamientos/ComportamientoAnimado.ts" />
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var InstalandoJuegos = (function (_super) {
     __extends(InstalandoJuegos, _super);
     function InstalandoJuegos() {
         _super.apply(this, arguments);
     }
     InstalandoJuegos.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondos.biblioteca.png', 0, 0);
-        this.cuadricula = new Cuadricula(20, -50, 1, 4, { alto: 100, ancho: 400 }, { grilla: 'invisible.png', cantColumnas: 1 });
+        this.setFondo(new Fondo('fondos.biblioteca.png', 0, 0));
+        this.setCuadricula(new Cuadricula(20, -50, 1, 4, { alto: 100, ancho: 400 }, { grilla: 'invisible.png', cantColumnas: 1 }));
         for (var i = 1; i <= 3; ++i) {
-            this.cuadricula.agregarActor(new CompuAnimada(0, 0), 0, i);
+            this.getCuadricula().agregarActor(new CompuAnimada(0, 0), 0, i);
         }
-        this.colocarAutomata();
-        this.construirFSM();
+        this.setAutomata(new InstaladorAnimado(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, 0);
+        this.getAutomata().setEscala(1);
+        this.getAutomata().setX(-170);
+        this.getAutomata().setY(-70);
+        this.buildState();
     };
-    InstalandoJuegos.prototype.construirFSM = function () {
-        var builder = new BuilderStatePattern(this, 'inicial');
-        builder.agregarEstadosPrefijados('prendido', 1, 3);
-        builder.agregarEstadosPrefijados('escritoA', 1, 3);
-        builder.agregarEstadosPrefijados('escritoB', 1, 3);
-        builder.agregarEstadosPrefijados('escritoC', 1, 3);
-        builder.agregarEstadosPrefijados('juegoInstalado', 1, 3);
-        builder.agregarEstadosPrefijados('maquinaApagada', 1, 3);
-        builder.agregarEstadoAceptacion('todoInstalado');
-        builder.agregarTransicionesIteradas('prendido', 'escritoA', 'escribirA', 1, 3, 1, 3);
-        builder.agregarTransicionesIteradas('escritoA', 'escritoB', 'escribirB', 1, 3, 1, 3);
-        builder.agregarTransicionesIteradas('escritoB', 'escritoC', 'escribirC', 1, 3, 1, 3);
-        builder.agregarTransicionesIteradas('escritoC', 'juegoInstalado', 'instalar', 1, 3, 1, 3);
-        builder.agregarTransicionesIteradas('juegoInstalado', 'maquinaApagada', 'apagar', 1, 2, 1, 2);
-        builder.agregarTransicion('juegoInstalado3', 'todoInstalado', 'apagar');
-        builder.agregarTransicion('inicial', 'prendido1', 'prender');
-        builder.agregarTransicion('maquinaApagada1', 'prendido2', 'prender');
-        builder.agregarTransicion('maquinaApagada2', 'prendido3', 'prender');
-        builder.agregarError('inicial', 'instalar', 'Primero hay que prender la computadora');
-        builder.agregarError('inicial', 'escribirA', 'Primero hay que prender la computadora');
-        builder.agregarError('inicial', 'escribirB', 'Primero hay que prender la computadora');
-        builder.agregarError('inicial', 'escribirC', 'Primero hay que prender la computadora');
-        builder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'instalar', 'Primero hay que prender la computadora', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'escribirC', 'Primero hay que prender la computadora', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'escribirA', 'Primero hay que prender la computadora', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'escribirB', 'Primero hay que prender la computadora', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('prendido', 'escribirC', 'Esa no es la clave correcta', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('prendido', 'escribirB', 'Esa no es la clave correcta', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('escritoA', 'escribirC', 'Esa no es la clave correcta', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('escritoA', 'escribirA', 'Esa no es la clave correcta', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('escritoB', 'escribirB', 'Esa no es la clave correcta', 1, 3);
-        builder.agregarErrorAVariosEstadosDeSalida('escritoB', 'escribirA', 'Esa no es la clave correcta', 1, 3);
-        this.estado = builder.estadoInicial();
-    };
-    InstalandoJuegos.prototype.colocarAutomata = function () {
-        this.automata = new InstaladorAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata, 0, 0);
-        this.automata.escala = 1;
-        this.automata.y = -70;
-        this.automata.x = -170;
+    InstalandoJuegos.prototype.buildState = function () {
+        var stateBuilder = new BuilderStatePattern(this, 'inicial');
+        stateBuilder.agregarEstadosPrefijados('prendido', 1, 3);
+        stateBuilder.agregarEstadosPrefijados('escritoA', 1, 3);
+        stateBuilder.agregarEstadosPrefijados('escritoB', 1, 3);
+        stateBuilder.agregarEstadosPrefijados('escritoC', 1, 3);
+        stateBuilder.agregarEstadosPrefijados('juegoInstalado', 1, 3);
+        stateBuilder.agregarEstadosPrefijados('maquinaApagada', 1, 3);
+        stateBuilder.agregarEstadoAceptacion('todoInstalado');
+        stateBuilder.agregarTransicionesIteradas('prendido', 'escritoA', 'escribirA', 1, 3, 1, 3);
+        stateBuilder.agregarTransicionesIteradas('escritoA', 'escritoB', 'escribirB', 1, 3, 1, 3);
+        stateBuilder.agregarTransicionesIteradas('escritoB', 'escritoC', 'escribirC', 1, 3, 1, 3);
+        stateBuilder.agregarTransicionesIteradas('escritoC', 'juegoInstalado', 'instalar', 1, 3, 1, 3);
+        stateBuilder.agregarTransicionesIteradas('juegoInstalado', 'maquinaApagada', 'apagar', 1, 2, 1, 2);
+        stateBuilder.agregarTransicion('juegoInstalado3', 'todoInstalado', 'apagar');
+        stateBuilder.agregarTransicion('inicial', 'prendido1', 'prender');
+        stateBuilder.agregarTransicion('maquinaApagada1', 'prendido2', 'prender');
+        stateBuilder.agregarTransicion('maquinaApagada2', 'prendido3', 'prender');
+        stateBuilder.agregarError('inicial', 'instalar', 'Primero hay que prender la computadora');
+        stateBuilder.agregarError('inicial', 'escribirA', 'Primero hay que prender la computadora');
+        stateBuilder.agregarError('inicial', 'escribirB', 'Primero hay que prender la computadora');
+        stateBuilder.agregarError('inicial', 'escribirC', 'Primero hay que prender la computadora');
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'instalar', 'Primero hay que prender la computadora', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'escribirC', 'Primero hay que prender la computadora', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'escribirA', 'Primero hay que prender la computadora', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('maquinaApagada', 'escribirB', 'Primero hay que prender la computadora', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('prendido', 'escribirC', 'Esa no es la clave correcta', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('prendido', 'escribirB', 'Esa no es la clave correcta', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('escritoA', 'escribirC', 'Esa no es la clave correcta', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('escritoA', 'escribirA', 'Esa no es la clave correcta', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('escritoB', 'escribirB', 'Esa no es la clave correcta', 1, 3);
+        stateBuilder.agregarErrorAVariosEstadosDeSalida('escritoB', 'escribirA', 'Esa no es la clave correcta', 1, 3);
+        this.setEstado(stateBuilder.estadoInicial());
     };
     return InstalandoJuegos;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "Camino.ts" />
-/// <reference path = "../actores/RatonAnimado.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var LaberintoLargo = (function (_super) {
     __extends(LaberintoLargo, _super);
     function LaberintoLargo() {
         _super.apply(this, arguments);
+        this.cantidadFilas = 8;
+        this.cantidadColumnas = 8;
     }
     LaberintoLargo.prototype.iniciar = function () {
-        this.fondo = new Fondo(this.nombreFondo(), 0, 0);
-        this.cuadricula = new CuadriculaParaRaton(0, 0, this.cantidadFilas(), this.cantidadColumnas(), this.dameOpcionesCuadricula(), { '->': 'casillaDerecha.png', '<-': 'casillaIzquierda.png', 'v': 'casillaAbajo.png', '^': 'casillaArriba.png' }).dameCamino();
-        this.automata = new RatonAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata, 0, 0);
-        this.automata.escala *= 2;
-        this.automata.x -= 5;
+        this.setFondo(new Fondo(this.nombreFondo(), 0, 0));
+        this.setCuadricula(new CuadriculaParaRaton(0, 0, this.cantidadFilas, this.cantidadColumnas, this.dameOpcionesCuadricula(), { '->': 'casillaDerecha.png', '<-': 'casillaIzquierda.png', 'v': 'casillaAbajo.png', '^': 'casillaArriba.png' }).dameCamino());
+        this.setAutomata(new RatonAnimado(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, 0);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 2);
+        this.getAutomata().setX(this.getAutomata().getX() - 5);
     };
     LaberintoLargo.prototype.dameOpcionesCuadricula = function () {
         return { 'alto': 440, 'ancho': 400 };
-    };
-    LaberintoLargo.prototype.cantidadFilas = function () {
-        return 8;
-    };
-    LaberintoLargo.prototype.cantidadColumnas = function () {
-        return 8;
     };
     LaberintoLargo.prototype.nombreFondo = function () {
         return 'fondo.laberinto.largo.png';
     };
     LaberintoLargo.prototype.estaResueltoElProblema = function () {
-        return this.automata.alFinalDelCamino();
+        return this.getAutomata().alFinalDelCamino();
     };
     return LaberintoLargo;
 })(EscenaActividad);
 /// <reference path = "LaberintoLargo.ts" />
-/// <reference path="../actores/RatonAnimado.ts"/>
 var LaberintoConQueso = (function (_super) {
     __extends(LaberintoConQueso, _super);
     function LaberintoConQueso() {
@@ -6388,11 +6252,9 @@ var LaberintoConQueso = (function (_super) {
     }
     LaberintoConQueso.prototype.iniciar = function () {
         _super.prototype.iniciar.call(this);
-        this.cuadricula.completarConObjetosRandom(new ConjuntoClases([QuesoAnimado]), { condiciones: [
-                function (casilla) { return casilla.hayAbajo() || casilla.hayDerecha(); }
-            ]
-        });
-        this.automata.setZ(pilas.escena_actual().minZ() - 1);
+        this.cuadriculaEsparsa = this.getCuadricula();
+        this.cuadriculaEsparsa.completarConObjetosRandom(new ConjuntoClases([QuesoAnimado]), { condiciones: [function (casilla) { return casilla.hayAbajo() || casilla.hayDerecha(); }] });
+        this.getAutomata().setZ(pilas.escena_actual().minZ() - 1);
     };
     LaberintoConQueso.prototype.dameOpcionesCuadricula = function () {
         return { 'alto': 440, 'ancho': 400, 'largo_min': 3, 'largo_max': 15 };
@@ -6401,11 +6263,10 @@ var LaberintoConQueso = (function (_super) {
         return 'fondo.laberinto.queso.png';
     };
     LaberintoConQueso.prototype.estaResueltoElProblema = function () {
-        return this.automata.alFinalDelCamino() && this.contarActoresConEtiqueta('QuesoAnimado') == 0;
+        return this.getAutomata().alFinalDelCamino() && this.contarActoresConEtiqueta('QuesoAnimado') == 0;
     };
     return LaberintoConQueso;
 })(LaberintoLargo);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "../escenas/LaberintoLargo.ts"/>
 var LaberintoCorto = (function (_super) {
     __extends(LaberintoCorto, _super);
@@ -6413,14 +6274,10 @@ var LaberintoCorto = (function (_super) {
         _super.apply(this, arguments);
     }
     LaberintoCorto.prototype.iniciar = function () {
-        this.aDerecha = Math.random() < 0.5;
+        var aDerecha = Math.random() < 0.5;
+        this.cantidadFilas = aDerecha ? 1 : 2;
+        this.cantidadColumnas = aDerecha ? 2 : 1;
         _super.prototype.iniciar.call(this);
-    };
-    LaberintoCorto.prototype.cantidadFilas = function () {
-        return this.aDerecha ? 1 : 2;
-    };
-    LaberintoCorto.prototype.cantidadColumnas = function () {
-        return this.aDerecha ? 2 : 1;
     };
     LaberintoCorto.prototype.nombreFondo = function () {
         return 'fondo.laberinto.corto.png';
@@ -6430,15 +6287,7 @@ var LaberintoCorto = (function (_super) {
     };
     return LaberintoCorto;
 })(LaberintoLargo);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Frank.ts" />
-/// <reference path = "../actores/Bruja.ts" />
-/// <reference path = "../actores/Dracula.ts" />
-/// <reference path = "../actores/Tito.ts" />
-/// <reference path = "../actores/Murcielago.ts" />
-/// <reference path = "../habilidades/Flotar.ts" />
-/// <reference path = "../comportamientos/SecuenciaAnimada.ts" />
-/// <reference path = "../comportamientos/Interactuar.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var LaFiestaDeDracula = (function (_super) {
     __extends(LaFiestaDeDracula, _super);
     function LaFiestaDeDracula() {
@@ -6447,27 +6296,27 @@ var LaFiestaDeDracula = (function (_super) {
         this.bailarines = [];
     }
     LaFiestaDeDracula.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.fiestadracula.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 200, 1, 3, { alto: 100 }, { grilla: 'invisible.png', cantColumnas: 1 });
+        this.setFondo(new Fondo('fondo.fiestadracula.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 200, 1, 3, { alto: 100 }, { grilla: 'invisible.png', cantColumnas: 1 }));
         this.agregarAutomata();
         this.agregarFocos();
         this.agregarBailarines();
-        this.crearEstado();
+        this.buildState();
     };
     LaFiestaDeDracula.prototype.agregarAutomata = function () {
-        this.automata = new Murcielago();
-        this.cuadricula.agregarActor(this.automata, 0, 0, false);
-        this.automata.y -= 120;
-        this.automata.aprender(Flotar, { Desvio: 10 });
+        this.setAutomata(new Murcielago());
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, 0, false);
+        this.getAutomata().setY(this.getAutomata().getY() - 120);
+        this.getAutomata().aprender(Flotar, { Desvio: 10 });
     };
     LaFiestaDeDracula.prototype.agregarFocos = function () {
         this.focos.push(new Foco());
         this.focos.push(new Foco());
         this.focos.push(new Foco());
-        this.cuadricula.agregarActor(this.focos[0], 0, 0, false);
-        this.cuadricula.agregarActor(this.focos[1], 0, 1, false);
-        this.cuadricula.agregarActor(this.focos[2], 0, 2, false);
-        this.focos.forEach(function (f) { return f.y -= 30; });
+        this.getCuadricula().agregarActor(this.focos[0], 0, 0, false);
+        this.getCuadricula().agregarActor(this.focos[1], 0, 1, false);
+        this.getCuadricula().agregarActor(this.focos[2], 0, 2, false);
+        this.focos.forEach(function (foco) { return foco.setY(foco.getY() - 30); });
     };
     LaFiestaDeDracula.prototype.agregarBailarines = function () {
         this.bailarines.push(new Frank(-150, -150));
@@ -6476,13 +6325,13 @@ var LaFiestaDeDracula = (function (_super) {
         tito.definirAnimacion("parado", [0], 6, true);
         this.bailarines.push(tito);
         this.bailarines.push(new Dracula(150, -150));
-        this.bailarines.forEach(function (b) { return b.escala = 0.7; });
+        this.bailarines.forEach(function (bailarin) { return bailarin.setEscala(0.7); });
     };
-    LaFiestaDeDracula.prototype.crearEstado = function () {
-        var builder = new BuilderStatePattern(this, 'nadieBaila');
-        builder.agregarEstadoAceptacion('todosBailando');
-        builder.agregarTransicion('nadieBaila', 'todosBailando', 'empezarFiesta');
-        this.estado = builder.estadoInicial();
+    LaFiestaDeDracula.prototype.buildState = function () {
+        var stateBuilder = new BuilderStatePattern(this, 'nadieBaila');
+        stateBuilder.agregarEstadoAceptacion('todosBailando');
+        stateBuilder.agregarTransicion('nadieBaila', 'todosBailando', 'empezarFiesta');
+        this.setEstado(stateBuilder.estadoInicial());
     };
     return LaFiestaDeDracula;
 })(EscenaActividad);
@@ -6528,18 +6377,7 @@ var EmpezarFiesta = (function (_super) {
     };
     return EmpezarFiesta;
 })(SecuenciaAnimada);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../comportamientos/Sostener.ts"/>
-/// <reference path = "../actores/Cuadricula.ts"/>
-/// <reference path = "../actores/HeroeAnimado.ts"/>
-/// <reference path = "../actores/CofreAnimado.ts"/>
-/// <reference path = "../actores/LlaveAnimado.ts"/>
-/// <reference path = "../actores/MagoAnimado.ts"/>
-/// <reference path = "../actores/CaballeroAnimado.ts"/>
-/// <reference path = "../actores/UnicornioAnimado.ts"/>
-/// <reference path = "../actores/ActorCompuesto.ts" />
-/// <reference path = "../actores/Princesa.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * @class LaGranAventuraDelMarEncantado
  *
@@ -6550,109 +6388,68 @@ var LaGranAventuraDelMarEncantado = (function (_super) {
         _super.apply(this, arguments);
     }
     LaGranAventuraDelMarEncantado.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.marEncantado.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, 4, 5, { alto: 376, ancho: 380 }, { grilla: 'invisible.png' });
+        this.setFondo(new Fondo('fondo.marEncantado.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, 4, 5, { alto: 376, ancho: 380 }, { grilla: 'invisible.png' }));
         this.llave = new LlaveAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.llave, 1, 4);
-        this.llave.escala *= 0.5;
+        this.getCuadricula().agregarActorEnPerspectiva(this.llave, 1, 4);
+        this.llave.setEscala(this.llave.getEscala() * 0.5);
         this.llave.aprender(Flotar, { Desvio: 5 });
         this.cofre = new CofreAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.cofre, 0, 0);
-        this.cofre.x += 8;
+        this.getCuadricula().agregarActorEnPerspectiva(this.cofre, 0, 0);
+        this.cofre.setX(this.cofre.getX() + 8);
         this.cofre.aprender(Flotar, { Desvio: 5 });
         this.caballero = new CaballeroAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.caballero, 1, 2);
-        this.caballero.x += 19;
-        this.caballero.escala *= 1.5;
-        this.princesa = new Principe(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.princesa, 1, 2);
-        this.princesa.x -= 19;
-        this.princesa.escala *= 1.5;
+        this.getCuadricula().agregarActorEnPerspectiva(this.caballero, 1, 2);
+        this.caballero.setEscala(this.caballero.getEscala() * 1.5);
+        this.caballero.setX(this.caballero.getX() + 19);
+        this.principe = new Principe(0, 0);
+        this.getCuadricula().agregarActorEnPerspectiva(this.principe, 1, 2);
+        this.principe.setEscala(this.principe.getEscala() * 1.5);
+        this.principe.setX(this.principe.getX() - 19);
         this.mago = new MagoAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.mago, 3, 1);
-        this.mago.escala *= 1.5;
+        this.getCuadricula().agregarActorEnPerspectiva(this.mago, 3, 1);
+        this.mago.setEscala(this.mago.getEscala() * 1.5);
         this.unicornio = new UnicornioAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.unicornio, 3, 4);
-        this.unicornio.escala *= 1.5;
-        this.automata = new ActorCompuesto(0, 0, { subactores: [new Heroina(0, 0)] });
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 3, 0);
-        this.automata.escala *= 0.08;
+        this.getCuadricula().agregarActorEnPerspectiva(this.unicornio, 3, 4);
+        this.unicornio.setEscala(this.unicornio.getEscala() * 1.5);
+        this.setAutomata(new ActorCompuesto(0, 0, { subactores: [new Heroina(0, 0)] }));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 3, 0);
+        this.getAutomata().escala *= 0.08;
         // se carga el estado inicial
-        this.construirFSM();
+        this.buildState();
     };
-    LaGranAventuraDelMarEncantado.prototype.construirFSM = function () {
-        var builder = new BuilderStatePattern(this, 'inicial');
-        builder.agregarEstado('llaveEnMano');
-        builder.agregarEstado('cofreAbierto');
-        builder.agregarEstado('magoConSombrero');
-        builder.agregarEstado('princesaRescatada');
-        builder.agregarEstadoAceptacion('montandoUnicornio');
-        builder.agregarTransicion('inicial', 'llaveEnMano', 'agarrarLlave');
-        builder.agregarTransicion('llaveEnMano', 'cofreAbierto', 'abrirCofre');
-        builder.agregarTransicion('cofreAbierto', 'magoConSombrero', 'darSombrero');
-        builder.agregarTransicion('magoConSombrero', 'princesaRescatada', 'atacarConEspada');
-        builder.agregarTransicion('princesaRescatada', 'montandoUnicornio', 'escapar');
+    LaGranAventuraDelMarEncantado.prototype.buildState = function () {
+        var stateBuilder = new BuilderStatePattern(this, 'inicial');
+        stateBuilder.agregarEstado('llaveEnMano');
+        stateBuilder.agregarEstado('cofreAbierto');
+        stateBuilder.agregarEstado('magoConSombrero');
+        stateBuilder.agregarEstado('princesaRescatada');
+        stateBuilder.agregarEstadoAceptacion('montandoUnicornio');
+        stateBuilder.agregarTransicion('inicial', 'llaveEnMano', 'agarrarLlave');
+        stateBuilder.agregarTransicion('llaveEnMano', 'cofreAbierto', 'abrirCofre');
+        stateBuilder.agregarTransicion('cofreAbierto', 'magoConSombrero', 'darSombrero');
+        stateBuilder.agregarTransicion('magoConSombrero', 'princesaRescatada', 'atacarConEspada');
+        stateBuilder.agregarTransicion('princesaRescatada', 'montandoUnicornio', 'escapar');
         var estados = ['inicial', 'llaveEnMano', 'cofreAbierto', 'magoConSombrero', 'princesaRescatada', 'montandoUnicornio'];
         for (var i = 0; i < estados.length; i++) {
             if (estados[i] != 'llaveEnMano') {
-                builder.agregarError(estados[i], 'abrirCofre', 'Para abrir el cofre necesitás la llave.');
+                stateBuilder.agregarError(estados[i], 'abrirCofre', 'Para abrir el cofre necesitás la llave.');
             }
             if (estados[i] != 'cofreAbierto') {
-                builder.agregarError(estados[i], 'darSombrero', 'Para darle el sombrero al mago necesitás sacarlo del cofre.');
+                stateBuilder.agregarError(estados[i], 'darSombrero', 'Para darle el sombrero al mago necesitás sacarlo del cofre.');
             }
             if (estados[i] != 'magoConSombrero') {
-                builder.agregarError(estados[i], 'atacarConEspada', 'Para atacar al caballero, el mago debe darte la espada.');
+                stateBuilder.agregarError(estados[i], 'atacarConEspada', 'Para atacar al caballero, el mago debe darte la espada.');
             }
             if (estados[i] != 'princesaRescatada') {
-                builder.agregarError(estados[i], 'escaparEnUnicornio', 'Para escapar en unicornio, debés rescatar al príncipe.');
+                stateBuilder.agregarError(estados[i], 'escaparEnUnicornio', 'Para escapar en unicornio, debés rescatar al príncipe.');
             }
         }
-        this.estado = builder.estadoInicial();
+        this.setEstado(stateBuilder.estadoInicial());
     };
     return LaGranAventuraDelMarEncantado;
 })(EscenaActividad);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "HabilidadAnimada.ts"/>
-// No sólo avisa al salir de la pantalla, sino que no lo deja irse.
-// Usar en reemplazo de la habilidad SeMantieneEnPantalla
-// TODO: Repite código con SeMantieneEnPantalla, modificar pilas para que deje de hacerlo.
-var EstallarAlSalirDePantalla = (function (_super) {
-    __extends(EstallarAlSalirDePantalla, _super);
-    function EstallarAlSalirDePantalla(receptor) {
-        _super.call(this, receptor);
-        this.receptor.evto_se_movio.conectar(this);
-    }
-    EstallarAlSalirDePantalla.prototype.recibir = function (evento, tipo) {
-        if (tipo == this.receptor.evto_se_movio &&
-            this.seSalioDeLaPantalla()) {
-            throw new ActividadError("¡Me salgo de la pantalla!");
-        }
-    };
-    EstallarAlSalirDePantalla.prototype.seSalioDeLaPantalla = function () {
-        return this.seFuePorDerecha() ||
-            this.seFuePorIzquierda() ||
-            this.seFuePorArriba() ||
-            this.seFuePorAbajo();
-    };
-    EstallarAlSalirDePantalla.prototype.seFuePorIzquierda = function () {
-        return this.receptor.x < pilas.izquierda();
-    };
-    EstallarAlSalirDePantalla.prototype.seFuePorDerecha = function () {
-        return this.receptor.x > pilas.derecha();
-    };
-    EstallarAlSalirDePantalla.prototype.seFuePorArriba = function () {
-        return this.receptor.y > pilas.arriba();
-    };
-    EstallarAlSalirDePantalla.prototype.seFuePorAbajo = function () {
-        return this.receptor.y < pilas.abajo();
-    };
-    return EstallarAlSalirDePantalla;
-})(HabilidadAnimada);
-/// <reference path = "../DibujandoFiguras.ts" />
-/// <reference path = "../../actores/libroPrimaria/Coty.ts" />
-/// <reference path = "../../actores/libroPrimaria/Charco.ts" />
-/// <reference path = "../../actores/FlechaEscenarioAleatorio.ts" />
-/// <reference path = "../../habilidades/EstallarAlSalirDePantalla.ts"/>
+/// <reference path = "../EscenaActividad.ts" />
 var EscenaCoty = (function (_super) {
     __extends(EscenaCoty, _super);
     function EscenaCoty(dibujoPreexistente, puntosEsperados, argumentos) {
@@ -6686,7 +6483,7 @@ var EscenaCoty = (function (_super) {
         if (this.charco) {
             this.ubicarCharco();
         }
-        this.automata.aprender(EstallarAlSalirDePantalla, {});
+        this.getAutomata().aprender(EstallarAlSalirDePantalla, {});
     };
     EscenaCoty.prototype.hacerDibujoEsperado = function () {
         this.pizarraFantasma = new Pizarra();
@@ -6701,15 +6498,16 @@ var EscenaCoty = (function (_super) {
     };
     EscenaCoty.prototype.ubicarCharco = function () {
         var _this = this;
-        this.charco.escala = this.automata.escala * 0.85;
-        this.charco.setX(this.automata.getX() + (this.longitudSegmento / 2));
-        this.charco.setY(this.automata.getY() - this.automata.alto * 0.04);
-        [this.pizarraDibujoPreexistente, this.pizarraFantasma].forEach(function (pizarra) { return pizarra.setX(pizarra.getX() + _this.longitudSegmento); });
+        this.charco.escala = this.getAutomata().getEscala() * 0.85;
+        this.charco.setX(this.getAutomata().getX() + (this.longitudSegmento / 2));
+        this.charco.setY(this.getAutomata().getY() - this.getAutomata().alto * 0.04);
+        var pizarras = [this.pizarraDibujoPreexistente, this.pizarraFantasma];
+        pizarras.forEach(function (pizarra) { return pizarra.setX(pizarra.getX() + _this.longitudSegmento); });
         this.dibujoEsperado = this.dibujoEsperado.trasladar(new PuntoDibujo(this.longitudSegmento, 0));
     };
     EscenaCoty.prototype.crearAutomata = function () {
-        this.automata = new Coty(this.xCoty, this.yCoty);
-        this.automata.escala = 0.6;
+        this.setAutomata(new Coty(this.xCoty, this.yCoty));
+        this.getAutomata().setEscala(0.6);
     };
     EscenaCoty.prototype.puntosEsperados = function () {
         return this._puntosEsperados;
@@ -6782,41 +6580,9 @@ var EscenaCotyMate = (function (_super) {
     };
     return EscenaCotyMate;
 })(EscenaCoty);
-var EscenaCoty1 = (function (_super) {
-    __extends(EscenaCoty1, _super);
-    function EscenaCoty1() {
-        _super.call(this, [{ x: 125, y: 75 }, { x: 125, y: -175 }, { x: -25, y: -175 }, { x: -25, y: -75 }, { x: 25, y: -75 }, { x: 25, y: -175 }, { x: -125, y: -175 }, { x: -125, y: 125 }, { x: -75, y: 125 }, { x: -75, y: 75 }, { x: -25, y: 75 }, { x: -25, y: 125 }, { x: 25, y: 125 }, { x: 25, y: 75 }], [{ x: 25, y: 75 }, { x: 75, y: 75 }, { x: 75, y: 125 }, { x: 125, y: 125 }, { x: 125, y: 75 }], { xCoty: 25, yCoty: 75 });
-    }
-    return EscenaCoty1;
-})(EscenaCoty);
-var EscenaCoty2 = (function (_super) {
-    __extends(EscenaCoty2, _super);
-    function EscenaCoty2() {
-        _super.call(this, [{ x: -50, y: 25 }, { x: 0, y: 100 }, { x: 50, y: 25 }], [{ x: -50, y: 25 }, { x: 0, y: 25 }, { x: 50, y: 25 }, { x: 50, y: -25 }, { x: 50, y: -75 }, { x: 0, y: -75 }, { x: -50, y: -75 }, { x: -50, y: -25 }, { x: -50, y: 25 }], { xCoty: -50, yCoty: 25 });
-    }
-    return EscenaCoty2;
-})(EscenaCoty);
-var EscenaCoty3 = (function (_super) {
-    __extends(EscenaCoty3, _super);
-    function EscenaCoty3() {
-        _super.call(this, [], [[{ x: -125, y: 0 }, { x: -75, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }], [{ x: 75, y: 0 }, { x: 125, y: 0 }]], { xCoty: 125, yCoty: 0 });
-    }
-    return EscenaCoty3;
-})(EscenaCoty);
-var EscenaCoty5 = (function (_super) {
-    __extends(EscenaCoty5, _super);
-    function EscenaCoty5() {
-        _super.call(this, [[{ x: -55, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 0 }, { x: -50, y: 0 }], [{ x: -75, y: 0 }, { x: -75, y: -100 }, { x: -125, y: -100 }, { x: -125, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }, { x: 25, y: -100 }, { x: -25, y: -100 }, { x: -25, y: 0 }], [{ x: 125, y: 0 }, { x: 125, y: -100 }, { x: 75, y: -100 }, { x: 75, y: 0 }], [{ x: 50, y: 0 }, { x: 150, y: 0 }, { x: 150, y: 50 }, { x: 50, y: 50 }]], [{ x: -50, y: 0 }, { x: 0, y: 0 }, { x: 50, y: 0 }, { x: 50, y: 50 }, { x: 0, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 0 }], { xCoty: -50, yCoty: 100 });
-    }
-    return EscenaCoty5;
-})(EscenaCoty);
-/// <reference path = "../../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-/// <reference path = "../../../dependencias/helpers.d.ts" />
-//// <reference types = "nearley" /> // Requiere TypeScript ^2.0.0. Solución por ahora:
-/// <reference path = "../../../dependencias/nearley.d.ts" />
 /// <reference path = "../EscenaActividad.ts" />
-/// <reference path = "../../actores/Cuadricula.ts" />
-/// <reference path = "../../actores/FlechaEscenarioAleatorio.ts" />
+/// <reference path = "../../../dependencias/helpers.d.ts" />
+/// <reference path = "../../../dependencias/nearley.d.ts" />
 /**
  * Esta escena consta de una cuadrícula que se llena de actores automáticamente
  * a partir de un mapa, es decir, una matriz que la describe.
@@ -6859,15 +6625,15 @@ var EscenaDesdeMapa = (function (_super) {
             this.initDesdeDescripcion(especificacion, opciones);
     };
     EscenaDesdeMapa.prototype.iniciar = function () {
-        this.fondo = new Fondo(this.archivoFondo(), 0, 0);
-        this.automata = this.obtenerAutomata();
+        this.setFondo(new Fondo(this.archivoFondo(), 0, 0));
+        this.setAutomata(this.obtenerAutomata());
         if (this.generadorDeMapas) {
             this.mapaEscena = this.generadorDeMapas.obtenerMapa();
         }
         else
             throw Error("Esta escena no fue correctamente inicializada con un generador de mapas");
-        this.cuadricula = this.construirCuadricula(this.mapaEscena);
-        this.automata.enviarAlFrente();
+        this.setCuadricula(this.construirCuadricula(this.mapaEscena));
+        this.getAutomata().enviarAlFrente();
         if (this.tieneAleatoriedad())
             this.indicarAleatoriedad();
         this.ajustarGraficos();
@@ -6906,7 +6672,6 @@ var EscenaDesdeMapa = (function (_super) {
      * ajustar la escala o la posición de los actores. Por defecto, no hace nada.
      */
     EscenaDesdeMapa.prototype.ajustarGraficos = function () { };
-    ;
     /** Devuelve la posición en el eje X de la cuadrícula. Se puede sobreescribir. */
     EscenaDesdeMapa.prototype.cuadriculaX = function () { return 0; };
     /** Devuelve la posición en el eje X de la cuadrícula. Se puede sobreescribir. */
@@ -6950,7 +6715,7 @@ var GeneradorDeMapasArray = (function () {
  *   indique cada escena.
  * - El caracter especial `$`, que indica "tomar al azar un elemento de la bolsa".
  *   La bolsa es un array de identificadores que se provee al crear el generador.
- *   Opcionalmente, el caracter puede ir seguido de un identificador; esto permite
+ *   Opcionalmente, el caracter puede ir seguido de un identificador esto permite
  *   indicar varias bolsas distintas.
  * - El caracter especial `*`, que indica "considerar esta casilla al repartir
  *   los elementos de la colección". La colección es un array de identificadores que
@@ -7089,7 +6854,6 @@ var SemillaDeCasilla = (function () {
         }
         return this.contenido;
     };
-    ;
     return SemillaDeCasilla;
 })();
 /** Corresponde a identificadores de la forma `[a-zA-Z0-9]+`. */
@@ -7196,11 +6960,7 @@ var GeneradorDeCasillaMacro = (function () {
     };
     return GeneradorDeCasillaMacro;
 })();
-/// <reference path = "EscenaDesdeMapa.ts" />
-/// <reference path = "../../habilidades/Flotar.ts" />
-/// <reference path = "../../actores/libroPrimaria/Duba.ts" />
-/// <reference path = "../../actores/libroPrimaria/Obstaculo.ts" />
-/// <reference path = "../../actores/libroPrimaria/Churrasco.ts" />
+/// <reference path = "../EscenaActividad.ts" />
 var EscenaDuba = (function (_super) {
     __extends(EscenaDuba, _super);
     function EscenaDuba(especificacion, opciones, posFinal) {
@@ -7214,7 +6974,6 @@ var EscenaDuba = (function (_super) {
     EscenaDuba.clasesDeActoresInvolucrados = function () {
         return [Duba, Churrasco, FlechaEscenarioAleatorio];
     };
-    ;
     EscenaDuba.pathFondo = function () {
         return 'fondo.duba.png';
     };
@@ -7223,19 +6982,19 @@ var EscenaDuba = (function (_super) {
     }; //TODO: Usar flatMap (lodash)
     EscenaDuba.prototype.ajustarGraficos = function () {
         var _this = this;
-        this.automata.escala *= this.escalaSegunCuadricula(1.6);
-        this.automata.setY(this.automata.getY() + this.automata.getAlto() / 8);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * this.escalaSegunCuadricula(1.6));
+        this.getAutomata().setY(this.getAutomata().getY() + this.getAutomata().getAlto() / 8);
         this.obtenerActoresConEtiqueta("Churrasco").forEach(function (churrasco) {
             churrasco.aprender(Flotar, { Desvio: 5 });
-            churrasco.escala *= _this.escalaSegunCuadricula(1.2) * 0.85;
+            churrasco.setEscala(churrasco.getEscala() * _this.escalaSegunCuadricula(1.6) * 0.85);
         });
         this.obtenerActoresConEtiqueta("Obstaculo").forEach(function (obstaculo) {
-            obstaculo.escala *= _this.escalaSegunCuadricula(1.1);
+            obstaculo.setEscala(obstaculo.getEscala() * _this.escalaSegunCuadricula(1.1));
         });
     };
     EscenaDuba.prototype.mapearIdentificadorAActor = function (id, nroFila, nroColumna) {
         switch (id) {
-            case 'A': return this.automata;
+            case 'A': return this.getAutomata();
             case 'O': return this.obtenerObstaculo(nroFila, nroColumna);
             case 'P': return new Churrasco();
             default: throw new Error("El identificador '" + id +
@@ -7251,7 +7010,7 @@ var EscenaDuba = (function (_super) {
     };
     EscenaDuba.prototype.estaResueltoElProblema = function () {
         return (this.contarActoresConEtiqueta("Churrasco")) === 0 &&
-            (this.xFinal === undefined || this.automata.casillaActual().sos(this.xFinal, this.yFinal));
+            (this.xFinal === undefined || this.getAutomata().casillaActual().sos(this.xFinal, this.yFinal));
     };
     EscenaDuba.prototype.archivoFondo = function () {
         return "fondo.duba.png";
@@ -7276,81 +7035,7 @@ var EscenaDuba = (function (_super) {
     };
     return EscenaDuba;
 })(EscenaDesdeMapa);
-var EscenaDuba1 = (function (_super) {
-    __extends(EscenaDuba1, _super);
-    function EscenaDuba1() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t   \t[O,-,-,-,O,-],\t\t\t   \t[-,A,-,-,P,-],\t\t\t   \t[-,-,-,O,-,-],\t\t\t   \t[O,O,O,O,-,O]]");
-    }
-    return EscenaDuba1;
-})(EscenaDuba);
-var EscenaDuba2 = (function (_super) {
-    __extends(EscenaDuba2, _super);
-    function EscenaDuba2() {
-        _super.call(this, "[[O,O,O,O,O,O],         \t\t[O,O,O,O,O,O],         \t\t[O,-,O,-,P,O],         \t\t[O,-,A,-,O,O],         \t\t[O,O,-,O,O,O],         \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba2;
-})(EscenaDuba);
-var EscenaDuba3 = (function (_super) {
-    __extends(EscenaDuba3, _super);
-    function EscenaDuba3() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,A,O,-,-,O],\t\t\t\t[O,-,-,-,P,O],\t\t\t\t[O,-,O,-,-,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba3;
-})(EscenaDuba);
-var EscenaDuba4 = (function (_super) {
-    __extends(EscenaDuba4, _super);
-    function EscenaDuba4() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,-,A,O,O,O],\t\t\t\t[O,O,-,O,O,O],\t\t\t\t[O,O,-,-,-,O],\t\t\t\t[O,O,O,P,-,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba4;
-})(EscenaDuba);
-var EscenaDuba5 = (function (_super) {
-    __extends(EscenaDuba5, _super);
-    function EscenaDuba5() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,-,O,-,O],\t\t\t\t[O,-,A,-,-,O],\t\t\t\t[O,-,-,O,-,O],\t\t\t\t[O,O,-,-,P,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba5;
-})(EscenaDuba);
-var EscenaDuba6 = (function (_super) {
-    __extends(EscenaDuba6, _super);
-    function EscenaDuba6() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,-,-,-,-,O],\t\t\t\t[O,-,O,P,-,O],\t\t\t\t[O,A,O,-,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba6;
-})(EscenaDuba);
-var EscenaDuba7 = (function (_super) {
-    __extends(EscenaDuba7, _super);
-    function EscenaDuba7() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,P,O,-,-,O],\t\t\t\t[O,-,O,-,-,-],\t\t\t\t[O,-,-,-,O,A],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba7;
-})(EscenaDuba);
-var EscenaDuba8 = (function (_super) {
-    __extends(EscenaDuba8, _super);
-    function EscenaDuba8() {
-        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,-,P,O,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,-,-,-,A,O],        \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba8;
-})(EscenaDuba);
-var EscenaDuba9 = (function (_super) {
-    __extends(EscenaDuba9, _super);
-    function EscenaDuba9() {
-        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,P,O,A,O,O],        \t\t[O,-,O,-,O,O],        \t\t[O,-,-,-,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba9;
-})(EscenaDuba);
-var EscenaDuba10 = (function (_super) {
-    __extends(EscenaDuba10, _super);
-    function EscenaDuba10() {
-        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,O,-,-,-,O],        \t\t[O,-,P,-,-,O],        \t\t[O,-,O,O,O,O],        \t\t[O,-,-,A,-,O],        \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba10;
-})(EscenaDuba);
-/// <reference path = "EscenaDesdeMapa.ts" />
-/// <reference path = "../EstadosDeEscena.ts" />
-/// <reference path = "../../actores/libroPrimaria/Lita.ts" />
-/// <reference path = "../../actores/libroPrimaria/Obstaculo.ts" />
-/// <reference path = "../../actores/libroPrimaria/Ensalada.ts" />
+/// <reference path = "../EscenaActividad.ts" />
 var EscenaLita = (function (_super) {
     __extends(EscenaLita, _super);
     function EscenaLita(especificacion, opciones, posFinal) {
@@ -7364,7 +7049,6 @@ var EscenaLita = (function (_super) {
     EscenaLita.clasesDeActoresInvolucrados = function () {
         return [Lita, Ensaladera, Tomate, Lechuga, FlechaEscenarioAleatorio];
     };
-    ;
     EscenaLita.pathFondo = function () {
         return 'fondo.lita.png';
     };
@@ -7375,9 +7059,7 @@ var EscenaLita = (function (_super) {
         var _this = this;
         _super.prototype.iniciar.call(this);
         if (!this.hayEnsaladera()) {
-            this.estado = new Estado(function () {
-                return _this.noHayMasIngredientes();
-            });
+            this.setEstado(new Estado(function () { return _this.noHayMasIngredientes(); }));
         }
     };
     EscenaLita.prototype.hayEnsaladera = function () {
@@ -7400,12 +7082,12 @@ var EscenaLita = (function (_super) {
         // en el caso de que se haya proporcionado una posición final,
         // queremos verificar que Lita esté ahí.
         return _super.prototype.estaResueltoElProblema.call(this) &&
-            (this.xFinal === undefined || this.automata.casillaActual().sos(this.xFinal, this.yFinal));
+            (this.xFinal === undefined || this.getAutomata().casillaActual().sos(this.xFinal, this.yFinal));
     };
     EscenaLita.prototype.ajustarGraficos = function () {
         var _this = this;
-        this.automata.escala *= this.escalaSegunCuadricula(1.9);
-        this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
+        this.getAutomata().escala *= this.escalaSegunCuadricula(1.9);
+        this.getAutomata().setY(this.getAutomata().getY() + this.getAutomata().getAlto() / 4);
         this.obtenerActoresConEtiqueta("Ensaladera").forEach(function (ensaladera) {
             ensaladera.enviarAlFrente();
             ensaladera.setY(ensaladera.getY() - ensaladera.getAlto() / 5);
@@ -7420,7 +7102,7 @@ var EscenaLita = (function (_super) {
     };
     EscenaLita.prototype.mapearIdentificadorAActor = function (id, nroFila, nroColumna) {
         switch (id) {
-            case 'A': return this.automata;
+            case 'A': return this.getAutomata();
             case 'L': return new Lechuga();
             case 'T': return new Tomate();
             case 'E': return new Ensaladera();
@@ -7459,51 +7141,7 @@ var EscenaLita = (function (_super) {
     };
     return EscenaLita;
 })(EscenaDesdeMapa);
-var EscenaLita1 = (function (_super) {
-    __extends(EscenaLita1, _super);
-    function EscenaLita1() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,A,-,T,L,-],\t\t\t\t[O,O,O,O,O,E],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaLita1;
-})(EscenaLita);
-var EscenaLita2 = (function (_super) {
-    __extends(EscenaLita2, _super);
-    function EscenaLita2() {
-        _super.call(this, "[[O,O,O,O,O],\t\t\t\t[O,O,O,O,O],\t\t\t\t[-,-,T,-,-],\t\t\t\t[-,-,L,-,-],\t\t\t\t[A,O,O,O,E],\t\t\t\t[O,O,O,O,O]]");
-    }
-    return EscenaLita2;
-})(EscenaLita);
-var EscenaLita3 = (function (_super) {
-    __extends(EscenaLita3, _super);
-    function EscenaLita3() {
-        _super.call(this, "[[-,-,-],\t\t\t\t[-,L,-],\t\t\t\t[A,-,E],\t\t\t\t[-,T,-]]");
-    }
-    return EscenaLita3;
-})(EscenaLita);
-var EscenaLita4 = (function (_super) {
-    __extends(EscenaLita4, _super);
-    function EscenaLita4() {
-        _super.call(this, "[[-,-,-,-],\t\t\t\t[-,L,T,-],\t\t\t\t[A,-,-,E],\t\t\t\t[-,-,-,-]]");
-    }
-    return EscenaLita4;
-})(EscenaLita);
-var EscenaLita5 = (function (_super) {
-    __extends(EscenaLita5, _super);
-    function EscenaLita5() {
-        _super.call(this, "[[-,A,-],\t\t\t\t[L,E,T],\t\t\t\t[-,-,-],\t\t\t\t[-,-,-]]");
-    }
-    return EscenaLita5;
-})(EscenaLita);
-var EscenaLita6 = (function (_super) {
-    __extends(EscenaLita6, _super);
-    function EscenaLita6() {
-        _super.call(this, "[[-,-,A],\t\t\t\t[-,L,T],\t\t\t\t[-,-,E]]");
-    }
-    return EscenaLita6;
-})(EscenaLita);
-/// <reference path = "EscenaDesdeMapa.ts" />
-/// <reference path = "../../actores/libroPrimaria/Toto.ts" />
-/// <reference path = "../../actores/libroPrimaria/Letra.ts" />
+/// <reference path = "./EscenaDesdeMapa.ts" />
 /**
  * En esta escena, el zorro Toto se mueve por una cuadrícula de letras y las va leyendo.
  * A medida que el zorro lee las letras, estas van apareciendo en otra cuadrícula.
@@ -7545,16 +7183,17 @@ var EscenaToto = (function (_super) {
         _super.prototype.iniciar.call(this);
         this.cuadriculaSecundaria = this.construirCuadriculaSecundaria();
         // Toto debe conocer la cuadrícula secundaria (ver comportamiento 'MovimientoConLectura').
-        this.automata.cuadriculaSecundaria = this.cuadriculaSecundaria;
+        var toto = this.getAutomata();
+        toto.cuadriculaSecundaria = this.cuadriculaSecundaria;
     };
     EscenaToto.prototype.ajustarGraficos = function () {
-        this.automata.enviarAlFrente();
-        this.automata.setY(this.automata.getY() + this.automata.alto * 0.15);
-        this.automata.escala *= this.escalaSegunCuadricula(1.55);
+        this.getAutomata().enviarAlFrente();
+        this.getAutomata().setY(this.getAutomata().getY() + this.getAutomata().alto * 0.15);
+        this.getAutomata().escala *= this.escalaSegunCuadricula(1.55);
     };
     EscenaToto.prototype.mapearIdentificadorAActor = function (id, nroFila, nroColumna) {
         switch (id) {
-            case 'A': return this.automata;
+            case 'A': return this.getAutomata();
             default: return new LetraTablero(id);
         }
     };
@@ -7590,9 +7229,7 @@ var EscenaToto = (function (_super) {
     };
     return EscenaToto;
 })(EscenaDesdeMapa);
-/// <reference path = "EscenaToto.ts" />
-/// <reference path = "../../actores/libroPrimaria/Toto.ts" />
-/// <reference path = "../../actores/libroPrimaria/Letra.ts" />
+/// <reference path = "./EscenaToto.ts" />
 /**
  * En esta escena, el zorro Toto se mueve por una cuadrícula de letras y las va leyendo.
  * A medida que el zorro lee las letras, estas van apareciendo en otra cuadrícula.
@@ -7617,8 +7254,7 @@ var EscenaTotoLector = (function (_super) {
     };
     return EscenaTotoLector;
 })(EscenaToto);
-/// <reference path = "EscenaToto.ts" />
-/// <reference path = "../../comportamientos/EscribirTexto.ts" />
+/// <reference path = "./EscenaToto.ts" />
 var EscenaTotoEscritor = (function (_super) {
     __extends(EscenaTotoEscritor, _super);
     function EscenaTotoEscritor(estilo) {
@@ -7649,7 +7285,7 @@ var EscenaTotoEscritor = (function (_super) {
         return new Cuadricula(30, -140, 1, this.topeDeLetras, { alto: 160, ancho: 300, imagen: 'invisible.png', separacionEntreCasillas: -20 }, { grilla: 'invisible.png', relAspecto: 1 });
     };
     EscenaTotoEscritor.prototype.estaResueltoElProblema = function () {
-        return _super.prototype.estaResueltoElProblema.call(this) && this.automata.tocandoFin();
+        return _super.prototype.estaResueltoElProblema.call(this) && this.getAutomata().tocandoFin();
     };
     return EscenaTotoEscritor;
 })(EscenaToto);
@@ -7815,36 +7451,33 @@ var EscenaTotoEscritorFondoBlanco = (function (_super) {
     };
     return EscenaTotoEscritorFondoBlanco;
 })(EscenaTotoEscritor);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/MariaAnimada.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var MariaLaComeSandias = (function (_super) {
     __extends(MariaLaComeSandias, _super);
     function MariaLaComeSandias() {
         _super.apply(this, arguments);
+        this.cantidadFilas = 5;
+        this.cantidadColumnas = 6;
     }
     MariaLaComeSandias.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.mariaSandia.png', 0, 0);
-        var cantidadFilas = 5;
-        this.cantidadColumnas = 6;
-        this.cuadricula = new Cuadricula(0, 0, cantidadFilas, this.cantidadColumnas, { alto: 300, ancho: 300, separacionEntreCasillas: 5 }, { grilla: 'casilla.mariaSandia.png',
-            cantColumnas: 5 });
+        this.setFondo(new Fondo('fondo.mariaSandia.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, this.cantidadFilas, this.cantidadColumnas, { alto: 300, ancho: 300, separacionEntreCasillas: 5 }, { grilla: 'casilla.mariaSandia.png', cantColumnas: 5 }));
         this.completarConSandias();
-        this.automata = new MariaAnimada(0, 0);
-        this.cuadricula.agregarActor(this.automata, cantidadFilas - 1, 0);
-        this.automata.escala *= 2;
-        this.automata.abajo = this.cuadricula.casilla(cantidadFilas - 1, 0).abajo;
+        this.setAutomata(new MariaAnimada(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), this.cantidadFilas - 1, 0);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 2);
+        this.getAutomata().setAbajo(this.getCuadricula().casilla(this.cantidadFilas - 1, 0).getAbajo());
     };
     MariaLaComeSandias.prototype.completarConSandias = function () {
         this.completarFila(0);
         this.completarFila(2);
         this.completarFila(4);
-        this.cuadricula.agregarActor(new SandiaAnimada(0, 0), 1, 0);
-        this.cuadricula.agregarActor(new SandiaAnimada(0, 0), 3, 0);
+        this.getCuadricula().agregarActor(new SandiaAnimada(0, 0), 1, 0);
+        this.getCuadricula().agregarActor(new SandiaAnimada(0, 0), 3, 0);
     };
     MariaLaComeSandias.prototype.completarFila = function (numeroFila) {
         for (var x = 0; x < this.cantidadColumnas; x++) {
-            this.cuadricula.agregarActor(new SandiaAnimada(0, 0), numeroFila, x);
+            this.getCuadricula().agregarActor(new SandiaAnimada(0, 0), numeroFila, x);
         }
     };
     MariaLaComeSandias.prototype.estaResueltoElProblema = function () {
@@ -7852,9 +7485,7 @@ var MariaLaComeSandias = (function (_super) {
     };
     return MariaLaComeSandias;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../comportamientos/SaltarHablando.ts" />
-/// <reference path = "../actores/GatoAnimado.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * @class NoMeCansoDeSaltar
  *
@@ -7865,11 +7496,11 @@ var NoMeCansoDeSaltar = (function (_super) {
     __extends(NoMeCansoDeSaltar, _super);
     function NoMeCansoDeSaltar() {
         _super.apply(this, arguments);
+        this.saltosFaltantes = 30;
     }
     NoMeCansoDeSaltar.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.noMeCansoDeSaltar.png', 0, 0);
-        this.automata = new GatoAnimado(0, -17);
-        this.saltosFaltantes = 30;
+        this.setFondo(new Fondo('fondo.noMeCansoDeSaltar.png', 0, 0));
+        this.setAutomata(new GatoAnimado(0, -17));
     };
     NoMeCansoDeSaltar.prototype.fraseAlSaltar = function () {
         this.saltosFaltantes--;
@@ -7884,28 +7515,25 @@ var NoMeCansoDeSaltar = (function (_super) {
     };
     return NoMeCansoDeSaltar;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/InstaladorAnimado.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/CompuAnimada.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var PrendiendoLasCompus = (function (_super) {
     __extends(PrendiendoLasCompus, _super);
     function PrendiendoLasCompus() {
         _super.apply(this, arguments);
-    }
-    PrendiendoLasCompus.prototype.iniciar = function () {
-        this.compus = [];
         this.cantidadMaxColumnas = 12;
         this.cantidadMinColumnas = 4;
         this.cantidadMaxFilas = 10;
         this.cantidadMinFilas = 5;
         this.ladoCasilla = 30;
-        this.fondo = new Fondo('fondo.prendiendoLasCompus.png', 0, 0);
+        this.compus = [];
+    }
+    PrendiendoLasCompus.prototype.iniciar = function () {
         this.cantidadFilas = Math.floor(this.cantidadMinFilas + (Math.random() * (this.cantidadMaxFilas - this.cantidadMinFilas)));
         this.cantidadColumnas = Math.floor(this.cantidadMinColumnas + (Math.random() * (this.cantidadMaxColumnas - this.cantidadMinColumnas)));
-        this.cuadricula = new Cuadricula(0, (this.ladoCasilla + 2) * 2, this.cantidadFilas, this.cantidadColumnas, { separacionEntreCasillas: 2 }, { grilla: 'casilla.prendiendoLasCompus.png', alto: this.ladoCasilla, ancho: this.ladoCasilla });
-        this.automata = new InstaladorAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
+        this.setFondo(new Fondo('fondo.prendiendoLasCompus.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, (this.ladoCasilla + 2) * 2, this.cantidadFilas, this.cantidadColumnas, { separacionEntreCasillas: 2 }, { grilla: 'casilla.prendiendoLasCompus.png', alto: this.ladoCasilla, ancho: this.ladoCasilla }));
+        this.setAutomata(new InstaladorAnimado(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 0, 0);
         this.completarConCompusEnLaterales();
     };
     PrendiendoLasCompus.prototype.completarConCompusEnLaterales = function () {
@@ -7922,7 +7550,7 @@ var PrendiendoLasCompus = (function (_super) {
     };
     PrendiendoLasCompus.prototype.addCompu = function (fila, columna) {
         var compu = new CompuAnimada(0, 0);
-        this.cuadricula.agregarActor(compu, fila, columna);
+        this.getCuadricula().agregarActor(compu, fila, columna);
         this.compus.push(compu);
     };
     PrendiendoLasCompus.prototype.estaResueltoElProblema = function () {
@@ -7930,19 +7558,17 @@ var PrendiendoLasCompus = (function (_super) {
     };
     return PrendiendoLasCompus;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/ScoutAnimado.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/CompuAnimada.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var PrendiendoLasFogatas = (function (_super) {
     __extends(PrendiendoLasFogatas, _super);
     function PrendiendoLasFogatas() {
         _super.apply(this, arguments);
-    }
-    PrendiendoLasFogatas.prototype.iniciar = function () {
-        this.fogatas = [];
         this.cantidadFilas = 7;
         this.cantidadColumnas = 7;
+        this.fogatas = [];
+    }
+    PrendiendoLasFogatas.prototype.iniciar = function () {
+        this.setFondo(new Fondo('fondo.BosqueDeNoche.png', 0, 0));
         var matriz = [
             ['T', 'T', 'T', 'T', 'T', 'T', 'T'],
             ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
@@ -7952,12 +7578,10 @@ var PrendiendoLasFogatas = (function (_super) {
             ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
             ['T', 'T', 'T', 'T', 'T', 'T', 'T']
         ];
-        this.cuadricula = new CuadriculaEsparsa(0, 0, { ancho: 400, alto: 400 }, { grilla: 'casillas.violeta.png' }, matriz);
-        this.ladoCasilla = 30;
-        this.fondo = new Fondo('fondo.BosqueDeNoche.png', 0, 0);
+        this.setCuadricula(new CuadriculaEsparsa(0, 0, { ancho: 400, alto: 400 }, { grilla: 'casillas.violeta.png' }, matriz));
         this.agregarFogatas();
-        this.automata = new ScoutAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
+        this.setAutomata(new ScoutAnimado(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 0, 0);
     };
     PrendiendoLasFogatas.prototype.agregarFogatas = function () {
         for (var i = 1; i < this.cantidadColumnas - 1; i++) {
@@ -7979,70 +7603,54 @@ var PrendiendoLasFogatas = (function (_super) {
     };
     PrendiendoLasFogatas.prototype.agregarFogata = function (fila, columna) {
         var fogata = new FogataAnimada(0, 0);
-        this.cuadricula.agregarActor(fogata, fila, columna);
+        this.getCuadricula().agregarActor(fogata, fila, columna);
         this.fogatas.push(fogata);
     };
     PrendiendoLasFogatas.prototype.estaResueltoElProblema = function () {
-        return this.fogatas.every(function (fogata) {
-            return (fogata.nombreAnimacionActual() === 'prendida');
-        });
+        return this.fogatas.every(function (fogata) { return (fogata.nombreAnimacionActual() === 'prendida'); });
     };
     return PrendiendoLasFogatas;
 })(EscenaActividad);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/MarcianoAnimado.ts" />
-/// <reference path = "../actores/NaveAnimada.ts" />
-/// <reference path = "../actores/CarbonAnimado.ts" />
-/// <reference path = "../actores/HierroAnimado.ts" />
-/// <reference path = "../actores/Tablero.ts" />
-/// <reference path = "../actores/ObservadoAnimado.ts" />
-/// <reference path = "../actores/ActorCompuesto.ts" />
-/// <reference path = "EstadosDeEscena.ts" />
-/// <reference path = "../habilidades/Flotar.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var ReparandoLaNave = (function (_super) {
     __extends(ReparandoLaNave, _super);
     function ReparandoLaNave() {
         _super.apply(this, arguments);
     }
     ReparandoLaNave.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondos.reparandoLaNave.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, 4, 5, { ancho: 323, alto: 261 }, {
-            grilla: 'invisible.png',
-            cantColumnas: 1
-        });
+        this.setFondo(new Fondo('fondos.reparandoLaNave.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, 4, 5, { ancho: 323, alto: 261 }, { grilla: 'invisible.png', cantColumnas: 1 }));
         this.crearActores();
         this.crearTableros();
         this.crearEstado();
     };
     ReparandoLaNave.prototype.crearActores = function () {
         this.crearAutomata();
-        var lanave = new NaveAnimada();
-        this.cuadricula.agregarActor(lanave, this.cuadricula.cantFilas - 1, 0);
-        this.nave = new ActorCompuesto(0, 0, { subactores: [lanave] });
+        this.nave = new NaveAnimada();
+        this.getCuadricula().agregarActor(this.nave, this.getCuadricula().cantFilas - 1, 0);
+        this.nave = new ActorCompuesto(0, 0, { subactores: [this.nave] });
         this.nave.escala = 2.5;
         this.nave.y += 10;
         this.hierro = new HierroAnimado(0, 0);
         this.hierro.cantidad = 3;
         this.carbon = new CarbonAnimado(0, 0);
         this.carbon.cantidad = 3;
-        this.cuadricula.agregarActor(this.hierro, 0, 0);
+        this.getCuadricula().agregarActor(this.hierro, 0, 0);
         this.hierro.aprender(Flotar, { Desvio: 2 });
-        this.cuadricula.agregarActor(this.carbon, 0, this.cuadricula.cantColumnas - 1);
+        this.getCuadricula().agregarActor(this.carbon, 0, this.getCuadricula().cantColumnas - 1);
         this.carbon.aprender(Flotar, { Desvio: 2 });
     };
     ReparandoLaNave.prototype.crearAutomata = function () {
-        this.automata = new ActorCompuesto(0, 0, { subactores: [new MarcianoAnimado(0, 0)] });
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, this.cuadricula.cantFilas - 1, 0, false);
-        this.automata.escala = 0.8;
-        this.automata.y += 50;
+        this.setAutomata(new ActorCompuesto(0, 0, { subactores: [new MarcianoAnimado(0, 0)] }));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), this.getCuadricula().cantFilas - 1, 0, false);
+        this.getAutomata().escala = 0.8;
+        this.getAutomata().y += 50;
     };
     ReparandoLaNave.prototype.crearTableros = function () {
         Trait.toObject(ObservadoConDisminuir, this.carbon);
         Trait.toObject(ObservadoConDisminuir, this.hierro);
-        this.hierro.registrarObservador(new Tablero(-150, 190, { texto: "Hierro" }));
         this.carbon.registrarObservador(new Tablero(150, 190, { texto: "Carbón" }));
+        this.hierro.registrarObservador(new Tablero(-150, 190, { texto: "Hierro" }));
         this.carbon.changed();
         this.hierro.changed();
     };
@@ -8054,43 +7662,37 @@ var ReparandoLaNave = (function (_super) {
         builder.agregarError('faltanMateriales', 'escapar', '¡No puedo escaparme sin antes haber reparado la nave!');
         builder.agregarTransicion('faltanMateriales', 'naveReparada', 'depositar', function () { return _this.hierro.cantidad == 0 && _this.carbon.cantidad == 0; });
         builder.agregarTransicion('naveReparada', 'haEscapado', 'escapar');
-        this.estado = builder.estadoInicial();
+        this.setEstado(builder.estadoInicial());
     };
     return ReparandoLaNave;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/CuadriculaMultiple.ts" />
-/// <reference path = "../actores/PapaNoelAnimado.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var SalvandoLaNavidad = (function (_super) {
     __extends(SalvandoLaNavidad, _super);
     function SalvandoLaNavidad() {
         _super.apply(this, arguments);
     }
     SalvandoLaNavidad.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.salvandonavidad.png', 0, 0);
-        this.cuadricula = new CuadriculaMultiple(new DefinidorColumnasFijo(5, [5, 6, 8, 4, 7]), 0, 0, { separacionEntreCasillas: 5 }, { grilla: 'casilla.futbolRobots2.png', alto: 40, ancho: 40 });
-        this.cuadricula.cambiarImagenInicio('casillainiciomono.png');
-        this.automata = new PapaNoelAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
-        this.automata.escala *= 1.8;
+        this.setFondo(new Fondo('fondo.salvandonavidad.png', 0, 0));
+        this.setCuadricula(new CuadriculaMultiple(new DefinidorColumnasFijo(5, [5, 6, 8, 4, 7]), 0, 0, { separacionEntreCasillas: 5 }, { grilla: 'casilla.futbolRobots2.png', alto: 40, ancho: 40 }));
+        this.cuadriculaMultiple = this.getCuadricula();
+        this.cuadriculaMultiple.cambiarImagenInicio('casillainiciomono.png');
+        this.setAutomata(new PapaNoelAnimado(0, 0));
+        this.cuadriculaMultiple.agregarActorEnPerspectiva(this.getAutomata(), 0, 0);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 1.8);
     };
     SalvandoLaNavidad.prototype.estaResueltoElProblema = function () {
-        return this.hayRegalosAlFinalDeLasFilas() && this.cuadricula.cantFilas === this.cantidadObjetosConEtiqueta("RegaloAnimado");
+        return this.hayRegalosAlFinalDeLasFilas() && this.cuadriculaMultiple.cantFilas === this.cantidadObjetosConEtiqueta("RegaloAnimado");
     };
     SalvandoLaNavidad.prototype.hayRegalosAlFinalDeLasFilas = function () {
         return this.ultimasCasillas().every(function (casilla) { return casilla.tieneActorConEtiqueta('RegaloAnimado'); });
     };
     SalvandoLaNavidad.prototype.ultimasCasillas = function () {
-        return this.cuadricula.filterCasillas(function (casilla) { return casilla.esFin(); });
+        return this.cuadriculaMultiple.filterCasillas(function (casilla) { return casilla.esFin(); });
     };
     return SalvandoLaNavidad;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "../actores/Tito.ts"/>
-/// <reference path = "../actores/Lamparin.ts"/>
-/// <reference path = "../actores/Cuadricula.ts"/>
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts"/>
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * @class SuperTito1
  *
@@ -8099,47 +7701,36 @@ var SuperTito1 = (function (_super) {
     __extends(SuperTito1, _super);
     function SuperTito1() {
         _super.apply(this, arguments);
+        this.cantidadFilas = Math.floor((Math.random() * 5) + 3);
+        this.lamparines = [];
     }
     SuperTito1.prototype.iniciar = function () {
-        this.fondo = new Fondo(this.constructor.pathFondo(), 0, 0);
-        this.objetos = [];
-        this.cuadricula = new Cuadricula(0, 0, this.cantidadFilas(), 1, { separacionEntreCasillas: 5 }, { grilla: 'casilla.grisoscuro.png',
-            cantColumnas: 1, ancho: 100, alto: 50 });
-        this.cuadricula.casilla(this.cantidadFilas() - 1, 0).cambiarImagen('casilla.titoFinalizacion.png');
-        for (var i = 0; i < this.cantidadFilas() - 1; i++) {
+        this.setFondo(new Fondo(this.constructor.pathFondo(), 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, this.cantidadFilas, 1, { separacionEntreCasillas: 5 }, { grilla: 'casilla.grisoscuro.png', cantColumnas: 1, ancho: 100, alto: 50 }));
+        this.getCuadricula().casilla(this.cantidadFilas - 1, 0).cambiarImagen('casilla.titoFinalizacion.png');
+        for (var i = 0; i < this.cantidadFilas - 1; i++) {
             this.agregarLamparinEnFila(i);
         }
-        this.automata = new Tito(0, 0);
-        this.cuadricula.agregarActor(this.automata, 0, 0);
-        this.automata.escala *= 2;
-        this.automata.y += 30;
-        this.automata.x -= 15;
+        this.setAutomata(new Tito(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, 0);
+        this.getAutomata().escala *= 2;
+        this.getAutomata().y += 30;
+        this.getAutomata().x -= 15;
     };
-    SuperTito1.prototype.cantidadFilas = function () {
-        if (!this.cantFilas)
-            this.cantFilas = Math.floor((Math.random() * 5) + 3);
-        return this.cantFilas;
-    };
-    SuperTito1.prototype.agregarLamparinEnFila = function (i) {
+    SuperTito1.prototype.agregarLamparinEnFila = function (fila) {
         var lamparin = new Lamparin(0, 0);
-        this.objetos.push(lamparin);
-        this.cuadricula.agregarActor(lamparin, i, 0);
-        lamparin.x += 15;
+        this.lamparines.push(lamparin);
+        this.getCuadricula().agregarActor(lamparin, fila, 0);
+        lamparin.setX(lamparin.getX() + 15);
     };
     SuperTito1.pathFondo = function () {
         return 'fondo.superTito1.png';
     };
     SuperTito1.prototype.estaResueltoElProblema = function () {
-        return this.objetos.every(function (o) { return o.nombreAnimacionActual() == 'prendida'; }) && this.automata.alFinalDelCamino();
+        return this.lamparines.every(function (lamparin) { return lamparin.nombreAnimacionActual() == 'prendida'; }) && this.getAutomata().alFinalDelCamino();
     };
     return SuperTito1;
 })(EscenaActividad);
-/// <reference path = "SuperTito1.ts" />
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/**
- * @class SuperTito2
- *
- */
 var SuperTito2 = (function (_super) {
     __extends(SuperTito2, _super);
     function SuperTito2() {
@@ -8147,23 +7738,21 @@ var SuperTito2 = (function (_super) {
     }
     SuperTito2.prototype.iniciar = function () {
         _super.prototype.iniciar.call(this);
-        this.hayLuz = false;
     };
     SuperTito2.pathFondo = function () {
         return 'fondo.superTito2.png';
     };
-    SuperTito2.prototype.agregarLamparinEnFila = function (i) {
-        if (Math.random() < 0.5 || (i == this.cantidadFilas() - 2 && !this.hayLuz)) {
-            _super.prototype.agregarLamparinEnFila.call(this, i);
-            this.hayLuz = true;
+    SuperTito2.prototype.hayLuz = function () {
+        return this.lamparines.length > 0;
+    };
+    SuperTito2.prototype.agregarLamparinEnFila = function (fila) {
+        if (Math.random() < 0.5 || (fila == this.cantidadFilas - 2 && !this.hayLuz())) {
+            _super.prototype.agregarLamparinEnFila.call(this, fila);
         }
     };
     return SuperTito2;
 })(SuperTito1);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "Errores.ts" />
-/// <reference path = "../actores/FondoAnimado.ts"/>
-/// <reference path = "../actores/Superheroe.ts"/>
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * @class SuperViaje
  *
@@ -8174,16 +7763,17 @@ var SuperViaje = (function (_super) {
         _super.apply(this, arguments);
     }
     SuperViaje.prototype.iniciar = function () {
-        this.fondo = new FondoAnimado('fondo.elSuperviaje.png', pilas.derecha(), 0);
-        this.automata = new Superheroe();
-        this.automata.aprender(Flotar, { Desvio: 10 });
-        this.automata.totalKM = 15 + Math.round(Math.random() * 30);
-        this.automata.restantesKM = this.automata.totalKM;
-        this.automata.kmsTotales = function () {
+        this.setFondo(new FondoAnimado('fondo.elSuperviaje.png', pilas.derecha(), 0));
+        this.setAutomata(new Superheroe());
+        this.getAutomata().aprender(Flotar, { Desvio: 10 });
+        this.superHeroe = this.getAutomata();
+        this.superHeroe.totalKM = 15 + Math.round(Math.random() * 30);
+        this.superHeroe.restantesKM = this.superHeroe.totalKM;
+        this.superHeroe.kmsTotales = function () {
             return this.totalKM;
         };
         this.crearTablero();
-        this.automata.fraseAlVolar = function () {
+        this.superHeroe.fraseAlVolar = function () {
             this.restantesKM--;
             if (this.restantesKM == 0)
                 return "¡Llegué!";
@@ -8195,29 +7785,26 @@ var SuperViaje = (function (_super) {
         };
     };
     SuperViaje.prototype.crearTablero = function () {
-        Trait.toObject(Observado, this.automata);
+        Trait.toObject(Observado, this.getAutomata());
         var tablero = new Tablero(0, 210, { texto: "Kilómetros a recorrer", atributoObservado: 'kmsTotales' });
-        this.automata.registrarObservador(tablero);
+        this.superHeroe.registrarObservador(tablero);
     };
     SuperViaje.prototype.estaResueltoElProblema = function () {
-        return this.automata.restantesKM === 0;
+        return this.superHeroe.restantesKM === 0;
     };
     return SuperViaje;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Tito.ts" />
-/// <reference path = "../actores/Lamparin.ts" />
-/// <reference path = "../actores/CuadriculaEsparsa.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 var TitoCuadrado = (function (_super) {
     __extends(TitoCuadrado, _super);
     function TitoCuadrado() {
         _super.apply(this, arguments);
-    }
-    TitoCuadrado.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.tito-cuadrado.png', 0, 0);
-        this.luces = [];
         this.cantidadFilas = 7;
         this.cantidadColumnas = 7;
+        this.lamparines = [];
+    }
+    TitoCuadrado.prototype.iniciar = function () {
+        this.setFondo(new Fondo('fondo.tito-cuadrado.png', 0, 0));
         var matriz = [
             ['T', 'T', 'T', 'T', 'T', 'T', 'T'],
             ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
@@ -8227,11 +7814,12 @@ var TitoCuadrado = (function (_super) {
             ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
             ['T', 'T', 'T', 'T', 'T', 'T', 'T']
         ];
-        this.cuadricula = new CuadriculaEsparsa(0, 0, { ancho: 400, alto: 400 }, { grilla: 'casillas.violeta.png' }, matriz);
+        this.setCuadricula(new CuadriculaEsparsa(0, 0, { ancho: 400, alto: 400 }, { grilla: 'casillas.violeta.png' }, matriz));
+        this.cuadriculaEsparsa = this.getCuadricula();
         this.agregarLuces();
-        this.automata = new Tito(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
-        this.automata.escala *= 1.5;
+        this.setAutomata(new Tito(0, 0));
+        this.cuadriculaEsparsa.agregarActorEnPerspectiva(this.getAutomata(), 0, 0);
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 1.5);
     };
     TitoCuadrado.prototype.agregarLuces = function () {
         for (var i = 1; i < this.cantidadColumnas - 1; i++) {
@@ -8251,33 +7839,26 @@ var TitoCuadrado = (function (_super) {
             }
         }
     };
-    TitoCuadrado.prototype.agregarLuz = function (f, c) {
-        var luz = new Lamparin(0, 0);
-        this.luces.push(luz);
-        this.cuadricula.agregarActor(luz, f, c);
+    TitoCuadrado.prototype.agregarLuz = function (fila, columna) {
+        var lamparin = new Lamparin(0, 0);
+        this.lamparines.push(lamparin);
+        this.cuadriculaEsparsa.agregarActor(lamparin, fila, columna);
     };
     TitoCuadrado.prototype.estaResueltoElProblema = function () {
-        return this.luces.every(function (l) { return l.nombreAnimacionActual() == 'prendida'; });
+        return this.lamparines.every(function (lamparin) { return lamparin.nombreAnimacionActual() == 'prendida'; });
     };
     return TitoCuadrado;
 })(EscenaActividad);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/Tito.ts" />
-/// <reference path = "../actores/Lamparin.ts" />
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts"/>
+/// <reference path = "./EscenaActividad.ts" />
 var TitoEnciendeLuces = (function (_super) {
     __extends(TitoEnciendeLuces, _super);
     function TitoEnciendeLuces() {
         _super.apply(this, arguments);
-        this.objetos = [];
+        this.lamparines = [];
     }
     TitoEnciendeLuces.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondos.estrellas.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, 5, 6, { separacionEntreCasillas: 5 }, {
-            grilla: 'casilla.grisoscuro.png',
-            cantColumnas: 1, alto: 50, ancho: 50
-        });
+        this.setFondo(new Fondo('fondos.estrellas.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, 5, 6, { separacionEntreCasillas: 5 }, { grilla: 'casilla.grisoscuro.png', cantColumnas: 1, alto: 50, ancho: 50 }));
         //se cargan las luces
         var cant = 0;
         var fila = 3;
@@ -8297,24 +7878,22 @@ var TitoEnciendeLuces = (function (_super) {
             col += 1;
             cant += 1;
         }
-        ;
         // se crea el automata
-        this.automata = new Tito(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 4, 0);
-        this.automata.escalarAAncho(this.cuadricula.anchoCasilla() * 1.5);
+        this.setAutomata(new Tito(0, 0));
+        this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 4, 0);
+        this.getAutomata().escalarAAncho(this.getCuadricula().anchoCasilla() * 1.5);
     };
     TitoEnciendeLuces.prototype.agregarLuz = function (fila, columna) {
-        var casillaLuminosa = new Lamparin(0, 0);
-        this.cuadricula.agregarActor(casillaLuminosa, fila, columna);
-        this.objetos.push(casillaLuminosa);
+        var lamparin = new Lamparin(0, 0);
+        this.lamparines.push(lamparin);
+        this.getCuadricula().agregarActor(lamparin, fila, columna);
     };
     TitoEnciendeLuces.prototype.estaResueltoElProblema = function () {
-        return this.objetos.every(function (o) { return o.nombreAnimacionActual() == 'prendida'; });
+        return this.lamparines.every(function (lamparin) { return lamparin.nombreAnimacionActual() == 'prendida'; });
     };
     return TitoEnciendeLuces;
 })(EscenaActividad);
-/// <reference path = "SuperTito2.ts" />
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts"/>
+/// <reference path = "./SuperTito2.ts" />
 /**
  * @class TitoRecargado
  *
@@ -8324,25 +7903,22 @@ var TitoRecargado = (function (_super) {
     function TitoRecargado() {
         _super.apply(this, arguments);
     }
+    TitoRecargado.prototype.iniciar = function () {
+        _super.prototype.iniciar.call(this);
+        this.cantidadFilas = 7;
+    };
     TitoRecargado.pathFondo = function () {
         return 'fondos.estrellas.png';
     };
-    TitoRecargado.prototype.cantidadFilas = function () {
-        return 7;
-    };
     TitoRecargado.prototype.avanzar = function () {
-        this.automata.hacer_luego(MoverACasillaDerecha);
+        this.getAutomata().hacer_luego(MoverACasillaDerecha);
     };
     TitoRecargado.prototype.prenderLuz = function () {
-        this.automata.hacer_luego(Encender, { etiqueta: 'Luz' });
+        this.getAutomata().hacer_luego(Encender, { etiqueta: 'Luz' });
     };
     return TitoRecargado;
 })(SuperTito2);
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "../actores/Cuadricula.ts"/>
-/// <reference path = "../actores/PerroCohete.ts"/>
-/// <reference path = "../comportamientos/MovimientosEnCuadricula.ts"/>
+/// <reference path = "./EscenaActividad.ts" />
 /**
  * @class TresNaranjas
  *
@@ -8351,11 +7927,11 @@ var TresNaranjas = (function (_super) {
     __extends(TresNaranjas, _super);
     function TresNaranjas() {
         _super.apply(this, arguments);
-        this.objetos = [];
+        this.naranjas = [];
     }
     TresNaranjas.prototype.iniciar = function () {
-        this.fondo = new Fondo('fondo.tresNaranjas.png', 0, 0);
-        this.cuadricula = new Cuadricula(0, 0, 1, 4, { separacionEntreCasillas: 5 }, { grilla: 'casilla.tresNaranjas.png', ancho: 100, alto: 100 });
+        this.setFondo(new Fondo('fondo.tresNaranjas.png', 0, 0));
+        this.setCuadricula(new Cuadricula(0, 0, 1, 4, { separacionEntreCasillas: 5 }, { grilla: 'casilla.tresNaranjas.png', ancho: 100, alto: 100 }));
         //se cargan los Naranjas
         var hayAlMenosUno = false;
         for (var i = 0; i < 3; i++) {
@@ -8376,24 +7952,86 @@ var TresNaranjas = (function (_super) {
             this.agregarNaranja(columna);
         }
         // se crea el personaje
-        this.automata = new MarcianoAnimado(0, 0);
-        this.cuadricula.agregarActor(this.automata, 0, 0, false);
-        this.automata.y += 20;
-        this.automata.x -= 20;
+        this.setAutomata(new MarcianoAnimado(0, 0));
+        this.getCuadricula().agregarActor(this.getAutomata(), 0, 0, false);
+        this.getAutomata().setX(this.getAutomata().getX() - 20);
+        this.getAutomata().setY(this.getAutomata().getY() + 20);
     };
     TresNaranjas.prototype.agregarNaranja = function (columna) {
         var naranja = new NaranjaAnimada(0, 0);
-        this.cuadricula.agregarActor(naranja, 0, columna, false);
+        this.getCuadricula().agregarActor(naranja, 0, columna, false);
         naranja.escala = 0.5;
         naranja.x += 20;
         naranja.y -= 20;
-        this.objetos.push(naranja);
+        this.naranjas.push(naranja);
     };
     TresNaranjas.prototype.estaResueltoElProblema = function () {
-        return this.contarActoresConEtiqueta('NaranjaAnimada') == 0 && this.automata.estaEnCasilla(null, 3);
+        return this.contarActoresConEtiqueta('NaranjaAnimada') == 0 && this.getAutomata().estaEnCasilla(null, 3);
     };
     return TresNaranjas;
 })(EscenaActividad);
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "HabilidadAnimada.ts"/>
+var Animar = (function (_super) {
+    __extends(Animar, _super);
+    function Animar(receptor, argumentos) {
+        _super.call(this, receptor, argumentos);
+        this.setearNombreAnimacion();
+        this.nombreAnimacion = this.nombreAnimacion || this.argumentos.nombreAnimacion;
+        if (this.nombreAnimacion)
+            this.receptor.cargarAnimacion(this.nombreAnimacion());
+    }
+    /* Redefinir si corresponde animar la habilidad. Debe setear this.nombreAnimacion.
+     También se puede pasar por uno de los argumentos el nombre de la animación.*/
+    Animar.prototype.setearNombreAnimacion = function () {
+    };
+    // No redefinir
+    Animar.prototype.actualizar = function () {
+        this.receptor.avanzarAnimacion();
+        this.doActualizar();
+    };
+    Animar.prototype.doActualizar = function () {
+        // Redefinir para agregar comportamiento además de la animación
+    };
+    return Animar;
+})(HabilidadAnimada);
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "HabilidadAnimada.ts"/>
+// No sólo avisa al salir de la pantalla, sino que no lo deja irse.
+// Usar en reemplazo de la habilidad SeMantieneEnPantalla
+// TODO: Repite código con SeMantieneEnPantalla, modificar pilas para que deje de hacerlo.
+var EstallarAlSalirDePantalla = (function (_super) {
+    __extends(EstallarAlSalirDePantalla, _super);
+    function EstallarAlSalirDePantalla(receptor) {
+        _super.call(this, receptor);
+        this.receptor.evto_se_movio.conectar(this);
+    }
+    EstallarAlSalirDePantalla.prototype.recibir = function (evento, tipo) {
+        if (tipo == this.receptor.evto_se_movio &&
+            this.seSalioDeLaPantalla()) {
+            throw new ActividadError("¡Me salgo de la pantalla!");
+        }
+    };
+    EstallarAlSalirDePantalla.prototype.seSalioDeLaPantalla = function () {
+        return this.seFuePorDerecha() ||
+            this.seFuePorIzquierda() ||
+            this.seFuePorArriba() ||
+            this.seFuePorAbajo();
+    };
+    EstallarAlSalirDePantalla.prototype.seFuePorIzquierda = function () {
+        return this.receptor.x < pilas.izquierda();
+    };
+    EstallarAlSalirDePantalla.prototype.seFuePorDerecha = function () {
+        return this.receptor.x > pilas.derecha();
+    };
+    EstallarAlSalirDePantalla.prototype.seFuePorArriba = function () {
+        return this.receptor.y > pilas.arriba();
+    };
+    EstallarAlSalirDePantalla.prototype.seFuePorAbajo = function () {
+        return this.receptor.y < pilas.abajo();
+    };
+    return EstallarAlSalirDePantalla;
+})(HabilidadAnimada);
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "HabilidadAnimada.ts"/>
 /*Si los grados de aumento son positivos gira para la derecha

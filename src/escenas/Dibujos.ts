@@ -1,5 +1,4 @@
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-/// <reference path = "../Direct.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 
 /**
  * Aquí se proveen algunas abstracciones que sirven para dibujar en una Pizarra.

@@ -4,33 +4,42 @@
 /// <reference path = "EscenaTotoLector.ts" />
 /// <reference path = "EscenaTotoEscritor.ts" />
 
-
 class EscenaDubaFondoBlanco extends EscenaDuba {
-	archivoFondo(): string {
+
+	public archivoFondo(): string {
 		return "fondo.blanco.png";
 	}
+
 }
 
 class EscenaCotyFondoBlanco extends EscenaCoty {
-	static pathFondo(): string {
+
+	public static pathFondo(): string {
 		return "fondo.blanco.png";
 	}
+
 }
 
 class EscenaLitaFondoBlanco extends EscenaLita {
-	archivoFondo(): string {
+
+	public archivoFondo(): string {
 		return "fondo.blanco.png";
 	}
+
 }
 
 class EscenaTotoLectorFondoBlanco extends EscenaTotoLector {
-	archivoFondo(): string {
+
+	public archivoFondo(): string {
 		return "fondo.blanco.png";
 	}
+
 }
 
 class EscenaTotoEscritorFondoBlanco extends EscenaTotoEscritor {
-	archivoFondo(): string {
+
+	public archivoFondo(): string {
 		return "fondo.blanco.png";
 	}
+
 }

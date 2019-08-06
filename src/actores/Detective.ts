@@ -6,7 +6,7 @@ class Detective extends ActorAnimado {
         this.definirAnimacion("parado", [0], 4, true);
     }
 
-    private obtenerActorBajoLaLupa() {
+    public obtenerActorBajoLaLupa() {
       return pilas.obtener_actores_con_etiqueta("Sospechoso").filter(s => s.colisiona_con(this))[0];
     }
 

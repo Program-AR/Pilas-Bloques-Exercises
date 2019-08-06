@@ -1,7 +1,4 @@
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../comportamientos/SaltarHablando.ts" />
-/// <reference path = "../actores/GatoAnimado.ts" />
-
+/// <reference path = "./EscenaActividad.ts" />
 
 /**
  * @class NoMeCansoDeSaltar
@@ -9,27 +6,23 @@
  * Objetivos: Introducir Repetición
  * Enunciado: Repetir salto.
  */
- class NoMeCansoDeSaltar extends EscenaActividad {
-   automata
-   fondo
-   saltosFaltantes;
+class NoMeCansoDeSaltar extends EscenaActividad {
+  private saltosFaltantes: number = 30
 
-
- 	iniciar() {
-        this.fondo = new Fondo('fondo.noMeCansoDeSaltar.png',0,0);
-        this.automata = new GatoAnimado(0,-17);
-        this.saltosFaltantes=30;
+  public iniciar(): void {
+    this.setFondo(new Fondo('fondo.noMeCansoDeSaltar.png', 0, 0))
+    this.setAutomata(new GatoAnimado(0, -17))
   }
 
-  fraseAlSaltar(){
-    this.saltosFaltantes--;
-    if (this.saltosFaltantes > 0)  return "Faltan " + this.saltosFaltantes + " saltos";
-    if (this.saltosFaltantes == 0) return "¡Ya salté todo lo necesario!";
-    throw new ActividadError("¡Uy! Salté mucho... ¡Me pasé!");
+  public fraseAlSaltar(): string {
+    this.saltosFaltantes--
+    if (this.saltosFaltantes > 0) return "Faltan " + this.saltosFaltantes + " saltos"
+    if (this.saltosFaltantes == 0) return "¡Ya salté todo lo necesario!"
+    throw new ActividadError("¡Uy! Salté mucho... ¡Me pasé!")
   }
 
-  estaResueltoElProblema() {
-    return this.saltosFaltantes == 0;
+  public estaResueltoElProblema(): boolean {
+    return this.saltosFaltantes == 0
   }
 
 }

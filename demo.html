@@ -84,29 +84,6 @@
       <option value="ElCangrejoAguafiestas">ElCangrejoAguafiestas</option>
       <option value="PrendiendoLasFogatas">PrendiendoLasFogatas</option>
       <option value="DibujandoLibremente">DibujoLibre</option>
-      <option value="EscenaDuba1">3.1.2a</option>
-      <option value="EscenaDuba2">3.1.2b</option>
-      <option value="EscenaDuba3">3.1.2c</option>
-      <option value="EscenaDuba4">3.1.2d</option>
-      <option value="EscenaDuba5">3.1.2e</option>
-      <option value="EscenaDuba6">3.1.2f</option>
-      <option value="EscenaCoty1">3.1.3a</option>
-      <option value="EscenaCoty2">3.1.3b</option>
-      <option value="EscenaCoty3">3.1.3c</option>
-      <option value="EscenaCotySonrisa">3.1.3d</option>
-      <option value="EscenaCoty5">3.1.3e</option>
-      <option value="EscenaCotyCactus">3.1.3f</option>
-      <option value="EscenaCotyMate">3.1.3g</option>
-      <option value="EscenaLita1">3.2.1g</option>
-      <option value="EscenaLita2">3.2.2g</option>
-      <option value="EscenaLita3">3.2.3g</option>
-      <option value="EscenaLita4">3.2.4g</option>
-      <option value="EscenaLita5">3.2.5g</option>
-      <option value="EscenaLita6">3.2.6g</option>
-      <option value="EscenaDuba7">3.2.3f</option>
-      <option value="EscenaDuba8">3.2.4f</option>
-      <option value="EscenaDuba9">3.2.5f</option>
-      <option value="EscenaDuba10">3.2.6f</option>
     </select>
   </div>
 
@@ -130,70 +107,70 @@
   window["repeat"] = function repeat(n, f) { for (var i = 0; i < n; i++) { f(); } }
   function evalScene(nombreDesafio) {
     pilas.mundo.gestor_escenas.cambiar_escena(new (eval(nombreDesafio))());
-    switch (nombreDesafio) {
-      case "AlienInicial":
-        editor.setValue(
-          "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
-          "   var automata = escena.automata; \n" +
-          "\n" +
-          "   function moverseALaCasillaDerecha() {\n" +
-          "       automata.hacer_luego(MoverACasillaDerecha); \n" +
-          "   } \n" +
-          "\n" +
-          "   function apretarBoton() {\n" +
-          "       var args = { \n" +
-          "           etiqueta: 'BotonAnimado', \n" +
-          "           nombreAnimacion: 'apretar', \n" +
-          "           animacionInteractuadoAlFinal: 'prendida', \n" +
-          "           mensajeError: 'No hay un botón aquí', \n" +
-          "           idTransicion: 'apretarBoton' \n" +
-          "       }; \n" +
-          "       automata.hacer_luego(Interactuar, args); \n" +
-          "   } \n" +
-          "\n" +
-          "   function programa() { \n" +
-          "       repeat(3, moverseALaCasillaDerecha); \n" +
-          "       apretarBoton(); \n" +
-          "   }\n" +
-          "\n" +
-          "   programa();\n" +
-          "\n");
-        break;
-      case "NoMeCansoDeSaltar":
-        editor.setValue(
-          "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
-          "   var automata = escena.automata; \n" +
-          "\n" +
-          "   function saltar() {\n" +
-          "       var args = { \n" +
-          "           velocidad_inicial: 30, \n" +
-          "           alturaDeseada: 150, \n" +
-          "           cantPasos: 20, \n" +
-          "           velocidad: 50 \n" +
-          "       }; \n" +
-          "       automata.hacer_luego(SaltarHablando, args); \n" +
-          "   } \n" +
-          "\n" +
-          "   function programa() { \n" +
-          "       repeat(30, saltar); \n" +
-          "   }\n" +
-          "\n" +
-          "   programa();\n" +
-          "\n");
-        break;
-      default:
-        editor.setValue(
-          "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
-          "   var automata = escena.automata; \n" +
-          "\n" +
-          "   function programa() { \n" +
-          "        \n" +
-          "   }\n" +
-          "\n" +
-          "   programa();\n" +
-          "\n");
-        break;
-    }
+    // switch (nombreDesafio) {
+    //   case "AlienInicial":
+    //     editor.setValue(
+    //       "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
+    //       "   var automata = escena.automata; \n" +
+    //       "\n" +
+    //       "   function moverseALaCasillaDerecha() {\n" +
+    //       "       automata.hacer_luego(MoverACasillaDerecha); \n" +
+    //       "   } \n" +
+    //       "\n" +
+    //       "   function apretarBoton() {\n" +
+    //       "       var args = { \n" +
+    //       "           etiqueta: 'BotonAnimado', \n" +
+    //       "           nombreAnimacion: 'apretar', \n" +
+    //       "           animacionInteractuadoAlFinal: 'prendida', \n" +
+    //       "           mensajeError: 'No hay un botón aquí', \n" +
+    //       "           idTransicion: 'apretarBoton' \n" +
+    //       "       }; \n" +
+    //       "       automata.hacer_luego(Interactuar, args); \n" +
+    //       "   } \n" +
+    //       "\n" +
+    //       "   function programa() { \n" +
+    //       "       repeat(3, moverseALaCasillaDerecha); \n" +
+    //       "       apretarBoton(); \n" +
+    //       "   }\n" +
+    //       "\n" +
+    //       "   programa();\n" +
+    //       "\n");
+    //     break;
+    //   case "NoMeCansoDeSaltar":
+    //     editor.setValue(
+    //       "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
+    //       "   var automata = escena.automata; \n" +
+    //       "\n" +
+    //       "   function saltar() {\n" +
+    //       "       var args = { \n" +
+    //       "           velocidad_inicial: 30, \n" +
+    //       "           alturaDeseada: 150, \n" +
+    //       "           cantPasos: 20, \n" +
+    //       "           velocidad: 50 \n" +
+    //       "       }; \n" +
+    //       "       automata.hacer_luego(SaltarHablando, args); \n" +
+    //       "   } \n" +
+    //       "\n" +
+    //       "   function programa() { \n" +
+    //       "       repeat(30, saltar); \n" +
+    //       "   }\n" +
+    //       "\n" +
+    //       "   programa();\n" +
+    //       "\n");
+    //     break;
+    //   default:
+    //     editor.setValue(
+    //       "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
+    //       "   var automata = escena.automata; \n" +
+    //       "\n" +
+    //       "   function programa() { \n" +
+    //       "        \n" +
+    //       "   }\n" +
+    //       "\n" +
+    //       "   programa();\n" +
+    //       "\n");
+    //     break;
+    // }
   }
   function iniciar_canvas(nombreDesafio) {
     var canvas_element = document.getElementById('canvas');

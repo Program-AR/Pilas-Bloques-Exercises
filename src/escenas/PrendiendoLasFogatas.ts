@@ -1,76 +1,63 @@
-/// <reference path = "EscenaActividad.ts" />
-/// <reference path = "../actores/ScoutAnimado.ts" />
-/// <reference path = "../actores/Cuadricula.ts" />
-/// <reference path = "../actores/CompuAnimada.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 
 class PrendiendoLasFogatas extends EscenaActividad {
-    cuadricula;
-    ladoCasilla;
-    fogatas;
-    cantidadFilas;
-    cantidadColumnas;
+  private cantidadFilas: number = 7
+  private cantidadColumnas: number = 7
+  private fogatas: Array<FogataAnimada> = []
 
-    iniciar() {
-        this.fogatas = [];
-        this.cantidadFilas = 7;
-        this.cantidadColumnas = 7;
+  public iniciar(): void {
+    this.setFondo(new Fondo('fondo.BosqueDeNoche.png', 0, 0))
 
-        let matriz = [
-          ['T','T','T','T','T','T','T'],
-          ['T','F','F','F','F','F','T'],
-          ['T','F','F','F','F','F','T'],
-          ['T','F','F','F','F','F','T'],
-          ['T','F','F','F','F','F','T'],
-          ['T','F','F','F','F','F','T'],
-          ['T','T','T','T','T','T','T']
-        ];
+    let matriz = [
+      ['T', 'T', 'T', 'T', 'T', 'T', 'T'],
+      ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
+      ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
+      ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
+      ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
+      ['T', 'F', 'F', 'F', 'F', 'F', 'T'],
+      ['T', 'T', 'T', 'T', 'T', 'T', 'T']
+    ]
 
-        this.cuadricula = new CuadriculaEsparsa(0,0, {ancho: 400, alto: 400}, {grilla: 'casillas.violeta.png'}, matriz)
+    this.setCuadricula(new CuadriculaEsparsa(0, 0, { ancho: 400, alto: 400 }, { grilla: 'casillas.violeta.png' }, matriz))
 
-        this.ladoCasilla = 30;
-        this.fondo = new Fondo('fondo.BosqueDeNoche.png', 0, 0);
+    this.agregarFogatas()
+    this.setAutomata(new ScoutAnimado(0, 0))
+    this.getCuadricula().agregarActorEnPerspectiva(this.getAutomata(), 0, 0)
+  }
 
-        this.agregarFogatas();
+  private agregarFogatas(): void {
 
-        this.automata = new ScoutAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
+    for (var i = 1; i < this.cantidadColumnas - 1; i++) {
+      if (Math.random() < .5) {
+        this.agregarFogata(0, i)
+        //filaSuperior
+      }
+      if (Math.random() < .5) {
+        this.agregarFogata(this.cantidadFilas - 1, i)
+      }
+      //filaInferior
     }
 
-    private agregarFogatas() {
+    for (var j = 1; j < this.cantidadFilas - 1; j++) {
 
-      for (var i=1; i<this.cantidadColumnas-1; i++){
-        if (Math.random() < .5) {
-          this.agregarFogata(0, i);
-          //filaSuperior
-        }
-        if (Math.random() < .5) {
-          this.agregarFogata(this.cantidadFilas-1, i);
-        }
-        //filaInferior
+      if (Math.random() < .5) {
+        this.agregarFogata(j, 0)
       }
 
-      for (var j=1; j<this.cantidadFilas-1; j++){
-
-        if (Math.random() < .5) {
-          this.agregarFogata(j, 0);
-        }
-
-        if (Math.random() < .5) {
-          this.agregarFogata(j, this.cantidadColumnas-1);
-        }
+      if (Math.random() < .5) {
+        this.agregarFogata(j, this.cantidadColumnas - 1)
       }
     }
+  }
 
-    private agregarFogata(fila, columna) {
-      let fogata = new FogataAnimada(0, 0);
-      this.cuadricula.agregarActor(fogata, fila, columna);
-      this.fogatas.push(fogata);
-    }
+  private agregarFogata(fila: number, columna: number): void {
+    let fogata = new FogataAnimada(0, 0)
+    this.getCuadricula().agregarActor(fogata, fila, columna)
+    this.fogatas.push(fogata)
+  }
 
-    estaResueltoElProblema() {
-      return this.fogatas.every((fogata) => {
-        return (fogata.nombreAnimacionActual() === 'prendida');
-      });
-    }
+  public estaResueltoElProblema(): boolean {
+    return this.fogatas.every((fogata: FogataAnimada) => (fogata.nombreAnimacionActual() === 'prendida'))
+  }
 
 }

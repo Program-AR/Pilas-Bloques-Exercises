@@ -1,6 +1,9 @@
-/// <reference path = "EscenaActividad.ts" />
+/// <reference path = "./EscenaActividad.ts" />
 
 class EscenaTests extends EscenaActividad {
-  iniciar() {
+
+  public iniciar(): void {
+    
   }
+
 }

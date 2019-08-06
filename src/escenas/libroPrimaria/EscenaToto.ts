@@ -1,36 +1,33 @@
-/// <reference path = "EscenaDesdeMapa.ts" />
-/// <reference path = "../../actores/libroPrimaria/Toto.ts" />
-/// <reference path = "../../actores/libroPrimaria/Letra.ts" />
+/// <reference path = "./EscenaDesdeMapa.ts" />
 
 /**
  * En esta escena, el zorro Toto se mueve por una cuadrícula de letras y las va leyendo.
  * A medida que el zorro lee las letras, estas van apareciendo en otra cuadrícula.
  */
 abstract class EscenaToto extends EscenaDesdeMapa {
-    automata : Toto;
-    textoObjetivo : string;
-    topeDeLetras : number;
-    cuadriculaSecundaria : Cuadricula; // En esta cuadrícula van apareciendo las letras a medida que Toto lee.
+    textoObjetivo: string;
+    topeDeLetras: number;
+    cuadriculaSecundaria: Cuadricula; // En esta cuadrícula van apareciendo las letras a medida que Toto lee.
 
-    static pathFondo(): string {
+    public static pathFondo(): string {
         return 'fondo.toto.png';
     }
 
-    static clasesDeActoresInvolucrados() : typeof ActorAnimado[] {
-        const actores : typeof ActorAnimado[] = [Toto, LetraTablero]
-		return actores.concat(this.clasesDeActoresExtrasToto());
-	};
+    public static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
+        const actores: typeof ActorAnimado[] = [Toto, LetraTablero]
+        return actores.concat(this.clasesDeActoresExtrasToto());
+    };
 
-	static clasesDeActoresExtrasToto() : typeof ActorAnimado[] {
-		return []
+    public static clasesDeActoresExtrasToto(): typeof ActorAnimado[] {
+        return []
     }
 
-	static imagenesAdicionales() : string[] {
-		return Casilla.imagenesPara('toto').concat(this.imagenesAdicionalesToto())
+    public static imagenesAdicionales(): string[] {
+        return Casilla.imagenesPara('toto').concat(this.imagenesAdicionalesToto())
     }
 
-	static imagenesAdicionalesToto() : string[] {
-		return []
+    public static imagenesAdicionalesToto(): string[] {
+        return []
     }
 
     /**
@@ -42,9 +39,9 @@ abstract class EscenaToto extends EscenaDesdeMapa {
      * se toma la longitud de `textoObjetivo`.
      */
     constructor(
-        mapaEscena : MapaEscena,
-        textoObjetivo : string,
-        topeDeLetras : number = 0
+        mapaEscena: MapaEscena,
+        textoObjetivo: string,
+        topeDeLetras: number = 0
     ) {
         super(new GeneradorDeMapasSimple(mapaEscena));
         this.textoObjetivo = textoObjetivo;
@@ -56,46 +53,51 @@ abstract class EscenaToto extends EscenaDesdeMapa {
 
         this.cuadriculaSecundaria = this.construirCuadriculaSecundaria();
         // Toto debe conocer la cuadrícula secundaria (ver comportamiento 'MovimientoConLectura').
-        this.automata.cuadriculaSecundaria = this.cuadriculaSecundaria;
+        const toto: Toto = this.getAutomata() as Toto
+        toto.cuadriculaSecundaria = this.cuadriculaSecundaria;
     }
 
     ajustarGraficos() {
-        this.automata.enviarAlFrente();
-        this.automata.setY(this.automata.getY() + this.automata.alto * 0.15);
-        this.automata.escala *= this.escalaSegunCuadricula(1.55);
+        this.getAutomata().enviarAlFrente();
+        this.getAutomata().setY(this.getAutomata().getY() + this.getAutomata().alto * 0.15);
+        this.getAutomata().escala *= this.escalaSegunCuadricula(1.55);
     }
 
     mapearIdentificadorAActor(id, nroFila, nroColumna): ActorAnimado {
-        switch(id) {
-            case 'A': return this.automata;
+        switch (id) {
+            case 'A': return this.getAutomata();
             default: return new LetraTablero(id);
         }
     }
 
-    abstract obtenerAutomata() : Toto;
+    public abstract obtenerAutomata(): Toto;
 
-    archivoFondo() {
+    public archivoFondo(): string {
         return "fondo.toto.png";
     }
-    cuadriculaX() {
+
+    public cuadriculaX(): number {
         return 0;
     }
-    cuadriculaY() {
+
+    public cuadriculaY(): number {
         return 80;
     }
-    opsCuadricula() {
+
+    public opsCuadricula() {
         return { ancho: 360, alto: 280 };
     }
-    opsCasilla() {
+
+    public opsCasilla() {
         return { grilla: "casillas.toto.png", cantColumnas: 16, bordesDecorados: true, relAspecto: 1 };
     }
 
-    abstract construirCuadriculaSecundaria() : Cuadricula;
+    public abstract construirCuadriculaSecundaria(): Cuadricula;
 
     /**
      * Devuelve en forma de string el contenido actual de la cuadrícula secundaria.
      */
-    textoEnCuadriculaSecundaria() : string {
+    public textoEnCuadriculaSecundaria(): string {
         let texto = "";
         this.cuadriculaSecundaria
             .filterCasillas(casilla => casilla.tieneActorConEtiqueta("Letra"))
@@ -105,7 +107,7 @@ abstract class EscenaToto extends EscenaDesdeMapa {
         return texto;
     }
 
-    estaResueltoElProblema() : boolean {
+    public estaResueltoElProblema(): boolean {
         return this.textoEnCuadriculaSecundaria() == this.textoObjetivo.toUpperCase();
     }
 }

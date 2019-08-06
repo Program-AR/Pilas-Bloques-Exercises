@@ -14,11 +14,11 @@ class Casilla extends ActorAnimado {
     nroColumna;
     actores;
 
-    static imagenesPara(actor) : string[] {
+    static imagenesPara(actor): string[] {
         return [`casillas.${actor}.png`];
     }
 
-    static imagenesPreCarga() : string[] {
+    static imagenesPreCarga(): string[] {
         //Como las casillas dependen del actor, se debería usar imagenesPara(actor) para obtener las imágenes.
         throw "Casilla.imagenesPreCarga() is useless. Should use Casilla.imagenesPara(actor)"
     }
@@ -82,7 +82,7 @@ class Casilla extends ActorAnimado {
         return this.cuadricula.casilla(this.nroFila + 1, this.nroColumna);
     }
 
-    
+
     casillaTodoADerecha() {
         return this.cuadricula.casilla(this.nroFila, this.cuadricula.cantColumnas - 1);
     }
@@ -97,72 +97,72 @@ class Casilla extends ActorAnimado {
     }
 
 
-    hayArriba() : boolean {
+    hayArriba(): boolean {
         return this.cuadricula.hayArriba(this);
     }
 
-    hayAbajo() : boolean {
+    hayAbajo(): boolean {
         return this.cuadricula.hayAbajo(this);
     }
 
-    hayIzquierda() : boolean {
+    hayIzquierda(): boolean {
         return this.cuadricula.hayIzquierda(this);
     }
 
-    hayDerecha() : boolean {
+    hayDerecha(): boolean {
         return this.cuadricula.hayDerecha(this);
     }
 
     sos(nroF, nroC) {
         return (nroF === null || nroF === this.nroFila) &&
-          (nroC === null || nroC === this.nroColumna);
+            (nroC === null || nroC === this.nroColumna);
     }
 
-    esEsquina(){
+    esEsquina() {
         return this.sos(0, 0) ||
             this.sos(0, this.cuadricula.cantColumnas - 1) ||
             this.sos(this.cuadricula.cantFilas - 1, 0) ||
             this.sos(this.cuadricula.cantFilas - 1, this.cuadricula.cantColumnas - 1);
     }
 
-    esFin(){
+    public esFin(): boolean {
         return this.cuadricula.esFin(this);
     }
 
-    esInicio(){
+    public esInicio(): boolean {
         return this.cuadricula.esInicio(this);
     }
 
     // Este método sólo genera una referencia entre la casilla y el actor.
     // Si quiero generar la relación bidireccional no debo usar este, sino actor.setCasillaActual(c).
-    agregarActor(unActor){
-      this.actores.push(unActor);
+    agregarActor(unActor) {
+        this.actores.push(unActor);
     }
 
-    eliminarActor(unActor){
-      this.actores.splice(this.actores.indexOf(unActor),1);
+    eliminarActor(unActor) {
+        this.actores.splice(this.actores.indexOf(unActor), 1);
     }
 
-    estaLibre() : boolean {
+    estaLibre(): boolean {
         return this.actores.length == 0;
     }
 
-    tieneActorConEtiqueta(unaEtq){
-      return this.actores.some( actor => actor.tiene_etiqueta(unaEtq))
+    tieneActorConEtiqueta(unaEtq) {
+        return this.actores.some(actor => actor.tiene_etiqueta(unaEtq))
     }
 
     actoresConEtiqueta(unaEtq) {
         return this.actores.filter(actor => actor.tiene_etiqueta(unaEtq));
     }
 
-    cuadroSegunPosicion() : number {
-        return 8 * Number(! this.hayArriba())
-            + 4 * Number(! this.hayIzquierda())
-            + 2 * Number(! this.hayAbajo())
-            + Number(! this.hayDerecha());
+    cuadroSegunPosicion(): number {
+        return 8 * Number(!this.hayArriba())
+            + 4 * Number(!this.hayIzquierda())
+            + 2 * Number(!this.hayAbajo())
+            + Number(!this.hayDerecha());
     }
 
-    cambiarImagen(nombre, cantFilas = 1, cantColumnas = 1){ // TODO: FEOOOOOOO bugfix setter imagen del actor
+    cambiarImagen(nombre, cantFilas = 1, cantColumnas = 1) { // TODO: FEOOOOOOO bugfix setter imagen del actor
         // PARCHEEEEE
         this.renacer(nombre, cantFilas, cantColumnas);
     }
@@ -182,7 +182,7 @@ class Casilla extends ActorAnimado {
         this.cuadricula.opcionesCasilla.cantFilas = cantFilas;
         this.cuadricula.opcionesCasilla.cantColumnas = cantColumnas;
 
-        var nuevoYo = new Casilla(this.nroFila,this.nroColumna,this.cuadricula);
+        var nuevoYo = new Casilla(this.nroFila, this.nroColumna, this.cuadricula);
 
         this.cuadricula.opcionesCasilla.grilla = opsCasilla.grilla;
         this.cuadricula.opcionesCasilla.cantFilas = opsCasilla.cantFilas;

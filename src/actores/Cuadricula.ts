@@ -68,7 +68,7 @@ class Cuadricula extends Actor {
     cantFilas;
     cantColumnas;
     private casillas: Array<Array<Casilla>>;
-    private primeraCasillaLibre : [number, number];
+    private primeraCasillaLibre: [number, number];
     private opcionesCuadricula;
     private opcionesCasilla;
 
@@ -104,11 +104,11 @@ class Cuadricula extends Actor {
         }
     }
 
-    separacion(){
+    separacion() {
         return this.opcionesCuadricula.separacionEntreCasillas;
     }
 
-    reubicarCasillas() : void {
+    reubicarCasillas(): void {
         this.forEachCasilla(casilla => { casilla.reubicate() });
     }
 
@@ -146,20 +146,20 @@ class Cuadricula extends Actor {
 
     calcularAltoCasilla(altoCuad) {
         return altoCuad / this.cantFilas -
-                (((this.cantFilas - 1) * this.separacion()) / this.cantFilas);
+            (((this.cantFilas - 1) * this.separacion()) / this.cantFilas);
 
     }
 
-    calcularAnchoCasillaConRelAspecto(relAspecto, anchoCuad, altoCuad) : number {
+    calcularAnchoCasillaConRelAspecto(relAspecto, anchoCuad, altoCuad): number {
         return Math.min(this.calcularAnchoCasilla(anchoCuad), this.calcularAltoCasilla(altoCuad) * relAspecto)
     }
 
-    calcularAltoCasillaConRelAspecto(relAspecto, anchoCuad, altoCuad) : number {
+    calcularAltoCasillaConRelAspecto(relAspecto, anchoCuad, altoCuad): number {
         return Math.min(this.calcularAltoCasilla(altoCuad), this.calcularAnchoCasilla(anchoCuad) / relAspecto)
     }
 
     forEachFila(func) {
-        for (var nroFila = 0; nroFila < this.cantFilas; nroFila++){
+        for (var nroFila = 0; nroFila < this.cantFilas; nroFila++) {
             func(nroFila);
         }
     }
@@ -171,13 +171,13 @@ class Cuadricula extends Actor {
     }
 
     forEachFilaCol(func) {
-        this.forEachFila((nroFila) => 
+        this.forEachFila((nroFila) =>
             this.forEachCol((nroCol) =>
                 func(nroFila, nroCol)
-            )    
+            )
         );
     }
-    
+
     /**
      * Itera sobre todas las casillas de la cuadrícula y aplica la función
      * recibida por parámetro. Las casillas se recorren *ordenadamente*,
@@ -186,10 +186,10 @@ class Cuadricula extends Actor {
      * dos parámetros: la casilla sobre la que se está iterando y un
      * índice que se incrementa con cada casilla.
      */
-    forEachCasilla(func : (Casilla, number) => any) {
+    forEachCasilla(func: (Casilla, number) => any) {
         let i = 0;
         this.forEachFilaCol((nroFila, nroCol) => {
-            if (this.casilla(nroFila,nroCol) !== undefined) {
+            if (this.casilla(nroFila, nroCol) !== undefined) {
                 func(this.casilla(nroFila, nroCol), i);
                 i += 1;
             }
@@ -206,7 +206,7 @@ class Cuadricula extends Actor {
         return cumplen;
     }
 
-    crearCasillas(){
+    crearCasillas() {
         this.casillas = new Array<Array<Casilla>>();
         this.forEachFilaCol((fila, col) =>
             this.agregarCasilla(fila, col)
@@ -224,14 +224,14 @@ class Cuadricula extends Actor {
         this.casillas[casillaVieja.nroFila][casillaVieja.nroCol] = casillaNueva;
     }
 
-    agregarActor(actor, nroF, nroC, escalarACasilla = true){
+    agregarActor(actor, nroF, nroC, escalarACasilla = true) {
         this.agregarActorEnCasilla(actor, this.casilla(nroF, nroC), escalarACasilla);
     }
 
     agregarActorEnCasilla(actor, casilla, escalarACasilla = true) {
         actor.cuadricula = this;
-        if (escalarACasilla){
-        	actor.escalarProporcionalALimites(this.anchoCasilla() - 5, this.altoCasilla() - 5);
+        if (escalarACasilla) {
+            actor.escalarProporcionalALimites(this.anchoCasilla() - 5, this.altoCasilla() - 5);
         }
         actor.setCasillaActual(casilla, true);
     }
@@ -246,7 +246,7 @@ class Cuadricula extends Actor {
         }
     }
 
-    agregarActorEnPerspectiva(actor,nroF,nroC,escalarACasilla = true){
+    agregarActorEnPerspectiva(actor, nroF, nroC, escalarACasilla = true) {
         this.agregarActor(actor, nroF, nroC, false);
         if (escalarACasilla) {
             actor.escalarAAncho(actor.casillaActual().ancho * 0.95);
@@ -254,14 +254,14 @@ class Cuadricula extends Actor {
         actor.abajo = actor.casillaActual().abajo + (0.4 * this.altoCasilla())
     }
 
-    altoCasilla(){
+    altoCasilla() {
         return this.opcionesCasilla.alto;
     }
-    anchoCasilla(){
+    anchoCasilla() {
         return this.opcionesCasilla.ancho;
     }
 
-    getOpcionesCasilla(){
+    getOpcionesCasilla() {
         return this.opcionesCasilla;
     }
 
@@ -269,7 +269,7 @@ class Cuadricula extends Actor {
      * Devuelve la casilla de la cuadrícula ubicada en la posición (nroF, nroC).
      * Si tal casilla no existe, devuelve undefined.
      */
-    casilla(nroF, nroC){
+    casilla(nroF, nroC) {
         if (this.casillas[nroF] !== undefined) {
             return this.casillas[nroF][nroC];
         }
@@ -278,40 +278,72 @@ class Cuadricula extends Actor {
         }
     }
 
-    proximaCasillaLibre() : Casilla {
+    proximaCasillaLibre(): Casilla {
         return this.filterCasillas(casilla => casilla.estaLibre())[0];
     }
 
-    esFin(casilla){
-      return this.cantFilas == 1 && casilla.sos(0, this.cantColumnas - 1) ||
-          this.cantColumnas == 1 && casilla.sos(this.cantFilas - 1, 0);
+    esFin(casilla) {
+        return this.cantFilas == 1 && casilla.sos(0, this.cantColumnas - 1) ||
+            this.cantColumnas == 1 && casilla.sos(this.cantFilas - 1, 0);
     }
 
-    esInicio(casilla){
-      return casilla.sos(0, 0);
+    esInicio(casilla) {
+        return casilla.sos(0, 0);
     }
 
-    colisionan(objeto1, objeto2) {
-      return (objeto1.casillaActual() == objeto2.casillaActual());
+    public colisionan(objeto1, objeto2): boolean {
+        return (objeto1.casillaActual() == objeto2.casillaActual());
     }
 
-    hayArriba(casilla : Casilla) : Boolean {
+    public hayArriba(casilla: Casilla): boolean {
         return !(casilla.sos(0, null));
     }
 
-    hayAbajo(casilla: Casilla): Boolean {
+    public hayAbajo(casilla: Casilla): boolean {
         return !(casilla.sos(this.cantFilas - 1, null));
     }
 
-    hayIzquierda(casilla: Casilla): Boolean {
+    public hayIzquierda(casilla: Casilla): boolean {
         return !(casilla.sos(null, 0));
     }
 
-    hayDerecha(casilla : Casilla) : Boolean {
+    public hayDerecha(casilla: Casilla): boolean {
         return !(casilla.sos(null, this.cantColumnas - 1));
     }
 
-    cantidadCasillas() {
+    public setIzquierda(desplazamiento: number): void {
+        this.izquierda = desplazamiento
+    }
+
+    public getIzquierda(): number {
+        return this.izquierda
+    }
+
+    public setArriba(desplazamiento: number): void {
+        this.arriba = desplazamiento
+    }
+
+    public getArriba(): number {
+        return this.arriba
+    }
+
+    public setDerecha(desplazamiento: number): void {
+        this.derecha = desplazamiento
+    }
+
+    public getDerecha(): number {
+        return this.derecha
+    }
+
+    public setAbajo(desplazamiento: number): void {
+        this.abajo = desplazamiento
+    }
+
+    public getAbajo(): number {
+        return this.abajo
+    }
+
+    public cantidadCasillas(): number {
         let cant = 0;
         this.forEachCasilla(casilla => cant += 1);
         return cant;

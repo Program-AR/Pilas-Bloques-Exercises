@@ -1,26 +1,25 @@
-/// <reference path = "SuperTito1.ts" />
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-
+/// <reference path = "./SuperTito1.ts" />
 /**
  * @class SuperTito2
  *
  */
 class SuperTito2 extends SuperTito1 {
-    hayLuz;
 
-    iniciar(){
-        super.iniciar();
-        this.hayLuz = false;
+    public iniciar(): void {
+        super.iniciar()
     }
 
-    static pathFondo(){
-        return 'fondo.superTito2.png';
+    public static pathFondo(): string {
+        return 'fondo.superTito2.png'
     }
 
-    agregarLamparinEnFila(i){
-        if (Math.random() < 0.5 || (i == this.cantidadFilas() - 2 && !this.hayLuz)) {
-            super.agregarLamparinEnFila(i);
-            this.hayLuz = true;
+    private hayLuz(): boolean {
+        return this.lamparines.length > 0
+    }
+
+    protected agregarLamparinEnFila(fila: number): void {
+        if (Math.random() < 0.5 || (fila == this.cantidadFilas - 2 && !this.hayLuz())) {
+            super.agregarLamparinEnFila(fila)
         }
     }
 }

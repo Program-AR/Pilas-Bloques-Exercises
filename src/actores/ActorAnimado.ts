@@ -1,6 +1,3 @@
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts" />
-/// <reference path = "../habilidades/Animar.ts" />
-/// <reference path = "../escenas/Errores.ts" />
 
 /**
  * @class ActorAnimado
@@ -316,6 +313,55 @@ class ActorAnimado extends Actor {
     lanzarActividadError(mensaje) {
         throw new ActividadError(mensaje);
     }
+
+    public setEscala(escala: number): void {
+        this.escala = escala
+    }
+
+    public getEscala(): number {
+        return this.escala
+    }
+
+    public setIzquierda(desplazamiento: number): void {
+        this.izquierda = desplazamiento
+    }
+
+    public getIzquierda(): number {
+        return this.izquierda
+    }
+
+    public setArriba(desplazamiento: number): void {
+        this.arriba = desplazamiento
+    }
+
+    public getArriba(): number {
+        return this.arriba
+    }
+
+    public setDerecha(desplazamiento: number): void {
+        this.derecha = desplazamiento
+    }
+
+    public getDerecha(): number {
+        return this.derecha
+    }
+
+    public setAbajo(desplazamiento: number): void {
+        this.abajo = desplazamiento
+    }
+
+    public getAbajo(): number {
+        return this.abajo
+    }
+
+    public setRadioDeColision(radio: number): void {
+        this.radio_de_colision = radio
+    }
+
+    public getRadioDeColision(): number {
+        return this.radio_de_colision
+    }
+
 }
 
 // Helper para construir las animaciones:

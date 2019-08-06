@@ -8,11 +8,11 @@
 
 class EscenaActividad extends Base {
 	public static faltanImagenes: boolean = false
-	private fondo: Fondo
-	private cuadricula: Cuadricula
-	private automata: ActorAnimado
-	private estado: Estado = new Estado()
-	private errorHandler: ProductionErrorHandler = new ProductionErrorHandler(this)
+	protected fondo: Fondo
+	protected cuadricula: Cuadricula
+	protected automata: ActorAnimado
+	protected estado: Estado = new Estado()
+	protected errorHandler: ProductionErrorHandler = new ProductionErrorHandler(this)
 
 	/**
 	 * Devuelve todos los nombres de archivo de imagen necesarios para
@@ -51,7 +51,7 @@ class EscenaActividad extends Base {
 		return []
 	}
 
-	protected setFondo(fondo: Fondo): void {
+	public setFondo(fondo: Fondo): void {
 		this.fondo = fondo
 	}
 
@@ -59,7 +59,7 @@ class EscenaActividad extends Base {
 		return this.fondo
 	}
 
-	protected setCuadricula(cuadricula: Cuadricula): void {
+	public setCuadricula(cuadricula: Cuadricula): void {
 		this.cuadricula = cuadricula
 	}
 
@@ -67,7 +67,7 @@ class EscenaActividad extends Base {
 		return this.cuadricula
 	}
 
-	protected setAutomata(actor: ActorAnimado): void {
+	public setAutomata(actor: ActorAnimado): void {
 		this.automata = actor
 	}
 
@@ -75,7 +75,7 @@ class EscenaActividad extends Base {
 		return this.automata
 	}
 
-	protected setEstado(estado: Estado): void {
+	public setEstado(estado: Estado): void {
 		this.estado = estado
 	}
 

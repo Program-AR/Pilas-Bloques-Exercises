@@ -1,29 +1,27 @@
 /// <reference path = "LaberintoLargo.ts" />
-/// <reference path="../actores/RatonAnimado.ts"/>
 
 class LaberintoConQueso extends LaberintoLargo {
 
-    iniciar() {
-        super.iniciar();
-        this.cuadricula.completarConObjetosRandom(new ConjuntoClases([QuesoAnimado]),
-        {condiciones:
-          [
-            (casilla) => casilla.hayAbajo() || casilla.hayDerecha()
-          ]
-        });
-        this.automata.setZ(pilas.escena_actual().minZ() - 1);
-    }
+  private cuadriculaEsparsa: CuadriculaEsparsa
 
+  public iniciar(): void {
+    super.iniciar()
+    this.cuadriculaEsparsa = this.getCuadricula() as CuadriculaEsparsa
+    this.cuadriculaEsparsa.completarConObjetosRandom(new ConjuntoClases([QuesoAnimado]),
+      { condiciones: [(casilla: Casilla) => casilla.hayAbajo() || casilla.hayDerecha()] })
+    this.getAutomata().setZ(pilas.escena_actual().minZ() - 1)
+  }
 
-     dameOpcionesCuadricula(){
-      return {'alto':440,'ancho':400, 'largo_min':3, 'largo_max':15};
-    }
+  public dameOpcionesCuadricula() {
+    return { 'alto': 440, 'ancho': 400, 'largo_min': 3, 'largo_max': 15 }
+  }
 
-    nombreFondo(){
-      return 'fondo.laberinto.queso.png';
-    }
+  public nombreFondo(): string {
+    return 'fondo.laberinto.queso.png'
+  }
 
-    estaResueltoElProblema(){
-      return this.automata.alFinalDelCamino()&&this.contarActoresConEtiqueta('QuesoAnimado')==0;
-    }
+  public estaResueltoElProblema(): boolean {
+    return this.getAutomata().alFinalDelCamino() && this.contarActoresConEtiqueta('QuesoAnimado') == 0
+  }
+
 }

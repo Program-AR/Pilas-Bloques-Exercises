@@ -1,49 +1,47 @@
 /// <reference path = "EscenaActividad.ts" />
-/// <reference path="../actores/CuadriculaMultiple.ts"/>
-/// <reference path="../actores/ManzanaAnimada.ts"/>
-/// <reference path="../actores/BananaAnimada.ts"/>
-/// <reference path="../actores/MonoAnimado.ts"/>
-/// <reference path="../actores/Tablero.ts"/>
-/// <reference path="../actores/ObservadoAnimado.ts"/>
 
 class ElMonoQueSabeContar extends EscenaActividad {
-    fondo;
-    cuadricula : CuadriculaMultipleColumnas;
-    tableros;
+    private cuadriculaMultipleColumnas: CuadriculaMultipleColumnas
+    private tableroConBananas: Tablero
+    private tableroConManzanas: Tablero
 
-    iniciar() {
-        this.fondo = new Fondo('fondos.selva.png',0,0);
-        this.cuadricula = new CuadriculaMultipleColumnas(
-            new DefinidorColumnasRandom(5, 6),
-            0, -45,
-            { separacionEntreCasillas: 5 },
-            { alto: 40, ancho: 40, grilla: 'casillamediomono.png', cantColumnas: 1 })
-        this.cuadricula.cambiarImagenInicio('casillainiciomono.png');
-        this.cambiarImagenesFin();
+    public iniciar(): void {
+        this.setFondo(new Fondo('fondos.selva.png', 0, 0))
 
-        this.cuadricula.completarConObjetosRandom(new ConjuntoClases([ManzanaAnimada, BananaAnimada]),
-          {condiciones:[
-              (casilla) => casilla.hayArriba(), //no incluye en primera fila
-              (casilla) => casilla.hayAbajo() //no incluye en ultima fila
-          ]}
-          );
+        this.setCuadricula(new CuadriculaMultipleColumnas(
+            new DefinidorColumnasRandom(5, 6), 0, -45, { separacionEntreCasillas: 5 },
+            { alto: 40, ancho: 40, grilla: 'casillamediomono.png', cantColumnas: 1 }))
 
-        this.automata = new MonoAnimado(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
-        this.automata.escala *= 1.5;
+        this.cuadriculaMultipleColumnas = this.getCuadricula() as CuadriculaMultipleColumnas
 
-        this.tableros = {};
-        this.tableros.ManzanaAnimada = new Tablero(150,210,{texto:"Manzanas"});
-        this.tableros.BananaAnimada = new Tablero(-150,210,{texto:"Bananas"});
+        this.cuadriculaMultipleColumnas.cambiarImagenInicio('casillainiciomono.png')
+        this.cambiarImagenesFin()
+
+        this.cuadriculaMultipleColumnas.completarConObjetosRandom(new ConjuntoClases([ManzanaAnimada, BananaAnimada]),
+            {
+                condiciones: [
+                    (casilla) => casilla.hayArriba(), //no incluye en primera fila
+                    (casilla) => casilla.hayAbajo() //no incluye en ultima fila
+                ]
+            }
+        )
+
+        this.setAutomata(new MonoAnimado(0, 0))
+        this.cuadriculaMultipleColumnas.agregarActorEnPerspectiva(this.getAutomata(), 0, 0)
+        this.getAutomata().setEscala(this.getAutomata().getEscala() * 1.5)
+
+        this.tableroConBananas = new Tablero(-150, 210, { texto: "Bananas" })
+        this.tableroConManzanas = new Tablero(150, 210, { texto: "Manzanas" })
+
     }
 
-    cambiarImagenesFin(){
-        this.cuadricula.cambiarImagenFin('casillafinalmono.png');
+    public cambiarImagenesFin(): void {
+        this.cuadriculaMultipleColumnas.cambiarImagenFin('casillafinalmono.png')
     }
 
-    estaResueltoElProblema(){
-      return this.cantidadObjetosConEtiqueta('BananaAnimada') === this.tableros.BananaAnimada.dameValor() &&
-        this.cantidadObjetosConEtiqueta('ManzanaAnimada') === this.tableros.ManzanaAnimada.dameValor();
+    public estaResueltoElProblema(): boolean {
+        return this.cantidadObjetosConEtiqueta('BananaAnimada') === this.tableroConBananas.dameValor() &&
+            this.cantidadObjetosConEtiqueta('ManzanaAnimada') === this.tableroConManzanas.dameValor()
     }
 
 }
