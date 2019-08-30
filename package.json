@@ -8,7 +8,7 @@
     "email": "info@program.ar",
     "url": "http://program.ar"
   },
-  "license": "MIT",
+  "license": "GPL-3.0",
   "main": "index.js",
   "repository": {
     "type": "git",
