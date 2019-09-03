@@ -24,8 +24,8 @@
 
     #editor {
       position: relative;
-      width: 420px;
-      height: 480px;
+      width: 800px;
+      height: 600px;
     }
   </style>
 
@@ -40,7 +40,7 @@
     <canvas id='canvas'></canvas>
 
     <select id='selectDesafio'>
-      <option value="AlienInicial" selected>AlienInicial</option>
+      <option value="EscenaConMaquinaDeEstado" selected>EscenaConMaquinaDeEstado</option>
     </select>
   </div>
 
@@ -61,42 +61,16 @@
 
 <script type="module">
   import { imageList } from './dist/imageList.js';
-  window["repeat"] = function repeat(n, f) { for (var i = 0; i < n; i++) { f(); } }
-  function evalScene(nombreDesafio) {
-    pilas.mundo.gestor_escenas.cambiar_escena(new (eval(nombreDesafio))());
+  import { exercises } from './demo.js'
 
-    switch (nombreDesafio) {
-      case "AlienInicial":
-        editor.setValue(
-          "   var escena = pilas.mundo.gestor_escenas.escena; \n" +
-          "   var automata = escena.automata; \n" +
-          "\n" +
-          "   function moverseALaCasillaDerecha() {\n" +
-          "       automata.hacer_luego(MoverACasillaDerecha); \n" +
-          "   } \n" +
-          "\n" +
-          "   function apretarBoton() {\n" +
-          "       var args = { \n" +
-          "           etiqueta: 'BotonAnimado', \n" +
-          "           nombreAnimacion: 'apretar', \n" +
-          "           animacionInteractuadoAlFinal: 'prendida', \n" +
-          "           mensajeError: 'No hay un botón aquí', \n" +
-          "           idTransicion: 'apretarBoton' \n" +
-          "       }; \n" +
-          "       automata.hacer_luego(Interactuar, args); \n" +
-          "   } \n" +
-          "\n" +
-          "   function programa() { \n" +
-          "       repeat(3, moverseALaCasillaDerecha); \n" +
-          "       apretarBoton(); \n" +
-          "   }\n" +
-          "\n" +
-          "   programa();\n" +
-          "\n");
-    }
-    
+  window["repeat"] = function repeat(n, f) { for (var i = 0; i < n; i++) { f(); } }
+
+  function evalScene(challenge) {
+    editor.setValue(exercises[challenge].code);
+    eval(editor.getValue());
   }
-  function iniciar_canvas(nombreDesafio) {
+
+  function iniciar_canvas(challenge) {
     var canvas_element = document.getElementById('canvas');
     window['canvas'] = canvas_element;
     var pilas = pilasengine.iniciar({
@@ -107,10 +81,11 @@
       data_path: 'dist/data',
       imagenesExtra: imageList
     });
-    evalScene(nombreDesafio);
+    evalScene(challenge);
     pilas.onready = function () { };
     pilas.ejecutar();
   }
+
   window['onload'] = function onload() {
     var selectDesafio = document.getElementById('selectDesafio');
     var selectText = selectDesafio.options[selectDesafio.selectedIndex].text;
@@ -122,6 +97,7 @@
       var value = selectDesafio.options[selectDesafio.selectedIndex].value;
       iniciar_canvas(value);
     };
+
   }
 </script>
 
