@@ -25,7 +25,7 @@
     #editor {
       position: relative;
       width: 800px;
-      height: 600px;
+      height: 480px;
     }
   </style>
 
@@ -41,6 +41,8 @@
 
     <select id='selectDesafio'>
       <option value="EscenaConMaquinaDeEstado" selected>EscenaConMaquinaDeEstado</option>
+      <option value="EscenaConObjetosYContador">EscenaConObjetosYContador</option>
+      <option value="Dubaventuras">Dubaventuras</option>
     </select>
   </div>
 
@@ -65,15 +67,17 @@
 
   window["repeat"] = function repeat(n, f) { for (var i = 0; i < n; i++) { f(); } }
 
-  function evalScene(challenge) {
-    editor.setValue(exercises[challenge].code);
-    eval(editor.getValue());
-  }
+  var pilas;
 
   function iniciar_canvas(challenge) {
     var canvas_element = document.getElementById('canvas');
     window['canvas'] = canvas_element;
-    var pilas = pilasengine.iniciar({
+    
+    if(pilas !== undefined) {
+      pilas.reiniciar();
+    }
+    
+    pilas = pilasengine.iniciar({
       ancho: 420,
       alto: 480,
       canvas: canvas_element,
@@ -81,7 +85,8 @@
       data_path: 'dist/data',
       imagenesExtra: imageList
     });
-    evalScene(challenge);
+    editor.setValue(exercises[challenge].code);
+    eval(editor.getValue());
     pilas.onready = function () { };
     pilas.ejecutar();
   }
@@ -91,7 +96,7 @@
     var selectText = selectDesafio.options[selectDesafio.selectedIndex].text;
     var selectValue = selectDesafio.options[selectDesafio.selectedIndex].value;
     iniciar_canvas(selectValue);
-    pilas.ejecutar();
+
     selectDesafio.onchange = function () {
       var text = selectDesafio.options[selectDesafio.selectedIndex].text;
       var value = selectDesafio.options[selectDesafio.selectedIndex].value;
