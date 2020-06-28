@@ -513,7 +513,7 @@ Number.prototype.times = function(object){
     };
 
 }));
-;// Generated automatically by nearley, version 2.18.0
+;// Generated automatically by nearley, version 2.17.0
 // http://github.com/Hardmath123/nearley
 (function () {
 function id(x) { return x[0]; }
@@ -2754,93 +2754,6 @@ var EstrellaAnimada = (function (_super) {
     }
     return EstrellaAnimada;
 })(ActorAnimado);
-/*Implementa un tablero, que tiene "nombre de equipo" y "puntaje"*/
-/*Notar que aumentar puede tomar valores negativos o positivos*/
-/* Para usarlo, hay que construirlo y setearle un observado
-ver clase "observado" */
-var Tablero = (function (_super) {
-    __extends(Tablero, _super);
-    function Tablero(x, y, argumentos) {
-        this.sanitizarArgumentosTablero(argumentos);
-        _super.call(this, x, y, { grilla: argumentos.imagen, cantColumnas: 1, cantFilas: 1 });
-        this.buildLabel(argumentos);
-        this.buildPuntaje(argumentos);
-        this.updateWidth();
-        this.updateHeight();
-    }
-    // label | separacion | puntaje     (el margen es igual tanto para el label como para el puntaje)
-    Tablero.prototype.sanitizarArgumentosTablero = function (args) {
-        args.imagen = args.imagen || 'invisible.png';
-        args.imagenLabel = args.imagenLabel || "PlacaContarGris.png";
-        args.imagenPuntaje = args.imagenPuntaje || "PlacaContarNegra.png";
-        this.atributoObservado = args.atributoObservado || 'cantidad';
-        this.colorTxtLabel = args.colorTxtLabel || "black";
-        this.colorTxtPuntaje = args.colorTxtPuntaje || "white";
-        this.separacionX = args.separacionX || 0;
-        this.separacionY = args.separacionY || 0;
-        this.margen = args.margen || 6;
-    };
-    Tablero.prototype.buildLabel = function (argumentos) {
-        this.label = new Texto(0, // no importa, luego se actualiza
-        this.y, argumentos.texto, { color: this.colorTxtLabel,
-            imagenFondo: argumentos.imagenLabel,
-            margen: this.margen,
-        });
-        this.label.setZ(this.z - 1);
-    };
-    Tablero.prototype.buildPuntaje = function (argumentos) {
-        this.puntaje = new Puntaje(0, // no importa, luego se actualiza
-        this.label.y + this.separacionY, argumentos.valorInicial || 0, { color: this.colorTxtPuntaje,
-            imagenFondo: argumentos.imagenPuntaje,
-            margen: this.margen,
-        });
-        this.puntaje.setZ(this.z - 2);
-    };
-    // label | separacion | puntaje   (cada uno tiene su margen)
-    Tablero.prototype.updateWidth = function () {
-        this.ancho = this.puntaje.ancho + this.separacionX + this.label.ancho;
-        this.label.izquierda = this.izquierda;
-        this.puntaje.izquierda = this.label.derecha + this.separacionX;
-    };
-    Tablero.prototype.updateHeight = function () {
-        this.alto = this.separacionY + this.label.alto;
-        this.label.arriba = this.arriba;
-        this.puntaje.arriba = this.label.arriba;
-    };
-    Tablero.prototype.dameValor = function () {
-        return this.puntaje.obtener();
-    };
-    Tablero.prototype.aumentar = function (aumento) {
-        this.puntaje.aumentar(aumento);
-    };
-    Tablero.prototype.setearValor = function (nuevoValor) {
-        if (nuevoValor <= this.puntaje.obtener()) {
-            this.puntaje.aumentar(-(this.puntaje.obtener() - nuevoValor));
-        }
-        else {
-            this.puntaje.aumentar(nuevoValor - this.puntaje.obtener());
-        }
-    };
-    Tablero.prototype.tuObservadoCambio = function (observado) {
-        this.setearValor(this.leerObservado(observado));
-        this.updateWidth();
-    };
-    Tablero.prototype.leerObservado = function (observado) {
-        if (typeof (observado[this.atributoObservado]) === "function") {
-            return observado[this.atributoObservado]();
-        }
-        return observado[this.atributoObservado];
-    };
-    Tablero.prototype.setX = function (x) {
-        _super.prototype.setX.call(this, x);
-        this.updateWidth();
-    };
-    Tablero.prototype.setY = function (y) {
-        _super.prototype.setY.call(this, y);
-        this.updateHeight();
-    };
-    return Tablero;
-})(ActorAnimado);
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "HabilidadAnimada.ts"/>
 var Flotar = (function (_super) {
@@ -2849,11 +2762,12 @@ var Flotar = (function (_super) {
         _super.call(this, receptor);
         this.contador = Math.random() * 3;
         this.desvio = argumentos["Desvio"] || 1;
+        this.velocidad = argumentos.velocidad || 1;
         this.eje = argumentos.eje || 'Y';
         this.actualizarPosicion();
     }
     Flotar.prototype.actualizar = function () {
-        this.contador += 0.025;
+        this.contador += 0.025 * this.velocidad;
         this.contador = this.contador % 256;
         //Esto es para evitar overflow.
         this.receptor['set' + this.eje](this.altura_original + Math.sin(this.contador) * this.desvio);
@@ -2866,25 +2780,36 @@ var Flotar = (function (_super) {
     };
     return Flotar;
 })(HabilidadAnimada);
-/// <reference path="Tablero.ts"/>
+/// <reference path="ActorCompuesto.ts"/>
 /// <reference path="../habilidades/Flotar.ts"/>
 var FlechaEscenarioAleatorio = (function (_super) {
     __extends(FlechaEscenarioAleatorio, _super);
     function FlechaEscenarioAleatorio() {
-        _super.call(this, 120, 220, { imagen: 'flechaEscenarioAleatorio.png',
-            texto: "¡Ejecutá varias veces!",
-            separacionX: 0,
-            imagenLabel: "invisible.png",
-        });
-        this.aprender(Flotar, { eje: 'X', Desvio: 20 });
-        this.setAlto(40);
+        var x = -100;
+        var y = 200;
+        var arrow = new ActorAnimado(x, y, { grilla: FlechaEscenarioAleatorio._grilla });
+        var text = new TextoAnimado(x, y, "¡Hay varios escenarios!", { margen: 10 });
+        arrow.setAncho(text.getAncho());
+        arrow.setAlto(text.getAlto() * 2);
+        _super.call(this, x, y, { subactores: [arrow, text] });
+        this.aprender(Flotar, { eje: 'Y', Desvio: 10, velocidad: 4 });
     }
-    FlechaEscenarioAleatorio.prototype.buildPuntaje = function (argumentos) {
-        this.puntaje = { ancho: 0 };
-    };
     FlechaEscenarioAleatorio._grilla = 'flechaEscenarioAleatorio.png';
     return FlechaEscenarioAleatorio;
-})(Tablero);
+})(ActorCompuesto);
+var TextoAnimado = (function (_super) {
+    __extends(TextoAnimado, _super);
+    function TextoAnimado() {
+        _super.apply(this, arguments);
+    }
+    TextoAnimado.prototype.cargarAnimacion = function (nombre) {
+        // no hace nada
+    };
+    TextoAnimado.prototype.animar = function () {
+        // no hace nada
+    };
+    return TextoAnimado;
+})(Texto);
 /// <reference path="ActorAnimado.ts"/>
 var Foco = (function (_super) {
     __extends(Foco, _super);
@@ -3932,6 +3857,93 @@ var Superheroe = (function (_super) {
         this.definirAnimacion('correr', [2, 3, 4, 5, 4, 5, 4, 5, 4, 3, 2, 6, 6], 15);
     }
     return Superheroe;
+})(ActorAnimado);
+/*Implementa un tablero, que tiene "nombre de equipo" y "puntaje"*/
+/*Notar que aumentar puede tomar valores negativos o positivos*/
+/* Para usarlo, hay que construirlo y setearle un observado
+ver clase "observado" */
+var Tablero = (function (_super) {
+    __extends(Tablero, _super);
+    function Tablero(x, y, argumentos) {
+        this.sanitizarArgumentosTablero(argumentos);
+        _super.call(this, x, y, { grilla: argumentos.imagen, cantColumnas: 1, cantFilas: 1 });
+        this.buildLabel(argumentos);
+        this.buildPuntaje(argumentos);
+        this.updateWidth();
+        this.updateHeight();
+    }
+    // label | separacion | puntaje     (el margen es igual tanto para el label como para el puntaje)
+    Tablero.prototype.sanitizarArgumentosTablero = function (args) {
+        args.imagen = args.imagen || 'invisible.png';
+        args.imagenLabel = args.imagenLabel || "PlacaContarGris.png";
+        args.imagenPuntaje = args.imagenPuntaje || "PlacaContarNegra.png";
+        this.atributoObservado = args.atributoObservado || 'cantidad';
+        this.colorTxtLabel = args.colorTxtLabel || "black";
+        this.colorTxtPuntaje = args.colorTxtPuntaje || "white";
+        this.separacionX = args.separacionX || 0;
+        this.separacionY = args.separacionY || 0;
+        this.margen = args.margen || 6;
+    };
+    Tablero.prototype.buildLabel = function (argumentos) {
+        this.label = new Texto(0, // no importa, luego se actualiza
+        this.y, argumentos.texto, { color: this.colorTxtLabel,
+            imagenFondo: argumentos.imagenLabel,
+            margen: this.margen,
+        });
+        this.label.setZ(this.z - 1);
+    };
+    Tablero.prototype.buildPuntaje = function (argumentos) {
+        this.puntaje = new Puntaje(0, // no importa, luego se actualiza
+        this.label.y + this.separacionY, argumentos.valorInicial || 0, { color: this.colorTxtPuntaje,
+            imagenFondo: argumentos.imagenPuntaje,
+            margen: this.margen,
+        });
+        this.puntaje.setZ(this.z - 2);
+    };
+    // label | separacion | puntaje   (cada uno tiene su margen)
+    Tablero.prototype.updateWidth = function () {
+        this.ancho = this.puntaje.ancho + this.separacionX + this.label.ancho;
+        this.label.izquierda = this.izquierda;
+        this.puntaje.izquierda = this.label.derecha + this.separacionX;
+    };
+    Tablero.prototype.updateHeight = function () {
+        this.alto = this.separacionY + this.label.alto;
+        this.label.arriba = this.arriba;
+        this.puntaje.arriba = this.label.arriba;
+    };
+    Tablero.prototype.dameValor = function () {
+        return this.puntaje.obtener();
+    };
+    Tablero.prototype.aumentar = function (aumento) {
+        this.puntaje.aumentar(aumento);
+    };
+    Tablero.prototype.setearValor = function (nuevoValor) {
+        if (nuevoValor <= this.puntaje.obtener()) {
+            this.puntaje.aumentar(-(this.puntaje.obtener() - nuevoValor));
+        }
+        else {
+            this.puntaje.aumentar(nuevoValor - this.puntaje.obtener());
+        }
+    };
+    Tablero.prototype.tuObservadoCambio = function (observado) {
+        this.setearValor(this.leerObservado(observado));
+        this.updateWidth();
+    };
+    Tablero.prototype.leerObservado = function (observado) {
+        if (typeof (observado[this.atributoObservado]) === "function") {
+            return observado[this.atributoObservado]();
+        }
+        return observado[this.atributoObservado];
+    };
+    Tablero.prototype.setX = function (x) {
+        _super.prototype.setX.call(this, x);
+        this.updateWidth();
+    };
+    Tablero.prototype.setY = function (y) {
+        _super.prototype.setY.call(this, y);
+        this.updateHeight();
+    };
+    return Tablero;
 })(ActorAnimado);
 /// <reference path="ActorAnimado.ts"/>
 var Tito = (function (_super) {
@@ -6782,34 +6794,6 @@ var EscenaCotyMate = (function (_super) {
     };
     return EscenaCotyMate;
 })(EscenaCoty);
-var EscenaCoty1 = (function (_super) {
-    __extends(EscenaCoty1, _super);
-    function EscenaCoty1() {
-        _super.call(this, [{ x: 125, y: 75 }, { x: 125, y: -175 }, { x: -25, y: -175 }, { x: -25, y: -75 }, { x: 25, y: -75 }, { x: 25, y: -175 }, { x: -125, y: -175 }, { x: -125, y: 125 }, { x: -75, y: 125 }, { x: -75, y: 75 }, { x: -25, y: 75 }, { x: -25, y: 125 }, { x: 25, y: 125 }, { x: 25, y: 75 }], [{ x: 25, y: 75 }, { x: 75, y: 75 }, { x: 75, y: 125 }, { x: 125, y: 125 }, { x: 125, y: 75 }], { xCoty: 25, yCoty: 75 });
-    }
-    return EscenaCoty1;
-})(EscenaCoty);
-var EscenaCoty2 = (function (_super) {
-    __extends(EscenaCoty2, _super);
-    function EscenaCoty2() {
-        _super.call(this, [{ x: -50, y: 25 }, { x: 0, y: 100 }, { x: 50, y: 25 }], [{ x: -50, y: 25 }, { x: 0, y: 25 }, { x: 50, y: 25 }, { x: 50, y: -25 }, { x: 50, y: -75 }, { x: 0, y: -75 }, { x: -50, y: -75 }, { x: -50, y: -25 }, { x: -50, y: 25 }], { xCoty: -50, yCoty: 25 });
-    }
-    return EscenaCoty2;
-})(EscenaCoty);
-var EscenaCoty3 = (function (_super) {
-    __extends(EscenaCoty3, _super);
-    function EscenaCoty3() {
-        _super.call(this, [], [[{ x: -125, y: 0 }, { x: -75, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }], [{ x: 75, y: 0 }, { x: 125, y: 0 }]], { xCoty: 125, yCoty: 0 });
-    }
-    return EscenaCoty3;
-})(EscenaCoty);
-var EscenaCoty5 = (function (_super) {
-    __extends(EscenaCoty5, _super);
-    function EscenaCoty5() {
-        _super.call(this, [[{ x: -55, y: 50 }, { x: -150, y: 50 }, { x: -150, y: 0 }, { x: -50, y: 0 }], [{ x: -75, y: 0 }, { x: -75, y: -100 }, { x: -125, y: -100 }, { x: -125, y: 0 }], [{ x: -25, y: 0 }, { x: 25, y: 0 }, { x: 25, y: -100 }, { x: -25, y: -100 }, { x: -25, y: 0 }], [{ x: 125, y: 0 }, { x: 125, y: -100 }, { x: 75, y: -100 }, { x: 75, y: 0 }], [{ x: 50, y: 0 }, { x: 150, y: 0 }, { x: 150, y: 50 }, { x: 50, y: 50 }]], [{ x: -50, y: 0 }, { x: 0, y: 0 }, { x: 50, y: 0 }, { x: 50, y: 50 }, { x: 0, y: 50 }, { x: -50, y: 50 }, { x: -50, y: 0 }], { xCoty: -50, yCoty: 100 });
-    }
-    return EscenaCoty5;
-})(EscenaCoty);
 /// <reference path = "../../../node_modules/pilasweb/dist/pilasweb.d.ts" />
 /// <reference path = "../../../dependencias/helpers.d.ts" />
 //// <reference types = "nearley" /> // Requiere TypeScript ^2.0.0. Solución por ahora:
@@ -7276,76 +7260,6 @@ var EscenaDuba = (function (_super) {
     };
     return EscenaDuba;
 })(EscenaDesdeMapa);
-var EscenaDuba1 = (function (_super) {
-    __extends(EscenaDuba1, _super);
-    function EscenaDuba1() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t   \t[O,-,-,-,O,-],\t\t\t   \t[-,A,-,-,P,-],\t\t\t   \t[-,-,-,O,-,-],\t\t\t   \t[O,O,O,O,-,O]]");
-    }
-    return EscenaDuba1;
-})(EscenaDuba);
-var EscenaDuba2 = (function (_super) {
-    __extends(EscenaDuba2, _super);
-    function EscenaDuba2() {
-        _super.call(this, "[[O,O,O,O,O,O],         \t\t[O,O,O,O,O,O],         \t\t[O,-,O,-,P,O],         \t\t[O,-,A,-,O,O],         \t\t[O,O,-,O,O,O],         \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba2;
-})(EscenaDuba);
-var EscenaDuba3 = (function (_super) {
-    __extends(EscenaDuba3, _super);
-    function EscenaDuba3() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,A,O,-,-,O],\t\t\t\t[O,-,-,-,P,O],\t\t\t\t[O,-,O,-,-,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba3;
-})(EscenaDuba);
-var EscenaDuba4 = (function (_super) {
-    __extends(EscenaDuba4, _super);
-    function EscenaDuba4() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,-,A,O,O,O],\t\t\t\t[O,O,-,O,O,O],\t\t\t\t[O,O,-,-,-,O],\t\t\t\t[O,O,O,P,-,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba4;
-})(EscenaDuba);
-var EscenaDuba5 = (function (_super) {
-    __extends(EscenaDuba5, _super);
-    function EscenaDuba5() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,-,O,-,O],\t\t\t\t[O,-,A,-,-,O],\t\t\t\t[O,-,-,O,-,O],\t\t\t\t[O,O,-,-,P,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba5;
-})(EscenaDuba);
-var EscenaDuba6 = (function (_super) {
-    __extends(EscenaDuba6, _super);
-    function EscenaDuba6() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,-,-,-,-,O],\t\t\t\t[O,-,O,P,-,O],\t\t\t\t[O,A,O,-,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba6;
-})(EscenaDuba);
-var EscenaDuba7 = (function (_super) {
-    __extends(EscenaDuba7, _super);
-    function EscenaDuba7() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,P,O,-,-,O],\t\t\t\t[O,-,O,-,-,-],\t\t\t\t[O,-,-,-,O,A],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba7;
-})(EscenaDuba);
-var EscenaDuba8 = (function (_super) {
-    __extends(EscenaDuba8, _super);
-    function EscenaDuba8() {
-        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,-,P,O,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,-,-,-,A,O],        \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba8;
-})(EscenaDuba);
-var EscenaDuba9 = (function (_super) {
-    __extends(EscenaDuba9, _super);
-    function EscenaDuba9() {
-        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,P,O,A,O,O],        \t\t[O,-,O,-,O,O],        \t\t[O,-,-,-,O,O],        \t\t[O,-,-,O,O,O],        \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba9;
-})(EscenaDuba);
-var EscenaDuba10 = (function (_super) {
-    __extends(EscenaDuba10, _super);
-    function EscenaDuba10() {
-        _super.call(this, "[[O,O,O,O,O,O],        \t\t[O,O,-,-,-,O],        \t\t[O,-,P,-,-,O],        \t\t[O,-,O,O,O,O],        \t\t[O,-,-,A,-,O],        \t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaDuba10;
-})(EscenaDuba);
 /// <reference path = "EscenaDesdeMapa.ts" />
 /// <reference path = "../EstadosDeEscena.ts" />
 /// <reference path = "../../actores/libroPrimaria/Lita.ts" />
@@ -7459,48 +7373,6 @@ var EscenaLita = (function (_super) {
     };
     return EscenaLita;
 })(EscenaDesdeMapa);
-var EscenaLita1 = (function (_super) {
-    __extends(EscenaLita1, _super);
-    function EscenaLita1() {
-        _super.call(this, "[[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,A,-,T,L,-],\t\t\t\t[O,O,O,O,O,E],\t\t\t\t[O,O,O,O,O,O],\t\t\t\t[O,O,O,O,O,O]]");
-    }
-    return EscenaLita1;
-})(EscenaLita);
-var EscenaLita2 = (function (_super) {
-    __extends(EscenaLita2, _super);
-    function EscenaLita2() {
-        _super.call(this, "[[O,O,O,O,O],\t\t\t\t[O,O,O,O,O],\t\t\t\t[-,-,T,-,-],\t\t\t\t[-,-,L,-,-],\t\t\t\t[A,O,O,O,E],\t\t\t\t[O,O,O,O,O]]");
-    }
-    return EscenaLita2;
-})(EscenaLita);
-var EscenaLita3 = (function (_super) {
-    __extends(EscenaLita3, _super);
-    function EscenaLita3() {
-        _super.call(this, "[[-,-,-],\t\t\t\t[-,L,-],\t\t\t\t[A,-,E],\t\t\t\t[-,T,-]]");
-    }
-    return EscenaLita3;
-})(EscenaLita);
-var EscenaLita4 = (function (_super) {
-    __extends(EscenaLita4, _super);
-    function EscenaLita4() {
-        _super.call(this, "[[-,-,-,-],\t\t\t\t[-,L,T,-],\t\t\t\t[A,-,-,E],\t\t\t\t[-,-,-,-]]");
-    }
-    return EscenaLita4;
-})(EscenaLita);
-var EscenaLita5 = (function (_super) {
-    __extends(EscenaLita5, _super);
-    function EscenaLita5() {
-        _super.call(this, "[[-,A,-],\t\t\t\t[L,E,T],\t\t\t\t[-,-,-],\t\t\t\t[-,-,-]]");
-    }
-    return EscenaLita5;
-})(EscenaLita);
-var EscenaLita6 = (function (_super) {
-    __extends(EscenaLita6, _super);
-    function EscenaLita6() {
-        _super.call(this, "[[-,-,A],\t\t\t\t[-,L,T],\t\t\t\t[-,-,E]]");
-    }
-    return EscenaLita6;
-})(EscenaLita);
 /// <reference path = "EscenaDesdeMapa.ts" />
 /// <reference path = "../../actores/libroPrimaria/Toto.ts" />
 /// <reference path = "../../actores/libroPrimaria/Letra.ts" />
