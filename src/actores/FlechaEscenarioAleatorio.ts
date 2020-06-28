@@ -1,20 +1,30 @@
-/// <reference path="Tablero.ts"/>
+/// <reference path="ActorCompuesto.ts"/>
 /// <reference path="../habilidades/Flotar.ts"/>
 
-class FlechaEscenarioAleatorio extends Tablero {
+class FlechaEscenarioAleatorio extends ActorCompuesto {
   static _grilla = 'flechaEscenarioAleatorio.png'
 
   constructor() {
-      super(120, 220, {imagen: 'flechaEscenarioAleatorio.png',
-                    texto: "¡Ejecutá varias veces!" ,
-                    separacionX: 0,
-                    imagenLabel: "invisible.png",
-                  });
-      this.aprender(Flotar,{eje: 'X', Desvio: 20});
-      this.setAlto(40);
+    const x = -100
+    const y = 200
+    
+    const arrow = new ActorAnimado(x, y, { grilla: FlechaEscenarioAleatorio._grilla })
+    const text = new TextoAnimado(x, y, "¡Hay varios escenarios!", {margen: 10})
+    arrow.setAncho(text.getAncho())
+    arrow.setAlto(text.getAlto()*2)
+    super(x, y, { subactores: [arrow, text] })
+    this.aprender(Flotar,{eje: 'Y', Desvio: 10, velocidad: 4})
   }
 
-  buildPuntaje(argumentos){
-    this.puntaje = {ancho: 0};
-  }
+}
+
+class TextoAnimado extends Texto {
+
+	cargarAnimacion(nombre) {
+		// no hace nada
+	}
+
+	animar(){
+		// no hace nada
+	}
 }
