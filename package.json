@@ -39,7 +39,8 @@
     "generate-image-list": "python scripts/generateImageList.py",
     "grunt": "grunt",
     "watch": "grunt watch",
-    "build": "grunt typescript && npm run compilar-gramatica-aleatoria && grunt concat && grunt clean && npm run generate-image-list"
+    "build": "grunt typescript && npm run compilar-gramatica-aleatoria && grunt concat && grunt clean && npm run generate-image-list",
+    "release": "npm run build && ./node_modules/.bin/release --publish --show-url && npm publish"
   },
   "dependencies": {
     "pilasweb": "^0.4.9"
@@ -56,6 +57,7 @@
     "load-grunt-tasks": "^5.1.0",
     "nearley": "^2.18.0",
     "reflect-metadata": "^0.1.13",
+    "release": "^6.1.0",
     "typescript": "^3.5.3"
   }
 }
