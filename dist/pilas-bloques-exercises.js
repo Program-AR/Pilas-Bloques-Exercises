@@ -4866,9 +4866,14 @@ var PatearPelota = (function (_super) {
     }
     PatearPelota.prototype.alInteractuar = function () {
         _super.prototype.alInteractuar.call(this);
-        this.interactor().pausar();
+        this.patearPelota();
+    };
+    /**
+     * Patea una pelota que este en la misma posición
+     * que el interactor del comportamiento.
+     */
+    PatearPelota.prototype.patearPelota = function () {
         this.interactuado().hacer(SerPateado, {
-            interactuado: this.interactor(),
             tiempoEnElAire: 25,
             aceleracion: 0.0025,
             elevacionMaxima: 25,
@@ -4880,6 +4885,9 @@ var PatearPelota = (function (_super) {
     };
     PatearPelota.prototype.nombreAnimacion = function () {
         return "patear";
+    };
+    PatearPelota.prototype.hayConQuienInteractuar = function () {
+        return _super.prototype.hayConQuienInteractuar.call(this) && !this.interactuado()['pateado'];
     };
     return PatearPelota;
 })(Interactuar);
@@ -4979,19 +4987,8 @@ var SerPateado = (function (_super) {
     function SerPateado() {
         _super.apply(this, arguments);
     }
-    /**
-       * Retorna al actor quien realiza la interacción.
-       */
-    SerPateado.prototype.interactor = function () {
-        return this.receptor;
-    };
-    /**
-       * Retorna al actor con el cual se realiza la interacción.
-       */
-    SerPateado.prototype.interactuado = function () {
-        return this.argumentos['interactuado'];
-    };
     SerPateado.prototype.preAnimacion = function () {
+        this.receptor.pateado = true;
         this.receptor.cargarAnimacion("patear");
         this.receptor.aprender(RotarContinuamente, { 'gradosDeAumentoStep': this.argumentos['gradosDeAumentoStep'] || 1 });
         this.actualizarPosicion();
@@ -5023,8 +5020,7 @@ var SerPateado = (function (_super) {
         }
         this.receptor.x += this.contador;
         if (this.receptor.izquierda >= pilas.derecha()) {
-            this.interactor().eliminar();
-            this.interactuado().desPausar();
+            this.receptor.eliminar();
             return true;
         }
     };
@@ -5034,7 +5030,7 @@ var SerPateado = (function (_super) {
         this.receptor.x += this.contador;
     };
     SerPateado.prototype.implicaMovimiento = function () {
-        return false;
+        return true;
     };
     SerPateado.prototype.actualizarPosicion = function () {
         this.altura_original = this.receptor.y;
