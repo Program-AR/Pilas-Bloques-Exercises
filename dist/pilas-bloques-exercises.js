@@ -513,153 +513,6 @@ Number.prototype.times = function(object){
     };
 
 }));
-;// Generated automatically by nearley, version 2.17.0
-// http://github.com/Hardmath123/nearley
-(function () {
-function id(x) { return x[0]; }
-var grammar = {
-    Lexer: undefined,
-    ParserRules: [
-    {"name": "unsigned_int$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "unsigned_int$ebnf$1", "symbols": ["unsigned_int$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "unsigned_int", "symbols": ["unsigned_int$ebnf$1"], "postprocess": 
-        function(d) {
-            return parseInt(d[0].join(""));
-        }
-        },
-    {"name": "int$ebnf$1$subexpression$1", "symbols": [{"literal":"-"}]},
-    {"name": "int$ebnf$1$subexpression$1", "symbols": [{"literal":"+"}]},
-    {"name": "int$ebnf$1", "symbols": ["int$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "int$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "int$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "int$ebnf$2", "symbols": ["int$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "int", "symbols": ["int$ebnf$1", "int$ebnf$2"], "postprocess": 
-        function(d) {
-            if (d[0]) {
-                return parseInt(d[0][0]+d[1].join(""));
-            } else {
-                return parseInt(d[1].join(""));
-            }
-        }
-        },
-    {"name": "unsigned_decimal$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "unsigned_decimal$ebnf$1", "symbols": ["unsigned_decimal$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", "symbols": ["unsigned_decimal$ebnf$2$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "unsigned_decimal$ebnf$2$subexpression$1", "symbols": [{"literal":"."}, "unsigned_decimal$ebnf$2$subexpression$1$ebnf$1"]},
-    {"name": "unsigned_decimal$ebnf$2", "symbols": ["unsigned_decimal$ebnf$2$subexpression$1"], "postprocess": id},
-    {"name": "unsigned_decimal$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "unsigned_decimal", "symbols": ["unsigned_decimal$ebnf$1", "unsigned_decimal$ebnf$2"], "postprocess": 
-        function(d) {
-            return parseFloat(
-                d[0].join("") +
-                (d[1] ? "."+d[1][1].join("") : "")
-            );
-        }
-        },
-    {"name": "decimal$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
-    {"name": "decimal$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "decimal$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "decimal$ebnf$2", "symbols": ["decimal$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "decimal$ebnf$3$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "decimal$ebnf$3$subexpression$1$ebnf$1", "symbols": ["decimal$ebnf$3$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "decimal$ebnf$3$subexpression$1", "symbols": [{"literal":"."}, "decimal$ebnf$3$subexpression$1$ebnf$1"]},
-    {"name": "decimal$ebnf$3", "symbols": ["decimal$ebnf$3$subexpression$1"], "postprocess": id},
-    {"name": "decimal$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "decimal", "symbols": ["decimal$ebnf$1", "decimal$ebnf$2", "decimal$ebnf$3"], "postprocess": 
-        function(d) {
-            return parseFloat(
-                (d[0] || "") +
-                d[1].join("") +
-                (d[2] ? "."+d[2][1].join("") : "")
-            );
-        }
-        },
-    {"name": "percentage", "symbols": ["decimal", {"literal":"%"}], "postprocess": 
-        function(d) {
-            return d[0]/100;
-        }
-        },
-    {"name": "jsonfloat$ebnf$1", "symbols": [{"literal":"-"}], "postprocess": id},
-    {"name": "jsonfloat$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "jsonfloat$ebnf$2", "symbols": ["jsonfloat$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "jsonfloat$ebnf$3$subexpression$1$ebnf$1", "symbols": [/[0-9]/]},
-    {"name": "jsonfloat$ebnf$3$subexpression$1$ebnf$1", "symbols": ["jsonfloat$ebnf$3$subexpression$1$ebnf$1", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "jsonfloat$ebnf$3$subexpression$1", "symbols": [{"literal":"."}, "jsonfloat$ebnf$3$subexpression$1$ebnf$1"]},
-    {"name": "jsonfloat$ebnf$3", "symbols": ["jsonfloat$ebnf$3$subexpression$1"], "postprocess": id},
-    {"name": "jsonfloat$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "symbols": [/[+-]/], "postprocess": id},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$2", "symbols": [/[0-9]/]},
-    {"name": "jsonfloat$ebnf$4$subexpression$1$ebnf$2", "symbols": ["jsonfloat$ebnf$4$subexpression$1$ebnf$2", /[0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "jsonfloat$ebnf$4$subexpression$1", "symbols": [/[eE]/, "jsonfloat$ebnf$4$subexpression$1$ebnf$1", "jsonfloat$ebnf$4$subexpression$1$ebnf$2"]},
-    {"name": "jsonfloat$ebnf$4", "symbols": ["jsonfloat$ebnf$4$subexpression$1"], "postprocess": id},
-    {"name": "jsonfloat$ebnf$4", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "jsonfloat", "symbols": ["jsonfloat$ebnf$1", "jsonfloat$ebnf$2", "jsonfloat$ebnf$3", "jsonfloat$ebnf$4"], "postprocess": 
-        function(d) {
-            return parseFloat(
-                (d[0] || "") +
-                d[1].join("") +
-                (d[2] ? "."+d[2][1].join("") : "") +
-                (d[3] ? "e" + (d[3][1] || "+") + d[3][2].join("") : "")
-            );
-        }
-        },
-    {"name": "_$ebnf$1", "symbols": []},
-    {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": function(d) {return null;}},
-    {"name": "__$ebnf$1", "symbols": ["wschar"]},
-    {"name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "__", "symbols": ["__$ebnf$1"], "postprocess": function(d) {return null;}},
-    {"name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id},
-    {"name": "Main", "symbols": ["_", "Term", "_"], "postprocess": d => d[1]},
-    {"name": "Main", "symbols": ["_", "Matrix", "_"], "postprocess": d => d[1]},
-    {"name": "Main", "symbols": ["_", {"literal":"["}, "_", "Matrix", "_", {"literal":"]"}, "_"], "postprocess": d => d[3]},
-    {"name": "Matrix$ebnf$1", "symbols": [{"literal":","}], "postprocess": id},
-    {"name": "Matrix$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Matrix", "symbols": [{"literal":"["}, "_", "Row", "_", {"literal":"]"}, "_", "Matrix$ebnf$1", "_"], "postprocess": d => [d[2]]},
-    {"name": "Matrix", "symbols": [{"literal":"["}, "_", "Row", "_", {"literal":"]"}, "_", {"literal":","}, "_", "Matrix"], "postprocess": d => [d[2]].concat(d[8])},
-    {"name": "Row", "symbols": ["Term"], "postprocess": d => [d[0]]},
-    {"name": "Row", "symbols": ["Term", "_", {"literal":","}, "_", "Row"], "postprocess": d => [d[0]].concat(d[4])},
-    {"name": "Term", "symbols": ["Subterm1"], "postprocess": id},
-    {"name": "Term", "symbols": ["Suc"], "postprocess": d => new GeneradorDeCasillaSucesion(d[0])},
-    {"name": "Term", "symbols": ["Macro"], "postprocess": id},
-    {"name": "Term", "symbols": [{"literal":"\""}, "_", "Term", "_", {"literal":"\""}], "postprocess": d => d[2]},
-    {"name": "Term", "symbols": [{"literal":"'"}, "_", "Term", "_", {"literal":"'"}], "postprocess": d => d[2]},
-    {"name": "Suc", "symbols": ["Subterm1", "_", {"literal":">"}, "_", "Subterm1"], "postprocess": d => [d[0],d[4]]},
-    {"name": "Suc", "symbols": ["Subterm1", "_", {"literal":">"}, "_", "Suc"], "postprocess": d => [d[0]].concat(d[4])},
-    {"name": "Subterm1", "symbols": ["Subterm2"], "postprocess": id},
-    {"name": "Subterm1", "symbols": ["Option"], "postprocess": d => new GeneradorDeCasillaOpcion(d[0])},
-    {"name": "Option", "symbols": ["Subterm2", "_", {"literal":"|"}, "_", "Subterm2"], "postprocess": d => [d[0],d[4]]},
-    {"name": "Option", "symbols": ["Subterm2", "_", {"literal":"|"}, "_", "Option"], "postprocess": d => [d[0]].concat(d[4])},
-    {"name": "Subterm2", "symbols": ["Atom"], "postprocess": id},
-    {"name": "Subterm2", "symbols": ["Maybe"], "postprocess": id},
-    {"name": "Maybe", "symbols": ["Atom", "_", {"literal":"?"}], "postprocess": d => new GeneradorDeCasillaMaybe(d[0])},
-    {"name": "Maybe", "symbols": ["Atom", "_", {"literal":"?"}, "_", {"literal":"("}, "_", "decimal", "_", {"literal":")"}], "postprocess": d => new GeneradorDeCasillaMaybe(d[0],d[6])},
-    {"name": "Atom", "symbols": ["Id"], "postprocess": d => new GeneradorDeCasillaSimple(d[0])},
-    {"name": "Atom", "symbols": ["Bag"], "postprocess": id},
-    {"name": "Atom", "symbols": ["Col"], "postprocess": id},
-    {"name": "Atom", "symbols": ["Nil"], "postprocess": id},
-    {"name": "Atom", "symbols": [{"literal":"("}, "_", "Term", "_", {"literal":")"}], "postprocess": d => d[2]},
-    {"name": "Id$ebnf$1", "symbols": [/[a-zA-Z0-9]/]},
-    {"name": "Id$ebnf$1", "symbols": ["Id$ebnf$1", /[a-zA-Z0-9]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Id", "symbols": ["Id$ebnf$1"], "postprocess": d => d[0].join("")},
-    {"name": "Bag", "symbols": [{"literal":"$"}], "postprocess": d => new GeneradorDeCasillaBolsa()},
-    {"name": "Bag", "symbols": [{"literal":"$"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaBolsa(d[2])},
-    {"name": "Col", "symbols": [{"literal":"*"}], "postprocess": d => new GeneradorDeCasillaColeccion()},
-    {"name": "Col", "symbols": [{"literal":"*"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaColeccion(d[2])},
-    {"name": "Nil", "symbols": [{"literal":"-"}], "postprocess": d => new GeneradorDeCasillaVacia()},
-    {"name": "Macro", "symbols": [{"literal":"#"}, "_", "Id"], "postprocess": d => new GeneradorDeCasillaMacro(d[2])}
-]
-  , ParserStart: "Main"
-}
-if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
-   module.exports = grammar;
-} else {
-   window.grammar = grammar;
-}
-})();
 ;/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -4313,39 +4166,75 @@ var Interactuar = (function (_super) {
     }
     Interactuar.prototype.sanitizarArgumentos = function () {
         _super.prototype.sanitizarArgumentos.call(this);
-        if (!this.argumentos['etiqueta']) {
+        if (!this.etiqueta()) {
             throw new ArgumentError("Debe proveerse una etiqueta para verificar interacción");
         }
     };
     Interactuar.prototype.configurarVerificaciones = function () {
         var _this = this;
-        var mensajeError = this.argumentos['mensajeError'] || "¡Acá no hay " + this.hacerLegible(this.argumentos['etiqueta']) + "!";
+        var mensajeError = this.mensajeDeError() || "¡Acá no hay " + this.hacerLegible(this.etiqueta()) + "!";
         this.verificacionesPre.push(new Verificacion(function () { return _this.hayConQuienInteractuar(); }, mensajeError));
     };
     Interactuar.prototype.preAnimacion = function () {
         _super.prototype.preAnimacion.call(this);
-        if (this.argumentos['animacionInteractuadoMientras']) {
-            this.interactuado().cargarAnimacion(this.argumentos['animacionInteractuadoMientras']);
+        if (this.animacionInteractuadoMientras()) {
+            this.interactuado().cargarAnimacion(this.animacionInteractuadoMientras());
         }
     };
     Interactuar.prototype.postAnimacion = function () {
         _super.prototype.postAnimacion.call(this);
-        if (this.argumentos['animacionInteractuadoAlFinal']) {
-            this.interactuado().cargarAnimacion(this.argumentos['animacionInteractuadoAlFinal']);
+        if (this.animacionInteractuadoAlFinal()) {
+            this.interactuado().cargarAnimacion(this.animacionInteractuadoAlFinal());
         }
         this.interactuar();
+    };
+    /**
+     * La etiqueta del actor a interactuar.
+     */
+    Interactuar.prototype.etiqueta = function () {
+        return this.argumentos['etiqueta'];
+    };
+    /**
+     * El nombre de la animación del interactuado mientras interactua.
+     */
+    Interactuar.prototype.animacionInteractuadoMientras = function () {
+        return this.argumentos['animacionInteractuadoMientras'];
+    };
+    /**
+     * El nombre de la animación del interactuado al final de la interacción.
+     */
+    Interactuar.prototype.animacionInteractuadoAlFinal = function () {
+        return this.argumentos['animacionInteractuadoAlFinal'];
+    };
+    /**
+     * Comportamiento adicional post interaccion.
+     */
+    Interactuar.prototype.comportamientoAdicional = function () {
+        return this.argumentos['comportamientoAdicional'];
+    };
+    /**
+     * Argumentos del comportamiento adicional post interaccion.
+     */
+    Interactuar.prototype.argumentosDelComportamientoAdicional = function () {
+        return this.argumentos['argumentosComportamiento'];
     };
     /**
      * Indica si existe una posible interacción entre dos actores.
      */
     Interactuar.prototype.hayConQuienInteractuar = function () {
-        return this.receptor.tocando(this.argumentos['etiqueta']);
+        return this.interactor().tocando(this.etiqueta());
+    };
+    /**
+     * Retorna al actor quien realiza la interacción.
+     */
+    Interactuar.prototype.interactor = function () {
+        return this.receptor;
     };
     /**
      * Retorna al actor con el cual se realiza la interacción.
      */
     Interactuar.prototype.interactuado = function () {
-        return this.receptor.objetoTocado(this.argumentos['etiqueta']);
+        return this.interactor().objetoTocado(this.etiqueta());
     };
     /**
      * Se llama al realizarse la interacción.
@@ -4356,11 +4245,17 @@ var Interactuar = (function (_super) {
      * Realiza la interacción.
      */
     Interactuar.prototype.interactuar = function () {
-        if (this.argumentos['comportamientoAdicional']) {
-            var claseComportamiento = window[this.argumentos['comportamientoAdicional']];
-            this.interactuado().hacer_luego(claseComportamiento, this.argumentos['argumentosComportamiento']);
+        if (this.comportamientoAdicional()) {
+            var claseComportamiento = window[this.comportamientoAdicional()];
+            this.interactuado().hacer_luego(claseComportamiento, this.argumentosDelComportamientoAdicional());
         }
         this.alInteractuar();
+    };
+    /**
+     * El mensaje de error que se mostrara en caso de error.
+     */
+    Interactuar.prototype.mensajeDeError = function () {
+        return this.argumentos['mensajeError'];
     };
     Interactuar.prototype.hacerLegible = function (etiqueta) {
         return etiqueta.toLowerCase().split("animada")[0].split("animado")[0];
@@ -4964,6 +4859,32 @@ var MoverLeyendoIzquierda = (function (_super) {
 })(MovimientoConLectura);
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "Interactuar.ts" />
+var PatearPelota = (function (_super) {
+    __extends(PatearPelota, _super);
+    function PatearPelota() {
+        _super.apply(this, arguments);
+    }
+    PatearPelota.prototype.alInteractuar = function () {
+        _super.prototype.alInteractuar.call(this);
+        this.interactor().pausar();
+        this.interactuado().hacer(SerPateado, {
+            interactuado: this.interactor(),
+            tiempoEnElAire: 25,
+            aceleracion: 0.0025,
+            elevacionMaxima: 25,
+            gradosDeAumentoStep: -2
+        });
+    };
+    PatearPelota.prototype.etiqueta = function () {
+        return "PelotaAnimada";
+    };
+    PatearPelota.prototype.nombreAnimacion = function () {
+        return "patear";
+    };
+    return PatearPelota;
+})(Interactuar);
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "Interactuar.ts" />
 var PrepararEnsalada = (function (_super) {
     __extends(PrepararEnsalada, _super);
     function PrepararEnsalada() {
@@ -5058,6 +4979,18 @@ var SerPateado = (function (_super) {
     function SerPateado() {
         _super.apply(this, arguments);
     }
+    /**
+       * Retorna al actor quien realiza la interacción.
+       */
+    SerPateado.prototype.interactor = function () {
+        return this.receptor;
+    };
+    /**
+       * Retorna al actor con el cual se realiza la interacción.
+       */
+    SerPateado.prototype.interactuado = function () {
+        return this.argumentos['interactuado'];
+    };
     SerPateado.prototype.preAnimacion = function () {
         this.receptor.cargarAnimacion("patear");
         this.receptor.aprender(RotarContinuamente, { 'gradosDeAumentoStep': this.argumentos['gradosDeAumentoStep'] || 1 });
@@ -5090,7 +5023,8 @@ var SerPateado = (function (_super) {
         }
         this.receptor.x += this.contador;
         if (this.receptor.izquierda >= pilas.derecha()) {
-            this.receptor.eliminar();
+            this.interactor().eliminar();
+            this.interactuado().desPausar();
             return true;
         }
     };
@@ -5100,7 +5034,7 @@ var SerPateado = (function (_super) {
         this.receptor.x += this.contador;
     };
     SerPateado.prototype.implicaMovimiento = function () {
-        return true;
+        return false;
     };
     SerPateado.prototype.actualizarPosicion = function () {
         this.altura_original = this.receptor.y;

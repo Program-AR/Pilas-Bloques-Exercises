@@ -8,6 +8,20 @@ class SerPateado extends ComportamientoAnimado {
   tiempoEnElAire
   elevacionMaxima
 
+  /**
+	 * Retorna al actor quien realiza la interacción.
+	 */
+  interactor(): ActorAnimado {
+    return this.receptor
+  }
+
+  /**
+	 * Retorna al actor con el cual se realiza la interacción.
+	 */
+  interactuado(): ActorAnimado {
+    return this.argumentos['interactuado']
+  }
+
   preAnimacion() {
     this.receptor.cargarAnimacion("patear")
     this.receptor.aprender(RotarContinuamente, { 'gradosDeAumentoStep': this.argumentos['gradosDeAumentoStep'] || 1 })
@@ -45,7 +59,8 @@ class SerPateado extends ComportamientoAnimado {
     this.receptor.x += this.contador;
 
     if (this.receptor.izquierda >= pilas.derecha()) {
-      this.receptor.eliminar();
+      this.interactor().eliminar()
+      this.interactuado().desPausar()
       return true;
     }
   }
@@ -57,7 +72,7 @@ class SerPateado extends ComportamientoAnimado {
   }
 
   implicaMovimiento() {
-    return true;
+    return false;
   }
 
   actualizarPosicion() {
