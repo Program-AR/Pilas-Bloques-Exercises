@@ -992,84 +992,6 @@ var ImitarAtributosNumericos2 = (function (_super) {
     };
     return ImitarAtributosNumericos2;
 })(ImitarAtributosNumericos);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "HabilidadAnimada.ts"/>
-/*Si los grados de aumento son positivos gira para la derecha
-caso contrario gira para la izquierda*/
-var RotarContinuamente = (function (_super) {
-    __extends(RotarContinuamente, _super);
-    function RotarContinuamente(receptor, argumentos) {
-        _super.call(this, receptor);
-        this.gradosDeAumentoStep = argumentos.gradosDeAumentoStep || 1;
-    }
-    RotarContinuamente.prototype.actualizar = function () {
-        this.receptor.rotacion += this.gradosDeAumentoStep;
-    };
-    return RotarContinuamente;
-})(HabilidadAnimada);
-/// <reference path = "../actores/ActorAnimado.ts" />
-/// <reference path = "../habilidades/Rotar.ts" />
-var ActorPateable = (function (_super) {
-    __extends(ActorPateable, _super);
-    function ActorPateable() {
-        _super.apply(this, arguments);
-    }
-    /**
-     * ¿El actor fue pateado?
-     */
-    ActorPateable.prototype.fuePateado = function () {
-        return this.pateado;
-    };
-    ActorPateable.prototype.actualizarPosicion = function () {
-        this.alturaOriginal = this.y;
-    };
-    ActorPateable.prototype.estoyFueraDePantalla = function () {
-        return this.izquierda >= pilas.derecha();
-    };
-    /**
-     * El actor es pateado.
-     *
-     * @param aceleracion - La aceleracion que tendra al ser pateado.
-     * @param elevacionMaxima - La elevación maxima que tendra al ser pateado.
-     * @param gradosDeAumentoStep - Los grados de aumento.
-     * @param tiempoEnElAire - El tiempo que permanecera en el aire.
-     */
-    ActorPateable.prototype.serPateado = function (aceleracion, elevacionMaxima, gradosDeAumentoStep, tiempoEnElAire) {
-        if (!this.fuePateado()) {
-            this.pateado = true;
-            this.aceleracion = aceleracion;
-            this.elevacionMaxima = elevacionMaxima;
-            this.tiempoEnElAire = tiempoEnElAire;
-            this.contador = Math.random() * 3;
-            this.actualizarPosicion();
-            this.cargarAnimacion("patear");
-            this.aprender(RotarContinuamente, { gradosDeAumentoStep: gradosDeAumentoStep });
-        }
-        else {
-            this.contador = (this.contador + this.aceleracion) % 256; // para evitar overflow
-            if (this.y < this.alturaOriginal + this.elevacionMaxima && this.tiempoEnElAire > 0) {
-                //subiendo
-                this.y += this.contador;
-            }
-            if (this.tiempoEnElAire > 0) {
-                //en el aire
-                this.tiempoEnElAire -= 1;
-            }
-            if (this.tiempoEnElAire <= 0) {
-                //bajando
-                if (this.y > this.alturaOriginal) {
-                    this.y -= this.contador;
-                }
-            }
-            this.x += this.contador;
-            this.x += this.contador;
-            if (this.estoyFueraDePantalla()) {
-                this.eliminar();
-            }
-        }
-    };
-    return ActorPateable;
-})(ActorAnimado);
 /// <reference path="ActorAnimado.ts"/>
 var AlienAnimado = (function (_super) {
     __extends(AlienAnimado, _super);
@@ -3594,7 +3516,7 @@ var PapaNoelAnimado = (function (_super) {
     }
     return PapaNoelAnimado;
 })(ActorAnimado);
-/// <reference path = "../actores/ActorPateable.ts" />
+/// <reference path = "../actores/ActorAnimado.ts" />
 var PelotaAnimada = (function (_super) {
     __extends(PelotaAnimada, _super);
     function PelotaAnimada(x, y) {
@@ -3602,7 +3524,7 @@ var PelotaAnimada = (function (_super) {
         this.definirAnimacion("patear", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 12);
     }
     return PelotaAnimada;
-})(ActorPateable);
+})(ActorAnimado);
 /// <reference path="ActorAnimado.ts"/>
 var PerroCohete = (function (_super) {
     __extends(PerroCohete, _super);
@@ -4961,7 +4883,7 @@ var PatearPelota = (function (_super) {
     PatearPelota.prototype.configurarVerificaciones = function () {
         var _this = this;
         _super.prototype.configurarVerificaciones.call(this);
-        this.verificacionesPre.push(new Verificacion(function () { return !_this.pelotaInteractuada().fuePateado(); }, "No puedo patear dos veces la misma pelota"));
+        this.verificacionesPre.push(new Verificacion(function () { return !_this.pelotaInteractuada().pateado; }, "No puedo patear dos veces la misma pelota"));
     };
     return PatearPelota;
 })(Interactuar);
@@ -5055,19 +4977,59 @@ var SaltarHablando = (function (_super) {
     return SaltarHablando;
 })(SaltarAnimado);
 /// <reference path = "ComportamientoAnimado.ts"/>
-/// <reference path = "../actores/ActorPateable.ts" />
 var SerPateado = (function (_super) {
     __extends(SerPateado, _super);
     function SerPateado() {
         _super.apply(this, arguments);
     }
-    SerPateado.prototype.preAnimacion = function () {
-        this._receptor = this.receptor;
+    SerPateado.prototype.elReceptorEstaFueraDePantalla = function () {
+        return this.receptor.izquierda >= pilas.derecha();
+    };
+    /**
+     * El receptor es pateado.
+     *
+     * @param aceleracion - La aceleracion que tendra al ser pateado.
+     * @param elevacionMaxima - La elevación maxima que tendra al ser pateado.
+     * @param gradosDeAumentoStep - Los grados de aumento.
+     * @param tiempoEnElAire - El tiempo que permanecera en el aire.
+     */
+    SerPateado.prototype.patear = function (aceleracion, elevacionMaxima, gradosDeAumentoStep, tiempoEnElAire) {
+        if (!this.receptor.pateado) {
+            this.receptor.pateado = true;
+            this.aceleracion = aceleracion;
+            this.elevacionMaxima = elevacionMaxima;
+            this.tiempoEnElAire = tiempoEnElAire;
+            this.contador = Math.random() * 3;
+            this.alturaOriginal = this.receptor.y;
+            this.receptor.cargarAnimacion("patear");
+            this.receptor.aprender(RotarContinuamente, { gradosDeAumentoStep: gradosDeAumentoStep });
+        }
+        else {
+            this.contador = (this.contador + this.aceleracion) % 256; // para evitar overflow
+            if (this.receptor.y < this.alturaOriginal + this.elevacionMaxima && this.tiempoEnElAire > 0) {
+                //subiendo
+                this.receptor.y += this.contador;
+            }
+            if (this.tiempoEnElAire > 0) {
+                //en el aire
+                this.tiempoEnElAire -= 1;
+            }
+            if (this.tiempoEnElAire <= 0) {
+                //bajando
+                if (this.receptor.y > this.alturaOriginal) {
+                    this.receptor.y -= this.contador;
+                }
+            }
+            this.receptor.x += this.contador;
+            if (this.elReceptorEstaFueraDePantalla()) {
+                this.receptor.eliminar();
+            }
+        }
     };
     SerPateado.prototype.doActualizar = function () {
         _super.prototype.doActualizar.call(this);
-        this._receptor.serPateado(this.argumentos.aceleracion, this.argumentos.elevacionMaxima, this.argumentos.gradosDeAumentoStep, this.argumentos.tiempoEnElAire);
-        return this._receptor.estoyFueraDePantalla();
+        this.patear(this.argumentos.aceleracion, this.argumentos.elevacionMaxima, this.argumentos.gradosDeAumentoStep, this.argumentos.tiempoEnElAire);
+        return this.elReceptorEstaFueraDePantalla();
     };
     SerPateado.prototype.implicaMovimiento = function () {
         return true;
@@ -8233,6 +8195,21 @@ var TresNaranjas = (function (_super) {
     };
     return TresNaranjas;
 })(EscenaActividad);
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "HabilidadAnimada.ts"/>
+/*Si los grados de aumento son positivos gira para la derecha
+caso contrario gira para la izquierda*/
+var RotarContinuamente = (function (_super) {
+    __extends(RotarContinuamente, _super);
+    function RotarContinuamente(receptor, argumentos) {
+        _super.call(this, receptor);
+        this.gradosDeAumentoStep = argumentos.gradosDeAumentoStep || 1;
+    }
+    RotarContinuamente.prototype.actualizar = function () {
+        this.receptor.rotacion += this.gradosDeAumentoStep;
+    };
+    return RotarContinuamente;
+})(HabilidadAnimada);
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "HabilidadAnimada.ts"/>
 /*Si los grados de aumento son positivos gira para la derecha

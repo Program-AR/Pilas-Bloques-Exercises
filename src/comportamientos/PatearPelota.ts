@@ -8,8 +8,8 @@ class PatearPelota extends Interactuar {
         this.patearPelota()
     }
 
-    pelotaInteractuada(): PelotaAnimada {
-        return this.interactuado() as PelotaAnimada
+    pelotaInteractuada(): any {
+        return this.interactuado()
     }
 
     private patearPelota(): void {
@@ -31,7 +31,7 @@ class PatearPelota extends Interactuar {
 
     configurarVerificaciones(): void {
         super.configurarVerificaciones()
-        this.verificacionesPre.push(new Verificacion(() => !this.pelotaInteractuada().fuePateado(), "No puedo patear dos veces la misma pelota"))
+        this.verificacionesPre.push(new Verificacion(() => !this.pelotaInteractuada().pateado, "No puedo patear dos veces la misma pelota"))
     }
 
 }

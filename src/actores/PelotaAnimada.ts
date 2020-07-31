@@ -1,6 +1,6 @@
-/// <reference path = "../actores/ActorPateable.ts" />
+/// <reference path = "../actores/ActorAnimado.ts" />
 
-class PelotaAnimada extends ActorPateable {
+class PelotaAnimada extends ActorAnimado {
 
     constructor(x: number, y: number) {
         super(x, y, { grilla: 'pelotaAnimada.png', cantColumnas: 16 })
