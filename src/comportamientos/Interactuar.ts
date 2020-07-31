@@ -52,56 +52,49 @@ class Interactuar extends ComportamientoAnimado {
 	 * La etiqueta del actor a interactuar.
 	 */
     etiqueta(): string {
-        return this.argumentos['etiqueta']
+        return this.argumentos.etiqueta
     }
 
     /**
 	 * El nombre de la animación del interactuado mientras interactua.
 	 */
     animacionInteractuadoMientras(): string {
-        return this.argumentos['animacionInteractuadoMientras']
+        return this.argumentos.animacionInteractuadoMientras
     }
 
     /**
 	 * El nombre de la animación del interactuado al final de la interacción.
 	 */
     animacionInteractuadoAlFinal(): string {
-        return this.argumentos['animacionInteractuadoAlFinal']
+        return this.argumentos.animacionInteractuadoAlFinal
     }
 
     /**
 	 * Comportamiento adicional post interaccion.
 	 */
     comportamientoAdicional(): string {
-        return this.argumentos['comportamientoAdicional']
+        return this.argumentos.comportamientoAdicional
     }
 
     /**
 	 * Argumentos del comportamiento adicional post interaccion.
 	 */
     argumentosDelComportamientoAdicional() {
-        return this.argumentos['argumentosComportamiento']
+        return this.argumentos.argumentosComportamiento
     }
 
 	/**
 	 * Indica si existe una posible interacción entre dos actores.
 	 */
     hayConQuienInteractuar(): boolean {
-        return this.interactor().tocando(this.etiqueta())
-    }
-
-    /**
-	 * Retorna al actor quien realiza la interacción.
-	 */
-    interactor(): ActorAnimado {
-        return this.receptor
+        return this.receptor.tocando(this.etiqueta())
     }
 
 	/**
 	 * Retorna al actor con el cual se realiza la interacción.
 	 */
     interactuado(): ActorAnimado {
-        return this.interactor().objetoTocado(this.etiqueta())
+        return this.receptor.objetoTocado(this.etiqueta())
     }
 
 	/**
@@ -116,7 +109,7 @@ class Interactuar extends ComportamientoAnimado {
 	 */
     private interactuar(): void {
         if (this.comportamientoAdicional()) {
-            let claseComportamiento: any = window[this.comportamientoAdicional()]
+            let claseComportamiento = window[this.comportamientoAdicional()]
             this.interactuado().hacer_luego(claseComportamiento, this.argumentosDelComportamientoAdicional())
         }
         this.alInteractuar()

@@ -992,6 +992,84 @@ var ImitarAtributosNumericos2 = (function (_super) {
     };
     return ImitarAtributosNumericos2;
 })(ImitarAtributosNumericos);
+/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
+/// <reference path = "HabilidadAnimada.ts"/>
+/*Si los grados de aumento son positivos gira para la derecha
+caso contrario gira para la izquierda*/
+var RotarContinuamente = (function (_super) {
+    __extends(RotarContinuamente, _super);
+    function RotarContinuamente(receptor, argumentos) {
+        _super.call(this, receptor);
+        this.gradosDeAumentoStep = argumentos.gradosDeAumentoStep || 1;
+    }
+    RotarContinuamente.prototype.actualizar = function () {
+        this.receptor.rotacion += this.gradosDeAumentoStep;
+    };
+    return RotarContinuamente;
+})(HabilidadAnimada);
+/// <reference path = "../actores/ActorAnimado.ts" />
+/// <reference path = "../habilidades/Rotar.ts" />
+var ActorPateable = (function (_super) {
+    __extends(ActorPateable, _super);
+    function ActorPateable() {
+        _super.apply(this, arguments);
+    }
+    /**
+     * ¿El actor fue pateado?
+     */
+    ActorPateable.prototype.fuePateado = function () {
+        return this.pateado;
+    };
+    ActorPateable.prototype.actualizarPosicion = function () {
+        this.alturaOriginal = this.y;
+    };
+    ActorPateable.prototype.estoyFueraDePantalla = function () {
+        return this.izquierda >= pilas.derecha();
+    };
+    /**
+     * El actor es pateado.
+     *
+     * @param aceleracion - La aceleracion que tendra al ser pateado.
+     * @param elevacionMaxima - La elevación maxima que tendra al ser pateado.
+     * @param gradosDeAumentoStep - Los grados de aumento.
+     * @param tiempoEnElAire - El tiempo que permanecera en el aire.
+     */
+    ActorPateable.prototype.serPateado = function (aceleracion, elevacionMaxima, gradosDeAumentoStep, tiempoEnElAire) {
+        if (!this.fuePateado()) {
+            this.pateado = true;
+            this.aceleracion = aceleracion;
+            this.elevacionMaxima = elevacionMaxima;
+            this.tiempoEnElAire = tiempoEnElAire;
+            this.contador = Math.random() * 3;
+            this.actualizarPosicion();
+            this.cargarAnimacion("patear");
+            this.aprender(RotarContinuamente, { gradosDeAumentoStep: gradosDeAumentoStep });
+        }
+        else {
+            this.contador = (this.contador + this.aceleracion) % 256; // para evitar overflow
+            if (this.y < this.alturaOriginal + this.elevacionMaxima && this.tiempoEnElAire > 0) {
+                //subiendo
+                this.y += this.contador;
+            }
+            if (this.tiempoEnElAire > 0) {
+                //en el aire
+                this.tiempoEnElAire -= 1;
+            }
+            if (this.tiempoEnElAire <= 0) {
+                //bajando
+                if (this.y > this.alturaOriginal) {
+                    this.y -= this.contador;
+                }
+            }
+            this.x += this.contador;
+            this.x += this.contador;
+            if (this.estoyFueraDePantalla()) {
+                this.eliminar();
+            }
+        }
+    };
+    return ActorPateable;
+})(ActorAnimado);
 /// <reference path="ActorAnimado.ts"/>
 var AlienAnimado = (function (_super) {
     __extends(AlienAnimado, _super);
@@ -3516,6 +3594,7 @@ var PapaNoelAnimado = (function (_super) {
     }
     return PapaNoelAnimado;
 })(ActorAnimado);
+/// <reference path = "../actores/ActorPateable.ts" />
 var PelotaAnimada = (function (_super) {
     __extends(PelotaAnimada, _super);
     function PelotaAnimada(x, y) {
@@ -3523,7 +3602,7 @@ var PelotaAnimada = (function (_super) {
         this.definirAnimacion("patear", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 12);
     }
     return PelotaAnimada;
-})(ActorAnimado);
+})(ActorPateable);
 /// <reference path="ActorAnimado.ts"/>
 var PerroCohete = (function (_super) {
     __extends(PerroCohete, _super);
@@ -4192,49 +4271,43 @@ var Interactuar = (function (_super) {
      * La etiqueta del actor a interactuar.
      */
     Interactuar.prototype.etiqueta = function () {
-        return this.argumentos['etiqueta'];
+        return this.argumentos.etiqueta;
     };
     /**
      * El nombre de la animación del interactuado mientras interactua.
      */
     Interactuar.prototype.animacionInteractuadoMientras = function () {
-        return this.argumentos['animacionInteractuadoMientras'];
+        return this.argumentos.animacionInteractuadoMientras;
     };
     /**
      * El nombre de la animación del interactuado al final de la interacción.
      */
     Interactuar.prototype.animacionInteractuadoAlFinal = function () {
-        return this.argumentos['animacionInteractuadoAlFinal'];
+        return this.argumentos.animacionInteractuadoAlFinal;
     };
     /**
      * Comportamiento adicional post interaccion.
      */
     Interactuar.prototype.comportamientoAdicional = function () {
-        return this.argumentos['comportamientoAdicional'];
+        return this.argumentos.comportamientoAdicional;
     };
     /**
      * Argumentos del comportamiento adicional post interaccion.
      */
     Interactuar.prototype.argumentosDelComportamientoAdicional = function () {
-        return this.argumentos['argumentosComportamiento'];
+        return this.argumentos.argumentosComportamiento;
     };
     /**
      * Indica si existe una posible interacción entre dos actores.
      */
     Interactuar.prototype.hayConQuienInteractuar = function () {
-        return this.interactor().tocando(this.etiqueta());
-    };
-    /**
-     * Retorna al actor quien realiza la interacción.
-     */
-    Interactuar.prototype.interactor = function () {
-        return this.receptor;
+        return this.receptor.tocando(this.etiqueta());
     };
     /**
      * Retorna al actor con el cual se realiza la interacción.
      */
     Interactuar.prototype.interactuado = function () {
-        return this.interactor().objetoTocado(this.etiqueta());
+        return this.receptor.objetoTocado(this.etiqueta());
     };
     /**
      * Se llama al realizarse la interacción.
@@ -4857,8 +4930,8 @@ var MoverLeyendoIzquierda = (function (_super) {
     }
     return MoverLeyendoIzquierda;
 })(MovimientoConLectura);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "Interactuar.ts" />
+/// <reference path = "../actores/PelotaAnimada.ts" />
 var PatearPelota = (function (_super) {
     __extends(PatearPelota, _super);
     function PatearPelota() {
@@ -4868,16 +4941,15 @@ var PatearPelota = (function (_super) {
         _super.prototype.alInteractuar.call(this);
         this.patearPelota();
     };
-    /**
-     * Patea una pelota que este en la misma posición
-     * que el interactor del comportamiento.
-     */
+    PatearPelota.prototype.pelotaInteractuada = function () {
+        return this.interactuado();
+    };
     PatearPelota.prototype.patearPelota = function () {
-        this.interactuado().hacer(SerPateado, {
-            tiempoEnElAire: 25,
+        this.pelotaInteractuada().hacer(SerPateado, {
             aceleracion: 0.0025,
             elevacionMaxima: 25,
-            gradosDeAumentoStep: -2
+            gradosDeAumentoStep: -2,
+            tiempoEnElAire: 25
         });
     };
     PatearPelota.prototype.etiqueta = function () {
@@ -4886,8 +4958,10 @@ var PatearPelota = (function (_super) {
     PatearPelota.prototype.nombreAnimacion = function () {
         return "patear";
     };
-    PatearPelota.prototype.hayConQuienInteractuar = function () {
-        return _super.prototype.hayConQuienInteractuar.call(this) && !this.interactuado()['pateado'];
+    PatearPelota.prototype.configurarVerificaciones = function () {
+        var _this = this;
+        _super.prototype.configurarVerificaciones.call(this);
+        this.verificacionesPre.push(new Verificacion(function () { return !_this.pelotaInteractuada().fuePateado(); }, "No puedo patear dos veces la misma pelota"));
     };
     return PatearPelota;
 })(Interactuar);
@@ -4980,60 +5054,23 @@ var SaltarHablando = (function (_super) {
     };
     return SaltarHablando;
 })(SaltarAnimado);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "ComportamientoAnimado.ts"/>
+/// <reference path = "../actores/ActorPateable.ts" />
 var SerPateado = (function (_super) {
     __extends(SerPateado, _super);
     function SerPateado() {
         _super.apply(this, arguments);
     }
     SerPateado.prototype.preAnimacion = function () {
-        this.receptor.pateado = true;
-        this.receptor.cargarAnimacion("patear");
-        this.receptor.aprender(RotarContinuamente, { 'gradosDeAumentoStep': this.argumentos['gradosDeAumentoStep'] || 1 });
-        this.actualizarPosicion();
-        this.contador = Math.random() * 3;
-        this.aceleracion = this.argumentos['aceleracion'];
-        this.tiempoEnElAire = this.argumentos['tiempoEnElAire'] || 10;
-        this.elevacionMaxima = this.argumentos['elevacionMaxima'] || 10;
+        this._receptor = this.receptor;
     };
     SerPateado.prototype.doActualizar = function () {
         _super.prototype.doActualizar.call(this);
-        return this.patearConSubidaLineal();
-    };
-    SerPateado.prototype.patearConSubidaLineal = function () {
-        this.contador += this.aceleracion;
-        this.contador = this.contador % 256; // para evitar overflow
-        if (this.receptor.y < this.altura_original + this.elevacionMaxima && this.tiempoEnElAire > 0) {
-            //subiendo
-            this.receptor.y += this.contador;
-        }
-        if (this.tiempoEnElAire > 0) {
-            //en el aire
-            this.tiempoEnElAire -= 1;
-        }
-        if (this.tiempoEnElAire <= 0) {
-            //bajando
-            if (this.receptor.y > this.altura_original) {
-                this.receptor.y -= this.contador;
-            }
-        }
-        this.receptor.x += this.contador;
-        if (this.receptor.izquierda >= pilas.derecha()) {
-            this.receptor.eliminar();
-            return true;
-        }
-    };
-    SerPateado.prototype.patearParaAdelante = function () {
-        this.contador += this.aceleracion;
-        this.contador = this.contador % 256; // para evitar overflow
-        this.receptor.x += this.contador;
+        this._receptor.serPateado(this.argumentos.aceleracion, this.argumentos.elevacionMaxima, this.argumentos.gradosDeAumentoStep, this.argumentos.tiempoEnElAire);
+        return this._receptor.estoyFueraDePantalla();
     };
     SerPateado.prototype.implicaMovimiento = function () {
         return true;
-    };
-    SerPateado.prototype.actualizarPosicion = function () {
-        this.altura_original = this.receptor.y;
     };
     return SerPateado;
 })(ComportamientoAnimado);
@@ -8196,21 +8233,6 @@ var TresNaranjas = (function (_super) {
     };
     return TresNaranjas;
 })(EscenaActividad);
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
-/// <reference path = "HabilidadAnimada.ts"/>
-/*Si los grados de aumento son positivos gira para la derecha
-caso contrario gira para la izquierda*/
-var RotarContinuamente = (function (_super) {
-    __extends(RotarContinuamente, _super);
-    function RotarContinuamente(receptor, argumentos) {
-        _super.call(this, receptor);
-        this.gradosDeAumentoStep = argumentos['gradosDeAumentoStep'] || 1;
-    }
-    RotarContinuamente.prototype.actualizar = function () {
-        this.receptor.rotacion += this.gradosDeAumentoStep;
-    };
-    return RotarContinuamente;
-})(HabilidadAnimada);
 /// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "HabilidadAnimada.ts"/>
 /*Si los grados de aumento son positivos gira para la derecha

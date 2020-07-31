@@ -1,5 +1,5 @@
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "Interactuar.ts" />
+/// <reference path = "../actores/PelotaAnimada.ts" />
 
 class PatearPelota extends Interactuar {
 
@@ -8,16 +8,16 @@ class PatearPelota extends Interactuar {
         this.patearPelota()
     }
 
-    /**
-     * Patea una pelota que este en la misma posición
-     * que el interactor del comportamiento.
-     */
+    pelotaInteractuada(): PelotaAnimada {
+        return this.interactuado() as PelotaAnimada
+    }
+
     private patearPelota(): void {
-        this.interactuado().hacer(SerPateado, {
-            tiempoEnElAire: 25,
+        this.pelotaInteractuada().hacer(SerPateado, {
             aceleracion: 0.0025,
             elevacionMaxima: 25,
-            gradosDeAumentoStep: -2
+            gradosDeAumentoStep: -2,
+            tiempoEnElAire: 25
         })
     }
 
@@ -29,8 +29,9 @@ class PatearPelota extends Interactuar {
         return "patear"
     }
 
-    hayConQuienInteractuar(): boolean {
-        return super.hayConQuienInteractuar() && !this.interactuado()['pateado']
+    configurarVerificaciones(): void {
+        super.configurarVerificaciones()
+        this.verificacionesPre.push(new Verificacion(() => !this.pelotaInteractuada().fuePateado(), "No puedo patear dos veces la misma pelota"))
     }
 
 }

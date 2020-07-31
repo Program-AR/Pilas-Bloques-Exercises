@@ -6,13 +6,16 @@ caso contrario gira para la izquierda*/
 
 
 class RotarContinuamente extends HabilidadAnimada {
-  gradosDeAumentoStep
-  constructor(receptor,argumentos) {
-        super(receptor);
-        this.gradosDeAumentoStep=argumentos['gradosDeAumentoStep']||1
-    }
 
-    actualizar() {
-      this.receptor.rotacion += this.gradosDeAumentoStep
-    }
+  private gradosDeAumentoStep: number
+
+  constructor(receptor, argumentos) {
+    super(receptor);
+    this.gradosDeAumentoStep = argumentos.gradosDeAumentoStep || 1
+  }
+
+  actualizar() {
+    this.receptor.rotacion += this.gradosDeAumentoStep
+  }
+
 }
