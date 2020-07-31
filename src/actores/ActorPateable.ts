@@ -51,22 +51,20 @@ class ActorPateable extends ActorAnimado {
 
             if (this.y < this.alturaOriginal + this.elevacionMaxima && this.tiempoEnElAire > 0) {
                 //subiendo
-                this.y += this.contador;
+                this.y += this.contador
             }
 
             if (this.tiempoEnElAire > 0) {
                 //en el aire
-                this.tiempoEnElAire -= 1;
+                this.tiempoEnElAire -= 1
             }
 
             if (this.tiempoEnElAire <= 0) {
                 //bajando
                 if (this.y > this.alturaOriginal) {
-                    this.y -= this.contador;
+                    this.y -= this.contador
                 }
             }
-            this.x += this.contador;
-
             this.x += this.contador
 
             if (this.estoyFueraDePantalla()) {
