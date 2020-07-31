@@ -20,47 +20,81 @@
 */
 class Interactuar extends ComportamientoAnimado {
 
-    public sanitizarArgumentos(): void {
+    sanitizarArgumentos(): void {
         super.sanitizarArgumentos()
 
-        if (!this.argumentos['etiqueta']) {
+        if (!this.etiqueta()) {
             throw new ArgumentError("Debe proveerse una etiqueta para verificar interacción")
         }
     }
 
-    public configurarVerificaciones(): void {
-        const mensajeError: string = this.argumentos['mensajeError'] || "¡Acá no hay " + this.hacerLegible(this.argumentos['etiqueta']) + "!"
+    configurarVerificaciones(): void {
+        const mensajeError: string = this.mensajeDeError() || "¡Acá no hay " + this.hacerLegible(this.etiqueta()) + "!"
         this.verificacionesPre.push(new Verificacion(() => this.hayConQuienInteractuar(), mensajeError))
     }
 
-    public preAnimacion(): void {
+    preAnimacion(): void {
         super.preAnimacion()
-        if (this.argumentos['animacionInteractuadoMientras']) {
-            this.interactuado().cargarAnimacion(this.argumentos['animacionInteractuadoMientras'])
+        if (this.animacionInteractuadoMientras()) {
+            this.interactuado().cargarAnimacion(this.animacionInteractuadoMientras())
         }
     }
 
-    public postAnimacion(): void {
+    postAnimacion(): void {
         super.postAnimacion()
-        if (this.argumentos['animacionInteractuadoAlFinal']) {
-            this.interactuado().cargarAnimacion(this.argumentos['animacionInteractuadoAlFinal'])
+        if (this.animacionInteractuadoAlFinal()) {
+            this.interactuado().cargarAnimacion(this.animacionInteractuadoAlFinal())
         }
-
         this.interactuar()
+    }
+
+	/**
+	 * La etiqueta del actor a interactuar.
+	 */
+    etiqueta(): string {
+        return this.argumentos.etiqueta
+    }
+
+    /**
+	 * El nombre de la animación del interactuado mientras interactua.
+	 */
+    animacionInteractuadoMientras(): string {
+        return this.argumentos.animacionInteractuadoMientras
+    }
+
+    /**
+	 * El nombre de la animación del interactuado al final de la interacción.
+	 */
+    animacionInteractuadoAlFinal(): string {
+        return this.argumentos.animacionInteractuadoAlFinal
+    }
+
+    /**
+	 * Comportamiento adicional post interaccion.
+	 */
+    comportamientoAdicional(): string {
+        return this.argumentos.comportamientoAdicional
+    }
+
+    /**
+	 * Argumentos del comportamiento adicional post interaccion.
+	 */
+    argumentosDelComportamientoAdicional() {
+        return this.argumentos.argumentosComportamiento
     }
 
 	/**
 	 * Indica si existe una posible interacción entre dos actores.
 	 */
-    public hayConQuienInteractuar(): boolean {
-        return this.receptor.tocando(this.argumentos['etiqueta'])
+    hayConQuienInteractuar(): boolean {
+        return this.receptor.tocando(this.etiqueta())
     }
 
 	/**
 	 * Retorna al actor con el cual se realiza la interacción.
 	 */
-    public interactuado(): ActorAnimado {
-        return this.receptor.objetoTocado(this.argumentos['etiqueta'])
+    interactuado(): ActorAnimado {
+        return this.receptor.objetoTocado(this.etiqueta())
     }
 
 	/**
@@ -74,15 +108,18 @@ class Interactuar extends ComportamientoAnimado {
 	 * Realiza la interacción.
 	 */
     private interactuar(): void {
-
-        if (this.argumentos['comportamientoAdicional']) {
-            let claseComportamiento: any = window[this.argumentos['comportamientoAdicional']]
-
-            this.interactuado().hacer_luego(claseComportamiento, this.argumentos['argumentosComportamiento'])
+        if (this.comportamientoAdicional()) {
+            let claseComportamiento = window[this.comportamientoAdicional()]
+            this.interactuado().hacer_luego(claseComportamiento, this.argumentosDelComportamientoAdicional())
         }
-
         this.alInteractuar()
+    }
 
+    /**
+	 * El mensaje de error que se mostrara en caso de error.
+	 */
+    mensajeDeError(): string {
+        return this.argumentos['mensajeError']
     }
 
     protected hacerLegible(etiqueta: string): string {

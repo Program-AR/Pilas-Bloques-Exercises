@@ -1,67 +1,81 @@
-/// <reference path = "../../node_modules/pilasweb/dist/pilasweb.d.ts"/>
 /// <reference path = "ComportamientoAnimado.ts"/>
 
 class SerPateado extends ComportamientoAnimado {
-  altura_original
-  contador
-  aceleracion
-  tiempoEnElAire
-  elevacionMaxima
 
-  preAnimacion() {
-    this.receptor.cargarAnimacion("patear")
-    this.receptor.aprender(RotarContinuamente, { 'gradosDeAumentoStep': this.argumentos['gradosDeAumentoStep'] || 1 })
-    this.actualizarPosicion();
-    this.contador = Math.random() * 3;
-    this.aceleracion = this.argumentos['aceleracion']
-    this.tiempoEnElAire = this.argumentos['tiempoEnElAire'] || 10
-    this.elevacionMaxima = this.argumentos['elevacionMaxima'] || 10
+  private aceleracion: number
+  private alturaOriginal: number
+  private contador: number
+  private elevacionMaxima: number
+  private tiempoEnElAire: number
+
+  elReceptorEstaFueraDePantalla(): boolean {
+    return this.receptor.izquierda >= pilas.derecha()
   }
 
-  doActualizar() {
-    super.doActualizar();
-    return this.patearConSubidaLineal();
-  }
+  /**
+   * El receptor es pateado.
+   * 
+   * @param aceleracion - La aceleracion que tendra al ser pateado.
+   * @param elevacionMaxima - La elevación maxima que tendra al ser pateado.
+   * @param gradosDeAumentoStep - Los grados de aumento.
+   * @param tiempoEnElAire - El tiempo que permanecera en el aire.
+   */
+  protected patear(aceleracion: number, elevacionMaxima: number, gradosDeAumentoStep: number, tiempoEnElAire: number): void {
 
-  patearConSubidaLineal() {
-    this.contador += this.aceleracion;
-    this.contador = this.contador % 256;// para evitar overflow
-    if (this.receptor.y < this.altura_original + this.elevacionMaxima && this.tiempoEnElAire > 0) {
-      //subiendo
-      this.receptor.y += this.contador;
+    if (!this.receptor.pateado) {
+      this.receptor.pateado = true
+      this.aceleracion = aceleracion
+      this.elevacionMaxima = elevacionMaxima
+      this.tiempoEnElAire = tiempoEnElAire
+      this.contador = Math.random() * 3
+      this.alturaOriginal = this.receptor.y
+      this.receptor.cargarAnimacion("patear")
+      this.receptor.aprender(RotarContinuamente, { gradosDeAumentoStep })
     }
 
-    if (this.tiempoEnElAire > 0) {
-      //en el aire
-      this.tiempoEnElAire -= 1;
-    }
+    else {
+      this.contador = (this.contador + this.aceleracion) % 256 // para evitar overflow
 
-    if (this.tiempoEnElAire <= 0) {
-      //bajando
-      if (this.receptor.y > this.altura_original) {
-        this.receptor.y -= this.contador;
+      if (this.receptor.y < this.alturaOriginal + this.elevacionMaxima && this.tiempoEnElAire > 0) {
+        //subiendo
+        this.receptor.y += this.contador
       }
+
+      if (this.tiempoEnElAire > 0) {
+        //en el aire
+        this.tiempoEnElAire -= 1
+      }
+
+      if (this.tiempoEnElAire <= 0) {
+        //bajando
+        if (this.receptor.y > this.alturaOriginal) {
+          this.receptor.y -= this.contador
+        }
+      }
+      this.receptor.x += this.contador
+
+      if (this.elReceptorEstaFueraDePantalla()) {
+        this.receptor.eliminar()
+      }
+
     }
-    this.receptor.x += this.contador;
-
-    if (this.receptor.izquierda >= pilas.derecha()) {
-      this.receptor.eliminar();
-      return true;
-    }
   }
 
-  patearParaAdelante() {
-    this.contador += this.aceleracion;
-    this.contador = this.contador % 256;// para evitar overflow
-    this.receptor.x += this.contador;
+  doActualizar(): boolean {
+    super.doActualizar()
+
+    this.patear(
+      this.argumentos.aceleracion,
+      this.argumentos.elevacionMaxima,
+      this.argumentos.gradosDeAumentoStep,
+      this.argumentos.tiempoEnElAire
+    )
+
+    return this.elReceptorEstaFueraDePantalla()
   }
 
-  implicaMovimiento() {
-    return true;
-  }
-
-  actualizarPosicion() {
-    this.altura_original = this.receptor.y
+  implicaMovimiento(): boolean {
+    return true
   }
 
 }
