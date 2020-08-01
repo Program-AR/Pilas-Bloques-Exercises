@@ -35,7 +35,7 @@
     "secundaria"
   ],
   "scripts": {
-    "generate-ramdom-grammar": "nearleyc ./src/gramaticaAleatoria.ne -o ./dist/gramaticaAleatoria.js",
+    "generate-random-grammar": "nearleyc ./src/gramaticaAleatoria.ne -o ./dist/gramaticaAleatoria.js",
     "watch": "grunt watch",
     "build": "make build",
     "release:path": "npm version path && npm publish",

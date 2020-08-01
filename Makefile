@@ -1,7 +1,7 @@
 build: 
 	@ if [ -d "./dist" ]; then rm -r ./dist; fi
 	@ ./node_modules/grunt/bin/grunt typescript
-	@ npm run generate-ramdom-grammar
+	@ npm run generate-random-grammar
 	@ ./node_modules/grunt/bin/grunt concat
 	@ rm ./dist/gramaticaAleatoria.js
 	@ touch ./dist/imageList.js
