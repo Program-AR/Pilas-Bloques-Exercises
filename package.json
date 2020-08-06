@@ -41,7 +41,7 @@
     "release:path": "npm version path && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
-    "prepublish": "npm run build && ./node_modules/.bin/release --publish --show-url"
+    "publish": "npm run build && ./node_modules/.bin/release --publish --show-url"
   },
   "dependencies": {
     "pilasweb": "^0.4.9"
