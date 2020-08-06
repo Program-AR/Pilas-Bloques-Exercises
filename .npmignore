@@ -1,11 +1,5 @@
-/dependencias/
 /tmp/
-/scripts/
-/src/
 .gitignore
 .nvmrc
 demo.html
-Gruntfile.js
-Makefile
-tsconfig.json
 tsconfig-reference.md
