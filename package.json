@@ -58,5 +58,9 @@
     "reflect-metadata": "^0.1.13",
     "release": "^6.3.0",
     "typescript": "^3.9.7"
-  }
+  },
+  "files": [
+    "dist/**/*",
+    "LICENCE"
+  ]
 }
