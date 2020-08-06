@@ -38,7 +38,7 @@
     "generate-random-grammar": "nearleyc ./src/gramaticaAleatoria.ne -o ./dist/gramaticaAleatoria.js",
     "watch": "grunt watch",
     "build": "make build",
-    "release:path": "npm version path && npm publish",
+    "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
     "publish": "npm run build && ./node_modules/.bin/release --publish --show-url"
