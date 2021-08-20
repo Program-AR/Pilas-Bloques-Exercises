@@ -7,6 +7,12 @@
 class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
 
+  constructor(especificacion: string | Array<string>, opciones?: opcionesMapaAleatorio) {
+    //copy pegado de las otras escenas
+    super();
+    this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
+  }
+
   obtenerAutomata(): ActorAnimado {
     return this.automata
   }
