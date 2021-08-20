@@ -63,7 +63,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
 
     iniciar() : void {
         this.fondo = new Fondo(this.archivoFondo(), 0, 0);
-        this.automata = this.obtenerAutomata();
+        
 
         if (this.generadorDeMapas) {
             this.mapaEscena = this.generadorDeMapas.obtenerMapa();
@@ -73,6 +73,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
 
         this.cuadricula = this.construirCuadricula(this.mapaEscena);
 
+        this.automata = this.obtenerAutomata();
         this.automata.enviarAlFrente();
         if (this.tieneAleatoriedad()) this.indicarAleatoriedad();
         this.ajustarGraficos();
