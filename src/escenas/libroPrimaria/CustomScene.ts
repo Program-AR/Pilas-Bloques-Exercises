@@ -21,7 +21,7 @@ class CustomScene extends EscenaDesdeMapa {
     const actorType = id[0]
     const actorId = id.substring(1)
 
-    switch (actorType) {
+    switch (actorType) { //Un enum para los actor type seria mejor
       case 'a': { this.setAutomataFromId(actorId); return this.automata } //polemico
     }
   }
@@ -39,7 +39,15 @@ class CustomScene extends EscenaDesdeMapa {
       case 'L': return new Lita()
       case 'T': return new Toto()
       case 'C': return new Coty()
-      default: throw new Error(`El identificador "a${id}" no es un automata valido.`) //Dejar el 'a' si o no? Si el caracter tipo cambia aca quedaria mal
+      default: throw new Error(`El identificador "a${id}" no es un automata valido.`)
     }
+  }
+
+  opsCuadricula() {
+    return { separacionEntreCasillas: 2 }
+  }
+
+  opsCasilla() {
+    return { grilla: 'casilla.grisoscuro.png', bordesDecorados: true, relAspecto: 1 };
   }
 }
