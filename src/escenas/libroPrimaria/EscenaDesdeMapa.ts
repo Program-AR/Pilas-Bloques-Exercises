@@ -11,7 +11,7 @@ declare var grammar : nearley.CompiledRules; // Header para la gramática, que s
 
 type GridSpec = { 
     spec: Spec,
-    specOptions: opcionesMapaAleatorio
+    specOptions?: opcionesMapaAleatorio
   }
   
 type Spec = string | string[]
