@@ -4,25 +4,32 @@
 /// <reference path = "../../actores/libroPrimaria/Coty.ts" />
 /// <reference path = "../../actores/libroPrimaria/Toto.ts" />
 
+type CustomSceneOptions = {
+  grid: GridSpec,
+  backgroundImage?: any,  // Todavia no definimos el tipo de la imagen que va a llegar aca.
+}
+/**
+ * Esta escena permite crear escenas personalizadas en el creador de escenarios de pilas bloques.
+ * Actualmente se puede crear una escena con cualquier automata del primer ciclo, aunque se puede extender a los de segundo ciclo.
+**/
 class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
 
-  constructor(especificacion: string | Array<string>, opciones?: opcionesMapaAleatorio) {
-    //copy pegado de las otras escenas
+  constructor(options: CustomSceneOptions) {
     super();
-    this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
+    this.initDesdeUnaOVariasDescripciones(options.grid.spec, options.grid.specOptions);
   }
 
   obtenerAutomata(): ActorAnimado {
     return this.automata
   }
 
-  mapearIdentificadorAActor(id: string, nroFila: number, nroColumna: number): ActorAnimado {
+  mapearIdentificadorAActor(id: string, _nroFila: number, _nroColumna: number): ActorAnimado {
     const actorType = id[0]
     const actorId = id.substring(1)
 
-    switch (actorType) { //Un enum para los actor type seria mejor
-      case 'a': { this.setAutomataFromId(actorId); return this.automata } //polemico
+    switch (actorType) {
+      case 'a': { this.setAutomataFromId(actorId); return this.automata } //Es necesario settear el automata aca porque antes de leer la grilla no se sabe cual automata tiene esta escena. Por lo que recien al llegar aca se puede settear el automata.
     }
   }
   archivoFondo(): string {
