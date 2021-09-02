@@ -6,17 +6,24 @@
 
 type CustomSceneOptions = {
   grid: GridSpec,
-  backgroundImage?: any,  // Todavia no definimos el tipo de la imagen que va a llegar aca.
+  backgroundImage?: string,
 }
+
+
+
+
+
 /**
- * Esta escena permite crear escenas personalizadas en el creador de escenarios de pilas bloques.
+ * Esta escena permite crear escenas personalizadas en el creador de escenarios de Pilas Bloques.
  * Actualmente se puede crear una escena con cualquier automata del primer ciclo, aunque se puede extender a los de segundo ciclo.
 **/
 class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
+  background: string
 
   constructor(options: CustomSceneOptions) {
     super();
+    this.background = options.backgroundImage
     this.initDesdeUnaOVariasDescripciones(options.grid.spec, options.grid.specOptions);
   }
 
@@ -27,13 +34,13 @@ class CustomScene extends EscenaDesdeMapa {
   mapearIdentificadorAActor(id: string, _nroFila: number, _nroColumna: number): ActorAnimado {
     const actorType = id[0]
     const actorId = id.substring(1)
-
     switch (actorType) {
       case 'a': { this.setAutomataFromId(actorId); return this.automata } //Es necesario settear el automata aca porque antes de leer la grilla no se sabe cual automata tiene esta escena. Por lo que recien al llegar aca se puede settear el automata.
     }
   }
+
   archivoFondo(): string {
-    return "fondo.blanco.png";
+    return this.background || "fondo.blanco.png";
   }
 
   setAutomataFromId(automataId: string): void {
@@ -58,3 +65,4 @@ class CustomScene extends EscenaDesdeMapa {
     return { grilla: 'casilla.grisoscuro.png', bordesDecorados: true, relAspecto: 1 };
   }
 }
+
