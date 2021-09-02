@@ -8,11 +8,6 @@ type CustomSceneOptions = {
   grid: GridSpec,
   backgroundImage?: string,
 }
-
-
-
-
-
 /**
  * Esta escena permite crear escenas personalizadas en el creador de escenarios de Pilas Bloques.
  * Actualmente se puede crear una escena con cualquier automata del primer ciclo, aunque se puede extender a los de segundo ciclo.
