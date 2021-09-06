@@ -4,9 +4,11 @@
 /// <reference path = "../../actores/libroPrimaria/Coty.ts" />
 /// <reference path = "../../actores/libroPrimaria/Toto.ts" />
 
+type ImageURL = string
+
 type CustomImage = {
   id: string,
-  url: string
+  url: ImageURL
 }
 
 type CustomSceneOptions = {
@@ -14,8 +16,8 @@ type CustomSceneOptions = {
   images: CustomImage[]
 }
 
-const findImageWithId = (id: string) => (images: CustomImage[]) => images.filter(image => image.id === id)[0].url
-const background = findImageWithId('background')
+const imageWithId = (id: string) => (images: CustomImage[]): ImageURL => images.filter(image => image.id === id)[0].url
+const background = imageWithId('background')
 
 /**
  * Esta escena permite crear escenas personalizadas en el creador de escenarios de Pilas Bloques.
@@ -23,10 +25,12 @@ const background = findImageWithId('background')
 **/
 class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
-  background: string
+  background: ImageURL
+  images: CustomImage[]
 
   constructor(options: CustomSceneOptions) {
     super();
+    this.images = options.images
     this.background = background(options.images)
     this.initDesdeUnaOVariasDescripciones(options.grid.spec, options.grid.specOptions);
   }
@@ -35,23 +39,33 @@ class CustomScene extends EscenaDesdeMapa {
     return this.automata
   }
 
-  mapearIdentificadorAActor(id: string, _nroFila: number, _nroColumna: number): ActorAnimado {
+  mapearIdentificadorAActor(id: string, nroFila: number, nroColumna: number): ActorAnimado {
     const actorType = id[0]
     const actorId = id.substring(1)
     switch (actorType) {
       case 'a': { this.setAutomataFromId(actorId); return this.automata } //Es necesario settear el automata aca porque antes de leer la grilla no se sabe cual automata tiene esta escena. Por lo que recien al llegar aca se puede settear el automata.
+      case 'o': { this.getObstacle(actorId, nroFila, nroColumna) } //TODO: Agregar el random. Podria ser un "oR".
     }
+  }
+
+  private getImageWithId(id: string): ImageURL {
+    return imageWithId(id)(this.images) //Me gustaria que el imageWithId sea metodo de la clase, pero seria polemico con el background() en el constructor
+  }
+
+  private getObstacle(id: string, x: number, y: number) { //TODO: Resizear
+    const obstacleImage = this.getImageWithId(`obstacles/${id}`)
+    return new ActorAnimado(x, y, { grilla: obstacleImage }).agregarEtiqueta('Obstaculo')
   }
 
   archivoFondo(): string {
     return this.background || "fondo.blanco.png";
   }
 
-  setAutomataFromId(automataId: string): void {
+  private setAutomataFromId(automataId: string): void {
     this.automata = this.mapIdToAutomata(automataId)
   }
 
-  mapIdToAutomata(id: string): ActorAnimado {
+  private mapIdToAutomata(id: string): ActorAnimado {
     switch (id) {
       case 'D': return new Duba()
       case 'L': return new Lita()
