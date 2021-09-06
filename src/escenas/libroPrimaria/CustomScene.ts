@@ -4,10 +4,19 @@
 /// <reference path = "../../actores/libroPrimaria/Coty.ts" />
 /// <reference path = "../../actores/libroPrimaria/Toto.ts" />
 
+type CustomImage = {
+  id: string,
+  url: string
+}
+
 type CustomSceneOptions = {
   grid: GridSpec,
-  backgroundImage?: string,
+  images: CustomImage[]
 }
+
+const findImageWithId = (id: string) => (images: CustomImage[]) => images.filter(image => image.id === id)[0].url
+const background = findImageWithId('background')
+
 /**
  * Esta escena permite crear escenas personalizadas en el creador de escenarios de Pilas Bloques.
  * Actualmente se puede crear una escena con cualquier automata del primer ciclo, aunque se puede extender a los de segundo ciclo.
@@ -18,7 +27,7 @@ class CustomScene extends EscenaDesdeMapa {
 
   constructor(options: CustomSceneOptions) {
     super();
-    this.background = options.backgroundImage
+    this.background = background(options.images)
     this.initDesdeUnaOVariasDescripciones(options.grid.spec, options.grid.specOptions);
   }
 
