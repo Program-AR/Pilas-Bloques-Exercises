@@ -44,7 +44,8 @@ class CustomScene extends EscenaDesdeMapa {
     const actorId = id.substring(1)
     switch (actorType) {
       case 'a': { this.setAutomataFromId(actorId); return this.automata } //Es necesario settear el automata aca porque antes de leer la grilla no se sabe cual automata tiene esta escena. Por lo que recien al llegar aca se puede settear el automata.
-      case 'o': { this.getObstacle(actorId, nroFila, nroColumna) } //TODO: Agregar el random. Podria ser un "oR".
+      case 'o': return this.getObstacle(actorId, nroFila, nroColumna) //TODO: Agregar el random. Podria ser un "oR".
+      default: throw new Error(`Unknown actor: ${id}`)
     }
   }
 
@@ -54,7 +55,9 @@ class CustomScene extends EscenaDesdeMapa {
 
   private getObstacle(id: string, x: number, y: number) { //TODO: Resizear
     const obstacleImage = this.getImageWithId(`obstacles/${id}`)
-    return new ActorAnimado(x, y, { grilla: obstacleImage }).agregarEtiqueta('Obstaculo')
+    const obstacle = new ActorAnimado(x, y, { grilla: obstacleImage })
+    obstacle.agregarEtiqueta('Obstaculo')
+    return obstacle
   }
 
   archivoFondo(): string {
