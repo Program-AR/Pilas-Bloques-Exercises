@@ -16,6 +16,16 @@ type CustomSceneOptions = {
   images: CustomImage[]
 }
 
+interface ObjectType {
+  imagePath: string;
+  tag: string;
+}
+
+const objectTypes: Record<any, ObjectType> = {
+  obstacle: { imagePath: 'obstacles', tag: 'Obstaculo' },
+  prize: { imagePath: 'prizes', tag: 'Prize' },
+};
+
 const imageWithId = (id: string) => (images: CustomImage[]): ImageURL => images.filter(image => image.id === id)[0].url
 const background = imageWithId('background')
 
@@ -44,8 +54,8 @@ class CustomScene extends EscenaDesdeMapa {
     const actorId = id.substring(1)
     switch (actorType) {
       case 'a': { this.setAutomataFromId(actorId); return this.automata } //Es necesario settear el automata aca porque antes de leer la grilla no se sabe cual automata tiene esta escena. Por lo que recien al llegar aca se puede settear el automata.
-      case 'o': return this.getObject(actorId, nroColumna, nroFila, 'obstaculo')
-      case 'p': return this.getObject(actorId, nroColumna, nroFila, 'prize')
+      case 'o': return this.getObject(actorId, nroColumna, nroFila, objectTypes.obstacle)
+      case 'p': return this.getObject(actorId, nroColumna, nroFila, objectTypes.prize)
     }
   }
 
@@ -53,12 +63,11 @@ class CustomScene extends EscenaDesdeMapa {
     return imageWithId(id)(this.images) //Me gustaria que el imageWithId sea metodo de la clase, pero seria polemico con el background() en el constructor
   }
 
-  private getObject(id: string, x: number, y: number, objectType: string) {
-    const objectImage = this.getImageWithId(`${objectType}/${id}`)
-    const prize = new ActorAnimado(x, y, { grilla: objectImage })
-    const capitalizedType = objectType.charAt(0).toUpperCase() + objectType.slice(1).toLowerCase() //La normalizacion deberia estar en agregarEtiqueta, no aca.
-    prize.agregarEtiqueta(capitalizedType)
-    return prize
+  private getObject(id: string, x: number, y: number, objectType: ObjectType) {
+    const objectImage = this.getImageWithId(`${objectType.imagePath}/${id}`)
+    const object = new ActorAnimado(x, y, { grilla: objectImage })
+    object.agregarEtiqueta(objectType.tag)
+    return object
   }
 
   archivoFondo(): string {
