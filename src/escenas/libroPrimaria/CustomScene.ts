@@ -44,8 +44,8 @@ class CustomScene extends EscenaDesdeMapa {
     const actorId = id.substring(1)
     switch (actorType) {
       case 'a': { this.setAutomataFromId(actorId); return this.automata } //Es necesario settear el automata aca porque antes de leer la grilla no se sabe cual automata tiene esta escena. Por lo que recien al llegar aca se puede settear el automata.
-      case 'o': return this.getObstacle(actorId, nroFila, nroColumna) //TODO: Agregar el random. Podria ser un "oR".
-      default: throw new Error(`Unknown actor: ${id}`)
+      case 'o': return this.getObject(actorId, nroColumna, nroFila, 'obstaculo')
+      case 'p': return this.getObject(actorId, nroColumna, nroFila, 'prize')
     }
   }
 
@@ -53,11 +53,12 @@ class CustomScene extends EscenaDesdeMapa {
     return imageWithId(id)(this.images) //Me gustaria que el imageWithId sea metodo de la clase, pero seria polemico con el background() en el constructor
   }
 
-  private getObstacle(id: string, x: number, y: number) { //TODO: Resizear
-    const obstacleImage = this.getImageWithId(`obstacles/${id}`)
-    const obstacle = new ActorAnimado(x, y, { grilla: obstacleImage })
-    obstacle.agregarEtiqueta('Obstaculo')
-    return obstacle
+  private getObject(id: string, x: number, y: number, objectType: string) {
+    const objectImage = this.getImageWithId(`${objectType}/${id}`)
+    const prize = new ActorAnimado(x, y, { grilla: objectImage })
+    const capitalizedType = objectType.charAt(0).toUpperCase() + objectType.slice(1).toLowerCase() //La normalizacion deberia estar en agregarEtiqueta, no aca.
+    prize.agregarEtiqueta(capitalizedType)
+    return prize
   }
 
   archivoFondo(): string {
