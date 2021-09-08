@@ -21,13 +21,14 @@ interface ObjectType {
   tag: string;
 }
 
-const objectTypes: Record<any, ObjectType> = {
+const objectTypes = {
   obstacle: { imagePath: 'obstacles', tag: 'Obstaculo' },
   prize: { imagePath: 'prizes', tag: 'Prize' },
 };
 
 const imageWithId = (id: string) => (images: CustomImage[]): ImageURL => images.filter(image => image.id === id)[0].url
 const background = imageWithId('background')
+const ground = imageWithId('ground')
 
 /**
  * Esta escena permite crear escenas personalizadas en el creador de escenarios de Pilas Bloques.
@@ -37,16 +38,22 @@ class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
   background: ImageURL
   images: CustomImage[]
+  ground: ImageURL
 
   constructor(options: CustomSceneOptions) {
     super();
     this.images = options.images
     this.background = background(options.images)
+    this.ground = ground(options.images)
     this.initDesdeUnaOVariasDescripciones(options.grid.spec, options.grid.specOptions);
   }
 
   obtenerAutomata(): ActorAnimado {
     return this.automata
+  }
+
+  ajustarGraficos() {
+    this.automata.escalarAAlto(65)
   }
 
   mapearIdentificadorAActor(id: string, nroFila: number, nroColumna: number): ActorAnimado {
@@ -70,10 +77,6 @@ class CustomScene extends EscenaDesdeMapa {
     return object
   }
 
-  archivoFondo(): string {
-    return this.background || "fondo.blanco.png";
-  }
-
   private setAutomataFromId(automataId: string): void {
     this.automata = this.mapIdToAutomata(automataId)
   }
@@ -88,12 +91,16 @@ class CustomScene extends EscenaDesdeMapa {
     }
   }
 
+  archivoFondo(): string {
+    return this.background || "fondo.blanco.png";
+  }
+
   opsCuadricula() {
-    return { separacionEntreCasillas: 2 }
+    return { separacionEntreCasillas: 1 }
   }
 
   opsCasilla() {
-    return { grilla: 'casilla.grisoscuro.png', bordesDecorados: true, relAspecto: 1 };
+    return { grilla: this.ground || 'casilla.grisoscuro.png', bordesDecorados: true, relAspecto: 1 };
   }
 }
 
