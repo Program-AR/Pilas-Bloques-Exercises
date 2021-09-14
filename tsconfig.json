@@ -4,10 +4,14 @@
     "module": "system",
     "declaration": false,
     "sourceMap": false,
-    "rootDir": "./src",
+    "rootDir": "./",
     "outFile": "dist/pilas-bloques-exercises.js",
     "removeComments": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+  "include": [
+    "src",
+    "tests"
+  ]
 }

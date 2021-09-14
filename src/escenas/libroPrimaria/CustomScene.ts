@@ -17,13 +17,13 @@ type CustomSceneOptions = {
 }
 
 interface ObjectType {
-  imagePath: string;
+  idPath: string;
   tag: string;
 }
 
 const objectTypes = {
-  obstacle: { imagePath: 'obstacles', tag: 'Obstaculo' },
-  prize: { imagePath: 'prizes', tag: 'Prize' },
+  obstacle: { idPath: 'obstacles', tag: 'Obstaculo' },
+  prize: { idPath: 'prizes', tag: 'Prize' },
 };
 
 const imageWithId = (id: string) => (images: CustomImage[]): ImageURL => images.filter(image => image.id === id)[0].url
@@ -37,8 +37,8 @@ const ground = imageWithId('ground')
 class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
   background: ImageURL
-  images: CustomImage[]
   ground: ImageURL
+  images: CustomImage[]
 
   constructor(options: CustomSceneOptions) {
     super();
@@ -67,11 +67,16 @@ class CustomScene extends EscenaDesdeMapa {
   }
 
   private getImageWithId(id: string): ImageURL {
-    return imageWithId(id)(this.images) //Me gustaria que el imageWithId sea metodo de la clase, pero seria polemico con el background() en el constructor
+    try { //No puedo hacer [0]?.url arriba :(
+      return imageWithId(id)(this.images) //Me gustaria que el imageWithId sea metodo de la clase, pero seria polemico con el background() en el constructor
+    }
+    catch (_e) {
+      return 'imagenNoEncontrada.png'
+    }
   }
 
   private getObject(id: string, x: number, y: number, objectType: ObjectType) {
-    const objectImage = this.getImageWithId(`${objectType.imagePath}/${id}`)
+    const objectImage = this.getImageWithId(`${objectType.idPath}/${id}`)
     const object = new ActorAnimado(x, y, { grilla: objectImage })
     object.agregarEtiqueta(objectType.tag)
     return object
@@ -89,6 +94,10 @@ class CustomScene extends EscenaDesdeMapa {
       case 'C': return new Coty()
       default: throw new Error(`El identificador "a${id}" no es un automata valido.`)
     }
+  }
+
+  estaResueltoElProblema(): boolean {
+    return this.contarActoresConEtiqueta(objectTypes.prize.tag) === 0 //Si hay mas de un tipo de premio esto ya no funca.
   }
 
   archivoFondo(): string {
