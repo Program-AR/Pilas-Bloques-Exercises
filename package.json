@@ -38,7 +38,7 @@
     "generate-random-grammar": "nearleyc ./src/gramaticaAleatoria.ne -o ./dist/gramaticaAleatoria.js",
     "watch": "grunt watch",
     "build": "make build",
-    "test": "jest --colors --testPathIgnorePatterns dist --watch", //Ver de que tome los archivos de grunt.
+    "test": "jest --colors --testPathIgnorePatterns dist --watch",
     "release:patch": "npm version patch",
     "release:minor": "npm version minor",
     "release:major": "npm version major",
