@@ -14,10 +14,10 @@ describe("CustomScene", () => {
   })
 
   test("Obstacles should be generated", () => {
-    expect(pilas.obtener_actores_con_etiqueta(objectTypes.obstacle.tag)).toBe(1)
+    expect(pilas.obtener_actores_con_etiqueta(objectTypes.obstacle.tag).length).toBe(1)
   })
 
   test("Prizes should be generated", () => {
-    expect(pilas.obtener_actores_con_etiqueta(objectTypes.prize.tag)).toBe(1)
+    expect(pilas.obtener_actores_con_etiqueta(objectTypes.prize.tag).length).toBe(1)
   })
 })
