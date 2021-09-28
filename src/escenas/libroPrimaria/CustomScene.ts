@@ -31,8 +31,9 @@ const background = imageWithId('background')
 const ground = imageWithId('ground')
 
 /**
- * Esta escena permite crear escenas personalizadas en el creador de escenarios de Pilas Bloques.
- * Actualmente se puede crear una escena con cualquier automata del primer ciclo, aunque se puede extender a los de segundo ciclo.
+ * This scene allows for the creation of custom scenes with the scene creator in Pilas Bloques.
+ * Currently it is possible to create a scene with any automata of the first book (Lita, Coty, Toto and Duba), 
+ * although it is possible to extend this to be able to use any of the second book automatas too.
 **/
 class CustomScene extends EscenaDesdeMapa {
   automata: ActorAnimado
