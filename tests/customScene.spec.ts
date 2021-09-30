@@ -4,24 +4,31 @@
 const { CustomScene, objectTypes, pilas, Lita } = global.win
 
 describe("CustomScene", () => {
-  let escena
+  let escena: CustomScene
 
   beforeAll(() => {
-    pilas.iniciar({ opciones: { canvas_id: 'canvas' } }) // Do it in init.js?
+    pilas.onready = () => { }
+    pilas.iniciar({
+      imagenesExtra: ['actor.lita.png', 'background.png', 'ground.png', 'prize.png', 'obstacle.png'],
+      opciones: { canvas_id: 'canvas' },
+      cargar_imagenes_estandar: false
+    }) // Do it in init.js?
+    
     escena = new CustomScene({
       grid: { spec: "[aL,p1,o1,-,-,-,-,-,-]" },
       images: [
-        { id: `background`, url: 'background.png' }, 
-        { id: `ground`, url: 'ground.png' }, 
-        { id: `${objectTypes.obstacle.idPath}/1`, url: 'obstacle.png' }, 
+        { id: `background`, url: 'background.png' },
+        { id: `ground`, url: 'ground.png' },
+        { id: `${objectTypes.obstacle.idPath}/1`, url: 'obstacle.png' },
         { id: `${objectTypes.prize.idPath}/1`, url: 'prize.png' }
       ]
     })
+    pilas.mundo.gestor_escenas.cambiar_escena(escena)
   })
 
   test("Should map automata id to intended automata", () => {
     const automata = escena.mapearIdentificadorAActor('aL', 0, 0)
-    expect(typeof automata).toBe(Lita) //ponele
+    expect(automata).toBeInstanceOf(Lita)
   })
 
   test("Obstacles should be generated", () => {
