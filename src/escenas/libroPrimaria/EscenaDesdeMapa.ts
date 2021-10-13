@@ -9,6 +9,13 @@
 type MapaEscena = Array<Array<string>>;
 declare var grammar : nearley.CompiledRules; // Header para la gramática, que se toma desde ../../../parserAleatorio/gramticaAleatoria.js
 
+type GridSpec = { 
+    spec: Spec,
+    specOptions?: opcionesMapaAleatorio
+  }
+  
+type Spec = string | string[]
+
 /**
  * Esta escena consta de una cuadrícula que se llena de actores automáticamente
  * a partir de un mapa, es decir, una matriz que la describe.  
@@ -54,7 +61,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         this.generadorDeMapas = new GeneradorDeMapasArray(generadores);
     }
 
-    initDesdeUnaOVariasDescripciones(especificacion: string | Array<string>, opciones?: opcionesMapaAleatorio) {
+    initDesdeUnaOVariasDescripciones(especificacion: Spec, opciones?: opcionesMapaAleatorio) { //Podria recibir un GridSpec directamente
         if (Array.isArray(especificacion))
             this.initDesdeArrayDeDescripciones(especificacion, opciones);
         else
@@ -63,6 +70,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
 
     iniciar() : void {
         this.fondo = new Fondo(this.archivoFondo(), 0, 0);
+        
         this.automata = this.obtenerAutomata();
 
         if (this.generadorDeMapas) {
