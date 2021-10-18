@@ -1,6 +1,6 @@
 {
   "name": "pilas-bloques-exercises",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Exercises for Pilas Bloques",
   "homepage": "http://pilasbloques.program.ar",
   "author": {
@@ -43,7 +43,7 @@
     "release:patch": "npm version patch",
     "release:minor": "npm version minor",
     "release:major": "npm version major",
-    "publish": "npm run build && ./node_modules/.bin/release --publish --show-url"
+    "publish": "npm run build && release patch"
   },
   "dependencies": {
     "pilasweb": "^0.5.0"
