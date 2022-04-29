@@ -10,7 +10,7 @@ class EscenaLita extends EscenaDesdeMapa {
 	yFinal: number;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return [Lita, Ensaladera, Tomate, Lechuga, FlechaEscenarioAleatorio];
+		return [Lita, Ensaladera, Tomate, Lechuga];
 	};
 
 	static pathFondo(): string {

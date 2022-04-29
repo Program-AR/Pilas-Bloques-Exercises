@@ -4,7 +4,6 @@
 /// <reference path = "../../../dependencias/nearley.d.ts" />
 /// <reference path = "../EscenaActividad.ts" />
 /// <reference path = "../../actores/Cuadricula.ts" />
-/// <reference path = "../../actores/FlechaEscenarioAleatorio.ts" />
 
 type MapaEscena = Array<Array<string>>;
 declare var grammar : nearley.CompiledRules; // Header para la gramática, que se toma desde ../../../parserAleatorio/gramticaAleatoria.js
@@ -82,7 +81,6 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         this.cuadricula = this.construirCuadricula(this.mapaEscena);
 
         this.automata.enviarAlFrente();
-        if (this.tieneAleatoriedad()) this.indicarAleatoriedad();
         this.ajustarGraficos();
     }
 
@@ -108,14 +106,6 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
      */
     tieneAleatoriedad() : boolean {
         return this.generadorDeMapas.tieneAleatoriedad();
-    }
-
-    /**
-     * Incorpora una indicación gráfica al canvas de que la escena cuenta con aleatoriedad.
-     * Se puede sobreescribir.
-     */
-    indicarAleatoriedad() : void {
-        new FlechaEscenarioAleatorio();
     }
 
     /**
