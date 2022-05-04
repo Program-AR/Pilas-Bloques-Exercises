@@ -13,6 +13,7 @@ module.exports = function (grunt) {
           'node_modules/nearley/lib/nearley.js',
           'dist/gramaticaAleatoria.js',
           'dist/pilas-bloques-exercises.js',
+          'dist/imageList.js',
         ],
         dest: 'dist/pilas-bloques-exercises.js',
       },
