@@ -3,7 +3,6 @@
 /// <reference path = "../actores/BananaAnimada.ts" />
 /// <reference path = "../actores/ManzanaAnimada.ts" />
 /// <reference path = "../actores/MonoAnimado.ts" />
-/// <reference path = "../actores/FlechaEscenarioAleatorio.ts" />
 /// <reference path = "../comportamientos/MovimientosEnCuadricula.ts" />
 
 class LaEleccionDelMono extends EscenaActividad {
@@ -21,7 +20,6 @@ class LaEleccionDelMono extends EscenaActividad {
         this.cuadricula.agregarActorEnPerspectiva(this.automata,0,0,false);
 
         this.agregarFruta();
-        new FlechaEscenarioAleatorio();
     }
 
     agregarFruta(){

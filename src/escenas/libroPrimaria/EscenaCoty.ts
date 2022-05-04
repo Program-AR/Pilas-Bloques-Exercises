@@ -1,7 +1,6 @@
 /// <reference path = "../DibujandoFiguras.ts" />
 /// <reference path = "../../actores/libroPrimaria/Coty.ts" />
 /// <reference path = "../../actores/libroPrimaria/Charco.ts" />
-/// <reference path = "../../actores/FlechaEscenarioAleatorio.ts" />
 /// <reference path = "../../habilidades/EstallarAlSalirDePantalla.ts"/>
 
 type ArgumentosCoty = { xCoty?: number, yCoty?: number, longitudSegmento?: number, puedeHaberCharco?: boolean }
@@ -17,7 +16,7 @@ class EscenaCoty extends DibujandoFiguras {
   longitudSegmento: number;
 
   static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-    return [Coty, Charco, FlechaEscenarioAleatorio]
+    return [Coty, Charco]
   }
 
   static pathFondo(): string {
@@ -39,9 +38,6 @@ class EscenaCoty extends DibujandoFiguras {
   }
 
   iniciar() {
-    if (this.puedeHaberCharco) {
-      new FlechaEscenarioAleatorio();
-    }
     if (this.puedeHaberCharco && Math.random() >= 0.5) {
       this.crearCharco()
     }

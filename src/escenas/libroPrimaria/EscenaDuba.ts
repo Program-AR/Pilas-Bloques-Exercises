@@ -10,7 +10,7 @@ class EscenaDuba extends EscenaDesdeMapa {
 	yFinal: number;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return [Duba, Churrasco, FlechaEscenarioAleatorio];
+		return [Duba, Churrasco];
 	};
 
 	static pathFondo(): string {
