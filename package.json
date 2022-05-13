@@ -43,7 +43,7 @@
     "release:patch": "npm version patch",
     "release:minor": "npm version minor",
     "release:major": "npm version major",
-    "publish": "npm run build && release patch"
+    "prepublishOnly": "npm run build && release patch"
   },
   "dependencies": {
     "pilasweb": "^0.5.0"
