@@ -7,13 +7,14 @@ abstract class DibujandoFiguras extends EscenaActividad {
     dibujoEsperado: DibujoLineal;
     pizarraFantasma: Pizarra;
     anchoLinea = 6;
-
+    _pathFondo: string;
+    
     static pathFondo(): string {
       return 'fondo.dibujando.figuras.png';
     }
 
     iniciar() {
-        this.fondo = new Fondo((<typeof DibujandoFiguras>this.constructor).pathFondo(),0,0);
+        this.fondo = new Fondo(this._pathFondo || (<typeof DibujandoFiguras>this.constructor).pathFondo(),0,0);
         this.crearAutomata();
         this.dibujoEsperado = DibujoLineal.desdePuntosSimples(this.puntosEsperados());
         this.hacerDibujoPreexistente();
