@@ -20,7 +20,7 @@ class Obstaculo extends ActorAnimado {
 			super(0, 0, {grilla: Obstaculo.randomDe(imagen, semilla)});
 		}
 		else {
-			super(0, 0, imagen);
+			super(0, 0, {grilla:imagen});
 		}
 	}
 
