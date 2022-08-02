@@ -9,6 +9,7 @@
     automata;
     cantidadFilas;
     cantidadColumnas;
+    cantidadGlobos = 18;
     iniciar() {
         this.fondo = new Fondo('fondo.cangrejo_aguafiestas.png',0,0);
         this.cantidadFilas=5;
@@ -19,8 +20,8 @@
         this.automata = new CangrejoAnimado(0,0);
         this.automata.escala *= 1.2;
         this.agregarAutomata()
-
-        this.estado = new EstadoParaContarBuilder(this, 'explotar', 18).estadoInicial();
+        
+        this.estado = new EstadoParaContarBuilder(this, 'explotar', this.cantidadGlobos).estadoInicial();
       }
 
     agregarAutomata(){

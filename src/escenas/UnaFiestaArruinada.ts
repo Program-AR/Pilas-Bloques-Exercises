@@ -1,6 +1,8 @@
 /// <reference path = "ElCangrejoAguafiestas.ts" />
 
 class UnaFiestaArruinada extends ElCangrejoAguafiestas{
+  cantidadGlobos = 1;
+
   matriz(){
     return [
       ['T','T','T','T','T'],
@@ -13,18 +15,15 @@ class UnaFiestaArruinada extends ElCangrejoAguafiestas{
     this.cuadricula.agregarActor(this.automata,0,this.cuadricula.cantColumnas-1);
   }
 
-  estaResueltoElProblema(){
-    return this.contarActoresConEtiqueta('GloboAnimado')==0;
-  }
-
   completarColumnaConGlobos(columna, filas){
-    filas.forEach(fila => this.agregarGlobo(this.cuadricula.casilla(fila, columna)))
+    filas.forEach(fila => this.agregarGlobo(this.cuadricula.casilla(fila, columna)));
+    this.cantidadGlobos += 4;
   }
 
   completarConGlobos(){
-    this.agregarGlobo(this.cuadricula.casilla(0,0))
+    this.agregarGlobo(this.cuadricula.casilla(0,0));
     if(Math.random() > 0.5){
-      this.completarColumnaConGlobos(2, [0,1,2,3])
+      this.completarColumnaConGlobos(2, [0,1,2,3]);
     }
   }
 }
