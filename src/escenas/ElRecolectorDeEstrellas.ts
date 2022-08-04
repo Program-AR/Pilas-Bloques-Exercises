@@ -14,7 +14,7 @@ class ElRecolectorDeEstrellas extends EscenaActividad {
         //this.recolector.izquierda = pilas.izquierda();
 
         this.cuadricula = new Cuadricula(0, -20, this.dimensionesCuadricula().filas, this.dimensionesCuadricula().columnas,
-            { alto: 400 },
+            { alto: this.dimensionesCuadricula().alto, separacionEntreCasillas: this.dimensionesCuadricula().separacionEntreCasillas},
             {
                 grilla: 'invisible.png',
                 cantColumnas: 1
@@ -22,6 +22,8 @@ class ElRecolectorDeEstrellas extends EscenaActividad {
 
         this.automata = new RecolectorEstrellas(0, 0);
         this.cuadricula.agregarActorEnPerspectiva(this.automata, this.dimensionesCuadricula().filas - 1, 0);
+        
+        this.ajustarAutomata()
         this.automata.aprender(Flotar, {Desvio:5});
         // La posición inicial pretende respectar el ejemplo
 
@@ -29,10 +31,14 @@ class ElRecolectorDeEstrellas extends EscenaActividad {
 
     }
 
+    ajustarAutomata(){}
+
     dimensionesCuadricula(){
         return {
+            alto: 400,
             filas: 4,
-            columnas: 5
+            columnas: 5,
+            separacionEntreCasillas: 0
         }
     }
 
