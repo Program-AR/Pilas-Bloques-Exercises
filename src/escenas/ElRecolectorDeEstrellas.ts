@@ -12,10 +12,8 @@ class ElRecolectorDeEstrellas extends EscenaActividad {
         this.estado = new Estado(() => this.cantidadObjetosConEtiqueta('EstrellaAnimada') == 0);
         this.fondo = new Fondo('fondo.recolector.png', 0, 0);
         //this.recolector.izquierda = pilas.izquierda();
-        var cantidadFilas = 4
-        var cantidadColumnas = 5
 
-        this.cuadricula = new Cuadricula(0, -20, cantidadFilas, cantidadColumnas,
+        this.cuadricula = new Cuadricula(0, -20, this.dimensionesCuadricula().filas, this.dimensionesCuadricula().columnas,
             { alto: 400 },
             {
                 grilla: 'invisible.png',
@@ -23,19 +21,34 @@ class ElRecolectorDeEstrellas extends EscenaActividad {
             })
 
         this.automata = new RecolectorEstrellas(0, 0);
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, cantidadFilas - 1, 0);
+        this.cuadricula.agregarActorEnPerspectiva(this.automata, this.dimensionesCuadricula().filas - 1, 0);
         this.automata.aprender(Flotar, {Desvio:5});
         // La posición inicial pretende respectar el ejemplo
 
-        this.objetos=[];
-        for (var fila=0;fila<cantidadFilas;fila++){
-            for(var columna=1;columna<cantidadColumnas;columna++){
-                var objeto= new EstrellaAnimada(0,0);
-                this.cuadricula.agregarActor(objeto,fila,columna);
-                objeto.escala *= 0.7;
-                this.objetos.push(objeto)
-            }
-        }
+        this.agregarEstrellas(this.filasACompletar())
 
+    }
+
+    dimensionesCuadricula(){
+        return {
+            filas: 4,
+            columnas: 5
+        }
+    }
+
+    filasACompletar() { return [0,1,2,3] }
+
+    agregarEstrellas(filas){
+        filas.forEach(fila => this.completarFilaConEstrellas(fila))
+    }
+
+    completarFilaConEstrellas(fila){
+        [1,2,3,4].forEach(columna => this.agregarEstrella(fila, columna))
+    }
+
+    agregarEstrella(fila, columna){
+        const estrella = new EstrellaAnimada(0,0)
+        this.cuadricula.agregarActor(estrella,fila,columna);
+        estrella.escala *= 0.7;
     }
 }
