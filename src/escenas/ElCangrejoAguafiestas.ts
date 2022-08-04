@@ -9,30 +9,39 @@
     automata;
     cantidadFilas;
     cantidadColumnas;
+    cantidadGlobos = 18;
     iniciar() {
         this.fondo = new Fondo('fondo.cangrejo_aguafiestas.png',0,0);
         this.cantidadFilas=5;
         this.cantidadColumnas=6;
-        var matriz= [
-          ['T','T','T','T','T','T'],
-          ['T','F','F','F','F','T'],
-          ['T','T','T','T','T','T'],
-          ['T','F','F','F','F','T'],
-          ['T','T','T','T','T','T']]
+        var matriz= this.matriz()
         this.cuadricula = new CuadriculaEsparsa(0,15,{alto: 360, ancho:400},{grilla:'casilla.cangrejo_aguafiestas.png'},matriz)
         this.completarConGlobos();
         this.automata = new CangrejoAnimado(0,0);
         this.automata.escala *= 1.2;
-        this.cuadricula.agregarActor(this.automata,0,0);
-
-        this.estado = new EstadoParaContarBuilder(this, 'explotar', 18).estadoInicial();
+        this.agregarAutomata()
+        
+        this.estado = new EstadoParaContarBuilder(this, 'explotar', this.cantidadGlobos).estadoInicial();
       }
 
-    private completarConGlobos(){
+    agregarAutomata(){
+      this.cuadricula.agregarActor(this.automata,0,0);
+    }
+
+    completarConGlobos(){
       this.cuadricula.forEachCasilla(c => {if(!c.esEsquina()) this.agregarGlobo(c)});
     }
 
-    private agregarGlobo(casilla){
+    matriz(){
+      return [
+        ['T','T','T','T','T','T'],
+        ['T','F','F','F','F','T'],
+        ['T','T','T','T','T','T'],
+        ['T','F','F','F','F','T'],
+        ['T','T','T','T','T','T']]
+    }
+
+    agregarGlobo(casilla){
       var globo = new GloboAnimado();
       this.cuadricula.agregarActorEnCasilla(globo,casilla,false);
       globo.y += 20;
