@@ -42,13 +42,13 @@ class MariaLaComeSandias extends EscenaActividad {
         this.completarFila(0);
         this.completarFila(2);
         this.completarFila(4);
-        this.agregarSandia(1,0)
-        this.agregarSandia(3,0)
+        this.agregarSandia(0,1)
+        this.agregarSandia(0,3)
     }
 
     completarFila(numeroFila) {
         for (var x = 0; x < this.dimensionesCuadricula().cantidadColumnas; x++) {
-            this.agregarSandia(numeroFila, x);
+            this.agregarSandia(x, numeroFila);
         }
     }
 
