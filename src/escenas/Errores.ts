@@ -32,7 +32,7 @@ class ProductionErrorHandler {
 	}
 
 	informParent(e: Error) {
-		parent?.postMessage(
+		parent && parent.postMessage(
 			{tipo: "error", error: e}, 
 			window.location.origin
 		);
