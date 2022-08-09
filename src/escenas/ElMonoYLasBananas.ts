@@ -2,7 +2,7 @@
 /// <reference path = "../actores/BananaAnimada.ts" />
 
 class ElMonoYLasBananas extends LaEleccionDelMono {
-  agregarFruta(){
+  completarConFruta(){
     if (Math.random() < .5) {
       this.agregar(BananaAnimada);
     }

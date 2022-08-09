@@ -1,6 +1,6 @@
 {
   "name": "pilas-bloques-exercises",
-  "version": "1.2.8",
+  "version": "1.2.11",
   "description": "Exercises for Pilas Bloques",
   "homepage": "http://pilasbloques.program.ar",
   "author": {
@@ -24,7 +24,10 @@
     "Hugo Ruscitti <hugoruscitti@gmail.com> (http://www.examplelab.com.ar/)",
     "Miguel Garcia  <miguel.garcia@gmail.com> (https://github.com/miguelgarcia)",
     "Nahuel Palumbo <nahuel.palumbo@gmail.com> (https://github.com/PalumboN)",
-    "Lucas Alan Silvestri <silvestrilucasalan@gmail.com> (https://github.com/51lv3str1)"
+    "Lucas Alan Silvestri <silvestrilucasalan@gmail.com> (https://github.com/51lv3str1)",
+    "Diana López Alvas <dlopezalvas@gmail.com> (https://github.com/dlopezalvas)",
+    "Tomás Floxo Lodeiro <tomasfloxolodeiro@gmail.com> (https://github.com/tfloxolodeiro)",
+    "Ezequiel Pereyra <pereyra.ezequielh@gmail.com> (https://github.com/ezequielPereyra)"
   ],
   "keywords": [
     "programar",
