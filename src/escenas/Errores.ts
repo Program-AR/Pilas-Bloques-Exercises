@@ -7,6 +7,7 @@ class ActividadError implements Error {
 	public nombreAnimacion: string; // La animación que ejecutará el autómata mientras se dice el error
 
 	constructor(message: string = "", nombreAnimacion: string = "error") {
+		this.name = "ActividadError"
 		this.message = message;
 		this.nombreAnimacion = nombreAnimacion;
 	};
@@ -21,22 +22,19 @@ class ProductionErrorHandler {
 
 	handle(e: Error){
 		if(e instanceof ActividadError){
-				this.handleActividadError(e);
+			this.escena.automata.eliminar_comportamientos();
+			this.escena.automata.informarError(e);
+			this.informParent(e);
 		} else {
+			this.informParent(e);
 			throw e;
 		}
 	}
 
-	handleActividadError(e: ActividadError) {
-		this.escena.automata.eliminar_comportamientos();
-		this.escena.automata.informarError(e);
-
-    if (parent) {
-      let mensaje = {
-        tipo: "errorDeActividad",
-        detalle: e.message
-      };
-      parent.postMessage(mensaje, window.location.origin);
-    }
+	informParent(e: Error) {
+		parent && parent.postMessage(
+			{tipo: "error", error: e}, 
+			window.location.origin
+		);
 	}
 }
