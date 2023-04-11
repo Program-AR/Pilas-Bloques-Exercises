@@ -46,17 +46,15 @@ module.exports = function (grunt) {
     watch: {
       scripts: {
         files: ['src/**'],
-        tasks: ['compile'],
+        tasks: ['run:build'],
       }
     }
 
   });
-
+  
   grunt.loadNpmTasks('grunt-typescript');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-run');
-  grunt.registerTask('compile', ['run:build']);
-  grunt.registerTask('default', ['compile']);
 
 };

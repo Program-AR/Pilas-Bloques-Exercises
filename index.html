@@ -34,8 +34,8 @@
 </head>
 
 
+<h3>DEMO Pilas Bloques Exercises</h3>
 <div class="container">
-
   <div class="canvas-container">
     <canvas id='canvas'></canvas>
 
@@ -60,7 +60,7 @@
 </div>
 
 <script type="module">
-  import { imageList } from './dist/imageList.js';
+  import './dist/imageList.js'; 
   window["repeat"] = function repeat(n, f) { for (var i = 0; i < n; i++) { f(); } }
   function evalScene(nombreDesafio) {
     pilas.mundo.gestor_escenas.cambiar_escena(new (eval(nombreDesafio))());
