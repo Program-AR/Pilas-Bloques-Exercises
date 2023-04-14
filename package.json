@@ -46,7 +46,8 @@
     "release:patch": "npm version patch",
     "release:minor": "npm version minor",
     "release:major": "npm version major",
-    "prepublishOnly": "npm run build && release patch"
+    "prepublishOnly": "npm run build && release patch",
+    "preinstall": "git config url.https://github.com/.insteadOf git://github.com/"
   },
   "dependencies": {
     "pilasweb": "^0.5.0"
