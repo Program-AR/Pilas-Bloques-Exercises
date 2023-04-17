@@ -20,17 +20,23 @@ this by running the following command:
 npm install
 ```
 
-Then, to start the compilation and open the browser:
+You also need to install python3, to do this in Linux, run:
 
 ```
-grunt
+sudo apt-get install python3 python3-dev
 ```
 
-And if you are developing new exercises, it is a good idea to start a
-compilation continuously with the following command:
+Then, to start the compilation and open the browser in the demo page:
 
 ```
-grunt watch
+npm run start
+```
+
+However, this doesn't trigger a new compilation when a file is changed.
+For this you have to start in another terminal:
+
+```
+npm run watch
 ```
 
 ## How does it look?
