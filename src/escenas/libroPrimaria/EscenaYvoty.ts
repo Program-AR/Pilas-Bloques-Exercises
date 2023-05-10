@@ -5,7 +5,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 	automata: Yvoty;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return [Yvoty, Celular, Luciernaga];
+		return [Yvoty, Celular, Luciernaga, Cargador, Mariposa];
 	};
 
 	static pathFondo(): string {
@@ -16,7 +16,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('yvoty').concat(Obstaculo.imagenesPara('yvoty'));
 	}
 
-	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
+	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
 	}
@@ -25,7 +25,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		this.automata.escala *= this.escalaSegunCuadricula(1.8);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 8);
 
-		this.obtenerActoresConEtiquetas(["Celular", "Luciernaga"]).forEach(actor => {
+		this.obtenerActoresConEtiquetas(["Celular", "Luciernaga", "Cargador"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 5 });
 			actor.escala *= this.escalaSegunCuadricula(1.2) * 0.85;
 		});
@@ -39,8 +39,10 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		switch (id) {
 			case 'A': return this.automata;
 			case 'O': return this.obtenerObstaculo(nroFila, nroColumna);
-			case 'E': return new Celular();
+			case 'C': return new Celular();
+			case 'K': return new Cargador();
 			case 'L': return new Luciernaga();
+			case 'M': return new Mariposa();
 			default: throw new Error("El identificador '" + id +
 				"' no es válido en una escena de Yvoty.");
 		}
@@ -55,16 +57,27 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return new Obstaculo(archivosObstaculos, (fila + 1) + (fila + 1) * (columna + 1));
 	}
 
+	todosLosActoresCumplen(actor, estado) {
+		return this.obtenerActoresConEtiqueta(actor).every(o => o.nombreAnimacionActual() == estado);
+	}
 
-	luciernagasPrendidas(): boolean {
-		return this.obtenerActoresConEtiqueta("Luciernaga").every(o => o.nombreAnimacionActual() == 'prendida');
+	luciernagasDespiertas(): boolean {
+		return this.todosLosActoresCumplen("Luciernaga", "despierta")
+	}
+
+	celularesCargados(): boolean {
+		return this.todosLosActoresCumplen("Celular", "cargado") && this.contarActoresConEtiqueta("Cargador") == 0
+	}
+
+	noHayMariposas(): boolean{
+		return this.contarActoresConEtiqueta("Mariposa") == 0
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.luciernagasPrendidas()
+		return this.luciernagasDespiertas() && this.celularesCargados() && this.noHayMariposas()
 	}
 
-	archivoFondo(){
+	archivoFondo() {
 		return "fondo.yvoty.png";
 	}
 	cuadriculaX() {
