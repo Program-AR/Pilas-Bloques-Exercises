@@ -5,7 +5,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 	automata: Yvoty;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return [Yvoty, Celular, Luciernaga, Cargador, Mariposa];
+		return [Yvoty, Celular, Luciernaga, Cargador, Mariposa, CompuAnimada];
 	};
 
 	static pathFondo(): string {
@@ -40,9 +40,11 @@ class EscenaYvoty extends EscenaDesdeMapa {
 			case 'A': return this.automata;
 			case 'O': return this.obtenerObstaculo(nroFila, nroColumna);
 			case 'C': return new Celular();
+			case 'P': return new Celular(true); //celular prendido
 			case 'K': return new Cargador();
 			case 'L': return new Luciernaga();
 			case 'M': return new Mariposa();
+			case 'T': return new CompuAnimada(0, 0);
 			default: throw new Error("El identificador '" + id +
 				"' no es válido en una escena de Yvoty.");
 		}
@@ -66,19 +68,19 @@ class EscenaYvoty extends EscenaDesdeMapa {
 	}
 
 	celularesCargados(): boolean {
-		return this.todosLosActoresCumplen("Celular", "cargado") && this.noHayCargadores()
+		return this.todosLosActoresCumplen("Celular", "cargado") && this.noHay("Cargador")
 	}
 
-	noHayCargadores(): boolean {
-		return this.contarActoresConEtiqueta("Cargador") == 0
+	celularResuelto(): boolean {
+		return this.celularesCargados() || this.noHay("Celular")
 	}
 
-	noHayMariposas(): boolean{
-		return this.contarActoresConEtiqueta("Mariposa") == 0
+	noHay(actor): boolean {
+		return this.contarActoresConEtiqueta(actor) == 0
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.luciernagasDespiertas() && this.celularesCargados() && this.noHayMariposas()
+		return this.luciernagasDespiertas() && this.celularResuelto() && this.noHay("Mariposa")
 	}
 
 	archivoFondo() {
