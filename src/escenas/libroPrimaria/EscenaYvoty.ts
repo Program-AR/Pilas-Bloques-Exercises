@@ -25,7 +25,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		this.automata.escala *= this.escalaSegunCuadricula(1.8);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 8);
 
-		this.obtenerActoresConEtiquetas(["Celular", "Luciernaga", "Cargador"]).forEach(actor => {
+		this.obtenerActoresConEtiquetas(["Celular", "Luciernaga", "Cargador", "Mariposa"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 5 });
 			actor.escala *= this.escalaSegunCuadricula(1.2) * 0.85;
 		});
@@ -66,7 +66,11 @@ class EscenaYvoty extends EscenaDesdeMapa {
 	}
 
 	celularesCargados(): boolean {
-		return this.todosLosActoresCumplen("Celular", "cargado") && this.contarActoresConEtiqueta("Cargador") == 0
+		return this.todosLosActoresCumplen("Celular", "cargado") && this.noHayCargadores()
+	}
+
+	noHayCargadores(): boolean {
+		return this.contarActoresConEtiqueta("Cargador") == 0
 	}
 
 	noHayMariposas(): boolean{
