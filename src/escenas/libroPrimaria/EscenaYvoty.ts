@@ -75,12 +75,16 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return this.celularesCargados() || this.noHay("Celular")
 	}
 
+	computadorasPrendidas(): boolean {
+		return this.todosLosActoresCumplen("CompuAnimada", "prendida")
+	}
+
 	noHay(actor): boolean {
 		return this.contarActoresConEtiqueta(actor) == 0
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.luciernagasDespiertas() && this.celularResuelto() && this.noHay("Mariposa")
+		return this.luciernagasDespiertas() && this.celularResuelto() && this.noHay("Mariposa") && this.computadorasPrendidas()
 	}
 
 	archivoFondo() {

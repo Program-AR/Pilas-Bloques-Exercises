@@ -16,7 +16,7 @@ class CargarCelular extends Encender {
 
         const escena = pilas.escena_actual()
 
-        this.verificacionesPre.push(new Verificacion(() => escena.noHayCargadores(),
+        this.verificacionesPre.push(new Verificacion(() => escena.noHay("Cargador"),
             '¡Todavía no recogí el cargador!'))
 
     }
