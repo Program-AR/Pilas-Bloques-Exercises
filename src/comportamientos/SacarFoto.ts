@@ -4,7 +4,7 @@
 class SacarFoto extends Encender {
 
     public nombreAnimacion(): String {
-        return "usarCelu"
+        return "sacarFoto"
     }
 
     public nombreProximaAnimacion(): string {

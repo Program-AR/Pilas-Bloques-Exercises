@@ -6,7 +6,6 @@ class Luciernaga extends ActorAnimado {
         super(0, 0, {cantColumnas: 2});
         this.definirAnimacion("dormida",[0],1);
         this.definirAnimacion("despierta",[1],1);
-        this.etiquetas.push('Luciernaga');
     }
 
 }
