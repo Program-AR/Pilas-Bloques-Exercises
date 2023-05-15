@@ -38,7 +38,7 @@ class InstalandoJuegosYvoty extends InstalandoJuegos {
 
   ajustarCompu(compu) {
     compu.escala *= this.escalaSegunCuadricula(0.6)
-    compu.x += 9
-    compu.y += 14
+    compu.setX(compu.getX() + 9)
+    compu.setY(compu.getY() + 14)
   }
 }

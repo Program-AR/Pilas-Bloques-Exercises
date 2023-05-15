@@ -30,7 +30,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 			actor.escala *= this.escalaSegunCuadricula(0.8);
 		});
 
-		this.obtenerActoresConEtiqueta("Celular").forEach(actor => {
+		this.obtenerActoresConEtiquetas(["Celular", "Mariposa"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
 			actor.escala *= this.escalaSegunCuadricula(0.6);
 		});
@@ -38,11 +38,6 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		this.obtenerActoresConEtiqueta("Cargador").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
 			actor.escala *= this.escalaSegunCuadricula(0.7);
-		});
-
-		this.obtenerActoresConEtiqueta("Mariposa").forEach(actor => {
-			actor.aprender(Flotar, { Desvio: 5 });
-			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
 		this.obtenerActoresConEtiqueta("Obstaculo").forEach(obstaculo => {
