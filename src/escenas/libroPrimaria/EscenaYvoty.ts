@@ -23,11 +23,26 @@ class EscenaYvoty extends EscenaDesdeMapa {
 
 	ajustarGraficos() {
 		this.automata.escala *= this.escalaSegunCuadricula(1.8);
-		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 8);
+		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 
-		this.obtenerActoresConEtiquetas(["Celular", "Luciernaga", "Cargador", "Mariposa"]).forEach(actor => {
+		this.obtenerActoresConEtiqueta("Luciernaga").forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(0.8);
+		});
+
+		this.obtenerActoresConEtiqueta("Celular").forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(0.6);
+		});
+
+		this.obtenerActoresConEtiqueta("Cargador").forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(0.7);
+		});
+
+		this.obtenerActoresConEtiqueta("Mariposa").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 5 });
-			actor.escala *= this.escalaSegunCuadricula(1.2) * 0.85;
+			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
 		this.obtenerActoresConEtiqueta("Obstaculo").forEach(obstaculo => {
