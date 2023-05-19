@@ -2,6 +2,8 @@
 
 class EscenaChuy extends EscenaDesdeMapa {
 	automata: Chuy;
+	xFinal: number;
+	yFinal: number;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
 		return [Chuy, Trofeo, Paleta];
@@ -15,9 +17,14 @@ class EscenaChuy extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('chuy').concat(Obstaculo.imagenesPara('chuy'));
 	}
 
-	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
+	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
+
+		if (posFinal) {
+			this.xFinal = posFinal[0];
+			this.yFinal = posFinal[1];
+		}
 	}
 
 	ajustarGraficos() {
@@ -26,12 +33,12 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 
 		this.obtenerActoresConEtiqueta("Trofeo").forEach(trofeo => {
-			trofeo.aprender(Flotar, { Desvio: 4});
+			trofeo.aprender(Flotar, { Desvio: 4 });
 			trofeo.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
 		this.obtenerActoresConEtiqueta("Paleta").forEach(trofeo => {
-			trofeo.aprender(Flotar, { Desvio: 4});
+			trofeo.aprender(Flotar, { Desvio: 4 });
 			trofeo.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
@@ -61,8 +68,13 @@ class EscenaChuy extends EscenaDesdeMapa {
 		return this.contarActoresConEtiqueta(actor) == 0
 	}
 
+
+	estaEnPosicionFinalSiLaTiene(): boolean {
+		return this.xFinal === undefined || this.automata.casillaActual().sos(this.yFinal, this.xFinal);
+	}
+
 	estaResueltoElProblema(): boolean {
-		return this.automata.alFinalDelCamino() && this.noHay("Paleta")
+		return this.estaEnPosicionFinalSiLaTiene() && this.noHay("Paleta")
 	}
 
 	archivoFondo() {
