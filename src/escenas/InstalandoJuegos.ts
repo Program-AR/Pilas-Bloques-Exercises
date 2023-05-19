@@ -13,19 +13,30 @@ class InstalandoJuegos extends EscenaActividad {
   estado;
 
   iniciar() {
-    this.fondo = new Fondo('fondos.biblioteca.png', 0, 0);
-    this.cuadricula = new Cuadricula(20, -50, 1, 4,
-      { alto: 100, ancho: 400 },
-      { grilla: 'invisible.png', cantColumnas: 1 });
+    this.fondo = new Fondo(this.imagenFondo(), 0, 0);
+    this.colocarCuadricula()
     for (var i = 1; i <= 3; ++i) {
-      this.cuadricula.agregarActor(new CompuAnimada(0, 0), 0, i);
+      let compu = new CompuAnimada(0, 0)
+      this.cuadricula.agregarActor(compu, 0, i);
+      this.ajustarCompu(compu)
     }
     this.colocarAutomata();
     this.construirFSM();
   }
 
+  colocarCuadricula(){
+    this.cuadricula = new Cuadricula(20, -50, 1, 4,
+      { alto: 100, ancho: 400 },
+      { grilla: 'invisible.png', cantColumnas: 1 });
+  }
 
-  private construirFSM() {
+  ajustarCompu(compu){}
+
+  imagenFondo(){
+    return 'fondos.biblioteca.png'
+  }
+
+  construirFSM() {
     var builder = new BuilderStatePattern(this, 'inicial');
     builder.agregarEstadosPrefijados('prendido', 1, 3);
     builder.agregarEstadosPrefijados('escritoA', 1, 3);
@@ -61,7 +72,7 @@ class InstalandoJuegos extends EscenaActividad {
     this.estado = builder.estadoInicial();
   }
 
-  private colocarAutomata() {
+  colocarAutomata() {
     this.automata = new InstaladorAnimado(0, 0);
     this.cuadricula.agregarActor(this.automata, 0, 0);
     this.automata.escala = 1;
