@@ -8,13 +8,14 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
     cuadricula;
     objetos;
     estado;
+    telescopios = [];
     iniciar() {
         this.estado = new Estado(() => this.cantidadObjetosConEtiqueta('Telescopio') == 0);
         this.fondo = new Fondo('fondo.manic.png', 0, 0);
         //this.recolector.izquierda = pilas.izquierda();
         
-        this.cuadricula = new Cuadricula(0, -20, this.dimensionesCuadricula().filas, this.dimensionesCuadricula().columnas,
-            { alto: this.dimensionesCuadricula().alto, separacionEntreCasillas: this.dimensionesCuadricula().separacionEntreCasillas},
+        this.cuadricula = new Cuadricula(0, -20, 4, 5,
+            { ancho: 380, alto: 380 },
             {
                 grilla: 'casillas.manic.png',
                 cantFilas: 1,
@@ -28,25 +29,14 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
         this.ajustarAutomata()
         this.automata.aprender(Flotar, {Desvio: 5});
         // La posición inicial pretende respectar el ejemplo
-
         this.agregarTelescopios(this.filasACompletar())
 
     }
 
     ajustarAutomata(){
-        this.cuadricula.agregarActorEnPerspectiva(this.automata, this.dimensionesCuadricula().filas - 1, 0);
-        //this.cuadricula.agregarActor(this.automata, 0, 0);
-        this.automata.escala *= this.escalaSegunCuadricula(1.4);
-        this.automata.y -= 10;
-    }
-
-    dimensionesCuadricula(){
-        return {
-            alto: 400,
-            filas: 4,
-            columnas: 5,
-            separacionEntreCasillas: 0
-        }
+        this.cuadricula.agregarActorEnPerspectiva(this.automata, 3, 0);
+        this.automata.escala *= this.escalaSegunCuadricula(2);
+        //this.automata.y -= 4;
     }
 
     filasACompletar() { return [0,1,2,3] }
@@ -62,10 +52,11 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
     agregarTelescopio(fila, columna){
         const telescopio = new Telescopio(false)
         this.cuadricula.agregarActor(telescopio,fila,columna);
-        telescopio.escala *= 0.7;
+        telescopio.escala *= 0.9;
+        this.telescopios.push(telescopio);
     }
 
     estaResueltoElProblema(){
-        return this.cuadricula.every(telescopio => telescopio.nombreAnimacionActual() === 'arreglado');
-      }
+        return this.telescopios.every(telescopio => telescopio.nombreAnimacionActual() === 'arreglado');
+    }
 }

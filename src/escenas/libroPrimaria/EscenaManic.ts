@@ -26,7 +26,7 @@ class EscenaManic extends EscenaDesdeMapa {
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 
 		this.obtenerActoresConEtiquetas(["Telescopio", "Estrella", "Planeta"]).forEach(actor => {
-			actor.aprender(Flotar, { Desvio: 4 });
+			actor.aprender(Flotar, { Desvio: 4, eje: 'X' });
 			actor.escala *= this.escalaSegunCuadricula(0.6);
 		});
 

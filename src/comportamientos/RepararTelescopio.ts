@@ -19,7 +19,7 @@ class RepararTelescopio extends Reparar {
 
     postAnimacion() {
         super.postAnimacion()
-        if (pilas.escena_actual().telescopiosArreglados()) {
+        if (pilas.escena_actual().estaResueltoElProblema()) {
             pilas.escena_actual().estado = new Estado(() =>
                 true
             )
