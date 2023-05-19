@@ -1,6 +1,6 @@
 /// <reference path="../../ActorAnimado.ts"/>
 class Telescopio extends ActorAnimado {
-    static _grilla = 'actor.telescopio1.png'
+    static _grilla = 'actor.telescopio.png'
 
     constructor(arreglado = false) {
         super(0, 0, {cantColumnas: 2});
