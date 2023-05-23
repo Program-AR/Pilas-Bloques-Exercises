@@ -94,11 +94,13 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
     llenarCasilla(cuadricula : Cuadricula, casilla : Casilla, mapa : MapaEscena) : void {
         let nroFila : number = casilla.nroFila;
         let nroColumna : number = casilla.nroColumna;
-        let id : string = mapa[nroFila][nroColumna];
-        if (id != '' && id != ' ' && id != '-') { // si no es casilla libre
-            let actor = this.mapearIdentificadorAActor(id, nroFila, nroColumna);
-            cuadricula.agregarActorEnCasilla(actor, casilla, true);
-        }
+        let ids : string[] = mapa[nroFila][nroColumna].split("&");
+        ids.forEach(id => {
+            if (id != '' && id != ' ' && id != '-') { // si no es casilla libre
+                let actor = this.mapearIdentificadorAActor(id, nroFila, nroColumna);
+                cuadricula.agregarActorEnCasilla(actor, casilla, true);
+            }
+        })
     }
 
     /**
@@ -438,6 +440,17 @@ class GeneradorDeCasillaMaybe implements GeneradorDeCasilla {
     esAleatorioPara(generador): boolean {
         var proba: number = this.proba || generador.probaPorDefecto();
         return 0 < proba && proba < 1;     
+    }
+}
+//TODO: se asume que siempre es un simple
+class GeneradorDeCasillaAnd implements GeneradorDeCasilla {
+    generador2: GeneradorDeCasilla
+    constructor(private generador1 : GeneradorDeCasilla, generador2: GeneradorDeCasilla) {this.generador2 = generador2}
+    generarSemillaDeCasilla(generador : GeneradorDeMapasAleatorios) : SemillaDeCasilla {
+        return new GeneradorDeCasillaSimple(`${this.generador1.generarSemillaDeCasilla({} as any).contenido}&${this.generador2.generarSemillaDeCasilla({} as any).contenido}`).generarSemillaDeCasilla(generador)
+    }
+    esAleatorioPara(generador): boolean {
+        return false
     }
 }
 
