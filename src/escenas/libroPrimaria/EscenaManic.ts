@@ -30,7 +30,7 @@ class EscenaManic extends EscenaDesdeMapa {
 			actor.escala *= this.escalaSegunCuadricula(0.6);
 		});
 
-		this.obtenerActoresConEtiquetas(["Planeta"]).forEach(actor => {
+		this.obtenerActoresConEtiqueta("Planeta").forEach(actor => {
 			actor.escala *= this.escalaSegunCuadricula(0.6);
 		});
 
@@ -73,12 +73,21 @@ class EscenaManic extends EscenaDesdeMapa {
 		return this.telescopiosArreglados() || this.noHay("Telescopio")
 	}
 
+	observados(actor): boolean {
+		return this.todosLosActoresCumplen(actor, "recoger")
+	}
+
+	observacionResuelta(actor): boolean {
+		return this.observados(actor) || this.noHay(actor)
+	}
+
+
 	noHay(actor): boolean {
 		return this.contarActoresConEtiqueta(actor) == 0
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.telescopioResuelto() && this.noHay("Estrella") && this.noHay("Planeta")
+		return this.telescopioResuelto() && this.observacionResuelta("Estrella") && this.observacionResuelta("Planeta")
 	}
 
 	archivoFondo() {
