@@ -3,7 +3,7 @@
 
 class EscenaManic extends EscenaDesdeMapa {
 	automata: Manic;
-
+	
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
 		return [Manic, Telescopio, Estrella, Planeta];
 	};
@@ -25,17 +25,13 @@ class EscenaManic extends EscenaDesdeMapa {
 		this.automata.escala *= this.escalaSegunCuadricula(1.8);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 
-		this.obtenerActoresConEtiquetas(["Telescopio", "Estrella"]).forEach(actor => {
+		this.obtenerActoresConEtiquetas(["Telescopio", "Estrella", "Planeta"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4, eje: 'X' });
 			actor.escala *= this.escalaSegunCuadricula(0.6);
 		});
 
-		this.obtenerActoresConEtiqueta("Planeta").forEach(actor => {
-			actor.escala *= this.escalaSegunCuadricula(0.6);
-		});
-
 		this.obtenerActoresConEtiqueta("Obstaculo").forEach(obstaculo => {
-			obstaculo.escala *= this.escalaSegunCuadricula(1.1);
+			obstaculo.escala *= this.escalaSegunCuadricula(0.6);
 		});
 	}
 

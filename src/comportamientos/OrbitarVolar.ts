@@ -30,13 +30,14 @@ class OrbitarVolar extends ComportamientoAnimado {
       this.radio = radio
       this.velocidad = velocidad
       this.angulo = 0
+      this.receptor.olvidar(Flotar)
       this.receptor.cargarAnimacion("recoger")
       //this.receptor.aprender(RotarContinuamente, { gradosDeAumentoStep: -2 } )
     }
     else
     {
       this.angulo += this.velocidad;
-      this.radio += 0.5
+      this.radio += 0.8
       this.receptor.x = this.pos_x + (Math.cos(pilas.utils.convertir_a_grados(this.angulo)) * this.radio);
       this.receptor.y += 0.75
 

@@ -12,7 +12,6 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
     iniciar() {
         this.estado = new Estado(() => this.cantidadObjetosConEtiqueta('Telescopio') == 0);
         this.fondo = new Fondo('fondo.manic.png', 0, 0);
-        //this.recolector.izquierda = pilas.izquierda();
         
         this.cuadricula = new Cuadricula(0, -20, 4, 5,
             { ancho: 380, alto: 380 },
@@ -28,7 +27,6 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
         
         this.ajustarAutomata()
         this.automata.aprender(Flotar, {Desvio: 5});
-        // La posición inicial pretende respectar el ejemplo
         this.agregarTelescopios(this.filasACompletar())
 
     }
@@ -36,7 +34,6 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
     ajustarAutomata(){
         this.cuadricula.agregarActorEnPerspectiva(this.automata, 3, 0);
         this.automata.escala *= this.escalaSegunCuadricula(2);
-        //this.automata.y -= 4;
     }
 
     filasACompletar() { return [0,1,2,3] }
@@ -53,6 +50,7 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
         const telescopio = new Telescopio(false)
         this.cuadricula.agregarActor(telescopio,fila,columna);
         telescopio.escala *= 0.9;
+        telescopio.aprender(Flotar, {Desvio: 3, eje: 'X'});
         this.telescopios.push(telescopio);
     }
 
