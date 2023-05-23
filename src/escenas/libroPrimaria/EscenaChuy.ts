@@ -6,7 +6,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	yFinal: number;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return [Chuy, Trofeo, Paleta];
+		return [Chuy, Trofeo, Paleta, Pulpito, PingPong];
 	};
 
 	static pathFondo(): string {
@@ -31,15 +31,14 @@ class EscenaChuy extends EscenaDesdeMapa {
 		this.automata.escala *= this.escalaSegunCuadricula(1.8);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 
-
-		this.obtenerActoresConEtiqueta("Trofeo").forEach(trofeo => {
-			trofeo.aprender(Flotar, { Desvio: 4 });
-			trofeo.escala *= this.escalaSegunCuadricula(0.5);
+		this.obtenerActoresConEtiquetas(["Trofeo", "Paleta", "PingPong"]).forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
-		this.obtenerActoresConEtiqueta("Paleta").forEach(trofeo => {
-			trofeo.aprender(Flotar, { Desvio: 4 });
-			trofeo.escala *= this.escalaSegunCuadricula(0.5);
+		this.obtenerActoresConEtiqueta("Pulpito").forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(0.1);
 		});
 
 	}
@@ -50,6 +49,8 @@ class EscenaChuy extends EscenaDesdeMapa {
 			case 'O': return this.obtenerObstaculo(nroFila, nroColumna);
 			case 'T': return new Trofeo();
 			case 'E': return new Paleta();
+			case 'U': return new Pulpito();
+			case 'P': return new PingPong();
 			default: throw new Error("El identificador '" + id +
 				"' no es válido en una escena de Chuy.");
 		}
@@ -70,11 +71,15 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 
 	estaEnPosicionFinalSiLaTiene(): boolean {
-		return this.xFinal === undefined || this.automata.casillaActual().sos(this.yFinal, this.xFinal);
+		return !this.xFinal || this.automata.casillaActual().sos(this.yFinal, this.xFinal) || this.automata.alFinalDelCamino();
+	}
+
+	noHayPelotas(): boolean {
+		return this.noHay("Pulpito") && this.noHay("PingPong")
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.estaEnPosicionFinalSiLaTiene() && this.noHay("Paleta")
+		return this.estaEnPosicionFinalSiLaTiene() && this.noHayPelotas()
 	}
 
 	archivoFondo() {
