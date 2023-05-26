@@ -24,7 +24,17 @@ class Chuy extends ActorAnimado {
         , 12)
         this.definirAnimacion("recoger", [97, 98, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 100, 97], 12);
         this.definirAnimacion("usarPaleta", [51, 52, 53, 54, 55, 56, 57, 58, 57, 56, 55, 56, 57, 58, 57, 56, 55, 56, 57, 58, 57, 56, 55, 56, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67], 12);
-        this.definirAnimacion("rebotarPelota", [87, 88, 89, 90, 91, 92, 93, 92, 91, 90, 94, 95, 90, 91, 92, 93, 91, 94, 91, 93, 90, 94, 96, 87, 87, 87, 87], 12);  
+        this.definirAnimacion("rebotarPelota", [87, 88, 89, 90, 91, 92, 93, 92, 91, 90, 94, 95, 90, 91, 92, 93, 91, 94, 91, 93, 90, 94, 96, 87, 87, 87, 87], 12); 
+        this.definirAnimacion("patear", [87, 88, 89, 90, 91, 92, 93, 92, 91, 90, 94, 95, 90, 91, 92, 93, 91, 94, 91, 93, 90, 94, 96, 87, 87, 87, 87], 12) 
         this.definirAnimacion("rebotarPulpito", [77, 78, 79, 80, 81, 82, 83, 82, 81, 80, 84, 85, 80, 81, 82, 83, 81, 84, 81, 83, 80, 84, 86, 77, 77, 77, 77], 12); 
 	}
+
+
+    puedeMoverseAbajo(){
+        return this.hayAbajo() && !this.tieneEnLaCasillaDeAbajo("Obstaculo") 
+    }
+
+    puedeMoverseDerecha(){
+        return this.hayDerecha() && !this.tieneEnLaCasillaASuDerecha("Obstaculo")
+    }
 }
