@@ -6,7 +6,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	yFinal: number;
 
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return [Chuy, Trofeo, Paleta, Pulpito, PingPong];
+		return [Chuy, Trofeo, Paleta, PelotaAnimada, Pulpito, PingPong];
 	};
 
 	static pathFondo(): string {
@@ -28,17 +28,28 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	ajustarGraficos() {
-		this.automata.escala *= this.escalaSegunCuadricula(1.8);
+		this.automata.escala *= this.escalaSegunCuadricula(2.5);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 
-		this.obtenerActoresConEtiquetas(["Trofeo", "Paleta", "PingPong"]).forEach(actor => {
+		this.obtenerActoresConEtiquetas(["Trofeo", "Paleta"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
 			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
-		this.obtenerActoresConEtiqueta("Pulpito").forEach(actor => {
+		this.obtenerActoresConEtiquetas(["PelotaAnimada", "Pulpito"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.1);
+			actor.traer_al_frente()
+			actor.escala *= this.escalaSegunCuadricula(1) * 0.25;
+		});
+
+		this.obtenerActoresConEtiqueta("PingPong").forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(1) * 0.15;
+		});
+
+
+		this.obtenerActoresConEtiqueta("Obstaculo").forEach(actor => {
+			actor.escala *= this.escalaSegunCuadricula(0.7);
 		});
 
 	}
@@ -51,6 +62,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 			case 'E': return new Paleta();
 			case 'U': return new Pulpito();
 			case 'P': return new PingPong();
+			case 'G': return new PelotaAnimada(0,0);
 			default: throw new Error("El identificador '" + id +
 				"' no es válido en una escena de Chuy.");
 		}
@@ -75,7 +87,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	noHayPelotas(): boolean {
-		return this.noHay("Pulpito") && this.noHay("PingPong")
+		return this.noHay("Pulpito") && this.noHay("PingPong") && this.noHay("PelotaAnimada")
 	}
 
 	estaResueltoElProblema(): boolean {
