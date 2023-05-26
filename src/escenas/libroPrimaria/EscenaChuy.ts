@@ -78,11 +78,6 @@ class EscenaChuy extends EscenaDesdeMapa {
 		return new Obstaculo(archivosObstaculos, (fila + 1) + (fila + 1) * (columna + 1));
 	}
 
-	noHay(actor): boolean {
-		return this.contarActoresConEtiqueta(actor) == 0
-	}
-
-
 	estaEnPosicionFinalSiLaTiene(): boolean {
 		return !this.xFinal || this.automata.casillaActual().sos(this.yFinal, this.xFinal) || this.automata.alFinalDelCamino();
 	}
