@@ -244,6 +244,7 @@ class GeneradorDeMapasAleatorios implements GeneradorDeMapas {
         this.colecciones = opciones.colecciones || {};
         this.macros = opciones.macros || {};
         this._anotadosParaColeccion = [];
+        this._anotadosParaColecciones = {};
         for (const id in this.colecciones) {
             this._anotadosParaColecciones[id] = [];
         }
