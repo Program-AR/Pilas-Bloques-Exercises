@@ -30,10 +30,10 @@ class Chuy extends ActorAnimado {
 
 
     puedeMoverseAbajo(){
-        return this.hayAbajo() && !this.tieneEnLaCasillaDeAbajo("Obstaculo") 
+        return this.tocandoFlechaAbajo() && !this.tieneEnLaCasillaDeAbajo("Obstaculo") 
     }
 
     puedeMoverseDerecha(){
-        return this.hayDerecha() && !this.tieneEnLaCasillaASuDerecha("Obstaculo")
+        return this.tocandoFlechaDerecha() && !this.tieneEnLaCasillaASuDerecha("Obstaculo")
     }
 }

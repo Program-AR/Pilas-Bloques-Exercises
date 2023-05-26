@@ -83,7 +83,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	noHayPelotas(): boolean {
-		return this.noHay("Pulpito") && this.noHay("PingPong") && this.noHay("PelotaAnimada")
+		return this.noHay("Pulpito") && this.noHay("PingPong") && this.todosLosActoresCumplen("PelotaAnimada", "patear")
 	}
 
 	estaResueltoElProblema(): boolean {
