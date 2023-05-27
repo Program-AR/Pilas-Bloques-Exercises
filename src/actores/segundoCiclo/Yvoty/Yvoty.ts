@@ -8,16 +8,23 @@ class Yvoty extends ActorAnimado {
 		super(0, 0, { cantColumnas: 10, cantFilas: 8 });
 
 		this.definirAnimacion("parado",
-			new Cuadros(0).repetirVeces(16)
-				.concat([4, 5, 6, 7, 8, 7, 6, 5, 4, 9, 9, 9, 9, 9, 9, 9, 4, 5, 6, 7, 8, 7, 6, 5, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 11, 12, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 13, 13, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14])
-				.concat(new Cuadros(0).repetirVeces(30))
-				.concat([4, 5, 6, 7, 8, 7, 6, 5, 4, 9, 9, 9, 9, 9, 9, 9, 4, 5, 6, 7, 8, 7, 6, 5, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 11, 12, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 13, 13, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14])
-				.concat(new Cuadros(0).repetirVeces(30))
-				.concat([4, 5, 6, 7, 8, 7, 6, 5, 4, 9, 9, 9, 9, 9, 9, 9, 4, 5, 6, 7, 8, 7, 6, 5, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 11, 12, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 13, 13, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14])
-				.concat(new Cuadros(0).repetirVeces(16))
-				.concat([14])
-				.concat(new Cuadros(0).repetirVeces(5)),
-			20, true);
+			new Cuadros(4).repetirVeces(1).
+				concat([5, 6, 7, 8, 7, 6, 5]).
+				concat(new Cuadros(9).repetirVeces(7)).
+				concat([4, 5, 6, 7, 8, 7, 6, 5]).
+				concat(new Cuadros(9).repetirVeces(16)).
+				concat([10, 11, 12]).
+				concat([4, 5, 6, 7, 8, 7, 6, 5]).
+				concat(new Cuadros(9).repetirVeces(7)).
+				concat([4, 5, 6, 7, 8, 7, 6, 5]).
+				concat(new Cuadros(9).repetirVeces(16)).
+				concat([10, 11, 12]).
+				concat(new Cuadros(9).repetirVeces(11)).
+				concat([13, 14, 14]).
+				concat(new Cuadros(15).repetirVeces(15)).
+				concat([14, 14, 13, 12]).
+				concat(new Cuadros(11).repetirVeces(9))
+			, 20, true);
 		this.definirAnimacion("correr", [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 20);
 		this.definirAnimacion("correrChocando", [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 20)
 		this.definirAnimacion("obstaculo", [20, 21, 21, 22, 23, 24, 24, 24, 24, 25, 26, 27, 28, 29, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28], 12)
