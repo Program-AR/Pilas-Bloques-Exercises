@@ -23,7 +23,7 @@ class Yvoty extends ActorAnimado {
 				concat([13, 14, 14]).
 				concat(new Cuadros(15).repetirVeces(15)).
 				concat([14, 14, 13, 12]).
-				concat(new Cuadros(11).repetirVeces(9))
+				concat(new Cuadros(9).repetirVeces(9))
 			, 20, true);
 		this.definirAnimacion("correr", [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 20);
 		this.definirAnimacion("correrChocando", [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 20)
