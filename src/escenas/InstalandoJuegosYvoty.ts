@@ -43,7 +43,7 @@ class InstalandoJuegosYvoty extends InstalandoJuegos {
     this.automata = new Yvoty();
     this.cuadricula.agregarActor(this.automata, 0, 0);
 		this.automata.escala *= this.escalaSegunCuadricula(1.5);
-		this.automata.setY(0);
+		this.automata.setY(3);
     this.automata.x -= 10
   }
 
