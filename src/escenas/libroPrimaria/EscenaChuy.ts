@@ -39,7 +39,6 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 		this.obtenerActoresConEtiqueta("PelotaAnimada").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.traer_al_frente()
 			actor.escala *= this.escalaSegunCuadricula(1) * 0.25;
 		});
 
@@ -87,7 +86,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.estaEnPosicionFinalSiLaTiene() && this.noHayPelotas()
+		return this.estaEnPosicionFinalSiLaTiene() && this.noHayPelotas() && this.noHay("Trofeo")
 	}
 
 	archivoFondo() {
