@@ -364,7 +364,7 @@ interface GeneradorDeCasilla {
 }
 
 /**
- * Contenedor temporario para la string que representará el contenido de una casilla 
+ * Contenedor temporal para la string que representará el contenido de una casilla 
  * de un mapa. Se utiliza durante el proceso de generación de un mapa aleatorio.
  */
 class SemillaDeCasilla {
@@ -386,6 +386,20 @@ class SemillaDeCasilla {
         }
         return this.contenido;
     };
+}
+
+class SemillaCompuesta extends SemillaDeCasilla {
+    semillas: SemillaDeCasilla[]
+
+    constructor(semillas: SemillaDeCasilla[]) {
+        super();
+        this.semillas = semillas;
+    }
+
+    public germinar(generador: GeneradorDeMapasAleatorios, pos: [number, number]): string {
+        const semillaExtra = super.germinar(generador,pos)
+        return this.semillas.map(semilla => semilla.germinar(generador,pos)).concat(semillaExtra).join("&")
+    }
 }
 
 /** Corresponde a identificadores de la forma `[a-zA-Z0-9]+`. */
@@ -445,12 +459,17 @@ class GeneradorDeCasillaMaybe implements GeneradorDeCasilla {
 //TODO: se asume que siempre es un simple
 class GeneradorDeCasillaAnd implements GeneradorDeCasilla {
     generador2: GeneradorDeCasilla
+
     constructor(private generador1 : GeneradorDeCasilla, generador2: GeneradorDeCasilla) {this.generador2 = generador2}
+
     generarSemillaDeCasilla(generador : GeneradorDeMapasAleatorios) : SemillaDeCasilla {
-        return new GeneradorDeCasillaSimple(`${this.generador1.generarSemillaDeCasilla({} as any).contenido}&${this.generador2.generarSemillaDeCasilla({} as any).contenido}`).generarSemillaDeCasilla(generador)
+        const semilla1: SemillaDeCasilla = this.generador1.generarSemillaDeCasilla(generador)
+        const semilla2: SemillaDeCasilla = this.generador2.generarSemillaDeCasilla(generador)
+        return new SemillaCompuesta([semilla1, semilla2])
     }
+
     esAleatorioPara(generador): boolean {
-        return false
+        return this.generador1.esAleatorioPara(generador) || this.generador2.esAleatorioPara(generador)
     }
 }
 
