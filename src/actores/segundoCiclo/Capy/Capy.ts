@@ -1,11 +1,11 @@
-/// <reference path="../../ActorAnimado.ts"/>
+/// <reference path="../../ActorCompuesto.ts"/>
 /// <reference path="../../../comportamientos/ComportamientoAnimado.ts"/>e
 
-class Capy extends ActorAnimado {
+class Capy extends ActorCompuesto {
 	static _grilla = 'actor.capy.png'
 
-	constructor() {
-		super(0,0,{cantColumnas: 10, cantFilas: 10});
+    constructor() {
+		super(0,0,  { subactores: [new ActorAnimado(0, 0, {cantColumnas: 10, cantFilas: 10, grilla: Capy._grilla })] } )
         this.definirAnimacion("parado",
                new Cuadros(0).repetirVeces(16)
                .concat([24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27, 27, 28, 28, 29, 30, 30, 30, 27, 27, 27, 27, 24, 24, 24, 24, 31, 32, 33, 34, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 36, 36, 37, 37, 38, 38, 37, 37, 38, 38, 37, 37, 37, 37, 39, 39, 40, 41, 42, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24])

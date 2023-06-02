@@ -4,7 +4,7 @@
 class EscenaCapy extends EscenaDesdeMapa {
 	automata: Capy;
 	
-	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
+	static clasesDeActoresInvolucrados(): typeof ActorCompuesto[] {
 		return [Capy, Tacho, Lata, Papel];
 	};
 
