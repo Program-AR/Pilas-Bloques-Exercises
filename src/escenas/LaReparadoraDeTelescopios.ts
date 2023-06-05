@@ -25,9 +25,8 @@ class LaReparadoraDeTelescopios extends EscenaActividad {
 
         this.automata = new Manic();
         
-        this.ajustarAutomata()
-        this.automata.aprender(Flotar, {Desvio: 5});
         this.agregarTelescopios(this.filasACompletar())
+        this.ajustarAutomata()
 
     }
 

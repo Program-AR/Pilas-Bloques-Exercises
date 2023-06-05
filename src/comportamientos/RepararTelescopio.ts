@@ -3,14 +3,6 @@
 
 class RepararTelescopio extends Reparar {
 
-    public nombreAnimacion(): String {
-        return "recoger"
-    }
-
-    public nombreProximaAnimacion(): string {
-        return "arreglado"
-    }
-
     configurarVerificaciones() {
         super.configurarVerificaciones()
 
