@@ -458,9 +458,7 @@ class GeneradorDeCasillaMaybe implements GeneradorDeCasilla {
 }
 //TODO: se asume que siempre es un simple
 class GeneradorDeCasillaAnd implements GeneradorDeCasilla {
-    generador2: GeneradorDeCasilla
-
-    constructor(private generador1 : GeneradorDeCasilla, generador2: GeneradorDeCasilla) {this.generador2 = generador2}
+    constructor(private generador1 : GeneradorDeCasilla, private generador2: GeneradorDeCasilla) {}
 
     generarSemillaDeCasilla(generador : GeneradorDeMapasAleatorios) : SemillaDeCasilla {
         const semilla1: SemillaDeCasilla = this.generador1.generarSemillaDeCasilla(generador)
