@@ -456,7 +456,6 @@ class GeneradorDeCasillaMaybe implements GeneradorDeCasilla {
         return 0 < proba && proba < 1;     
     }
 }
-//TODO: se asume que siempre es un simple
 class GeneradorDeCasillaAnd implements GeneradorDeCasilla {
     constructor(private generador1 : GeneradorDeCasilla, private generador2: GeneradorDeCasilla) {}
 
