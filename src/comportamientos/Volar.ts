@@ -20,8 +20,8 @@ class Volar extends ComportamientoAnimado {
   protected volar(aceleracion: number, 
                   gradosDeAumentoStep: number): void {
 
-    if (!this.receptor.vuela) {
-      this.receptor.vuela = true
+    if (!this.receptor.observada) {
+      this.receptor.observada = true
       this.aceleracion = aceleracion
       this.contador = Math.random() * 3
       this.alturaOriginal = this.receptor.y

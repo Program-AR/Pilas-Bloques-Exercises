@@ -34,7 +34,7 @@ class ObservoPlaneta extends Interactuar {
 
     configurarVerificaciones(): void {
         super.configurarVerificaciones()
-        this.verificacionesPre.push(new Verificacion(() => !this.objetoInteractuado().orbita, "No puede hacer orbitar dos veces el mismo planeta"))
+        this.verificacionesPre.push(new Verificacion(() => !this.objetoInteractuado().observado, "Ya observé este planeta"))
     }
   
 }

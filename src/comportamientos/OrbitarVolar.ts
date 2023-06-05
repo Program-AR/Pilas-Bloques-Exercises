@@ -24,15 +24,14 @@ class OrbitarVolar extends ComportamientoAnimado {
   protected orbitar(radio: number,
                     velocidad: number): void {
 
-    if (!this.receptor.orbita) {
-      this.receptor.orbita = true
+    if (!this.receptor.observado) {
+      this.receptor.observado = true
       this.pos_x = this.receptor.x
       this.radio = radio
       this.velocidad = velocidad
       this.angulo = 0
       this.receptor.olvidar(Flotar)
       this.receptor.cargarAnimacion("recoger")
-      //this.receptor.aprender(RotarContinuamente, { gradosDeAumentoStep: -2 } )
     }
     else
     {

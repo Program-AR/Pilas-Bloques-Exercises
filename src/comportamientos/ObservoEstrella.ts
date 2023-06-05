@@ -33,7 +33,7 @@ class ObservoEstrella extends Interactuar {
 
     configurarVerificaciones(): void {
         super.configurarVerificaciones()
-        this.verificacionesPre.push(new Verificacion(() => !this.objetoInteractuado().vuela, "No puede volar dos veces la misma estrella"))
+        this.verificacionesPre.push(new Verificacion(() => !this.objetoInteractuado().observada, "Ya observé esta estrella"))
     }
 
 }
