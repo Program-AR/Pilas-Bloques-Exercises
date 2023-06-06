@@ -398,9 +398,12 @@ class SemillaCompuesta extends SemillaDeCasilla {
         this.semillas = semillas;
     }
 
+    public seraVacia(): boolean {
+        return this.semillas.every(semilla => semilla.seraVacia())
+    }
+
     public germinar(generador: GeneradorDeMapasAleatorios, pos: [number, number]): string {
-        const semillaExtra = super.germinar(generador,pos)
-        return this.semillas.map(semilla => semilla.germinar(generador,pos)).concat(semillaExtra).join("&")
+        return this.semillas.map(semilla => semilla.germinar(generador,pos)).join("&")
     }
 }
 
