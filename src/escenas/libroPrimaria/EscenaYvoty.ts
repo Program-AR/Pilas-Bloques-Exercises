@@ -69,10 +69,6 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return new Obstaculo(archivosObstaculos, (fila + 1) + (fila + 1) * (columna + 1));
 	}
 
-	todosLosActoresCumplen(actor, estado) {
-		return this.obtenerActoresConEtiqueta(actor).every(o => o.nombreAnimacionActual() == estado);
-	}
-
 	luciernagasDespiertas(): boolean {
 		return this.todosLosActoresCumplen("Luciernaga", "despierta")
 	}
@@ -87,10 +83,6 @@ class EscenaYvoty extends EscenaDesdeMapa {
 
 	computadorasPrendidas(): boolean {
 		return this.todosLosActoresCumplen("CompuAnimada", "prendida")
-	}
-
-	noHay(actor): boolean {
-		return this.contarActoresConEtiqueta(actor) == 0
 	}
 
 	estaResueltoElProblema(): boolean {
