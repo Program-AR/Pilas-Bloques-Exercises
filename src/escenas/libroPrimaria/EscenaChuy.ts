@@ -28,9 +28,9 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	ajustarGraficos() {
-		this.automata.escala *= this.escalaSegunCuadricula(2.5);
+		this.automata.escala *= this.escalaSegunCuadricula(2);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
-		this.automata.setX(this.automata.getX() + 15)
+		this.automata.setX(this.automata.getX() + 12)
 
 		this.obtenerActoresConEtiquetas(["Trofeo", "Paleta", "Pulpito"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
