@@ -269,7 +269,9 @@ class GeneradorDeMapasAleatorios implements GeneradorDeMapas {
             var semillasEncoladas = this._semillasEncoladas;
             this._semillasEncoladas = [];
             semillasEncoladas.forEach(e => {
-                mapa[e.pos[0]][e.pos[1]] = e.semilla.germinar(this, e.pos);
+                const contenidoOriginal = mapa[e.pos[0]][e.pos[1]]
+                const nuevoContenido = e.semilla.germinar(this, e.pos)
+                mapa[e.pos[0]][e.pos[1]] = `${contenidoOriginal}&${nuevoContenido}`;
             }, this);
         }
         this.vaciarAnotadosParaColecciones();
