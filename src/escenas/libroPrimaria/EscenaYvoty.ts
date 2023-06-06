@@ -22,7 +22,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 	}
 
 	ajustarGraficos() {
-		this.automata.escala *= this.escalaSegunCuadricula(1.8);
+		this.automata.escala *= this.escalaSegunCuadricula(1.75);
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 
 		this.obtenerActoresConEtiqueta("Luciernaga").forEach(actor => {
