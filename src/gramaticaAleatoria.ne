@@ -33,6 +33,8 @@ Option   -> Subterm2 _ "|" _ Subterm2
 
 Subterm2 -> Atom               {% id %}
           | Maybe              {% id %}
+          | And                {% id %}
+
 Maybe    -> Atom _ "?"         {% d => new GeneradorDeCasillaMaybe(d[0]) %}
           | Atom _ "?" _ "(" _ decimal _ ")"
                                {% d => new GeneradorDeCasillaMaybe(d[0],d[6]) %}
@@ -50,3 +52,5 @@ Col      -> "*"                {% d => new GeneradorDeCasillaColeccion() %}
 Nil      -> "-"                {% d => new GeneradorDeCasillaVacia() %}
 
 Macro    -> "#" _ Id           {% d => new GeneradorDeCasillaMacro(d[2]) %}
+
+And      ->  Atom _ "&" _ Atom {% d => new GeneradorDeCasillaAnd(d[0], d[4]) %}
