@@ -91,6 +91,14 @@ class EscenaActividad extends Base {
 		return this.obtenerActoresConEtiqueta(etiqueta).length;
 	}
 
+	noHay(actor): boolean {
+		return this.contarActoresConEtiqueta(actor) == 0
+	}
+
+	todosLosActoresCumplen(actor, estado) {
+		return this.obtenerActoresConEtiqueta(actor).every(o => o.nombreAnimacionActual() == estado);
+	}
+
 	/**
 	 * Computa un multiplicador que crece según la cantidad de filas y columnas de la cuadrícula.
 	 * El multiplicador es 1 si la cuadrícula es de 1x1, y crece acotado por maxRatio.

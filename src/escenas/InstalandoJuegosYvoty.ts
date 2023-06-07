@@ -12,6 +12,17 @@ class InstalandoJuegosYvoty extends InstalandoJuegos {
   cuadricula;
   estado;
 
+  static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
+		return [Yvoty, CompuAnimada];
+	};
+
+	static pathFondo(): string {
+		return 'fondo.yvoty.png';
+	}
+
+	static imagenesAdicionales(): string[] {
+		return Casilla.imagenesPara('yvoty').concat(Obstaculo.imagenesPara('yvoty'));
+	}
 
   colocarCuadricula(){
     this.cuadricula = new Cuadricula(0, -20, 1, 4,
@@ -32,7 +43,7 @@ class InstalandoJuegosYvoty extends InstalandoJuegos {
     this.automata = new Yvoty();
     this.cuadricula.agregarActor(this.automata, 0, 0);
 		this.automata.escala *= this.escalaSegunCuadricula(1.5);
-		this.automata.setY(0);
+		this.automata.setY(3);
     this.automata.x -= 10
   }
 
