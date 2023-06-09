@@ -19,7 +19,7 @@ class Chuy extends ActorAnimado {
         this.definirAnimacion("correr", [68, 69, 70, 71, 72, 73, 74, 75, 76], 12);
         this.definirAnimacion("correrChocando", [68, 69, 70, 71, 72, 73, 74, 75, 76], 12)
         this.definirAnimacion("obstaculo", [0, 1, 1, 2, 2, 3, 3, 4, 4, 4], 12)
-        this.definirAnimacion("error", [101, 102, 102, 103, 103, 104, 104, 105, 105, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106]
+        this.definirAnimacion("error", [101, 101, 101, 102, 102, 103, 103, 104, 104, 105, 105, 105, 105, 105, 105, 105, 105, 105, 105]
         , 12)
         this.definirAnimacion("recoger", [97, 98, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 100, 97], 12);
         this.definirAnimacion("usarPaleta", [51, 52, 53, 54, 55, 56, 57, 58, 57, 56, 55, 56, 57, 58, 57, 56, 55, 56, 57, 58, 57, 56, 55, 56, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67], 12);
