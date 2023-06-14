@@ -94,11 +94,13 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
     llenarCasilla(cuadricula : Cuadricula, casilla : Casilla, mapa : MapaEscena) : void {
         let nroFila : number = casilla.nroFila;
         let nroColumna : number = casilla.nroColumna;
-        let id : string = mapa[nroFila][nroColumna];
-        if (id != '' && id != ' ' && id != '-') { // si no es casilla libre
-            let actor = this.mapearIdentificadorAActor(id, nroFila, nroColumna);
-            cuadricula.agregarActorEnCasilla(actor, casilla, true);
-        }
+        let ids : string[] = mapa[nroFila][nroColumna].split("&");
+        ids.forEach(id => {
+            if (id != '' && id != ' ' && id != '-') { // si no es casilla libre
+                let actor = this.mapearIdentificadorAActor(id, nroFila, nroColumna);
+                cuadricula.agregarActorEnCasilla(actor, casilla, true);
+            }
+        })
     }
 
     /**
@@ -267,7 +269,9 @@ class GeneradorDeMapasAleatorios implements GeneradorDeMapas {
             var semillasEncoladas = this._semillasEncoladas;
             this._semillasEncoladas = [];
             semillasEncoladas.forEach(e => {
-                mapa[e.pos[0]][e.pos[1]] = e.semilla.germinar(this, e.pos);
+                const contenidoOriginal = mapa[e.pos[0]][e.pos[1]]
+                const nuevoContenido = e.semilla.germinar(this, e.pos)
+                mapa[e.pos[0]][e.pos[1]] = `${contenidoOriginal}&${nuevoContenido}`;
             }, this);
         }
         this.vaciarAnotadosParaColecciones();
@@ -362,7 +366,7 @@ interface GeneradorDeCasilla {
 }
 
 /**
- * Contenedor temporario para la string que representará el contenido de una casilla 
+ * Contenedor temporal para la string que representará el contenido de una casilla 
  * de un mapa. Se utiliza durante el proceso de generación de un mapa aleatorio.
  */
 class SemillaDeCasilla {
@@ -384,6 +388,23 @@ class SemillaDeCasilla {
         }
         return this.contenido;
     };
+}
+
+class SemillaCompuesta extends SemillaDeCasilla {
+    semillas: SemillaDeCasilla[]
+
+    constructor(semillas: SemillaDeCasilla[]) {
+        super();
+        this.semillas = semillas;
+    }
+
+    public seraVacia(): boolean {
+        return this.semillas.every(semilla => semilla.seraVacia())
+    }
+
+    public germinar(generador: GeneradorDeMapasAleatorios, pos: [number, number]): string {
+        return this.semillas.map(semilla => semilla.germinar(generador,pos)).join("&")
+    }
 }
 
 /** Corresponde a identificadores de la forma `[a-zA-Z0-9]+`. */
@@ -438,6 +459,19 @@ class GeneradorDeCasillaMaybe implements GeneradorDeCasilla {
     esAleatorioPara(generador): boolean {
         var proba: number = this.proba || generador.probaPorDefecto();
         return 0 < proba && proba < 1;     
+    }
+}
+class GeneradorDeCasillaAnd implements GeneradorDeCasilla {
+    constructor(private generador1 : GeneradorDeCasilla, private generador2: GeneradorDeCasilla) {}
+
+    generarSemillaDeCasilla(generador : GeneradorDeMapasAleatorios) : SemillaDeCasilla {
+        const semilla1: SemillaDeCasilla = this.generador1.generarSemillaDeCasilla(generador)
+        const semilla2: SemillaDeCasilla = this.generador2.generarSemillaDeCasilla(generador)
+        return new SemillaCompuesta([semilla1, semilla2])
+    }
+
+    esAleatorioPara(generador): boolean {
+        return this.generador1.esAleatorioPara(generador) || this.generador2.esAleatorioPara(generador)
     }
 }
 
