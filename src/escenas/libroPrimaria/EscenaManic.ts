@@ -93,7 +93,6 @@ class EscenaManic extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		console.log(`posiciones ${this.xFinal}  ${this.yFinal}`)
 		return this.estaEnPosicionFinalSiLaTiene() && this.telescopioResuelto() && this.observacionResuelta("Estrella") && this.observacionResuelta("Planeta");        	
 	}
 
