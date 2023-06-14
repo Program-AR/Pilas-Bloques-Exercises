@@ -1,8 +1,10 @@
-/// <reference path = "../libroPrimaria/EscenaDesdeMapa.ts" />
+/// <reference path = "EscenaDesdeMapa.ts" />
 
 
 class EscenaManic extends EscenaDesdeMapa {
 	automata: Manic;
+	xFinal: number;
+	yFinal: number;
 	
 	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
 		return [Manic, Telescopio, Estrella, Planeta];
@@ -16,9 +18,13 @@ class EscenaManic extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('manic').concat(Obstaculo.imagenesPara('manic'));
 	}
 
-	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
+	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
+		if (posFinal) {
+			this.xFinal = posFinal[0];
+			this.yFinal = posFinal[1];
+		}
 	}
 
 	ajustarGraficos() {
@@ -82,8 +88,13 @@ class EscenaManic extends EscenaDesdeMapa {
 		return this.contarActoresConEtiqueta(actor) == 0
 	}
 
+	estaEnPosicionFinalSiLaTiene(): boolean {
+		return this.xFinal === undefined || this.automata.casillaActual().sos(this.yFinal, this.xFinal);
+	}
+
 	estaResueltoElProblema(): boolean {
-		return this.telescopioResuelto() && this.observacionResuelta("Estrella") && this.observacionResuelta("Planeta")
+		console.log(`posiciones ${this.xFinal}  ${this.yFinal}`)
+		return this.estaEnPosicionFinalSiLaTiene() && this.telescopioResuelto() && this.observacionResuelta("Estrella") && this.observacionResuelta("Planeta");        	
 	}
 
 	archivoFondo() {
