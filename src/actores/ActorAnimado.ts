@@ -133,6 +133,14 @@ class ActorAnimado extends Actor {
         }
     }
 
+    puedeMoverseAbajo(){
+        return this.tocandoFlechaAbajo() && !this.tieneEnLaCasillaDeAbajo("Obstaculo") 
+    }
+
+    puedeMoverseDerecha(){
+        return this.tocandoFlechaDerecha() && !this.tieneEnLaCasillaASuDerecha("Obstaculo")
+    }    
+
     hayEnEscena(etiqueta: string): boolean {
         return this.escena.contarActoresConEtiqueta(etiqueta) > 0;
     }
