@@ -32,14 +32,19 @@ class EscenaChuy extends EscenaDesdeMapa {
 		this.automata.setY(this.automata.getY() + this.automata.getAlto() / 4);
 		this.automata.setX(this.automata.getX() + 12)
 
-		this.obtenerActoresConEtiquetas(["Trofeo", "Paleta", "Pulpito"]).forEach(actor => {
+		this.obtenerActoresConEtiquetas(["Trofeo", "Paleta"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
 			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
+		this.obtenerActoresConEtiqueta("Pulpito").forEach(actor => {
+			actor.aprender(Flotar, { Desvio: 4 });
+			actor.escala *= this.escalaSegunCuadricula(0.2);
+		});
+
 		this.obtenerActoresConEtiqueta("PelotaAnimada").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(1) * 0.25;
+			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
 		this.obtenerActoresConEtiqueta("PingPong").forEach(actor => {
@@ -49,7 +54,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 
 		this.obtenerActoresConEtiqueta("Obstaculo").forEach(actor => {
-			actor.escala *= this.escalaSegunCuadricula(0.7);
+			actor.escala *= this.escalaSegunCuadricula(0.9);
 		});
 
 	}

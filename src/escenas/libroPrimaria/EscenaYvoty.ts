@@ -27,21 +27,21 @@ class EscenaYvoty extends EscenaDesdeMapa {
 
 		this.obtenerActoresConEtiqueta("Luciernaga").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.8);
+			actor.escala *= this.escalaSegunCuadricula(0.6);
 		});
 
 		this.obtenerActoresConEtiquetas(["Celular", "Mariposa"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.6);
+			actor.escala *= this.escalaSegunCuadricula(0.4);
 		});
 
 		this.obtenerActoresConEtiqueta("Cargador").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.7);
+			actor.escala *= this.escalaSegunCuadricula(0.5);
 		});
 
 		this.obtenerActoresConEtiqueta("Obstaculo").forEach(obstaculo => {
-			obstaculo.escala *= this.escalaSegunCuadricula(1.1);
+			obstaculo.escala *= this.escalaSegunCuadricula(0.9);
 		});
 	}
 
