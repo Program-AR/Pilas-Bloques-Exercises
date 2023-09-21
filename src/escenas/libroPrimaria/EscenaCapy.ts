@@ -27,11 +27,11 @@ class EscenaCapy extends EscenaDesdeMapa {
 
 		this.obtenerActoresConEtiquetas(["Tacho", "Lata", "Papel"]).forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.6);
+			actor.escala *= this.escalaSegunCuadricula(0.4);
 		});
 
 		this.obtenerActoresConEtiqueta("Obstaculo").forEach(obstaculo => {
-			obstaculo.escala *= this.escalaSegunCuadricula(0.6);
+			obstaculo.escala *= this.escalaSegunCuadricula(0.9);
 		});
 	}
 
