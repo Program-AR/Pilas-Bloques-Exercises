@@ -85,8 +85,8 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
     }
 
     protected construirCuadricula(mapa : MapaEscena) : Cuadricula {
-        let cuadricula = new Cuadricula(this.cuadriculaX(), this.cuadriculaY(), mapa.length,
-            mapa[0].length, this.opsCuadricula(), this.opsCasilla());
+        const matrizBooleana = mapa.map(fila => fila.map(casilla => casilla === '_' ? 'F' : 'T'))
+        const cuadricula: CuadriculaEsparsa = new CuadriculaEsparsa(this.cuadriculaX(), this.cuadriculaY(), this.opsCuadricula(), this.opsCasilla(), matrizBooleana);
         cuadricula.forEachCasilla(casilla => this.llenarCasilla(cuadricula, casilla, mapa));
         return cuadricula;
     }
@@ -96,7 +96,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         let nroColumna : number = casilla.nroColumna;
         let ids : string[] = mapa[nroFila][nroColumna].split("&");
         ids.forEach(id => {
-            if (id != '' && id != ' ' && id != '-') { // si no es casilla libre
+            if (id != '' && id != ' ' && id != '-' && id != '_') { // si no es casilla libre
                 let actor = this.mapearIdentificadorAActor(id, nroFila, nroColumna);
                 cuadricula.agregarActorEnCasilla(actor, casilla, true);
             }
@@ -443,6 +443,13 @@ class GeneradorDeCasillaColeccion implements GeneradorDeCasilla {
 class GeneradorDeCasillaVacia implements GeneradorDeCasilla {
     generarSemillaDeCasilla(generador : GeneradorDeMapasAleatorios) : SemillaDeCasilla
         { return new SemillaDeCasilla('-'); }
+    esAleatorioPara(generador : GeneradorDeMapasAleatorios): boolean { return false; }
+}
+
+/** Corresponde a las casillas indicadas con `_`. */
+class GeneradorDeCasillaNula implements GeneradorDeCasilla {
+    generarSemillaDeCasilla(generador : GeneradorDeMapasAleatorios) : SemillaDeCasilla
+        { return new SemillaDeCasilla('_'); }
     esAleatorioPara(generador : GeneradorDeMapasAleatorios): boolean { return false; }
 }
 
