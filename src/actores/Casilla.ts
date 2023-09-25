@@ -29,13 +29,7 @@ class Casilla extends ActorAnimado {
         this.nroColumna = nroC;
         this.actores = [];
 
-        let opciones = cuadricula.getOpcionesCasilla();
-        if (opciones.bordesDecorados) {
-            opciones.cuadrosParado = [this.cuadroSegunPosicion()];
-            opciones.cuadrosCorrer = opciones.cuadrosParado;
-        }
-
-        super(0, 0, opciones);
+        super(0, 0, cuadricula.getOpcionesCasilla());
 
         this.reubicate();
     }
@@ -153,6 +147,11 @@ class Casilla extends ActorAnimado {
 
     actoresConEtiqueta(unaEtq) {
         return this.actores.filter(actor => actor.tiene_etiqueta(unaEtq));
+    }
+
+    decorarBordes(){
+        this.definirAnimacion("parado", [this.cuadroSegunPosicion()], 5);
+        this.cargarAnimacion("parado")
     }
 
     cuadroSegunPosicion() : number {

@@ -211,6 +211,9 @@ class Cuadricula extends Actor {
         this.forEachFilaCol((fila, col) =>
             this.agregarCasilla(fila, col)
         );
+        if (this.opcionesCasilla.bordesDecorados) {
+            this.forEachCasilla( casilla => casilla.decorarBordes() );
+        }
     }
 
     agregarCasilla(fila, col) {
