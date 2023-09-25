@@ -156,10 +156,10 @@ class Casilla extends ActorAnimado {
     }
 
     cuadroSegunPosicion() : number {
-        return 8 * Number(! this.hayArriba())
-            + 4 * Number(! this.hayIzquierda())
-            + 2 * Number(! this.hayAbajo())
-            + Number(! this.hayDerecha());
+        return 8 * Number(! this.casillaDeArriba())
+            + 4 * Number(! this.casillaASuIzquierda())
+            + 2 * Number(! this.casillaDeAbajo())
+            + Number(! this.casillaASuDerecha());
     }
 
     cambiarImagen(nombre, cantFilas = 1, cantColumnas = 1){ // TODO: FEOOOOOOO bugfix setter imagen del actor
