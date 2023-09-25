@@ -38,22 +38,20 @@ class CuadriculaEsparsa extends Cuadricula{
     });
   }
 
-  hayDerecha(casilla){
-    /*Devuelve true sii existe una casilla
-    a la inmediata derecha de la casilla */
-    return this.casilla(casilla.nroFila,casilla.nroColumna+1)!=undefined;
+  hayDerecha(casilla: Casilla){
+    return this.matriz[casilla.nroFila][casilla.nroColumna+1] == 'T'
   }
 
-  hayIzquierda(casilla){
-    return this.casilla(casilla.nroFila,casilla.nroColumna-1)!=undefined;
+  hayIzquierda(casilla: Casilla){
+    return this.matriz[casilla.nroFila][casilla.nroColumna-1] == 'T'
   }
 
-  hayAbajo(casilla){
-    return this.casilla(casilla.nroFila+1,casilla.nroColumna)!=undefined;
+  hayAbajo(casilla: Casilla){
+    return this.matriz[casilla.nroFila+1] !== undefined && this.matriz[casilla.nroFila+1][casilla.nroColumna] == 'T'
   }
 
-  hayArriba(casilla){
-    return this.casilla(casilla.nroFila-1,casilla.nroColumna)!=undefined;
+  hayArriba(casilla: Casilla){
+    return this.matriz[casilla.nroFila-1] !== undefined && this.matriz[casilla.nroFila-1][casilla.nroColumna] == 'T'
   }
 
 }
