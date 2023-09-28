@@ -141,6 +141,14 @@ class ActorAnimado extends Actor {
         return this.tocandoFlechaDerecha() && !this.tieneEnLaCasillaASuDerecha("Obstaculo")
     }    
 
+    puedeMoverseArriba(){
+        return this.tocandoFlechaArriba() && !this.tieneEnLaCasillaDeArriba("Obstaculo") 
+    }
+
+    puedeMoverseIzquierda(){
+        return this.tocandoFlechaIzquierda() && !this.tieneEnLaCasillaASuIzquierda("Obstaculo")
+    }    
+
     hayEnEscena(etiqueta: string): boolean {
         return this.escena.contarActoresConEtiqueta(etiqueta) > 0;
     }
@@ -152,6 +160,15 @@ class ActorAnimado extends Actor {
     tocandoFlechaDerecha(): boolean {
         if (this.alFinalDelCamino()) throw new ActividadError("No se puede preguntar más, ya estoy al final del camino");
         return this.hayDerecha();
+    }
+
+    tocandoFlechaArriba(): boolean {
+        if (this.alFinalDelCamino()) throw new ActividadError("No se puede preguntar más, ya estoy al final del camino");
+        return this.hayArriba();
+    }
+    tocandoFlechaIzquierda(): boolean {
+        if (this.alFinalDelCamino()) throw new ActividadError("No se puede preguntar más, ya estoy al final del camino");
+        return this.hayIzquierda();
     }
 
     alFinalDelCamino(): boolean {
