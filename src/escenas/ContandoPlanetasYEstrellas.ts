@@ -4,9 +4,6 @@
 /// <reference path="../actores/segundoCiclo/Manic/Planeta.ts"/>
 /// <reference path="../actores/segundoCiclo/Manic/Manic.ts"/>
 /// <reference path="../actores/Tablero.ts"/>
-/// <reference path="../actores/ObservadoAnimado.ts"/>
-
-
 
 
 class ContandoPlanetasYEstrellas extends EscenaActividad {
@@ -20,7 +17,7 @@ class ContandoPlanetasYEstrellas extends EscenaActividad {
             new DefinidorColumnasRandom(5, 6),
             0, -45,
             { separacionEntreCasillas: 5 },
-            { alto: 40, ancho: 40, grilla: 'casillas.manic.png', cantColumnas: 1 })
+            { alto: 40, ancho: 40, grilla: 'casilla.manic.png', cantColumnas: 1 })
         this.cuadricula.cambiarImagenInicio('casillainicio.manic.png');
         this.cambiarImagenesFin();
 
@@ -33,7 +30,7 @@ class ContandoPlanetasYEstrellas extends EscenaActividad {
 
         this.automata = new Manic();
         this.cuadricula.agregarActorEnPerspectiva(this.automata, 0, 0);
-        this.automata.escala *= 1.5;
+        this.automata.escala *= this.escalaSegunCuadricula(2);
 
         this.tableros = {};
         this.tableros.Planeta = new Tablero(150,210,{texto:"Planetas"});
