@@ -4,7 +4,7 @@
 class EscenaCapy extends EscenaDesdeMapa {
 	automata: Capy;
 	
-	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
+	clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
 		return [Capy, Tacho, Lata, Papel];
 	};
 
@@ -12,7 +12,7 @@ class EscenaCapy extends EscenaDesdeMapa {
 		return 'fondo.capy.png';
 	}
 
-	static imagenesAdicionales(): string[] {
+	imagenesAdicionales(): string[] {
 		return Casilla.imagenesPara('capy').concat(Obstaculo.imagenesPara('capy'));
 	}
 
