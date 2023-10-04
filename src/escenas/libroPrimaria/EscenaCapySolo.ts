@@ -5,8 +5,8 @@ class EscenaCapySolo extends EscenaCapy {
 	
 	automata: CapySolo;
 	
-	clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-		return super.clasesDeActoresInvolucrados().concat([CapySolo, Guyra])
+	static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
+		return EscenaCapy.clasesDeActoresInvolucrados().concat([CapySolo, Guyra])
 	};
 	
 	obtenerAutomata(): CapySolo {
