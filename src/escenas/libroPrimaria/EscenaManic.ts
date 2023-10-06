@@ -18,6 +18,10 @@ class EscenaManic extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('manic').concat(Obstaculo.imagenesPara('manic'));
 	}
 
+	nombreAutomata(): string {
+		return 'manic'
+	}
+
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);

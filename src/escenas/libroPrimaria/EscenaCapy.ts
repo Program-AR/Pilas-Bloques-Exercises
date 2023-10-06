@@ -16,6 +16,10 @@ class EscenaCapy extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('capy').concat(Obstaculo.imagenesPara('capy'));
 	}
 
+	nombreAutomata(): string {
+		return 'capy'
+	}
+
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);

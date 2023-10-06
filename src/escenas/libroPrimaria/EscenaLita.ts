@@ -21,6 +21,10 @@ class EscenaLita extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('lita').concat(Obstaculo.imagenesPara('lita'));
 	}			//TODO: Usar flatMap (lodash)
 
+	nombreAutomata(): string {
+		return 'lita'
+	}
+
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);

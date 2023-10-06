@@ -90,7 +90,15 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         cuadricula.forEachCasilla(casilla => this.llenarCasilla(cuadricula, casilla, mapa));
         return cuadricula;
     }
-
+    
+    agregarCasilleroFinalSiLoTiene(): void {
+        if(this.tienePosicionFinal()){
+            const actor = new MetaFinal(this.nombreAutomata())
+            const casilla = this.cuadricula.casilla(this.yFinal, this.xFinal)
+            this.cuadricula.agregarActorEnCasilla(actor, casilla, true)
+        }
+    }
+    
     llenarCasilla(cuadricula : Cuadricula, casilla : Casilla, mapa : MapaEscena) : void {
         let nroFila : number = casilla.nroFila;
         let nroColumna : number = casilla.nroColumna;
@@ -101,6 +109,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
                 cuadricula.agregarActorEnCasilla(actor, casilla, true);
             }
         })
+        this.agregarCasilleroFinalSiLoTiene();
     }
 
     /**
@@ -114,6 +123,11 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
      * Crea y devuelve el autómata de la actividad.
      */
     abstract obtenerAutomata() : ActorAnimado;
+
+    /**
+     * Devuelve el nombre del automata, usado para las metas finales y obstaculos
+     */
+    abstract nombreAutomata(): string;
 
     /**
      * Recibe un identificador y crea y devuelve el actor que le corresponde.

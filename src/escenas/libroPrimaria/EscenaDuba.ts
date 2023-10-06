@@ -21,6 +21,10 @@ class EscenaDuba extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('duba').concat(Obstaculo.imagenesPara('duba'));
 	}			//TODO: Usar flatMap (lodash)
 
+	nombreAutomata(): string {
+		return 'duba'
+	}
+
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);

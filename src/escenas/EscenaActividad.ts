@@ -13,6 +13,8 @@ class EscenaActividad extends Base {
 	automata : ActorAnimado;
 	cuadricula : Cuadricula;
 	fondo;
+	xFinal: number;
+	yFinal: number;
 
 	/**
 	 * Devuelve todos los nombres de archivo de imagen necesarios para
@@ -97,6 +99,14 @@ class EscenaActividad extends Base {
 
 	todosLosActoresCumplen(actor, estado) {
 		return this.obtenerActoresConEtiqueta(actor).every(o => o.nombreAnimacionActual() == estado);
+	}
+
+	estaEnPosicionFinalSiLaTiene(): boolean {
+		return !this.tienePosicionFinal() || this.automata.casillaActual().sos(this.yFinal, this.xFinal);
+	}
+
+	tienePosicionFinal(): boolean {
+		return this.xFinal !== undefined
 	}
 
 	/**

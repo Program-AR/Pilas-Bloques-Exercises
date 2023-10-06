@@ -17,6 +17,10 @@ class EscenaChuy extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('chuy').concat(Obstaculo.imagenesPara('chuy'));
 	}
 
+	nombreAutomata(): string {
+		return 'chuy'
+	}
+
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);

@@ -16,6 +16,10 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('yvoty').concat(Obstaculo.imagenesPara('yvoty'));
 	}
 
+	nombreAutomata(): string {
+		return 'yvoty'
+	}
+
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
 		super();
 		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
