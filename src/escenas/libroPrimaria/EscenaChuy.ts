@@ -13,11 +13,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 		return 'fondo.chuy.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('chuy').concat(Obstaculo.imagenesPara('chuy'));
-	}
-
-	nombreAutomata(): string {
+	static nombreAutomata(): string {
 		return 'chuy'
 	}
 

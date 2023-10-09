@@ -33,7 +33,7 @@ abstract class EscenaToto extends EscenaDesdeMapa {
 		return []
     }
 
-    nombreAutomata(): string {
+    static nombreAutomata(): string {
 		return 'toto'
 	}
 

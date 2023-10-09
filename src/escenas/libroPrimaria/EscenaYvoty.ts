@@ -16,7 +16,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return Casilla.imagenesPara('yvoty').concat(Obstaculo.imagenesPara('yvoty'));
 	}
 
-	nombreAutomata(): string {
+	static nombreAutomata(): string {
 		return 'yvoty'
 	}
 

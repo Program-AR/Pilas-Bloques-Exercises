@@ -2,7 +2,11 @@
 
 class MetaFinal extends ActorAnimado {
 
-    constructor(automata: string) {
-        super(0, 0, { grilla: `marcador-${automata}.png`, cantColumnas: 1, cantFilas: 1 });
+    static imagenesPara(actor) : string[] {
+        return [`marcador-${actor}.png`];
+    }
+
+    constructor(actor: string) {
+        super(0, 0, { grilla: `marcador-${actor}.png`, cantColumnas: 1, cantFilas: 1 });
     }
 } 

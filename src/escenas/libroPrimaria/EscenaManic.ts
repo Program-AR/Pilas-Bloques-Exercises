@@ -14,11 +14,7 @@ class EscenaManic extends EscenaDesdeMapa {
 		return 'fondo.manic.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('manic').concat(Obstaculo.imagenesPara('manic'));
-	}
-
-	nombreAutomata(): string {
+	static nombreAutomata(): string {
 		return 'manic'
 	}
 

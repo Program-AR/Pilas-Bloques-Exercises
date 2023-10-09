@@ -12,11 +12,7 @@ class EscenaCapy extends EscenaDesdeMapa {
 		return 'fondo.capy.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('capy').concat(Obstaculo.imagenesPara('capy'));
-	}
-
-	nombreAutomata(): string {
+	static nombreAutomata(): string {
 		return 'capy'
 	}
 

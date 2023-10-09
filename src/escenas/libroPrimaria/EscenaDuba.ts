@@ -17,11 +17,8 @@ class EscenaDuba extends EscenaDesdeMapa {
 		return 'fondo.duba.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('duba').concat(Obstaculo.imagenesPara('duba'));
-	}			//TODO: Usar flatMap (lodash)
 
-	nombreAutomata(): string {
+	static nombreAutomata(): string {
 		return 'duba'
 	}
 
