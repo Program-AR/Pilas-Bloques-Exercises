@@ -72,11 +72,23 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         this.generadorDeMapas = new GeneradorDeMapasArray(generadores);
     }
 
-    initDesdeUnaOVariasDescripciones(especificacion: Spec, opciones?: opcionesMapaAleatorio) { //Podria recibir un GridSpec directamente
+    initDesdeUnaOVariasDescripciones(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) { //Podria recibir un GridSpec directamente
+        this.guardarPosicionFinal(posFinal)
         if (Array.isArray(especificacion))
             this.initDesdeArrayDeDescripciones(especificacion, opciones);
         else
             this.initDesdeDescripcion(especificacion, opciones);
+    }
+
+    guardarPosicionFinal(posFinal?: [number, number]){
+        if (posFinal && this.posicionValida(posFinal)) {
+			this.xFinal = posFinal[0];
+			this.yFinal = posFinal[1];
+		}
+    }
+
+    posicionValida(posFinal: [number, number]){
+        return posFinal[0] >= 0 && posFinal[1] >= 0
     }
 
     iniciar(): void {
@@ -112,7 +124,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         }
 
         this.obtenerActoresConEtiqueta("MetaFinal").forEach(actor => {
-            actor.escala *= this.escalaSegunCuadricula(1);
+            actor.escala *= this.escalaSegunCuadricula(0.8);
         });
     }
 

@@ -19,12 +19,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
-		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
-
-		if (posFinal) {
-			this.xFinal = posFinal[0];
-			this.yFinal = posFinal[1];
-		}
+		this.initDesdeUnaOVariasDescripciones(especificacion, opciones, posFinal);
 	}
 
 	ajustarGraficos() {

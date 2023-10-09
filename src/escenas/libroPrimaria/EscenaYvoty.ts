@@ -12,17 +12,13 @@ class EscenaYvoty extends EscenaDesdeMapa {
 		return 'fondo.yvoty.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('yvoty').concat(Obstaculo.imagenesPara('yvoty'));
-	}
-
 	static nombreAutomata(): string {
 		return 'yvoty'
 	}
 
-	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
+	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
-		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
+		this.initDesdeUnaOVariasDescripciones(especificacion, opciones, posFinal);
 	}
 
 	ajustarGraficos() {
