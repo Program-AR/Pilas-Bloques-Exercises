@@ -74,7 +74,7 @@ class EscenaCapy extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.tachoResuelto() && this.recoleccionResuelta("Lata") && this.recoleccionResuelta("Papel")
+		return super.estaResueltoElProblema() && this.tachoResuelto() && this.recoleccionResuelta("Lata") && this.recoleccionResuelta("Papel")
 	}
 
 	archivoFondo() {

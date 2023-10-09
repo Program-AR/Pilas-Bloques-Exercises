@@ -57,11 +57,7 @@ class EscenaLita extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		// Además de verificar que Lita haya cumplido el objetivo de la escena,
-		// en el caso de que se haya proporcionado una posición final,
-		// queremos verificar que Lita esté ahí.
-		return super.estaResueltoElProblema() &&
-			(this.xFinal === undefined || this.automata.casillaActual().sos(this.xFinal, this.yFinal));
+		return super.estaResueltoElProblema() && this.estado.soyAceptacion()
 	}
 
 	ajustarGraficos() {

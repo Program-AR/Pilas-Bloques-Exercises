@@ -140,6 +140,10 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         })
     }
 
+    estaResueltoElProblema(): Boolean {
+        return this.estaEnPosicionFinalSiLaTiene()
+    }
+
     /**
      * Indica si el mapa es distinto cada vez que se ejecuta la escena.
      */

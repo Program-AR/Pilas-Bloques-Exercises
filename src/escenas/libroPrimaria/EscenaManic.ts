@@ -64,10 +64,6 @@ class EscenaManic extends EscenaDesdeMapa {
 		return new Obstaculo(archivosObstaculos, (fila + 1) + (fila + 1) * (columna + 1));
 	}
 
-	todosLosActoresCumplen(actor, estado) {
-		return this.obtenerActoresConEtiqueta(actor).every(o => o.nombreAnimacionActual() == estado);
-	}
-
 	telescopiosArreglados(): boolean {
 		return this.todosLosActoresCumplen("Telescopio", "arreglado")
 	}
@@ -84,13 +80,8 @@ class EscenaManic extends EscenaDesdeMapa {
 		return this.observados(actor) || this.noHay(actor)
 	}
 
-
-	noHay(actor): boolean {
-		return this.contarActoresConEtiqueta(actor) == 0
-	}
-
 	estaResueltoElProblema(): boolean {
-		return this.estaEnPosicionFinalSiLaTiene() && this.telescopioResuelto() && this.observacionResuelta("Estrella") && this.observacionResuelta("Planeta");        	
+		return super.estaResueltoElProblema() && this.telescopioResuelto() && this.observacionResuelta("Estrella") && this.observacionResuelta("Planeta");        	
 	}
 
 	archivoFondo() {

@@ -102,11 +102,15 @@ class EscenaActividad extends Base {
 	}
 
 	estaEnPosicionFinalSiLaTiene(): boolean {
-		return !this.tienePosicionFinal() || this.automata.casillaActual().sos(this.yFinal, this.xFinal);
+		return !this.tienePosicionFinal() || this.automataEnPosicionFinal()
 	}
 
 	tienePosicionFinal(): boolean {
 		return this.xFinal !== undefined
+	}
+
+	automataEnPosicionFinal(): boolean {
+		return this.automata.casillaActual().sos(this.yFinal, this.xFinal);
 	}
 
 	/**

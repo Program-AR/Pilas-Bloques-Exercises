@@ -60,8 +60,7 @@ class EscenaDuba extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		return (this.contarActoresConEtiqueta("Churrasco")) === 0 &&
-			(this.xFinal === undefined || this.automata.casillaActual().sos(this.xFinal, this.yFinal));
+		return super.estaResueltoElProblema() && this.noHay('Churrasco')
 	}
 
 	archivoFondo() {

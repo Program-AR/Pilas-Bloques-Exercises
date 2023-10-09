@@ -78,7 +78,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	estaEnPosicionFinalSiLaTiene(): boolean {
-		return this.xFinal === undefined || this.automata.casillaActual().sos(this.yFinal, this.xFinal) || this.automata.alFinalDelCamino();
+		return super.estaEnPosicionFinalSiLaTiene() || this.automata.alFinalDelCamino();
 	}
 
 	noHayPelotas(): boolean {

@@ -86,7 +86,7 @@ class EscenaYvoty extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		return this.luciernagasDespiertas() && this.celularResuelto() && this.noHay("Mariposa") && this.computadorasPrendidas()
+		return super.estaResueltoElProblema() && this.luciernagasDespiertas() && this.celularResuelto() && this.noHay("Mariposa") && this.computadorasPrendidas()
 	}
 
 	archivoFondo() {
