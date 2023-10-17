@@ -45,6 +45,7 @@ class LimpiandoElHumedal extends EscenaActividad {
     var elTacho = new Tacho();
     this.cuadricula.agregarActor(elTacho, this.cuadricula.cantFilas - 1, 0);
     this.tacho = new ActorCompuesto(0, 0, { subactores: [elTacho] });
+    this.tacho.escala *= 0.7;
     this.tacho.y -= 20;
 
     this.yacare = new Yacare();
