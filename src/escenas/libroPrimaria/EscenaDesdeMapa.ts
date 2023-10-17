@@ -104,7 +104,7 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
 
         this.cuadricula = this.construirCuadricula(this.mapaEscena);
 
-        this.agregarCasilleroFinalSiLoTiene();
+        this.agregarCasillaFinalSiLaTiene();
         this.automata.enviarAlFrente();
         this.ajustarGraficos();
     }
@@ -116,16 +116,22 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         return cuadricula;
     }
 
-    agregarCasilleroFinalSiLoTiene(): void {
+    casillaFinal(): Casilla {
+        return this.cuadricula.casilla(this.yFinal, this.xFinal)
+    }
+
+    agregarCasillaFinalSiLaTiene(): void {
         if (this.tienePosicionFinal()) {
             const actor = new MetaFinal((this.constructor as typeof EscenaDesdeMapa).nombreAutomata())
-            const casilla = this.cuadricula.casilla(this.yFinal, this.xFinal)
-            this.cuadricula.agregarActorEnCasilla(actor, casilla, true)
+            this.cuadricula.agregarActorEnCasilla(actor, this.casillaFinal(), true)
+            this.ajustarMeta(actor)
         }
+    }
 
-        this.obtenerActoresConEtiqueta("MetaFinal").forEach(actor => {
-            actor.escala *= this.escalaSegunCuadricula(0.8);
-        });
+    ajustarMeta(meta){
+        meta.escala *= this.escalaSegunCuadricula(0.7);
+        meta.ajustarSegunCuadricula(this.cuadricula.getOpcionesCasilla().alto)
+        if(this.casillaFinal().tieneMasDeUnActor()) meta.enviarAtras() //en el caso de que haya un premio, debe ir atrás de este
     }
 
     llenarCasilla(cuadricula: Cuadricula, casilla: Casilla, mapa: MapaEscena): void {
