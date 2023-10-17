@@ -13,18 +13,13 @@ class EscenaChuy extends EscenaDesdeMapa {
 		return 'fondo.chuy.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('chuy').concat(Obstaculo.imagenesPara('chuy'));
+	static nombreAutomata(): string {
+		return 'chuy'
 	}
 
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
-		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
-
-		if (posFinal) {
-			this.xFinal = posFinal[0];
-			this.yFinal = posFinal[1];
-		}
+		this.initDesdeUnaOVariasDescripciones(especificacion, opciones, posFinal);
 	}
 
 	ajustarGraficos() {
@@ -44,7 +39,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 		this.obtenerActoresConEtiqueta("PelotaAnimada").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.5);
+			actor.escala *= this.escalaSegunCuadricula(0.1);
 		});
 
 		this.obtenerActoresConEtiqueta("PingPong").forEach(actor => {
@@ -83,7 +78,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 	}
 
 	estaEnPosicionFinalSiLaTiene(): boolean {
-		return this.xFinal === undefined || this.automata.casillaActual().sos(this.yFinal, this.xFinal) || this.automata.alFinalDelCamino();
+		return super.estaEnPosicionFinalSiLaTiene() || this.automata.alFinalDelCamino();
 	}
 
 	noHayPelotas(): boolean {
