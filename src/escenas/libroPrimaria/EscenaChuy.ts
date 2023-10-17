@@ -39,7 +39,7 @@ class EscenaChuy extends EscenaDesdeMapa {
 
 		this.obtenerActoresConEtiqueta("PelotaAnimada").forEach(actor => {
 			actor.aprender(Flotar, { Desvio: 4 });
-			actor.escala *= this.escalaSegunCuadricula(0.5);
+			actor.escala *= this.escalaSegunCuadricula(0.1);
 		});
 
 		this.obtenerActoresConEtiqueta("PingPong").forEach(actor => {
