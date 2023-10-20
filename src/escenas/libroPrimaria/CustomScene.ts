@@ -49,6 +49,10 @@ class CustomScene extends EscenaDesdeMapa {
     this.initDesdeUnaOVariasDescripciones(options.grid.spec, options.grid.specOptions);
   }
 
+  static nombreAutomata(): string {
+    return 'custom'
+  }
+
   obtenerAutomata(): ActorAnimado {
     return this.automata
   }

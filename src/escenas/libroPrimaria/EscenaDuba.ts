@@ -17,18 +17,13 @@ class EscenaDuba extends EscenaDesdeMapa {
 		return 'fondo.duba.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('duba').concat(Obstaculo.imagenesPara('duba'));
-	}			//TODO: Usar flatMap (lodash)
+	static nombreAutomata(): string {
+		return 'duba'
+	}
 
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
-		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
-
-		if (posFinal) {
-			this.xFinal = posFinal[0];
-			this.yFinal = posFinal[1];
-		}
+		this.initDesdeUnaOVariasDescripciones(especificacion, opciones, posFinal);
 	}
 
 	ajustarGraficos() {
@@ -65,8 +60,7 @@ class EscenaDuba extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		return (this.contarActoresConEtiqueta("Churrasco")) === 0 &&
-			(this.xFinal === undefined || this.automata.casillaActual().sos(this.xFinal, this.yFinal));
+		return super.estaResueltoElProblema() && this.noHay('Churrasco')
 	}
 
 	archivoFondo() {

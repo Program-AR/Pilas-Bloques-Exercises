@@ -8,8 +8,9 @@ frase definida por la escena
 
 class PingPongAnimado extends Decir {
 	preAnimacion(): void {
-		super.preAnimacion();
 		this.receptor.escena.antesDeRebotar();
+		this.argumentos.mensaje = this.receptor.escena.getFraseAlRebotar()
+		super.preAnimacion();
 	}
 
 	postAnimacion(){

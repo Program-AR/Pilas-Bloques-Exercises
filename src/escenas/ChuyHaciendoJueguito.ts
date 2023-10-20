@@ -60,7 +60,29 @@ class ChuyHaciendoJueguito extends EscenaActividad {
     builder.agregarTransicion('levantarPelota','jugarConElPie','rebotarPiePulpito');
     builder.agregarTransicion('tirarAlAire','resuelto','rebotarPiePulpito');
     builder.agregarTransicion('jugarConElPie','resuelto','revolearPulpito');
-    builder.agregarTransicion('resuelto','fin','volver');
+    builder.agregarTransicion('resuelto','fin','retroceder');
+    
+    builder.agregarError('inicial', 'recoger', 'Primero hay que entrar en calor');
+    builder.agregarError('inicial', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('inicial', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('inicial', 'retroceder', 'Primero hay que avanzar y entrar en calor');
+
+    builder.agregarError('posCorrecta', 'recoger', 'Primero hay que entrar en calor');
+    builder.agregarError('posCorrecta', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('posCorrecta', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+
+    builder.agregarError('calentar1', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('calentar1', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('calentar1', 'retroceder', 'Primero hay que avanzar, entrar en calor y agarrar la pelota');
+
+    builder.agregarError('calentar2', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('calentar2', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+
+    builder.agregarError('enCalor', 'revolearPulpito', 'Primero hay que agarrar la pelota');
+    builder.agregarError('enCalor', 'rebotarPiePulpito', 'Primero hay que agarrar la pelota');
+    builder.agregarError('enCalor', 'retroceder', 'Primero hay que agarrar la pelota');
+
+    builder.agregarError('levantarPelota', 'retroceder', 'Primero hay que jugar con la pelota');
 
     this.estado = builder.estadoInicial();
   }

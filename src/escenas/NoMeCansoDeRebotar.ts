@@ -60,11 +60,15 @@
     this.paleta.escala = 0;
   }
 
-  fraseAlRebotar(){
-    this.rebotesFaltantes--;
+  getFraseAlRebotar(): string { 
     if (this.rebotesFaltantes > 0)  return " Faltan " + this.rebotesFaltantes + " rebotes";
     if (this.rebotesFaltantes == 0) return "  ¡Ya hice los rebotes necesarios!";
     throw new ActividadError(" ¡Uy! Hice muchos rebotes... ¡Me pasé!");
+  }
+
+  fraseAlRebotar(){
+    this.rebotesFaltantes--;
+    return this.getFraseAlRebotar();
   }
 
   estaResueltoElProblema() {
