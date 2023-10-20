@@ -145,6 +145,10 @@ class Casilla extends ActorAnimado {
       return this.actores.some( actor => actor.tiene_etiqueta(unaEtq))
     }
 
+    tieneMasDeUnActor(){
+        return this.actores.length > 1
+    }
+
     actoresConEtiqueta(unaEtq) {
         return this.actores.filter(actor => actor.tiene_etiqueta(unaEtq));
     }
