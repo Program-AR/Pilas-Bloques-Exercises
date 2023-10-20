@@ -17,18 +17,13 @@ class EscenaLita extends EscenaDesdeMapa {
 		return 'fondo.lita.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('lita').concat(Obstaculo.imagenesPara('lita'));
-	}			//TODO: Usar flatMap (lodash)
+	static nombreAutomata(): string {
+		return 'lita'
+	}
 
 	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
-		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
-
-		if (posFinal) {
-			this.xFinal = posFinal[0];
-			this.yFinal = posFinal[1];
-		}
+		this.initDesdeUnaOVariasDescripciones(especificacion, opciones, posFinal);
 	}
 
 	iniciar() {
@@ -62,11 +57,7 @@ class EscenaLita extends EscenaDesdeMapa {
 	}
 
 	estaResueltoElProblema(): boolean {
-		// Además de verificar que Lita haya cumplido el objetivo de la escena,
-		// en el caso de que se haya proporcionado una posición final,
-		// queremos verificar que Lita esté ahí.
-		return super.estaResueltoElProblema() &&
-			(this.xFinal === undefined || this.automata.casillaActual().sos(this.xFinal, this.yFinal));
+		return super.estaResueltoElProblema() && this.estado.soyAceptacion()
 	}
 
 	ajustarGraficos() {
