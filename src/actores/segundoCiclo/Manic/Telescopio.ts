@@ -6,6 +6,7 @@ class Telescopio extends ActorAnimado {
         super(0, 0, {cantColumnas: 2});
         this.definirAnimacion("roto", [1], 1);
         this.definirAnimacion("arreglado", [0], 1);
+        this.definirAnimacion("recoger", [0], 1)
 
         if(arreglado) 
             this.cargarAnimacion("arreglado")
