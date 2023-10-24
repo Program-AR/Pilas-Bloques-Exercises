@@ -87,8 +87,6 @@ class Interactuar extends ComportamientoAnimado {
 	 * Indica si existe una posible interacción entre dos actores.
 	 */
     hayConQuienInteractuar(): boolean {
-        console.log(this.etiqueta())
-        console.log(this.receptor)
         return this.receptor.tocando(this.etiqueta())
     }
 
