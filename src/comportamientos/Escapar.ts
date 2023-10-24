@@ -8,12 +8,8 @@ class Escapar extends MovimientoAnimado {
 		super.iniciar(receptor);
 	}
 
-	direccion(): Direct{
-		return new Direct(1,5)
-	}
-
 	preAnimacion(){
-      this.argumentos.direccion = this.direccion();
+		this.argumentos.direccion = this.argumentos.direccion || new Direct(1,5)
 	    this.argumentos.distancia = 600;
 	    this.argumentos.velocidad = 8;
 	    this.argumentos.cantPasos = 40;

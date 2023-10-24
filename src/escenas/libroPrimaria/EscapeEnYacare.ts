@@ -24,6 +24,7 @@ class ManicConPelota extends ActorConEntregable{
  
     const pelota = new Pulpito()
     pelota.escala *= 0.02;
+    pelota.x = manic.derecha + 10
     this.agregarSubactor(pelota)
 
 
@@ -39,6 +40,7 @@ class ChuyConCargador extends ActorConEntregable{
     
     const cargador = new Cargador()
     cargador.escala *= 0.02;
+    cargador.x = chuy.derecha + 10
     
     this.agregarSubactor(cargador)
   }
@@ -62,16 +64,8 @@ class CapyConSeguidores extends ActorCompuesto{
   entregableEnMano: ActorAnimado
 
   constructor(){
-    const capy =
-     new Capy()
+    const capy = new Capy()
     capy.escala *= 0.06
-
-    const pelota = new Pulpito()
-    pelota.escala *= 0.02;
-
-    const pelota2 = new Pulpito()
-    pelota2.escala *= 0.02;
-
 
     super(0,0, { subactores: [capy], puedoSostenerMasDeUno: true});
   }
@@ -111,10 +105,10 @@ class CapyConSeguidores extends ActorCompuesto{
 
   espejarEntregableEnMano(){
     if (!this.espejado){
-      this.entregableEnMano.x = this.subactores[0].izquierda
+      this.entregableEnMano.x = this.subactores[0].derecha
     }
     else{
-      this.entregableEnMano.x = this.subactores[0].derecha
+      this.entregableEnMano.x = this.subactores[0].izquierda
     }
   }
 
@@ -148,10 +142,13 @@ class AgregarASeguidores extends Sostener {
   }  
 }
 
-class EscaparEnYacare extends Escapar {
-  direccion(): Direct{
-    return new Direct(1,0)
-  }
+class IrseEnYacare extends Escapar {
+  iniciar(receptor){
+		this.argumentos.nombreAnimacion = "surfear"
+    this.argumentos.direccion = new Direct(1)
+    this.argumentos.escaparCon = "yacare"
+		super.iniciar(receptor);
+	}
 }
 
 class EscapeEnYacare extends EscenaActividad {
@@ -185,8 +182,10 @@ class EscapeEnYacare extends EscenaActividad {
         this.automata = new CapyConSeguidores()
         this.cuadricula.agregarActor(this.automata, 3, 0);
 
-        this.yacare = new Yacare(0,0)
-        this.cuadricula.agregarActor(this.yacare, 3,4)
+        this.yacare = new Yacare();
+        this.cuadricula.agregarActor(this.yacare, 3, 4);
+        this.yacare.y -= 10;
+        this.yacare.aprender(Flotar, { Desvio: 2 });
 
         this.construirFSM();
       }
@@ -209,7 +208,6 @@ class EscapeEnYacare extends EscenaActividad {
 
         const estadosEnOrden = ['inicial','telescopioEnMano','pelotaEnMano','cargadorEnMano','montandoYacare']
 
-        //TODO: Hacer los errores para atras
         for (let i = 0; i < estadosEnOrden.length; i++) {
           if(estadosEnOrden[i]!='telescopioEnMano'){
             builder.agregarError(estadosEnOrden[i],'entregarTelescopio', 'Mañic necesita su telescopio.');
@@ -221,7 +219,7 @@ class EscapeEnYacare extends EscenaActividad {
             builder.agregarError(estadosEnOrden[i],'entregarCargador','Yvoty necesita su cargador.');
           }
           if(estadosEnOrden[i]!='todosEntregados'){
-            builder.agregarError(estadosEnOrden[i],'montarYacare','Para montar el yacare todos tienen que tener sus cosas???? no se.');
+            builder.agregarError(estadosEnOrden[i],'montarYacare','Para montar el yacare todos deben haber recuperado sus cosas.');
           }
         }
 
