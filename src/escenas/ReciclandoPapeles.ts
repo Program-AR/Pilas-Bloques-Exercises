@@ -30,7 +30,6 @@ class ReciclandoPapeles extends EscenaActividad {
     this.automata = new ActorCompuesto(0, 0, { subactores: [capy] });    
     this.cuadricula.agregarActor(this.automata, 0, 0);
     this.automata.escala *= 0.3;
-    //this.automata.x -= 10;
     this.automata.y += 40;
 
     this.papeles=[]
@@ -46,7 +45,6 @@ class ReciclandoPapeles extends EscenaActividad {
     this.cuadricula.agregarActor(elPapel, fila, 0)
     elPapel.aprender(Flotar, { Desvio: 2 });
     this.papeles.push( new ActorCompuesto(0, 0, { subactores: [elPapel] }));
-    //this.papel.escala *= 0.8;
   }
 
   agregarTacho(fila: number) {
