@@ -57,7 +57,7 @@ class ReciclandoPapeles extends EscenaActividad {
   }
 
   estaResueltoElProblema(){
-    return this.hayTachosLlenosAlFinalDeLasFilas() && this.cuadricula.cantFilas === this.cantidadDeTachosLlenos();
+    return this.hayTachosLlenosAlFinalDeLasFilas() && this.cuadricula.cantFilas === this.cantidadDeTachosLlenos() && !this.papeles.subactores.length;
   }
 
   hayTachosLlenosAlFinalDeLasFilas(){
