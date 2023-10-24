@@ -1,8 +1,10 @@
 /// <reference path="../../ActorAnimado.ts"/>
 
 class Yacare extends ActorAnimado {
-    constructor(x, y) {
-        super(x, y, {grilla: 'actor.yacare.png', cantColumnas:1, cantFilas:1});
-        this.definirAnimacion("parado", [0,], 12);
+    static _grilla = 'actor.yacare.png'
+
+    constructor() {
+        super(0, 0, {cantColumnas: 1});
+        this.definirAnimacion("parado", [0], 1);
     }
-} 
+}

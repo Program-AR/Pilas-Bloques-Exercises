@@ -12,13 +12,13 @@ class EscenaCapy extends EscenaDesdeMapa {
 		return 'fondo.capy.png';
 	}
 
-	static imagenesAdicionales(): string[] {
-		return Casilla.imagenesPara('capy').concat(Obstaculo.imagenesPara('capy'));
+	static nombreAutomata(): string {
+		return 'capy'
 	}
 
-	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio) {
+	constructor(especificacion: Spec, opciones?: opcionesMapaAleatorio, posFinal?: [number, number]) {
 		super();
-		this.initDesdeUnaOVariasDescripciones(especificacion, opciones);
+		this.initDesdeUnaOVariasDescripciones(especificacion, opciones, posFinal);
 	}
 
 	ajustarGraficos() {
@@ -57,10 +57,6 @@ class EscenaCapy extends EscenaDesdeMapa {
 		return new Obstaculo(archivosObstaculos, (fila + 1) + (fila + 1) * (columna + 1));
 	}
 
-	todosLosActoresCumplen(actor, estado) {
-		return this.obtenerActoresConEtiqueta(actor).every(o => o.nombreAnimacionActual() == estado);
-	}
-
 	tachosLlenos(): boolean {
 		return this.todosLosActoresCumplen("Tacho", "lleno")
 	}
@@ -77,13 +73,8 @@ class EscenaCapy extends EscenaDesdeMapa {
 		return this.recogidos(actor) || this.noHay(actor)
 	}
 
-
-	noHay(actor): boolean {
-		return this.contarActoresConEtiqueta(actor) == 0
-	}
-
 	estaResueltoElProblema(): boolean {
-		return this.tachoResuelto() && this.recoleccionResuelta("Lata") && this.recoleccionResuelta("Papel")
+		return super.estaResueltoElProblema() && this.tachoResuelto() && this.recoleccionResuelta("Lata") && this.recoleccionResuelta("Papel")
 	}
 
 	archivoFondo() {

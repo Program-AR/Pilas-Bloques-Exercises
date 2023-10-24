@@ -33,6 +33,10 @@ abstract class EscenaToto extends EscenaDesdeMapa {
 		return []
     }
 
+    static nombreAutomata(): string {
+		return 'toto'
+	}
+
     /**
      * @param mapaEscena Matriz bidimensional de strings a partir de la cual se crea la escena.
      * Toto se representa con una 'A' mayúscula. Las letras a leer van en minúscula
