@@ -57,11 +57,17 @@ class ReciclandoPapeles extends EscenaActividad {
   }
 
   estaResueltoElProblema(){
-    return this.hayTachosLlenosAlFinalDeLasFilas() && this.cuadricula.cantFilas === this.cantidadDeTachosLlenos() && !this.papeles.subactores.length;
+    return this.hayTachosLlenosAlFinalDeLasFilas() && this.cuadricula.cantFilas === this.cantidadDeTachosLlenos() && !this.cantidadDePapelesSinLevantar();
   }
 
   hayTachosLlenosAlFinalDeLasFilas(){
     return this.tachos.every( tacho => tacho.subactores[0].estaLleno() );
+  }
+
+  cantidadDePapelesSinLevantar(): number {
+    var cant: number = 0;
+    this.papeles.forEach( papel => cant += papel.subactores[0].vivo );
+    return cant;
   }
 
   cantidadDeTachosLlenos(): number {
