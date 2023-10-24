@@ -144,11 +144,17 @@ class AgregarASeguidores extends Sostener {
 
 class IrseEnYacare extends Escapar {
   iniciar(receptor){
+    super.iniciar(receptor)
 		this.argumentos.nombreAnimacion = "surfear"
     this.argumentos.direccion = new Direct(1)
     this.argumentos.escaparCon = "yacare"
-		super.iniciar(receptor);
+    this.argumentos.idTransicion = "irse"
 	}
+
+  preAnimacion(){
+    super.preAnimacion()
+    this.receptor.eliminarUltimoSubactor()
+  }
 }
 
 class EscapeEnYacare extends EscenaActividad {
@@ -183,8 +189,9 @@ class EscapeEnYacare extends EscenaActividad {
         this.cuadricula.agregarActor(this.automata, 3, 0);
 
         this.yacare = new Yacare();
-        this.cuadricula.agregarActor(this.yacare, 3, 4);
+        this.cuadricula.agregarActor(this.yacare, 3, 1);
         this.yacare.y -= 10;
+        this.yacare.escala *= 1.2
         this.yacare.aprender(Flotar, { Desvio: 2 });
 
         this.construirFSM();
@@ -204,7 +211,7 @@ class EscapeEnYacare extends EscenaActividad {
         builder.agregarTransicion('telescopioEnMano','pelotaEnMano','entregarTelescopio');
         builder.agregarTransicion('pelotaEnMano','cargadorEnMano','entregarPelota');
         builder.agregarTransicion('cargadorEnMano','todosEntregados','entregarCargador');
-        builder.agregarTransicion('todosEntregados','montandoYacare','escapar');
+        builder.agregarTransicion('todosEntregados','montandoYacare','irse');
 
         const estadosEnOrden = ['inicial','telescopioEnMano','pelotaEnMano','cargadorEnMano','montandoYacare']
 
