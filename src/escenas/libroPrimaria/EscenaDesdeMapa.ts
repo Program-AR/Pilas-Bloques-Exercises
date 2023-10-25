@@ -139,7 +139,9 @@ abstract class EscenaDesdeMapa extends EscenaActividad {
         let nroColumna: number = casilla.nroColumna;
         let ids: string[] = mapa[nroFila][nroColumna].split("&");
         ids.forEach(id => {
-            if (id != '' && id != ' ' && id != '-' && id != '_') { // si no es casilla libre
+            if(id === '+'){
+                this.guardarPosicionFinal([nroColumna, nroFila])
+            }else if (id != '' && id != ' ' && id != '-' && id != '_') { // si no es casilla libre
                 let actor = this.mapearIdentificadorAActor(id, nroFila, nroColumna);
                 cuadricula.agregarActorEnCasilla(actor, casilla, true);
             }
@@ -494,6 +496,12 @@ class GeneradorDeCasillaVacia implements GeneradorDeCasilla {
 /** Corresponde a las casillas indicadas con `_`. */
 class GeneradorDeCasillaNula implements GeneradorDeCasilla {
     generarSemillaDeCasilla(generador: GeneradorDeMapasAleatorios): SemillaDeCasilla { return new SemillaDeCasilla('_'); }
+    esAleatorioPara(generador: GeneradorDeMapasAleatorios): boolean { return false; }
+}
+
+/** Corresponde a las casillas indicadas con `+`. */
+class GeneradorDeCasillaFinal implements GeneradorDeCasilla {
+    generarSemillaDeCasilla(generador: GeneradorDeMapasAleatorios): SemillaDeCasilla { return new SemillaDeCasilla('+'); }
     esAleatorioPara(generador: GeneradorDeMapasAleatorios): boolean { return false; }
 }
 
