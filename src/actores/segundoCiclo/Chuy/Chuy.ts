@@ -28,5 +28,6 @@ class Chuy extends ActorAnimado {
         this.definirAnimacion("rebotarPelota", [87, 88, 89, 90, 91, 92, 93, 92, 91, 90, 94, 95, 90, 91, 92, 93, 91, 94, 91, 93, 90, 94, 96, 87, 87, 87, 87], 12); 
         this.definirAnimacion("patear", [87, 88, 89, 90, 91, 92, 93, 92, 91, 90, 94, 95, 90, 91, 92, 93, 91, 94, 91, 93, 90, 94, 96, 87, 87, 87, 87], 12) 
         this.definirAnimacion("rebotarPulpito", [77, 78, 79, 80, 81, 82, 83, 82, 81, 80, 84, 85, 80, 81, 82, 83, 81, 84, 81, 83, 80, 84, 86, 77, 77, 77, 77], 12); 
-	}
+        this.definirAnimacion("surfear", [68, 69, 70, 71, 72, 73, 74, 75, 76], 12);
+    }
 }
