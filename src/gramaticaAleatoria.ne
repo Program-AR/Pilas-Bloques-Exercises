@@ -44,7 +44,8 @@ Atom     -> Id                 {% d => new GeneradorDeCasillaSimple(d[0]) %}
           | Col                {% id %}
           | Nil                {% id %}
           | Void               {% id %}
-          | "(" _ Term _ ")"   {% d => d[2] %}
+          | End                {% id %}
+          | "(" _ Term _ ")"   {% d => d[2] %}         
 Id       -> [a-zA-Z0-9]:+      {% d => d[0].join("") %}
 Bag      -> "$"                {% d => new GeneradorDeCasillaBolsa() %}
           | "$" _ Id           {% d => new GeneradorDeCasillaBolsa(d[2]) %}
@@ -55,5 +56,7 @@ Nil      -> "-"                {% d => new GeneradorDeCasillaVacia() %}
 Macro    -> "#" _ Id           {% d => new GeneradorDeCasillaMacro(d[2]) %}
 
 And      ->  Atom _ "&" _ Atom {% d => new GeneradorDeCasillaAnd(d[0], d[4]) %}
+
+End      -> "+"                {% d => new GeneradorDeCasillaFinal() %}
 
 Void     -> "_"                {% d => new GeneradorDeCasillaNula() %}
