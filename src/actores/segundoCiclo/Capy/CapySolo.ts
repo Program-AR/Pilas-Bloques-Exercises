@@ -1,5 +1,4 @@
 /// <reference path="../../ActorAnimado.ts"/>
-/// <reference path="../../../comportamientos/ComportamientoAnimado.ts"/>e
 
 class CapySolo extends ActorAnimado {
 	static _grilla = 'actor.capySolo.png'

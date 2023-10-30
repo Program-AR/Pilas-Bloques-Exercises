@@ -20,7 +20,7 @@ class Sostener extends Interactuar {
     var objetoAgarrado: any = interactuado.clonar()
     objetoAgarrado.escala = interactuado.escala
     objetoAgarrado.y = this.receptor.y
-    objetoAgarrado.x = this.receptor.subactores[0].derecha - (this.receptor.subactores[0].ancho / 4)
+    objetoAgarrado.x = this.posicionHorizontalDeProximoSubactor()
     this.receptor.agregarSubactor(objetoAgarrado)
     objetoAgarrado.cargarAnimacion("correr") // porque tiene que cargar la misma imagen que va a usar al moverse
 
@@ -28,6 +28,10 @@ class Sostener extends Interactuar {
     if (!interactuado['cantidad']) interactuado.eliminar()
 
   }
+
+  posicionHorizontalDeProximoSubactor(): number {
+    return this.receptor.subactores[0].derecha - (this.receptor.subactores[0].ancho / 4)
+  }  
 
   configurarVerificaciones() {
     super.configurarVerificaciones()

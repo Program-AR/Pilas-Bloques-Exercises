@@ -5,6 +5,7 @@ class Pulpito extends ActorAnimado {
 
     constructor() {
         super(0, 0, { cantColumnas: 2 });
+        this.definirAnimacion("correr", [0], 12)
         this.definirAnimacion("desaparecer", [1], 12);
     }
 }
