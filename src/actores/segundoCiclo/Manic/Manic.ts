@@ -15,6 +15,7 @@ class Manic extends ActorAnimado {
 				.concat([32]),
 			20, true);
 		this.definirAnimacion("correr", [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 6, 7, 6, 5, 6, 7, 7], 20);
+        this.definirAnimacion("rotar", [0], 1);
 		this.definirAnimacion("correrChocando", [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 6, 7, 6, 5, 6, 7, 7], 12)
 		this.definirAnimacion("obstaculo", [8, 8, 9, 9, 10, 10, 11, 11, 11, 12, 13, 14, 14, 16, 15, 14, 14], 12)
 		this.definirAnimacion("error", [47, 48, 49, 50, 51, 51, 52, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53], 12)
