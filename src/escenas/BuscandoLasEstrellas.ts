@@ -13,11 +13,13 @@ class BuscandoLasEstrellas extends EscenaActividad {
   amigos = [];
 
   iniciar() {
-    this.fondo = new Fondo('fondo.manic.png', 0, 0);
-    this.cuadricula = new Cuadricula(0, 200, 1, 3,
-      { alto: 100 },
+    this.fondo = new Fondo('fondo.manic.oscuro.png', 0, 0);
+    this.cuadricula = new Cuadricula(10, 0, 2, 3,
+      { alto: 360, ancho: 440 },
       { grilla: 'invisible.png', cantColumnas: 1 });
-
+    this.cuadricula.casilla(0, 0).cambiarImagen('sombra5.telescopios.png');
+    this.cuadricula.casilla(0, 1).cambiarImagen('sombra7.telescopios.png');
+    this.cuadricula.casilla(0, 2).cambiarImagen('sombra9.telescopios.png');
     this.agregarTelescopios();
     this.agregarAutomata();
     this.agregarAmigos();
@@ -27,9 +29,10 @@ class BuscandoLasEstrellas extends EscenaActividad {
   agregarAutomata() {
     this.automata = new Manic();
     this.cuadricula.agregarActor(this.automata, 0, 0, false);
-    this.automata.y -= 220;
-    this.automata.x -= 10;
+    this.automata.y += 20;
+    this.automata.x -= 30;
     this.automata.definirAnimacion("moverTelescopio", [28, 29, 30, 28], 3, false);
+    
   }
 
   agregarTelescopios() {
@@ -39,17 +42,19 @@ class BuscandoLasEstrellas extends EscenaActividad {
     this.cuadricula.agregarActor(this.telescopios[0], 0, 0, false);
     this.cuadricula.agregarActor(this.telescopios[1], 0, 1, false);
     this.cuadricula.agregarActor(this.telescopios[2], 0, 2, false);
-    this.telescopios.forEach(t => { t.escala = 0.7; t.x += 30; t.y -= 250});
+    this.telescopios.forEach(t => { t.escala = 0.7; t.x += -3; t.y -= 0});
   }
 
   agregarAmigos() {
-    this.amigos.push(new Capy());
-    this.amigos.push(new Yvoty());
-    this.amigos.push(new Chuy());
+    this.amigos.push(new ActorCompuesto(0, 0, { subactores: [new Capy()] }));
+    this.amigos.push(new ActorCompuesto(0, 0, { subactores: [new Yvoty()] }));
+    this.amigos.push(new ActorCompuesto(0, 0, { subactores: [new Chuy()] }));
     this.amigos.forEach((a,i) => {
-        a.x += (i*100)+50
-        a.izquierda = pilas.derecha() + 1;
+      this.cuadricula.agregarActor(this.amigos[i], 1, 0, false);
+      a.x += (i*100)+50
+      a.izquierda = pilas.derecha() + 1;
       });
+
   }
 
   private crearEstado() {
@@ -75,30 +80,46 @@ class MoverTelescopio extends Interactuar {
 }
 
 class TodosObservando extends SecuenciaAnimada {
+
+// ver si todosobservando no tiene que ser una secuenciaanimada sino otro comportamiento
+// que permita que todos se muevan
+
   sanitizarArgumentos() {
     super.sanitizarArgumentos();
     pilas.escena_actual().automata.y -= 50;
     pilas.escena_actual().automata.izquierda = pilas.izquierda();
     pilas.escena_actual().automata.x += 200;
     pilas.escena_actual().automata.cargarAnimacion('parado');
+
+
+    this.argumentos.secuencia = [
+      //new Desaparecer({}),
+      new ComportamientoConVelocidad({ receptor: pilas.escena_actual().automata, nombreAnimacion: "correr" }),
+      new ComportamientoConVelocidad({ receptor: pilas.escena_actual().amigos[0], nombreAnimacion: "correr" }),
+      new ComportamientoConVelocidad({ receptor: pilas.escena_actual().amigos[1], nombreAnimacion: "correr" }),
+      new ComportamientoConVelocidad({ receptor: pilas.escena_actual().amigos[2], nombreAnimacion: "correr" })
+    ];
+  
+    /*
     pilas.escena_actual().amigos.forEach((a,i) => {
       a.izquierda = pilas.izquierda();
       a.x += (i*50)+50;
       a.y -= 100;
-      /*
+      a.hacer_luego(ComportamientoAnimado,{nombreAnimacion: 'correr'});
+      
       // con esto el unico que corre es el ultimo
       this.argumentos.secuencia = [
         new ComportamientoConVelocidad({ receptor: a, nombreAnimacion: "correr" }),
       ];
-      */
+      
     }
-    );
+    );*/
   }
 
   configurarVerificaciones() {
     super.configurarVerificaciones();
     this.agregarVerificacionTelescopio(0, 5, "primer");
-    this.agregarVerificacionTelescopio(1, 8, "segundo");
+    this.agregarVerificacionTelescopio(1, 7, "segundo");
     this.agregarVerificacionTelescopio(2, 9, "tercer");
   }
 
@@ -106,10 +127,5 @@ class TodosObservando extends SecuenciaAnimada {
     this.verificacionesPre.push(
       new Verificacion(() => pilas.escena_actual().telescopios[i].nombreAnimacionActual() === "mover" + veces,
         "¡El " + ordinal + " telescopio debe moverse " + veces + " veces!"));
-  }
-
-  postAnimacion() {
-    super.postAnimacion();
-    pilas.escena_actual().amigos.forEach(a => a.cargarAnimacion("parado"));
   }
 }
