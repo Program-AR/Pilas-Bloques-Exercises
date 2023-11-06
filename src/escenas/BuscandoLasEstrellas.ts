@@ -15,8 +15,8 @@ class BuscandoLasEstrellas extends EscenaActividad {
 
   iniciar() {
     this.fondo = new Fondo('fondo.manic.oscuro.png', 0, 0);
-    this.cuadricula = new Cuadricula(-50, -60, 2, 4,
-      { alto: 360, ancho: 590 },
+    this.cuadricula = new Cuadricula(-50, -70, 1, 4,
+      { alto: 180, ancho: 590 },
       { grilla: 'invisible.png', cantColumnas: 1 });
     this.cuadricula.casilla(0, 1).cambiarImagen('sombra5.telescopios.png');
     this.cuadricula.casilla(0, 2).cambiarImagen('sombra7.telescopios.png');
@@ -47,12 +47,13 @@ class BuscandoLasEstrellas extends EscenaActividad {
   }
 
   agregarAmigos() {
-    this.amigos.push(new Capy());
-    this.amigos.push(new Yvoty());
     this.amigos.push(new Chuy());
+    this.amigos.push(new Yvoty());
+    this.amigos.push(new Capy());
     this.amigos.forEach((a,i) => {
-      this.cuadricula.agregarActor(this.amigos[i], 1, 0, false);
-      a.x -= 20;
+      this.cuadricula.agregarActor(this.amigos[i], 0, 0, false);
+      a.x -= (20*i) - 20;
+      a.y -= (20*i) + 10;
       });
 
   }
@@ -79,11 +80,31 @@ class MoverTelescopio extends Interactuar {
 
 }
 
+class TodosObservando extends SecuenciaAnimada {
+  sanitizarArgumentos() {
+    pilas.escena_actual().automata.x -= 20;
+    pilas.escena_actual().automata.espejado = true;
+    this.argumentos.secuencia = [
+      new Decir({ receptor: pilas.escena_actual().automata, mensaje: "Vengan a observar!" }),
+      new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[0] }),
+      new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[0] }),
+      new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[0] }),
+      new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[1] }),
+      new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[1] }),
+      new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[2] }),
+    ];
+    super.sanitizarArgumentos();
+  }
 
+
+/*
 class TodosObservando extends Interactuar {
 
 // ver si todosobservando no tiene que ser una secuenciaanimada sino otro comportamiento
 // que permita que todos se muevan
+
+
+
 
   sanitizarArgumentos() {
     this.argumentos.etiqueta = "MovimientoAnimado";
@@ -99,6 +120,7 @@ class TodosObservando extends Interactuar {
     //pilas.escena_actual().amigos.forEach(a => a.avanzarAnimacion());
     //(this.interactuado() as ActorCompuesto).subactores.forEach(sa => sa.avanzarAnimacion());
   }
+*/
 
   configurarVerificaciones() {
     super.configurarVerificaciones();
