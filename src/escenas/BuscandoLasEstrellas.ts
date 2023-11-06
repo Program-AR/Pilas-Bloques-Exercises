@@ -9,6 +9,7 @@
 
 
 class BuscandoLasEstrellas extends EscenaActividad {
+  automata;
   telescopios = [];
   amigos = [];
 
@@ -27,7 +28,7 @@ class BuscandoLasEstrellas extends EscenaActividad {
   }
 
   agregarAutomata() {
-    this.automata = new Manic();
+    this.automata = new ActorCompuesto(0, 0, { subactores: [new Manic()] });
     this.cuadricula.agregarActor(this.automata, 0, 0, false);
     this.automata.y += 20;
     this.automata.x -= 30;
@@ -46,10 +47,11 @@ class BuscandoLasEstrellas extends EscenaActividad {
   }
 
   agregarAmigos() {
-    this.amigos.push(new ActorCompuesto(0, 0, { subactores: [new Capy()] }));
-    this.amigos.push(new ActorCompuesto(0, 0, { subactores: [new Yvoty()] }));
-    this.amigos.push(new ActorCompuesto(0, 0, { subactores: [new Chuy()] }));
+    this.amigos.push(new Capy());
+    this.amigos.push(new Yvoty());
+    this.amigos.push(new Chuy());
     this.amigos.forEach((a,i) => {
+      this.automata.agregarSubActor(this.amigos[i])
       this.cuadricula.agregarActor(this.amigos[i], 1, 0, false);
       a.x += (i*100)+50
       a.izquierda = pilas.derecha() + 1;
@@ -79,12 +81,18 @@ class MoverTelescopio extends Interactuar {
 
 }
 
-class TodosObservando extends SecuenciaAnimada {
+
+class TodosObservando extends Interactuar {
 
 // ver si todosobservando no tiene que ser una secuenciaanimada sino otro comportamiento
 // que permita que todos se muevan
 
   sanitizarArgumentos() {
+    this.argumentos.etiqueta = "MovimientoAnimado";
+    this.argumentos.direccion = [1,0];
+    this.argumentos.distancia = 50;
+    this.argumentos.idTransicion = "avanzar";
+    //this.argumentos.nombreAnimacion = "moverTelescopio";
     super.sanitizarArgumentos();
     pilas.escena_actual().automata.y -= 50;
     pilas.escena_actual().automata.izquierda = pilas.izquierda();
@@ -92,6 +100,7 @@ class TodosObservando extends SecuenciaAnimada {
     pilas.escena_actual().automata.cargarAnimacion('parado');
 
 
+    /*
     this.argumentos.secuencia = [
       //new Desaparecer({}),
       new ComportamientoConVelocidad({ receptor: pilas.escena_actual().automata, nombreAnimacion: "correr" }),
@@ -114,6 +123,10 @@ class TodosObservando extends SecuenciaAnimada {
       
     }
     );*/
+  }
+
+  protected alInteractuar(): void {
+    (this.interactuado() as ActorCompuesto).subactores.forEach(sa => sa.avanzarAnimacion());
   }
 
   configurarVerificaciones() {
