@@ -43,7 +43,7 @@ class BuscandoLasEstrellas extends EscenaActividad {
     this.cuadricula.agregarActor(this.telescopios[0], 0, 1, false);
     this.cuadricula.agregarActor(this.telescopios[1], 0, 2, false);
     this.cuadricula.agregarActor(this.telescopios[2], 0, 3, false);
-    this.telescopios.forEach(t => { t.escala = 0.7; t.x += -3; t.y -= 0});
+    this.telescopios.forEach(t => { t.escala = 0.7; t.x += -3});
   }
 
   agregarAmigos() {
@@ -52,10 +52,9 @@ class BuscandoLasEstrellas extends EscenaActividad {
     this.amigos.push(new Capy());
     this.amigos.forEach((a,i) => {
       this.cuadricula.agregarActor(this.amigos[i], 0, 0, false);
-      a.x -= (20*i) - 20;
-      a.y -= (20*i) + 10;
-      });
-
+      a.x -= 10*(i+1);
+      a.y -= 10+(20*i);
+    });
   }
 
   private crearEstado() {
@@ -82,10 +81,10 @@ class MoverTelescopio extends Interactuar {
 
 class TodosObservando extends SecuenciaAnimada {
   sanitizarArgumentos() {
-    pilas.escena_actual().automata.x -= 20;
+    pilas.escena_actual().automata.x -= 80;
     pilas.escena_actual().automata.espejado = true;
     this.argumentos.secuencia = [
-      new Decir({ receptor: pilas.escena_actual().automata, mensaje: "Vengan a observar!" }),
+      new Decir({ receptor: pilas.escena_actual().automata, mensaje: "Vengan a observar conmigo!" }),
       new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[0] }),
       new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[0] }),
       new MoverACasillaDerecha({ receptor: pilas.escena_actual().amigos[0] }),
@@ -95,32 +94,6 @@ class TodosObservando extends SecuenciaAnimada {
     ];
     super.sanitizarArgumentos();
   }
-
-
-/*
-class TodosObservando extends Interactuar {
-
-// ver si todosobservando no tiene que ser una secuenciaanimada sino otro comportamiento
-// que permita que todos se muevan
-
-
-
-
-  sanitizarArgumentos() {
-    this.argumentos.etiqueta = "MovimientoAnimado";
-    this.argumentos.direccion = new Direct(1,0);
-    this.argumentos.distancia = 50;
-    this.argumentos.nombreAnimacion = "correr";
-    super.sanitizarArgumentos();
-    pilas.escena_actual().automata.cargarAnimacion('parado');
-  }
-
-  protected alInteractuar(): void {
-    this.interactuado().decir("Vengan a mirar el cielo!")
-    //pilas.escena_actual().amigos.forEach(a => a.avanzarAnimacion());
-    //(this.interactuado() as ActorCompuesto).subactores.forEach(sa => sa.avanzarAnimacion());
-  }
-*/
 
   configurarVerificaciones() {
     super.configurarVerificaciones();
