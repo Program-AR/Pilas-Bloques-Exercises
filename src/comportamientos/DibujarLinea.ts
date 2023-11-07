@@ -3,7 +3,7 @@
 
 // Está pensado para iniciar la línea en el centro del receptor.
 // Esto hace que no haya que hacer cálculos ni aprender qué significa Shape.regX ó cómo lo usa pilas.
-// Llámenme cobarde, sí. Perdón.
+// Llámenme cobarde, sí. Perdón. (x2)
 class DibujarLinea extends MovimientoAnimado {
 
 	iniciar(receptor) {

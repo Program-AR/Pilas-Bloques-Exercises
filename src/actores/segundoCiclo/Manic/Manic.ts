@@ -24,6 +24,7 @@ class Manic extends ActorAnimado {
 	}
 }
 
+//Usado para ejercicios de Manic dibujando, se necesita tener la grilla con mayor espacio para que no sea vea feo al dibujar y rotar, ya que el dibujo sale desde el centro de la imagen.
 class ManicDibujando extends ActorAnimado {
 	static _grilla = 'actor.manicDibujando.png'
 
