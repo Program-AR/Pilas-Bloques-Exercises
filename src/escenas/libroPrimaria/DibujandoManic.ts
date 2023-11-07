@@ -4,7 +4,7 @@ abstract class DibujandoManic extends DibujandoFiguras {
     yManic: number;
 
     static clasesDeActoresInvolucrados(): typeof ActorAnimado[] {
-        return [Manic]
+        return [ManicDibujando]
     }
 
     static pathFondo(): string {
@@ -17,7 +17,7 @@ abstract class DibujandoManic extends DibujandoFiguras {
     }
 
     crearAutomata() {
-        this.automata = new Manic();
+        this.automata = new ManicDibujando();
         this.automata.escala = 0.8;
         this.automata.x = this.coordenadasAutomata().x;
         this.automata.y = this.coordenadasAutomata().y;
