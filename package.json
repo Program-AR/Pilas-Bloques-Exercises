@@ -1,6 +1,10 @@
 {
   "name": "pilas-bloques-exercises",
+<<<<<<< HEAD
   "version": "1.4.18",
+=======
+  "version": "1.4.17",
+>>>>>>> master
   "description": "Exercises for Pilas Bloques",
   "homepage": "http://pilasbloques.program.ar",
   "author": {
