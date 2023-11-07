@@ -3,7 +3,6 @@
 /// <reference path = "../actores/segundoCiclo/Manic/TelescopioAnimado.ts" />
 /// <reference path = "../actores/segundoCiclo/Chuy/Chuy.ts" />
 /// <reference path = "../actores/segundoCiclo/Yvoty/Yvoty.ts" />
-/// <reference path = "../habilidades/Flotar.ts" />
 /// <reference path = "../comportamientos/SecuenciaAnimada.ts" />
 /// <reference path = "../comportamientos/Interactuar.ts" />
 
@@ -47,13 +46,14 @@ class BuscandoLasEstrellas extends EscenaActividad {
   }
 
   agregarAmigos() {
+    const posiciones = [ { x: 15, y: 10}, { x: 20, y: 30}, { x: 30, y: 50 }];
     this.amigos.push(new Chuy());
     this.amigos.push(new Yvoty());
     this.amigos.push(new Capy());
     this.amigos.forEach((a,i) => {
       this.cuadricula.agregarActor(this.amigos[i], 0, 0, false);
-      a.x -= 10*(i+1);
-      a.y -= 10+(20*i);
+      a.x -= posiciones[i].x;
+      a.y -= posiciones[i].y;
     });
   }
 
