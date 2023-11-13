@@ -19,6 +19,7 @@ class ManicConPelota extends ActorConEntregable{
     
     const manic = new Manic() 
     manic.escala *= 0.06;
+    manic.y += 30;
     
     super(0,0, { subactores: [manic]});
  
@@ -35,6 +36,8 @@ class ChuyConCargador extends ActorConEntregable{
   constructor() {    
     const chuy = new Chuy()
     chuy.escala *= 0.05;
+    chuy.y += 25;
+    chuy.x += 10;
     
     super(0,0, { subactores: [chuy]});
     
@@ -51,6 +54,8 @@ class YvotySinEntregable extends ActorCompuesto {
   constructor() {
     const yvoty = new Yvoty()
     yvoty.escala *= 0.05;
+    yvoty.y += 20;
+    
     super(0,0, { subactores: [yvoty]});
   }
 
@@ -119,6 +124,7 @@ class CapyConSeguidores extends ActorCompuesto{
   actualizar(): void{
     super.actualizar()
     this.subactores.forEach((seguidor, indice) => {
+      seguidor.espejado = this.espejado
       if(seguidor !== this.entregableEnMano && indice !== 0){
         this.espejarSeguidor(seguidor,indice)
       }
@@ -154,6 +160,10 @@ class IrseEnYacare extends Escapar {
   preAnimacion(){
     super.preAnimacion()
     this.receptor.eliminarUltimoSubactor()
+  }
+
+  mensajeDeError(){
+    return "Necesito estar sobre el yacaré para irme"
   }
 }
 
