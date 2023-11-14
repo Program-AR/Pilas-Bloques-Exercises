@@ -25,11 +25,15 @@ class Escapar extends MovimientoAnimado {
 	    super.preAnimacion();
 	}
 
+	mensajeDeError(){
+		return "Para escapar hace falta un transporte"
+	}
+
 	configurarVerificaciones() {
 		super.configurarVerificaciones();
 		this.verificacionesPre.push(new Verificacion(() => {
 			return this.estaEnTransporte();
-		}, "Para escapar hace falta un transporte"));
+		}, this.mensajeDeError()));
 	}
 
 	estaEnTransporte(){
