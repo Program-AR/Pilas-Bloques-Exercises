@@ -42,6 +42,7 @@ class ChuyHaciendoJueguito extends EscenaActividad {
     builder.agregarEstado('posCorrecta',false);
     builder.agregarEstado('calentar1',false);
     builder.agregarEstado('calentar2',false);
+    builder.agregarEstado('calentar3',false);
     builder.agregarEstado('enCalor',false);
     builder.agregarEstado('levantarPelota',false);
     builder.agregarEstado('tirarAlAire',false);
@@ -51,10 +52,10 @@ class ChuyHaciendoJueguito extends EscenaActividad {
     builder.agregarEstadoAceptacion('fin');
 
     builder.agregarTransicion('inicial', 'posCorrecta', 'avanzar');
-    builder.agregarTransicion('posCorrecta','calentar1','retroceder');
-    builder.agregarTransicion('posCorrecta','calentar2','avanzar');
-    builder.agregarTransicion('calentar1','enCalor','avanzar');
-    builder.agregarTransicion('calentar2','enCalor','retroceder');
+    builder.agregarTransicion('posCorrecta','calentar1','avanzar');
+    builder.agregarTransicion('calentar1','calentar2','retroceder');
+    builder.agregarTransicion('calentar2','calentar3','avanzar');
+    builder.agregarTransicion('calentar3','enCalor','retroceder');
     builder.agregarTransicion('enCalor','levantarPelota','recoger');
     builder.agregarTransicion('levantarPelota','tirarAlAire','revolearPulpito');
     builder.agregarTransicion('levantarPelota','jugarConElPie','rebotarPiePulpito');
@@ -73,10 +74,12 @@ class ChuyHaciendoJueguito extends EscenaActividad {
 
     builder.agregarError('calentar1', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
     builder.agregarError('calentar1', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
-    builder.agregarError('calentar1', 'retroceder', 'Primero hay que avanzar, entrar en calor y agarrar la pelota');
-
+    
     builder.agregarError('calentar2', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
     builder.agregarError('calentar2', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    
+    builder.agregarError('calentar3', 'revolearPulpito', 'Primero hay que entrar en calor y agarrar la pelota');
+    builder.agregarError('calentar3', 'rebotarPiePulpito', 'Primero hay que entrar en calor y agarrar la pelota');
 
     builder.agregarError('enCalor', 'revolearPulpito', 'Primero hay que agarrar la pelota');
     builder.agregarError('enCalor', 'rebotarPiePulpito', 'Primero hay que agarrar la pelota');
