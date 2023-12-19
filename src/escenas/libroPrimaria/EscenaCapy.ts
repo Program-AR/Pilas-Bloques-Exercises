@@ -86,10 +86,10 @@ class EscenaCapy extends EscenaDesdeMapa {
 	cuadriculaY() {
 		return -20;
 	}
-	static opsCuadricula() {
+	opsCuadricula() {
 		return { ancho: 400, alto: 380 };
 	}
-	static opsCasilla() {
+	opsCasilla() {
 		return {
 			grilla: 'casillas.capy.png',
 			cantFilas: 1,

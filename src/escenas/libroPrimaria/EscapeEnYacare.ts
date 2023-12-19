@@ -180,8 +180,8 @@ class EscapeEnYacare extends EscenaActividad {
         this.fondo = new Fondo('fondo.capy.png', 0, 0);
 
         this.cuadricula = new Cuadricula(0,0,4,5,
-            EscenaCapy.opsCuadricula(),
-            EscenaCapy.opsCasilla());
+            this.opsCuadricula(),
+            this.opsCasilla());
 
         this.telescopio = new TelescopioEntregable();
         this.cuadricula.agregarActor(this.telescopio, 1, 4)
@@ -242,5 +242,19 @@ class EscapeEnYacare extends EscenaActividad {
 
         this.estado=builder.estadoInicial();
       }
+
+
+      opsCuadricula() {
+        return { ancho: 400, alto: 380 };
+      }
+      opsCasilla() {
+        return {
+          grilla: 'casillas.capy.png',
+          cantFilas: 1,
+          cantColumnas: 16,
+          bordesDecorados: true,
+          relAspecto: 1,
+        };
+      }  
 
 }
