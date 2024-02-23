@@ -6,7 +6,7 @@ class Achicar extends ComportamientoAnimado {
   private contador: number
 
   elReceptorSeAchico(): boolean {
-    return this.receptor.getAncho() <= 1
+    return this.receptor.getAncho() <= 1 || this.receptor.getAlto() <= 1
   }
 
   /**
@@ -24,9 +24,9 @@ class Achicar extends ComportamientoAnimado {
     }
 
     else {
-      this.contador = (this.contador + this.velocidad) 
-      this.receptor.setAlto(this.receptor.getAlto() - this.contador);
-      this.receptor.setAncho(this.receptor.getAncho() - this.contador);
+      this.contador = (this.contador + this.velocidad)
+      this.receptor.setAlto(Math.max(0, this.receptor.getAlto() - this.contador));
+      this.receptor.setAncho(Math.max(0, this.receptor.getAncho() - this.contador));
       
       if (this.elReceptorSeAchico()) {
         this.receptor.eliminar()
