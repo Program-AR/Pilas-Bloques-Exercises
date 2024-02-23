@@ -6,7 +6,7 @@ class Achicar extends ComportamientoAnimado {
   private contador: number
 
   elReceptorSeAchico(): boolean {
-    return this.receptor.getAncho() <= 1
+    return this.receptor.getAncho() <= 1 || this.receptor.getAlto() <= 1
   }
 
   /**
