@@ -37,7 +37,7 @@ module.exports = function (grunt) {
           emitDecoratorMetadata: true,
           sourceMap: false,
           fullSourceMapPath: false,
-          declaration: false,
+          declaration: true,
           comments: true,
         }
       }
