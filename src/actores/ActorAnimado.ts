@@ -175,6 +175,22 @@ class ActorAnimado extends Actor {
         return !this.casillaActual().hayAbajo() && !this.casillaActual().hayDerecha();
     }
 
+    enBordeArriba(): boolean {
+        return !this.casillaActual().hayArriba()
+    }
+
+    enBordeAbajo(): boolean {
+        return !this.casillaActual().hayAbajo()
+    }
+
+    enBordeIzquierdo(): boolean {
+        return !this.casillaActual().hayIzquierda()
+    }
+
+    enBordeDerecho(): boolean {
+        return !this.casillaActual().hayDerecha()
+    }
+
     estoyUltimaFila(): boolean {
         return this.cuadricula.cantFilas - 1 == this.casillaActual().nroFila;
     }
